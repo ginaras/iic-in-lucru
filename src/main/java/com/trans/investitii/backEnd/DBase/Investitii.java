@@ -10,6 +10,9 @@ public class Investitii {
     public static String URL0 = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","sys" );
     public static String URL = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","invDB" );
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS invTBL (nrCrt INT(5) AUTO_INCREMENT PRIMARY KEY, furnizor CHAR(70) not null, nrFactura char(20) , dataFacturii DATE, dataContabilizarii DATE, valoare varCHAR(20), nrPIF CHAR (50), dataPIF DATE, valInitiala varCHAR(20), tva varCHAR(20), valTot varCHAR(20), contract CHAR(10), contInv CHAR(20), contFz CHAR(20), nrProiect CHAR(20), deviz CHAR(20), org CHAR(10), respProiect CHAR(50))";
+    public static final String CREATE_TABLE_BUGET_ORG = "CREATE TABLE IF NOT EXISTS bugetORG (nrCrt INT(5) AUTO_INCREMENT PRIMARY KEY, org CHAR(60) NOT NULL, valBugetOrg varChar(10))";
+    public static final String CREATE_TABLE_BUGET_PROJ = "CREATE TABLE IF NOT EXISTS bugetPROJ (nrCrt INT(5) AUTO_INCREMENT PRIMARY KEY, nrProiect CHAR(20), denProiect CHAR(200), startProiect DATE, valInitiala VARCHAR(10), valRectificare VARCHAR(10), valFinala VARCHAR(10))";
+    public static final String CREATE_TABLE_BUGET_CONTRACT = "CREATE TABLE IF NOT EXISTS bugetCONTRACT (nrCrt INT(5) AUTO_INCREMENT PRIMARY KEY, nrContract CHAR(20), furnizor CHAR(80), CUIfurnizor CHAR(10), adresa CHAR (100),valInitiala VARCHAR(10), valRectificare VARCHAR(10), valFinala VARCHAR(10) )";
     public static final String USE_TABLE = "USE invTBL";
 
 //    public static final String UserWeb = "imobiliz_sorin";

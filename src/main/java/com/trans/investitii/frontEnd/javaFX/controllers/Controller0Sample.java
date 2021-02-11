@@ -78,6 +78,9 @@ public class Controller0Sample implements Initializable {
         statement.executeUpdate( CREATE_DATABASE );
         statement.executeUpdate( USE_DATABASE );
         statement.executeUpdate( CREATE_TABLE );
+        statement.executeUpdate( CREATE_TABLE_BUGET_ORG );
+        statement.executeUpdate( CREATE_TABLE_BUGET_PROJ );
+        statement.executeUpdate( CREATE_TABLE_BUGET_CONTRACT );
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }finally{
@@ -96,7 +99,8 @@ public class Controller0Sample implements Initializable {
         return null;
     }
 
-    public void goOnAdminFz ( ActionEvent event ) throws IOException {
+    public void goOnAdminFz ( ActionEvent event ) throws IOException, SQLException {
+        getConectionNew();
         Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/admin/StageAdminFz.fxml" ) );
         Scene tableViewScene = new Scene( stage1Intro );
         Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -130,7 +134,8 @@ public class Controller0Sample implements Initializable {
         windowStage1Intro.show();
     }
 
-    public void goOnAdminNrProiect ( ActionEvent event ) throws IOException {
+    public void goOnAdminNrProiect ( ActionEvent event ) throws IOException, SQLException {
+        getConectionNew();
         Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/admin/StageAdminNrProiect.fxml" ) );
         Scene tableViewScene = new Scene( stage1Intro );
         Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -155,7 +160,8 @@ public class Controller0Sample implements Initializable {
         windowStage1Intro.show();
     }
 
-    public void goOnAdminOrg ( ActionEvent event ) throws IOException {
+    public void goOnAdminOrg ( ActionEvent event ) throws IOException, SQLException {
+        getConectionNew();
         Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/admin/StageAdminOrg.fxml" ) );
         Scene tableViewScene = new Scene( stage1Intro );
         Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -270,7 +276,8 @@ public class Controller0Sample implements Initializable {
     public void goToStageNewUnit ( ActionEvent event ) {
     }
 
-    public void goToStage03AdminBugetAction ( ActionEvent event ) throws IOException {
+    public void goToStage03AdminBugetAction ( ActionEvent event ) throws IOException, SQLException {
+        getConectionNew();
         Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/admin/Stage03AdminBugete.fxml" ) );
         Scene tabeleViewScene = new Scene( tableView );
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
