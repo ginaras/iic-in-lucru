@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trans.investitii.frontEnd.javaFX.controllers.CtrlStage2Rapoarte">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="104.0" layoutX="25.0" layoutY="126.0" stroke="BLACK" strokeType="INSIDE" style="-fx-background-radius: 10;" width="883.0" />
+      <Button fx:id="buttonBackSt0" layoutX="46.0" layoutY="728.0" mnemonicParsing="false" onAction="#goOnSt0" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Meniul principal" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonSt1Intro" layoutX="205.0" layoutY="728.0" mnemonicParsing="false" onAction="#goToStage1Intro" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Introducerea de date" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Rectangle arcHeight="5.0" arcWidth="20.0" fill="#065bab" height="110.0" layoutX="5.0" layoutY="5.0" stroke="BLACK" strokeDashOffset="5.0" strokeLineJoin="BEVEL" strokeWidth="10.0" width="1190.0" />
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="392.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rapoarte detaliate pe facturi">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Button fx:id="refreshButton" layoutX="958.0" layoutY="159.0" mnemonicParsing="false" onAction="#refresh" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Reseteaza selectia" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <TableView fx:id="tableViewTotal" layoutX="22.0" layoutY="236.0" prefHeight="395.0" prefWidth="1175.0" style="-fx-align: CENTER_RIGHT;">
+        <columns>
+          <TableColumn fx:id="furnizorColumn" prefWidth="210.0" text="Furnizor" />
+            <TableColumn fx:id="nrFactColumn" minWidth="3.0" prefWidth="71.0" style="-fx-alignment: center-right;" text="nr. Fact" />
+            <TableColumn fx:id="valoareFactColumn" prefWidth="129.0" style="-fx-alignment: center-right;" text="Valoare" />
+            <TableColumn fx:id="dataCtbColumn" prefWidth="136.0" style="-fx-alignment: center;" text="Data ctb" />
+            <TableColumn fx:id="respProjColumn" prefWidth="183.0" style="-fx-alignment: center-right;" text="Resp proiect" />
+            <TableColumn fx:id="contractColumn" prefWidth="112.0" text="Contract" />
+            <TableColumn fx:id="contInvColumn" prefWidth="133.0" text="Cont inv" />
+            <TableColumn fx:id="contFzColumn" prefWidth="88.0" text="Cont Fz" />
+            <TableColumn fx:id="nrProjColumn" prefWidth="65.0" style="-fx-alignment: center;" text="Nr Proiect" />
+            <TableColumn fx:id="orgColumn" minWidth="7.0" prefWidth="37.0" text="ORG" />
+        </columns>
+      </TableView>
+      <Text layoutX="96.0" layoutY="661.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total" />
+      <Label fx:id="valoareaTotala" layoutX="334.0" layoutY="645.0" text="Valoarea" />
+      <ComboBox fx:id="comboBoxAlegeProj" layoutX="256.0" layoutY="143.0" onAction="#comboBoxAlegeProj" prefHeight="31.0" prefWidth="183.0" promptText="Alege proiectul" style="-fx-background-radius: 10;" />
+      <ComboBox fx:id="comboBoxAlegeOrg" layoutX="46.0" layoutY="145.0" onAction="#comboBoxAlegeOrg" prefHeight="31.0" prefWidth="183.0" promptText="Alege Organizatia" style="-fx-background-radius: 10;" />
+      <DatePicker fx:id="secondDate" layoutX="467.0" layoutY="184.0" />
+      <DatePicker fx:id="firstDate" layoutX="466.0" layoutY="135.0" style="-fx-background-radius: 10;" />
+      <Button fx:id="selectButton" layoutX="719.0" layoutY="155.0" mnemonicParsing="false" onAction="#selectButtton" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Arata selectia" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Text layoutX="1098.0" layoutY="787.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bySorinGinara" />
+      <Button fx:id="ExportButton" layoutX="967.0" layoutY="666.0" mnemonicParsing="false" onAction="#ExportXlsButton" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Export baza in excel" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="RapoarteButton" layoutX="846.0" layoutY="712.0" mnemonicParsing="false" onAction="#RapoarteOpenButton" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Deschide folderul cu rapoarte" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="ExportSelectieButton" layoutX="778.0" layoutY="666.0" mnemonicParsing="false" onAction="#ExportSelectieXlsButton" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Export selectie in excel" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonStage3Sumar" layoutX="404.0" layoutY="728.0" mnemonicParsing="false" onAction="#goToStage3Sumar" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte sumarizate" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

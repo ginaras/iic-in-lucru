@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trans.investitii.frontEnd.javaFX.controllers.admin.ControllerStageBAdminDelete">
+   <children>
+      <AnchorPane layoutY="4.0" prefHeight="793.0" prefWidth="1200.0" style="-fx-background-color: fff;">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="210.0" layoutX="755.0" layoutY="386.0" stroke="#d74a5f" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="3.0" width="217.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="210.0" layoutX="512.0" layoutY="386.0" stroke="#d74a5f" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="3.0" width="217.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="210.0" layoutX="986.0" layoutY="386.0" stroke="#d74a5f" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="3.0" width="217.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="210.0" layoutX="273.0" layoutY="136.0" stroke="#d74a5f" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="3.0" width="217.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="210.0" layoutX="512.0" layoutY="137.0" stroke="#d74a5f" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="3.0" width="217.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="210.0" layoutX="985.0" layoutY="137.0" stroke="#d74a5f" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="3.0" width="217.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="210.0" layoutX="15.0" layoutY="137.0" stroke="#d74a5f" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="3.0" width="217.0" />
+            <Text layoutX="1117.0" layoutY="777.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bySorinGinara" />
+            <Text layoutX="94.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Furnizori" />
+            <Button fx:id="fzDeleteBut" layoutX="30.0" layoutY="271.0" mnemonicParsing="false" onAction="#fzDeleteBut" style="-fx-background-color: fff;" text="Inactiveaza" />
+            <ComboBox fx:id="comboBoxFz" layoutX="35.0" layoutY="204.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#deactBtnFz" prefHeight="31.0" prefWidth="176.0" promptText="Selecteaza furnizor" style="-fx-background-color: fff;">
+               <effect>
+                  <Blend />
+               </effect>
+            </ComboBox>
+            <Button fx:id="back0S1" layoutX="156.0" layoutY="475.0" mnemonicParsing="false" onAction="#buttonBack" style="-fx-background-color: #0F4CC1;" text="Inapoi la pagina principala" textFill="#fcf9f9">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow color="#bc8282" height="175.0" radius="105.75" width="250.0" />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect></Button>
+            <Button fx:id="fzReActivBut" layoutX="141.0" layoutY="271.0" mnemonicParsing="false" onAction="#fzReActivBut" style="-fx-background-color: ffffff;" text="Activeaza" />
+            <Rectangle arcHeight="5.0" arcWidth="20.0" fill="#065bab" height="108.0" layoutY="-3.0" stroke="BLACK" strokeDashOffset="5.0" strokeLineJoin="BEVEL" strokeWidth="10.0" width="1219.0" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="281.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Program de evidenta a imobilizarilor in curs">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Text>
+            <Button fx:id="respProjDeleteBut" layoutX="522.0" layoutY="532.0" mnemonicParsing="false" onAction="#respProjDeleteBut" style="-fx-background-color: fff;" text="Inactiveaza" />
+            <Button fx:id="respProjReActivBut" layoutX="636.0" layoutY="533.0" mnemonicParsing="false" onAction="#respProjReActivBut" style="-fx-background-color: ffffff;" text="Activeaza" />
+            <Button fx:id="devizDeleteBut" layoutX="769.0" layoutY="532.0" mnemonicParsing="false" onAction="#devizDeleteBut" style="-fx-background-color: fff;" text="Inactiveaza" />
+            <Button fx:id="devizReActivBut" layoutX="869.0" layoutY="532.0" mnemonicParsing="false" onAction="#devizReActivBut" style="-fx-background-color: ffffff;" text="Activeaza" />
+            <ComboBox fx:id="comboBoxDeviz" layoutX="776.0" layoutY="460.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#deactBtnDeviz" prefHeight="31.0" prefWidth="176.0" promptText="Selecteaza deviz" style="-fx-background-color: fff;">
+               <effect>
+                  <Blend />
+               </effect>
+            </ComboBox>
+            <Text layoutX="796.0" layoutY="425.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrare devize" />
+            <Button fx:id="orgDeleteBut" layoutX="999.0" layoutY="532.0" mnemonicParsing="false" onAction="#orgDeleteBut" style="-fx-background-color: fff;" text="Inactiveaza" />
+            <Text layoutX="337.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contracte" />
+            <Button fx:id="orgReActivBut" layoutX="1103.0" layoutY="532.0" mnemonicParsing="false" onAction="#orgReActivBut" style="-fx-background-color: ffffff;" text="Activeaza" />
+            <ComboBox fx:id="comboBoxOrg" layoutX="1006.0" layoutY="460.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#deactBtnOrg" prefHeight="31.0" prefWidth="176.0" promptText="Selecteaza organizatie" style="-fx-background-color: fff;">
+               <effect>
+                  <Blend />
+               </effect>
+            </ComboBox>
+            <Button fx:id="contractDeleteBut" layoutX="291.0" layoutY="272.0" mnemonicParsing="false" onAction="#contractDeleteBut" style="-fx-background-color: fff;" text="Inactiveaza" />
+            <ComboBox fx:id="comboBoxContr" layoutX="293.0" layoutY="204.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#deactBtnContract" prefHeight="31.0" prefWidth="176.0" promptText="Selecteaza contract" style="-fx-background-color: fff;">
+               <effect>
+                  <Blend />
+               </effect>
+            </ComboBox>
+            <Button fx:id="contractReActivBut" layoutX="395.0" layoutY="271.0" mnemonicParsing="false" onAction="#contractReActivBut" style="-fx-background-color: ffffff;" text="Activeaza" />
+            <Text layoutX="523.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrare conturi investitii" />
+            <Button fx:id="ctInvDeleteBut" layoutX="522.0" layoutY="268.0" mnemonicParsing="false" onAction="#ctInvDeleteBut" style="-fx-background-color: fff;" text="Inactiveaza" />
+            <Text layoutX="537.0" layoutY="425.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adminstrare resp. proiect" />
+            <ComboBox fx:id="comboBoxCtInv" layoutX="536.0" layoutY="202.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#deactBtnCtInv" prefHeight="31.0" prefWidth="176.0" promptText="Selecteaza cont inv" style="-fx-background-color: fff;">
+               <effect>
+                  <Blend />
+               </effect>
+            </ComboBox>
+            <Button fx:id="ctInvReActivBut" layoutX="633.0" layoutY="268.0" mnemonicParsing="false" onAction="#ctInvReActivBut" style="-fx-background-color: ffffff;" text="Activeaza" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="210.0" layoutX="748.0" layoutY="136.0" stroke="#d74a5f" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="3.0" width="217.0" />
+            <ComboBox fx:id="comboBoxCtFz" layoutX="769.0" layoutY="203.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#deactBtnCtFz" prefHeight="31.0" prefWidth="186.0" promptText="Selecteaza cont furn" style="-fx-background-color: fff;">
+               <effect>
+                  <Blend />
+               </effect>
+            </ComboBox>
+            <Button fx:id="ctFzReActivBut" layoutX="862.0" layoutY="266.0" mnemonicParsing="false" onAction="#ctFzReActivBut" style="-fx-background-color: ffffff;" text="Activeaza" />
+            <Button fx:id="ctFzDeleteBut" layoutX="755.0" layoutY="268.0" mnemonicParsing="false" onAction="#ctFzDeleteBut" style="-fx-background-color: fff;" text="Inactiveaza" />
+            <Text layoutX="759.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrare conturi furnizori" />
+            <Text layoutX="1004.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrare nr de proiect" />
+            <ComboBox fx:id="comboBoxNrProj" layoutX="1015.0" layoutY="202.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#deactBtnNrProj" prefHeight="31.0" prefWidth="176.0" promptText="Selecteaza nr. proiect" style="-fx-background-color: fff;">
+               <effect>
+                  <Blend />
+               </effect>
+            </ComboBox>
+            <Button fx:id="nrProjReActivBut" layoutX="1107.0" layoutY="269.0" mnemonicParsing="false" onAction="#nrProjReActivBut" style="-fx-background-color: ffffff;" text="Activeaza" />
+            <Button fx:id="nrProjDeleteBut" layoutX="999.0" layoutY="270.0" mnemonicParsing="false" onAction="#nrProjDeleteBut" style="-fx-background-color: fff;" text="Inactiveaza" />
+            <ComboBox fx:id="comboBoxRespProj" layoutX="535.0" layoutY="460.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#deactBtnRespProg" prefHeight="31.0" prefWidth="176.0" promptText="Selecteaza proiect" style="-fx-background-color: fff;">
+               <effect>
+                  <Blend />
+               </effect>
+            </ComboBox>
+            <Text layoutX="1043.0" layoutY="425.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Organizatie" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

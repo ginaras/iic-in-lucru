@@ -1,0 +1,18 @@
+
+
+public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS investitii (nrCrt INT(5) AUTO_INCREMENT PRIMARY KEY, furnizor CHAR(50),cui INT(8), dataFacturii DATE, dataContabilizarii DATE, valoare DOUBLE(9,2), tva DOUBLE(9,2), valTot DOUBLE(9,2), deviz CHAR(7), org CHAR(3))";
+
+//public static final String USE_TABLE = "USE personal";
+
+    public void addNewCtInv ( ActionEvent event ) {
+        try {
+            BufferedWriter writer = new BufferedWriter( new FileWriter( "C:\\Investitii\\resurse\\ctInv", true ) );
+            writer.append( addCtInv.getCharacters() + "\n" );
+            writer.close();
+            ItemList.appendText( addCtInv.getText() ); // ad data in TextArea from text field
+            addCtInv.clear(); // stergerea fieldului
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

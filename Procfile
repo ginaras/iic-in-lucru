@@ -1,0 +1,1 @@
+web: java -jar target/proiect-practic-1.0-SNAPSHOT.jar
