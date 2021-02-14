@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.Shadow?>
-<?import javafx.scene.effect.Bloom?>
-<?import javafx.scene.effect.Lighting?>
-<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.*?>
 
 <GridPane alignment="center" hgap="10" prefHeight="800" prefWidth="1200" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trans.investitii.frontEnd.javaFX.controllers.admin.ControllerStageAdminFz">
    <columnConstraints>
@@ -209,9 +205,9 @@
                <font>
                   <Font size="16.0" />
                </font></Button>
-            <Text layoutX="582.0" layoutY="414.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de furnizori" />
-            <TextArea fx:id="ItemList" layoutX="711.0" layoutY="388.0" prefHeight="364.0" prefWidth="275.0" />
-            <Button fx:id="exportButton" layoutX="1037.0" layoutY="429.0" mnemonicParsing="false" onAction="#exportFzAdminList" style="-fx-background-color: #0F4CC1;" text="Exporta lista" textFill="#fcfbf5">
+            <Text layoutX="556.0" layoutY="595.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de furnizori" />
+            <TextArea fx:id="ItemList" layoutX="711.0" layoutY="599.0" prefHeight="153.0" prefWidth="275.0" />
+            <Button fx:id="exportButton" layoutX="1043.0" layoutY="552.0" mnemonicParsing="false" onAction="#exportFzAdminList" style="-fx-background-color: #0F4CC1;" text="Exporta lista" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
                      <input>
@@ -269,6 +265,11 @@
                   <Font size="16.0" />
                </font></Button>
             <Text fx:id="added" layoutX="777.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" underline="true" />
+            <TextField fx:id="addCUI" layoutX="706.0" layoutY="365.0" prefHeight="31.0" prefWidth="281.0" promptText="CUI" />
+            <TextField fx:id="addNrContract" layoutX="706.0" layoutY="448.0" prefHeight="31.0" prefWidth="281.0" promptText="Numar contract initial" />
+            <TextField fx:id="addValoareContract" layoutX="708.0" layoutY="530.0" prefHeight="31.0" prefWidth="281.0" promptText="Valoare Contract" />
+            <DatePicker fx:id="addDataContract" layoutX="706.0" layoutY="489.0" promptText="Data Contract" />
+            <TextField fx:id="addAdresa" layoutX="706.0" layoutY="407.0" prefHeight="31.0" prefWidth="281.0" promptText="Adresa Furnizor" />
          </children>
       </AnchorPane>
    </children>

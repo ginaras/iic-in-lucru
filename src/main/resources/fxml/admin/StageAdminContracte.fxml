@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.Bloom?>
-<?import javafx.scene.effect.Lighting?>
-<?import javafx.scene.effect.Shadow?>
-<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.*?>
 
 <GridPane alignment="center" hgap="10" prefHeight="800" prefWidth="1200" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trans.investitii.frontEnd.javaFX.controllers.admin.ControllerStageAdminContracte">
    <columnConstraints>
@@ -164,7 +160,7 @@
                <font>
                   <Font size="16.0" />
                </font></Button>
-            <Text layoutX="746.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrare contracte">
+            <Text layoutX="690.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrare contracte multiple">
                <font>
                   <Font size="27.0" />
                </font>
@@ -188,8 +184,8 @@
                <font>
                   <Font size="16.0" />
                </font></Button>
-            <Text layoutX="611.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contract nou" />
-            <TextField fx:id="addContract" layoutX="730.0" layoutY="310.0" prefHeight="31.0" prefWidth="281.0" promptText="Introdu noul cont" />
+            <Text layoutX="611.0" layoutY="383.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contract nou" />
+            <TextField fx:id="addContract" layoutX="730.0" layoutY="362.0" prefHeight="31.0" prefWidth="281.0" promptText="Introdu noul contract" />
             <Button fx:id="addButton" layoutX="1017.0" layoutY="310.0" mnemonicParsing="false" onAction="#addNewContract" prefHeight="31.0" prefWidth="173.0" style="-fx-background-color: #0F4CC1;" text="Adauga" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
@@ -209,8 +205,8 @@
                <font>
                   <Font size="16.0" />
                </font></Button>
-            <Text layoutX="596.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de contracte" />
-            <TextArea fx:id="ItemList" layoutX="721.0" layoutY="366.0" prefHeight="387.0" prefWidth="289.0" />
+            <Text layoutX="596.0" layoutY="471.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de contracte" />
+            <TextArea fx:id="ItemList" layoutX="721.0" layoutY="459.0" prefHeight="294.0" prefWidth="289.0" />
             <Button fx:id="exportButton" layoutX="1065.0" layoutY="445.0" mnemonicParsing="false" onAction="#exportContracteAdminList" style="-fx-background-color: #0F4CC1;" text="Exporta lista" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
@@ -269,6 +265,8 @@
                   <Font size="16.0" />
                </font></Button>
             <Text fx:id="added" layoutX="782.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" underline="true" />
+            <Text layoutX="611.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Furnizor" />
+            <ComboBox fx:id="comboBoxAlegeFurnizor" layoutX="730.0" layoutY="312.0" onAction="#alegeFurnizorAction" prefWidth="150.0" promptText="Alege furnizor" />
          </children>
       </AnchorPane>
    </children>

@@ -1,5 +1,6 @@
 package com.trans.investitii.frontEnd.javaFX.controllers.admin;
 
+import com.trans.investitii.backEnd.DBase.Investitii;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,7 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -16,9 +17,12 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.*;
+import java.sql.*;
 import java.text.Collator;
 import java.util.*;
 import java.util.List;
+
+import static java.lang.Double.parseDouble;
 
 public class ControllerStageAdminNrProiect implements Initializable {
 
@@ -39,6 +43,15 @@ public class ControllerStageAdminNrProiect implements Initializable {
     public Button adminOrg;
     public Text added;
     public String pathFileNrProiect = "C:\\Investitii\\resurse\\newproj";
+    public TextField addDenumireProj;
+    public TextField addValProj;
+    public DatePicker addDataAprobariiProj;
+
+    Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
+    Statement statement = connection.createStatement();
+
+    public ControllerStageAdminNrProiect () throws SQLException {
+    }
 
     public void goToStage1Intro( ActionEvent event ) throws IOException {
         Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage1Intro.fxml" ) );
@@ -165,14 +178,33 @@ public class ControllerStageAdminNrProiect implements Initializable {
         String fileLine;
         String addString = addProj.getCharacters().toString();
         String inactiveString = "INACTIV-".concat( addString );
-        String addCtFzString = addProj.getCharacters().toString();
 
-        if (addString.isEmpty()) {
+        try {
+            double s = Double.parseDouble( addValProj.getText() );
+            String f = addValProj.getText();
+
+            if (f.matches( "\\d+(\\.\\d\\d)" )) {
+
+            }
+
+        } catch (NumberFormatException e) {
+            Alert alert1 = new Alert( Alert.AlertType.INFORMATION );
+            alert1.setHeaderText( "Adauga VALOAREA ca numar! Atentie la virgula!" );
+            alert1.showAndWait();
+            return;
+        }
+
+
+
+        if (addString.isEmpty() || addDenumireProj.getText().isEmpty()
+                || (addDataAprobariiProj.getValue() ==null) || addValProj.getText().isEmpty() ) {
+
             Alert fail = new Alert( Alert.AlertType.INFORMATION );
             fail.setHeaderText( "Atentie!" );
-            fail.setContentText( "Nu poti introduce campuri goale!" );
+            fail.setContentText( "Nu poti lasa campuri necompletate!" );
             fail.showAndWait();
         }
+
         else {
             try {
                 while((fileLine=bReader.readLine()) != null){
@@ -187,14 +219,14 @@ public class ControllerStageAdminNrProiect implements Initializable {
                     if (fileLine.equalsIgnoreCase( inactiveString )) {
                         Alert fail = new Alert( Alert.AlertType.INFORMATION );
                         fail.setHeaderText( "Atentie!" );
-                        fail.setContentText( "Elementul " + addString + " este WHILE inactiv in baza de date" );
+                        fail.setContentText( "Elementul " + addString + " este inactiv in baza de date" );
                         fail.showAndWait();
                         addProj.clear();
                         break;
                     }
                 }
 
-                if (fileLine == null || (!(fileLine.equalsIgnoreCase(addCtFzString))
+                if (fileLine == null || (!(fileLine.equalsIgnoreCase(addString))
                         && !(inactiveString.equalsIgnoreCase( fileLine )))){
                     BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileNrProiect, true ) );
                     writer.append( addString+ "\n" );
@@ -203,6 +235,21 @@ public class ControllerStageAdminNrProiect implements Initializable {
                     addProj.clear();
                     this.added.setText( "Ati adaugat cu succes" );
                     sortFile();
+
+                    String addProiectToDB = "INSERT INTO bugetPROJ nrProiect";
+                    try (PreparedStatement statement = connection.prepareStatement( addProiectToDB );){
+                        double val= parseDouble( addValProj.getText());
+                        val = Math.round( val*100);
+                        val = val/100;
+                        statement.executeUpdate( "INSERT INTO bugetPROJ (nrProiect, denProiect, startProiect, valInitiala, valRectificare, valFinala ) VALUES('"+addString+"','"+addDenumireProj.getCharacters().toString()+"','"+addDataAprobariiProj.getValue()+"','"+addValProj.getText()+"','0','"+val+"')" );
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    addDenumireProj.clear();
+                    addValProj.clear();
+                    addDataAprobariiProj.getEditor().clear();
+
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();

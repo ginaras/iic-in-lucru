@@ -1,5 +1,7 @@
 package com.trans.investitii.frontEnd.javaFX.controllers.admin;
 
+import com.trans.investitii.backEnd.DBase.Investitii;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,7 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -16,9 +18,13 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.*;
 import java.text.Collator;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ControllerStageAdminContracte implements Initializable {
 
@@ -39,6 +45,13 @@ public class ControllerStageAdminContracte implements Initializable {
     public Button adminOrg;
     public Text added;
     public String pathFileContract = "C:\\Investitii\\resurse\\contract";
+    public ComboBox comboBoxAlegeFurnizor;
+
+    Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
+    Statement statement = connection.createStatement();
+
+    public ControllerStageAdminContracte () throws SQLException {
+    }
 
 
     public void goToStage1Intro( ActionEvent event ) throws IOException {
@@ -68,6 +81,22 @@ public class ControllerStageAdminContracte implements Initializable {
             }
         } catch (FileNotFoundException ex) {
             System.err.println(ex);
+        }
+
+        List<String> myListFz = null;
+        try {
+            try {
+                myListFz = Files.readAllLines( ( Paths.get("C:/Investitii/resurse/fz") ));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            List<String> furnizoriActivi = myListFz.stream()
+                    .filter( furnizor -> !furnizor.contains( "INACTIV-" ) )
+                    .collect( Collectors.toList() );
+            comboBoxAlegeFurnizor.setItems( FXCollections.observableArrayList(furnizoriActivi));
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
 
@@ -155,13 +184,20 @@ public class ControllerStageAdminContracte implements Initializable {
         String inactiveString = "INACTIV-".concat( addString );
         String addCtFzString = addContract.getCharacters().toString();
 
+        if (comboBoxAlegeFurnizor.getSelectionModel().isEmpty()){
+            Alert fail = new Alert( Alert.AlertType.INFORMATION );
+            fail.setHeaderText( "Atentie!" );
+            fail.setContentText( "Alge furnizorul!" );
+            fail.showAndWait();
+            return;
+        }
         if (addString.isEmpty()) {
             Alert fail = new Alert( Alert.AlertType.INFORMATION );
             fail.setHeaderText( "Atentie!" );
             fail.setContentText( "Nu poti introduce campuri goale!" );
             fail.showAndWait();
-            //  break;
         }
+
         else {
             try {
                 while ((fileLine = bReader.readLine()) != null) {
@@ -176,7 +212,7 @@ public class ControllerStageAdminContracte implements Initializable {
                         if (fileLine.equalsIgnoreCase( inactiveString )) {
                             Alert fail2 = new Alert( Alert.AlertType.INFORMATION );
                             fail2.setHeaderText( "Atentie!" );
-                            fail2.setContentText( "Elementul " + addCtFzString + " este WHILE inactiv in baza de date" );
+                            fail2.setContentText( "Elementul " + addCtFzString + " este inactiv in baza de date"+"\n"+"Activeaza-l" );
                             fail2.showAndWait();
                             addContract.clear();
                             break;
@@ -188,10 +224,18 @@ public class ControllerStageAdminContracte implements Initializable {
                         BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileContract, true ) );
                         writer.append( addString + "\n" );
                         writer.close();
-                        ItemList.appendText( addContract + "\n" ); // ad data in TextArea from text field
+                        ItemList.appendText( addString + "\n" ); // ad data in TextArea from text field
                         addContract.clear();
                         this.added.setText( "Ati adaugat cu succes" );
                         sortFile();
+
+                        String addContractToDB = "INSERT INTO bugetCONTRACT nrContract";
+                        try (PreparedStatement statement = connection.prepareStatement( addContractToDB );){
+
+                            statement.executeUpdate( "INSERT INTO bugetCONTRACT (nrContract, furnizor ) VALUES('"+addString+"','"+comboBoxAlegeFurnizor.getValue()+"')" );
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
             }catch(IOException e){
                     e.printStackTrace();
@@ -229,4 +273,9 @@ public class ControllerStageAdminContracte implements Initializable {
         }
         writer.close();
     }
+
+    public void alegeFurnizorAction ( ActionEvent event ) {
+
+    }
+
 }

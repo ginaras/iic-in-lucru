@@ -7,7 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -39,7 +39,12 @@ public class ControllerStageAdminFz implements Initializable {
     public Button adminOrg;
     public Text added;
     public String pathAdmFz = "C:\\Investitii\\resurse\\Fz";
-  //  public String pathAdmFz = "\\resources\\adminZone\\fz.txt";
+    public TextField addCUI;
+    public TextField addNrContract;
+    public TextField addValoareContract;
+    public DatePicker addDataContract;
+    public TextField addAdresa;
+    //  public String pathAdmFz = "\\resources\\adminZone\\fz.txt";
 
 
     public void goToStage1Intro( ActionEvent event ) throws IOException {

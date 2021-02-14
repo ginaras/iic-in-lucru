@@ -1,5 +1,6 @@
 package com.trans.investitii.frontEnd.javaFX.controllers.admin;
 
+import com.trans.investitii.backEnd.DBase.Investitii;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,10 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.io.*;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.Collator;
 import java.util.*;
 import java.util.List;
@@ -39,7 +44,13 @@ public class ControllerStageAdminOrg implements Initializable {
     public TextField addPOrg;
     public Text added;
     public String pathFileOrg = "C:\\Investitii\\resurse\\org";
+    public TextField addDenOrg;
 
+    Connection connection = DriverManager.getConnection( Investitii.URL,Investitii.USER, Investitii.PASSWORD );
+    Statement statement = connection.createStatement();
+
+    public ControllerStageAdminOrg () throws SQLException {
+    }
 
     public void goToStage1Intro( ActionEvent event ) throws IOException {
         Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage1Intro.fxml" ) );
@@ -165,8 +176,9 @@ public class ControllerStageAdminOrg implements Initializable {
         String addString = addPOrg.getCharacters().toString();
         String inactiveString = "INACTIV-".concat( addString );
         String addCtFzString = addPOrg.getCharacters().toString();
+        String addDenumireOrgString = addDenOrg.getCharacters().toString();
 
-        if (addString.isEmpty()) {
+        if (addString.isEmpty() || addDenumireOrgString.isEmpty()) {
             Alert fail = new Alert( Alert.AlertType.INFORMATION );
             fail.setHeaderText( "Atentie!" );
             fail.setContentText( "Nu poti introduce campuri goale!" );
@@ -187,7 +199,7 @@ public class ControllerStageAdminOrg implements Initializable {
                     if (fileLine.equalsIgnoreCase( inactiveString )) {
                         Alert fail = new Alert( Alert.AlertType.INFORMATION );
                         fail.setHeaderText( "Atentie!" );
-                        fail.setContentText( "Elementul " + addString + " este WHILE inactiv in baza de date" );
+                        fail.setContentText( "Elementul " + addString + " este  inactiv in baza de date" );
                         fail.showAndWait();
                         addPOrg.clear();
                         break;
@@ -200,11 +212,15 @@ public class ControllerStageAdminOrg implements Initializable {
                     writer.append( addString.toUpperCase()+ "\n" );
                     writer.close();
                     ItemList.appendText( addString.toUpperCase() + "\n" ); // ad data in TextArea from text field
-                    addPOrg.clear();
                     this.added.setText( "Ati adaugat cu succes" );
                     sortFile();
+
+                    String addOrgDB = "INSERT INTO bugetORG (org, denumireORG, anulBugetar, valInitiala, valRectificata, valFinala) VALUES ('"+addString.toUpperCase()+"','"+addDenumireOrgString+"','0','0','0','0' )";
+                    statement.executeUpdate( addOrgDB );
+                    addPOrg.clear();
+                    addDenOrg.clear();
                 }
-            } catch (IOException e) {
+            } catch (IOException | SQLException e) {
                 e.printStackTrace();
             }
         }
