@@ -11,12 +11,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
 import java.util.ResourceBundle;
 
 import static com.trans.investitii.backEnd.DBase.Investitii.*;
+import static jdk.nashorn.internal.objects.NativeError.printStackTrace;
 
 public class Controller0Sample implements Initializable {
 
@@ -71,7 +71,7 @@ public class Controller0Sample implements Initializable {
         windowStage1Intro.show();
 
     }
-    public Connection getConectionNew () throws SQLException {
+    public Connection getConectionNew () throws SQLException, FileNotFoundException {
         Connection connection =DriverManager.getConnection( Investitii.URL0, Investitii.USER, Investitii.PASSWORD );
         Statement statement = connection.createStatement();
         try {
@@ -83,6 +83,8 @@ public class Controller0Sample implements Initializable {
         statement.executeUpdate( CREATE_TABLE_BUGET_CONTRACT );
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            PrintWriter pw = new PrintWriter(new FileOutputStream("C:\\Log"));
+            printStackTrace(pw);
         }finally{
             try{
                 if(statement!=null)
@@ -93,7 +95,8 @@ public class Controller0Sample implements Initializable {
                 if(connection!=null)
                     connection.close();
             }catch(SQLException throwables){
-
+                PrintWriter pw = new PrintWriter(new FileOutputStream("Log"));
+                throwables.printStackTrace();
             }
         }
         return null;

@@ -29,8 +29,8 @@ public class CtrlStage1Intro implements Initializable {
 
     @FXML
     public Label furnizor;
-    public Label nrFactura;
-    public Label Data;
+    @FXML public Label nrFactura;
+    @FXML public Label Data;
     public Label valoare;
     public Label proiect;
     public Label deviz;
@@ -38,7 +38,7 @@ public class CtrlStage1Intro implements Initializable {
     public Label Data1;
     public Label respProj;
 
-    public ComboBox comBoboxFz;
+    @FXML  public ComboBox comBoboxFz;
     public TextField fieldNrFact;
     public TextField fieldValFact;
     public DatePicker fieldDataFactura;

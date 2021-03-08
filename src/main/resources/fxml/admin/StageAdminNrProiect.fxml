@@ -264,7 +264,10 @@
                <font>
                   <Font size="16.0" />
                </font></Button>
-            <Text fx:id="added" layoutX="783.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" underline="true" />
+            <Text fx:id="added" layoutX="729.0" layoutY="506.0" strokeType="OUTSIDE" strokeWidth="0.0" underline="true">
+               <font>
+                  <Font size="36.0" />
+               </font></Text>
             <TextField fx:id="addDenumireProj" layoutX="704.0" layoutY="349.0" prefHeight="31.0" prefWidth="281.0" promptText="Introduceti denumirea  proiectului" />
             <TextField fx:id="addValProj" layoutX="705.0" layoutY="431.0" prefHeight="31.0" prefWidth="281.0" promptText="Introduceti valoarea proiectului" />
             <DatePicker fx:id="addDataAprobariiProj" layoutX="705.0" layoutY="388.0" promptText="Data aprobarii" />

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
-
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trans.investitii.frontEnd.javaFX.controllers.CtrlStage3RapoarteInv">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="20.0" fill="#065bab" height="110.0" layoutX="5.0" layoutY="3.0" stroke="BLACK" strokeDashOffset="5.0" strokeLineJoin="BEVEL" strokeWidth="10.0" width="1190.0" />

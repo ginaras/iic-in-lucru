@@ -89,7 +89,7 @@
       <Text fx:id="txtValoareFinalaProj" layoutX="581.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare finala" />
       <Text fx:id="txtValoarareRectificareProj" layoutX="581.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare rectificare" />
       <Text fx:id="txtValoareProjInitial" layoutX="581.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare initiala proiect" />
-      <Text fx:id="txtValoareContractInitial" layoutX="999.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare Contract Initial" />
+      <Text fx:id="txtValoareContractInitial" layoutX="999.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Text fx:id="txtValoarareRectificareContract" layoutX="1000.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoarare rectificare" />
       <Text fx:id="txtValoareFinalaContract" layoutX="999.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare finala" />
       <Text layoutX="491.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Evidenta bugetelor">
@@ -99,7 +99,7 @@
       </Text>
       <Text layoutX="1091.0" layoutY="781.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bySorinGinara" />
       <ComboBox fx:id="comboOrg" layoutX="47.0" layoutY="273.0" onAction="#comboOrgAction" prefWidth="150.0" promptText="Organizatie" />
-      <ComboBox fx:id="comboOrgType" layoutX="206.0" layoutY="272.0" onAction="#comboOrgTipeAction" prefHeight="31.0" prefWidth="157.0" promptText="Varianta Buget" />
+      <ComboBox fx:id="comboOrgType" layoutX="206.0" layoutY="272.0" onAction="#comboOrgTypeAction" prefHeight="31.0" prefWidth="157.0" promptText="Varianta Buget" />
       <ComboBox fx:id="comboBProj" layoutX="527.0" layoutY="273.0" onAction="#comboBProjAction" prefWidth="150.0" promptText="Proiect" />
       <ComboBox fx:id="comboBContract" layoutX="931.0" layoutY="272.0" onAction="#comboBContractAction" prefWidth="150.0" promptText="Contract" />
       <Button fx:id="buttonAplicaBugetOrg" layoutX="247.0" layoutY="613.0" mnemonicParsing="false" onAction="#buttonAplicaBugetOrgAction" prefHeight="11.0" prefWidth="119.0" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Aplica" textFill="#fcfbf5">
@@ -188,7 +188,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <ComboBox fx:id="comboBoxYearChose" layoutX="110.0" layoutY="343.0" prefWidth="150.0" promptText="Alege anul" />
+      <ComboBox fx:id="comboBoxYearChose" layoutX="110.0" layoutY="343.0" onAction="#comboBYearAction" prefWidth="150.0" promptText="Alege anul" />
       <Text fx:id="txtDenProj" layoutX="522.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denumire Proiect" />
       <Text fx:id="txtDenFurnizor" layoutX="942.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nume furnizor" />
       <Text fx:id="txtDenOrg" layoutX="128.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denumire Org" />

@@ -46,6 +46,7 @@ public class ControllerStageAdminContracte implements Initializable {
     public Text added;
     public String pathFileContract = "C:\\Investitii\\resurse\\contract";
     public ComboBox comboBoxAlegeFurnizor;
+    public TextField addValInitiala;
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
     Statement statement = connection.createStatement();
@@ -191,7 +192,7 @@ public class ControllerStageAdminContracte implements Initializable {
             fail.showAndWait();
             return;
         }
-        if (addString.isEmpty()) {
+        if (addString.isEmpty() || addValInitiala.getText().isEmpty()) {
             Alert fail = new Alert( Alert.AlertType.INFORMATION );
             fail.setHeaderText( "Atentie!" );
             fail.setContentText( "Nu poti introduce campuri goale!" );
@@ -222,20 +223,22 @@ public class ControllerStageAdminContracte implements Initializable {
                     if (fileLine == null || (!(fileLine.equalsIgnoreCase( addCtFzString ))
                             && !(inactiveString.equalsIgnoreCase( fileLine )))) {
                         BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileContract, true ) );
-                        writer.append( addString + "\n" );
+                        writer.append( addString.toUpperCase() + "\n" );
                         writer.close();
-                        ItemList.appendText( addString + "\n" ); // ad data in TextArea from text field
-                        addContract.clear();
-                        this.added.setText( "Ati adaugat cu succes" );
+                        ItemList.appendText( addString.toUpperCase() + "\n" ); // ad data in TextArea from text field
+
                         sortFile();
 
                         String addContractToDB = "INSERT INTO bugetCONTRACT nrContract";
                         try (PreparedStatement statement = connection.prepareStatement( addContractToDB );){
 
-                            statement.executeUpdate( "INSERT INTO bugetCONTRACT (nrContract, furnizor ) VALUES('"+addString+"','"+comboBoxAlegeFurnizor.getValue()+"')" );
+                            statement.executeUpdate( "INSERT INTO bugetCONTRACT (nrContract, furnizor,valInitiala, valRectificare, valFinala ) VALUES('"+addString.toUpperCase()+"','"+comboBoxAlegeFurnizor.getValue()+"','"+addValInitiala.getText()+"','"+"0"+"','"+addValInitiala.getText()+"')" );
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                        addContract.clear();
+                        addValInitiala.clear();
+                        this.added.setText( "Ati adaugat cu succes" );
                     }
             }catch(IOException e){
                     e.printStackTrace();

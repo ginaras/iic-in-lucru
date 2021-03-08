@@ -185,7 +185,7 @@
                   <Font size="16.0" />
                </font></Button>
             <Text layoutX="611.0" layoutY="383.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contract nou" />
-            <TextField fx:id="addContract" layoutX="730.0" layoutY="362.0" prefHeight="31.0" prefWidth="281.0" promptText="Introdu noul contract" />
+            <TextField fx:id="addContract" layoutX="782.0" layoutY="362.0" prefHeight="31.0" prefWidth="173.0" promptText="Introdu noul contract" />
             <Button fx:id="addButton" layoutX="1017.0" layoutY="310.0" mnemonicParsing="false" onAction="#addNewContract" prefHeight="31.0" prefWidth="173.0" style="-fx-background-color: #0F4CC1;" text="Adauga" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
@@ -264,9 +264,11 @@
                <font>
                   <Font size="16.0" />
                </font></Button>
-            <Text fx:id="added" layoutX="782.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" underline="true" />
+            <Text fx:id="added" layoutX="790.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" underline="true" wrappingWidth="108.0" />
             <Text layoutX="611.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Furnizor" />
             <ComboBox fx:id="comboBoxAlegeFurnizor" layoutX="730.0" layoutY="312.0" onAction="#alegeFurnizorAction" prefWidth="150.0" promptText="Alege furnizor" />
+            <Text layoutX="613.0" layoutY="427.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare initiala contract" />
+            <TextField fx:id="addValInitiala" layoutX="818.0" layoutY="405.0" prefHeight="31.0" prefWidth="191.0" promptText="Valoare" />
          </children>
       </AnchorPane>
    </children>

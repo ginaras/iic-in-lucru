@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,7 +8,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
-
 <GridPane alignment="center" hgap="10" prefHeight="800" prefWidth="1200" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trans.investitii.frontEnd.javaFX.controllers.Controller0Sample">
    <columnConstraints>
       <ColumnConstraints />
