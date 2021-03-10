@@ -7,10 +7,10 @@ import java.time.LocalDate;
 public class Investitii {
     public   static String USER= "root";
     public   static String PASSWORD= "root";
-    public static final String CREATE_DATABASE = "CREATE DATABASE IF NOT EXISTS invDB2";
-    public static final String USE_DATABASE = "USE invDB2";
+    public static final String CREATE_DATABASE = "CREATE DATABASE IF NOT EXISTS invDB";
+    public static final String USE_DATABASE = "USE invDB";
     public static String URL0 = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","sys" );
-    public static String URL = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","invDB2" );
+    public static String URL = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","invDB" );
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS invTBL (nrCrt INT(5) AUTO_INCREMENT PRIMARY KEY, furnizor CHAR(70) not null, nrFactura char(20) , dataFacturii DATE, dataContabilizarii DATE, valoare varCHAR(20), nrPIF CHAR (50), dataPIF DATE, valInitiala varCHAR(20), tva varCHAR(20), valTot varCHAR(20), contract CHAR(10), contInv CHAR(20), contFz CHAR(20), nrProiect CHAR(20), deviz CHAR(20), org CHAR(10), respProiect CHAR(50))";
     public static final String CREATE_TABLE_BUGET_ORG = "CREATE TABLE IF NOT EXISTS bugetORG (nrCrt INT(5) AUTO_INCREMENT PRIMARY KEY, org CHAR(10) NOT NULL,denumireOrg CHAR(70), anulBugetar CHAR(4), valInitiala varChar(10), valRectificata CHAR(10), valFinala CHAR(10))";
     public static final String CREATE_TABLE_BUGET_PROJ = "CREATE TABLE IF NOT EXISTS bugetPROJ (nrCrt INT(5) AUTO_INCREMENT PRIMARY KEY, nrProiect CHAR(20), denProiect CHAR(200), startProiect DATE, valInitiala VARCHAR(10), valRectificare VARCHAR(10) NOT NULL, valFinala VARCHAR(10))";
@@ -37,7 +37,65 @@ public class Investitii {
     private Object respProiect;
     private Object alegeColumn;
     private String addContract;
-//    private Object alegeColumn;
+
+    // bugetcontract
+    private String CUIfurnizor;
+    private CharSequence adresa;
+    private CharSequence nrContract;
+    private LocalDate dataContract ;
+    private CharSequence valInitiala;
+
+//pentru adaugare din pag de adminFZ inbugetContract
+    public Investitii ( CharSequence characters, String text, CharSequence characters1, CharSequence characters2, LocalDate value, CharSequence characters3 ) {
+            this.furnizor=characters;
+            this.CUIfurnizor=text;
+            this.adresa =characters1;
+            this.nrContract =characters2;
+            this.dataContract=value;
+            this.valInitiala=characters3;
+        }
+
+    public String getCUIfurnizor() {
+        return CUIfurnizor;
+    }
+
+    public void setCUIfurnizor(String CUIfurnizor) {
+        this.CUIfurnizor = CUIfurnizor;
+    }
+
+    public CharSequence getAdresa() {
+        return adresa;
+    }
+
+    public void setAdresa(CharSequence adresa) {
+        this.adresa = adresa;
+    }
+
+    public void setNrContract(CharSequence nrContract) {
+        this.nrContract = nrContract;
+    }
+
+    public CharSequence getNrContract() {
+        return nrContract;
+    }
+
+    public LocalDate getDataContract() {
+        return dataContract;
+    }
+
+    public void setDataContract(LocalDate dataContract) {
+        this.dataContract = dataContract;
+    }
+
+    public CharSequence getValInitiala() {
+        return valInitiala;
+    }
+
+    public void setValInitiala(CharSequence valInitiala) {
+        this.valInitiala = valInitiala;
+    }
+
+
 
     //constructor pentru Stage4PIF tabel1
     public Investitii ( String furnizor, String nrFactura, String contInv, String valoare, int nrCrt ) {

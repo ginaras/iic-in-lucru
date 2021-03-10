@@ -160,72 +160,6 @@
                <font>
                   <Font size="16.0" />
                </font></Button>
-            <Text layoutX="769.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrare furnizori">
-               <font>
-                  <Font size="27.0" />
-               </font>
-            </Text>
-            <Button fx:id="back0S" layoutX="14.0" layoutY="743.0" mnemonicParsing="false" onAction="#buttonBack" style="-fx-background-color: #0F4CC1;" text="Inapoi la pagina principala" textFill="#fcfbf5">
-               <effect>
-                  <Bloom threshold="0.1">
-                     <input>
-                        <Blend mode="SRC_ATOP" opacity="0.57">
-                           <topInput>
-                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
-                                 <bumpInput>
-                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
-                                 </bumpInput>
-                              </Lighting>
-                           </topInput>
-                        </Blend>
-                     </input>
-                  </Bloom>
-               </effect>
-               <font>
-                  <Font size="16.0" />
-               </font></Button>
-            <Text layoutX="582.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Furnizor nou" />
-            <TextField fx:id="addFz" layoutX="705.0" layoutY="325.0" prefHeight="31.0" prefWidth="281.0" promptText="Introdu noul furnizor" />
-            <Button fx:id="addButton" layoutX="995.0" layoutY="326.0" mnemonicParsing="false" onAction="#addNewFz" prefHeight="31.0" prefWidth="173.0" style="-fx-background-color: #0F4CC1;" text="Adauga" textFill="#fcfbf5">
-               <effect>
-                  <Bloom threshold="0.1">
-                     <input>
-                        <Blend mode="SRC_ATOP" opacity="0.57">
-                           <topInput>
-                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
-                                 <bumpInput>
-                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
-                                 </bumpInput>
-                              </Lighting>
-                           </topInput>
-                        </Blend>
-                     </input>
-                  </Bloom>
-               </effect>
-               <font>
-                  <Font size="16.0" />
-               </font></Button>
-            <Text layoutX="556.0" layoutY="595.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de furnizori" />
-            <TextArea fx:id="ItemList" layoutX="711.0" layoutY="599.0" prefHeight="153.0" prefWidth="275.0" />
-            <Button fx:id="exportButton" layoutX="1043.0" layoutY="552.0" mnemonicParsing="false" onAction="#exportFzAdminList" style="-fx-background-color: #0F4CC1;" text="Exporta lista" textFill="#fcfbf5">
-               <effect>
-                  <Bloom threshold="0.1">
-                     <input>
-                        <Blend mode="SRC_ATOP" opacity="0.57">
-                           <topInput>
-                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
-                                 <bumpInput>
-                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
-                                 </bumpInput>
-                              </Lighting>
-                           </topInput>
-                        </Blend>
-                     </input>
-                  </Bloom>
-               </effect>
-               <font>
-                  <Font size="16.0" />
-               </font></Button>
             <Button fx:id="adminDeviz" layoutX="92.0" layoutY="638.0" mnemonicParsing="false" onAction="#goOnAdminDeviz" style="-fx-background-color: #0F4CC1;" text="Administrare devize" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
@@ -264,12 +198,83 @@
                <font>
                   <Font size="16.0" />
                </font></Button>
-            <Text fx:id="added" layoutX="777.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" underline="true" />
+            <Text layoutX="717.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrare furnizori">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Text>
+            <Text layoutX="513.0" layoutY="682.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de furnizori existenti" />
+            <TextArea fx:id="ItemList" layoutX="711.0" layoutY="599.0" prefHeight="153.0" prefWidth="275.0" />
+            <Text fx:id="added" layoutX="951.0" layoutY="504.0" strokeType="OUTSIDE" strokeWidth="0.0" underline="true" wrappingWidth="185.0" />
+            <TextField fx:id="addFz" layoutX="705.0" layoutY="325.0" prefHeight="31.0" prefWidth="281.0" promptText="Introdu noul furnizor" />
             <TextField fx:id="addCUI" layoutX="706.0" layoutY="365.0" prefHeight="31.0" prefWidth="281.0" promptText="CUI" />
-            <TextField fx:id="addNrContract" layoutX="706.0" layoutY="448.0" prefHeight="31.0" prefWidth="281.0" promptText="Numar contract initial" />
-            <TextField fx:id="addValoareContract" layoutX="708.0" layoutY="530.0" prefHeight="31.0" prefWidth="281.0" promptText="Valoare Contract" />
-            <DatePicker fx:id="addDataContract" layoutX="706.0" layoutY="489.0" promptText="Data Contract" />
             <TextField fx:id="addAdresa" layoutX="706.0" layoutY="407.0" prefHeight="31.0" prefWidth="281.0" promptText="Adresa Furnizor" />
+            <TextField fx:id="addNrContract" layoutX="706.0" layoutY="448.0" prefHeight="31.0" prefWidth="281.0" promptText="Numar contract initial" />
+            <DatePicker fx:id="addDataContract" layoutX="706.0" layoutY="489.0" promptText="Data Contract" />
+            <TextField fx:id="addValoareContract" layoutX="708.0" layoutY="530.0" prefHeight="31.0" prefWidth="281.0" promptText="Valoare Contract" />
+            <Button fx:id="addButton" layoutX="1000.0" layoutY="524.0" mnemonicParsing="false" onAction="#addNewFz" prefHeight="31.0" prefWidth="173.0" style="-fx-background-color: #0F4CC1;" text="Adauga" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+            <Button fx:id="exportButton" layoutX="1043.0" layoutY="660.0" mnemonicParsing="false" onAction="#exportFzAdminList" style="-fx-background-color: #0F4CC1;" text="Exporta lista" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+            <Button fx:id="back0S" layoutX="14.0" layoutY="743.0" mnemonicParsing="false" onAction="#buttonBack" style="-fx-background-color: #0F4CC1;" text="Inapoi la pagina principala" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+            <Text layoutX="578.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Furnizor nou" />
+            <Text layoutX="578.0" layoutY="427.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresa furnizor" />
+            <Text layoutX="578.0" layoutY="471.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numar contract" />
+            <Text layoutX="578.0" layoutY="514.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data contract" />
+            <Text layoutX="578.0" layoutY="551.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vloare Contract" />
+            <Text layoutX="578.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CUI" />
          </children>
       </AnchorPane>
    </children>

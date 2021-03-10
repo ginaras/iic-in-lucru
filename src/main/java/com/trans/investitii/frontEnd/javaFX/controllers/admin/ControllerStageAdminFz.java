@@ -1,5 +1,6 @@
 package com.trans.investitii.frontEnd.javaFX.controllers.admin;
 
+import com.trans.investitii.backEnd.DBase.Investitii;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +17,9 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.*;
+import java.sql.*;
 import java.text.Collator;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
 
@@ -46,6 +49,11 @@ public class ControllerStageAdminFz implements Initializable {
     public TextField addAdresa;
     //  public String pathAdmFz = "\\resources\\adminZone\\fz.txt";
 
+    Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
+    Statement statement = connection.createStatement();
+
+    public ControllerStageAdminFz () throws SQLException {
+    }
 
     public void goToStage1Intro( ActionEvent event ) throws IOException {
         Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage1Intro.fxml" ) );
@@ -154,18 +162,46 @@ public class ControllerStageAdminFz implements Initializable {
             e.printStackTrace();
         }
         try {
-            Scanner s = new Scanner(new File(pathAdmFz)).useDelimiter("\\s+");
-            while (s.hasNext()) {
-                if (s.hasNextInt()) { // check if next token is an int
-                    ItemList.appendText(s.nextInt() + " "+"\n"); // display the found integer
-                } else {
-                    ItemList.appendText(s.next() + " "+"\n"); // else read the next token
-                }
+            FileReader fileReader = new FileReader( pathAdmFz );
+            BufferedReader bufferedReader = new BufferedReader( fileReader );
+            List<String> lines = new ArrayList<>();
+            boolean line = true;
+            String line1=null;
+            while ((line1 = bufferedReader.readLine() )!= null) {
+                line = bufferedReader.readLine() != null;
+                lines.add( line +"ceva");
             }
-        } catch (FileNotFoundException ex) {
-            System.err.println(ex);
+            bufferedReader.close();
+
+            System.out.println( lines );
+            Collections.sort(lines, Collator.getInstance());
+
+
+            for (String furnizor : lines) {
+                ItemList.appendText( furnizor+ "\r\n" );
+                System.out.println(furnizor+"\r\n"+"----------");
+            }
         }
-  }
+        catch(FileNotFoundException e){
+                e.printStackTrace();
+            } catch(IOException e){
+                e.printStackTrace();
+            }
+
+
+
+
+//
+//        try {
+//            Scanner s = new Scanner(new File(pathAdmFz)).useDelimiter("\\s+");
+//            while (s.hasNext()) {
+//                    ItemList.appendText(s.next() + " "+"\n"); // else read the next token
+//                }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+    }
+
     public void addNewFz ( ActionEvent event ) throws IOException {
         String fileLine;
         String addFzString = addFz.getCharacters().toString();
@@ -193,7 +229,7 @@ public class ControllerStageAdminFz implements Initializable {
                     if (fileLine.equalsIgnoreCase( inactiveFzString )){
                         Alert fail = new Alert( Alert.AlertType.INFORMATION );
                         fail.setHeaderText( "Atentie!" );
-                        fail.setContentText( "Elementul "+addFzString+" este WHILE inactiv in baza de date" );
+                        fail.setContentText( "Elementul "+addFzString+" este inactiv in baza de date" );
                         fail.showAndWait();
                         addFz.clear();
                         break;
@@ -207,11 +243,35 @@ public class ControllerStageAdminFz implements Initializable {
                     writer.append( addFzString+ "\n" );
                     writer.close();
                     ItemList.appendText( addFzString + "\n" ); // ad data in TextArea from text field
+
+                    //  10.03.2021
+                    String addFzDataToBugetcontract = "INSERT INTO bugetcontract (furnizor, CUIfurnizor, adresa,nrContract, dataContract, valInitiala) VALUES(?,?,?,?,?,?)";
+                    try (PreparedStatement stmPrep= connection.prepareStatement(addFzDataToBugetcontract)) {
+                        Investitii addFzDataToBugetcontractInvestitii = new Investitii(
+                                addFz.getCharacters(),
+                                addCUI.getText(),
+                                addAdresa.getCharacters(),
+                                addNrContract.getCharacters(),
+                                addDataContract.getValue(),
+                                addValoareContract.getCharacters()
+                        );
+                        String varRectif = "0";
+                        stmPrep.executeUpdate("INSERT INTO bugetCONTRACT (furnizor, CUIfurnizor, adresa, nrContract, dataContract, valInitiala, valRectificare, valFinala) VALUES ('" + addFz.getCharacters() + "','" + addCUI.getCharacters() + "','" + addAdresa.getCharacters() + "','" + addNrContract.getCharacters() + "','" + addDataContract.getValue() + "','" + addValoareContract.getCharacters() + "','"+varRectif+"','" + addValoareContract.getCharacters() + "')");
+
+                    }
+
+                    addFz.clear();
+                    addCUI.clear();
+                    addAdresa.clear();
+                    addNrContract.clear();
+                    addDataContract.setValue( null);
+                    addValoareContract.clear();
+// 10.03.21
                     addFz.clear();
                     this.added.setText( "Ati adaugat cu succes" );
                     sortFile();
                 }
-            } catch (IOException e) {
+            } catch (IOException | SQLException e) {
                 e.printStackTrace();
             }
         }
