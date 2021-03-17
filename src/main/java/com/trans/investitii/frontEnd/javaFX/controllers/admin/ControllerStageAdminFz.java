@@ -161,45 +161,45 @@ public class ControllerStageAdminFz implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            FileReader fileReader = new FileReader( pathAdmFz );
-            BufferedReader bufferedReader = new BufferedReader( fileReader );
-            List<String> lines = new ArrayList<>();
-            boolean line = true;
-            String line1=null;
-            while ((line1 = bufferedReader.readLine() )!= null) {
-                line = bufferedReader.readLine() != null;
-                lines.add( line +"ceva");
-            }
-            bufferedReader.close();
-
-            System.out.println( lines );
-            Collections.sort(lines, Collator.getInstance());
-
-
-            for (String furnizor : lines) {
-                ItemList.appendText( furnizor+ "\r\n" );
-                System.out.println(furnizor+"\r\n"+"----------");
-            }
-        }
-        catch(FileNotFoundException e){
-                e.printStackTrace();
-            } catch(IOException e){
-                e.printStackTrace();
-            }
-
-
-
-
-//
 //        try {
-//            Scanner s = new Scanner(new File(pathAdmFz)).useDelimiter("\\s+");
-//            while (s.hasNext()) {
-//                    ItemList.appendText(s.next() + " "+"\n"); // else read the next token
-//                }
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
+//            FileReader fileReader = new FileReader( pathAdmFz );
+//            BufferedReader bufferedReader = new BufferedReader( fileReader );
+//            List<String> lines = new ArrayList<>();
+//            boolean line = true;
+//            String line1=null;
+//            while ((line1 = bufferedReader.readLine() )!= null) {
+//                line = bufferedReader.readLine() != null;
+//                lines.add( line +"ceva");
+//            }
+//            bufferedReader.close();
+//
+//            System.out.println( lines );
+//            Collections.sort(lines, Collator.getInstance());
+//
+//
+//            for (String furnizor : lines) {
+//                ItemList.appendText( furnizor+ "\r\n" );
+//                System.out.println(furnizor+"\r\n"+"----------");
+//            }
 //        }
+//        catch(FileNotFoundException e){
+//                e.printStackTrace();
+//            } catch(IOException e){
+//                e.printStackTrace();
+//            }
+//
+
+
+
+
+        try {
+            Scanner s = new Scanner(new File(pathAdmFz)).useDelimiter("\\s+");
+            while (s.hasNext()) {
+                    ItemList.appendText(s.next() + " "+"\n"); // else read the next token
+                }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addNewFz ( ActionEvent event ) throws IOException {

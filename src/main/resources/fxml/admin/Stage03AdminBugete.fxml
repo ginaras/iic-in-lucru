@@ -84,7 +84,7 @@
          </font>
       </Text>
       <Text fx:id="txtValoareOrgInitial" fontSmoothingType="LCD" layoutX="192.0" layoutY="396.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare initiala" />
-      <Text fx:id="txtValoarareRectificareOrg" layoutX="192.0" layoutY="430.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare rectificare" />
+      <Text fx:id="txtValoareRectificareOrg" layoutX="192.0" layoutY="430.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare rectificare" />
       <Text fx:id="txtValoareFinalaOrg" layoutX="192.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare finala" />
       <Text fx:id="txtValoareFinalaProj" layoutX="581.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare finala" />
       <Text fx:id="txtValoarareRectificareProj" layoutX="581.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare rectificare" />
@@ -99,7 +99,7 @@
       </Text>
       <Text layoutX="1091.0" layoutY="781.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bySorinGinara" />
       <ComboBox fx:id="comboOrg" layoutX="47.0" layoutY="273.0" onAction="#comboOrgAction" prefWidth="150.0" promptText="Organizatie" />
-      <ComboBox fx:id="comboOrgType" layoutX="206.0" layoutY="272.0" onAction="#comboOrgTypeAction" prefHeight="31.0" prefWidth="157.0" promptText="Varianta Buget" />
+      <ComboBox fx:id="comboOrgType" layoutX="105.0" layoutY="560.0" onAction="#comboOrgTypeAction" prefHeight="31.0" prefWidth="157.0" promptText="Varianta Buget" />
       <ComboBox fx:id="comboBProj" layoutX="527.0" layoutY="273.0" onAction="#comboBProjAction" prefWidth="150.0" promptText="Proiect" />
       <ComboBox fx:id="comboBContract" layoutX="931.0" layoutY="272.0" onAction="#comboBContractAction" prefWidth="150.0" promptText="Contract" />
       <Button fx:id="buttonAplicaBugetOrg" layoutX="247.0" layoutY="613.0" mnemonicParsing="false" onAction="#buttonAplicaBugetOrgAction" prefHeight="11.0" prefWidth="119.0" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Aplica" textFill="#fcfbf5">
@@ -162,8 +162,8 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <CheckBox fx:id="checkOrg" layoutX="186.0" layoutY="578.0" mnemonicParsing="false" onAction="#checkOrgAction" />
-      <Label layoutX="70.0" layoutY="543.0" text="Selecteaza pentru a putea modifica datele" />
+      <CheckBox fx:id="checkOrg" layoutX="331.0" layoutY="533.0" mnemonicParsing="false" onAction="#checkOrgAction" />
+      <Label layoutX="36.0" layoutY="533.0" text="Selecteaza pentru a putea modifica datele" />
       <Label layoutX="477.0" layoutY="543.0" text="Selecteaza pentru a putea rectifica" />
       <CheckBox fx:id="checkProj" layoutX="582.0" layoutY="582.0" mnemonicParsing="false" onAction="#checkProjAction" />
       <Label layoutX="868.0" layoutY="540.0" text="Selecteaza pentru a putea rectifica" />
@@ -188,7 +188,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <ComboBox fx:id="comboBoxYearChose" layoutX="110.0" layoutY="343.0" onAction="#comboBYearAction" prefWidth="150.0" promptText="Alege anul" />
+      <ComboBox fx:id="comboBoxYearChose" layoutX="207.0" layoutY="273.0" onAction="#comboBYearAction" prefWidth="150.0" promptText="Alege anul" />
       <Text fx:id="txtDenProj" layoutX="522.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denumire Proiect" />
       <Text fx:id="txtDenFurnizor" layoutX="942.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nume furnizor" />
       <Text fx:id="txtDenOrg" layoutX="128.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denumire Org" />

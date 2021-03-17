@@ -24,6 +24,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
 
 public class ControllerStage03AdminBugete implements Initializable {
 
@@ -45,7 +46,7 @@ public class ControllerStage03AdminBugete implements Initializable {
     public Text txtValoarareRectificareContract;
     public Text txtValoareFinalaContract;
     public Text txtValoareOrgInitial;
-    public Text txtValoarareRectificareOrg;
+    public Text txtValoareRectificareOrg;
     public Text txtValoareFinalaOrg;
     public Text txtValoareFinalaProj;
     public Text txtValoarareRectificareProj;
@@ -64,28 +65,43 @@ public class ControllerStage03AdminBugete implements Initializable {
 
 
     public void comboOrgAction ( ActionEvent event )  {
-        comboOrgType.setDisable( false );
+        checkOrg.setDisable( false );
         comboBoxYearChose.setDisable( false );
     }
 
     public void comboBYearAction ( ActionEvent event ) throws SQLException {
 
+
         String denOrg = "SELECT denumireOrg AS 'denumire' from bugetORG WHERE org= '"+comboOrg.getValue()+"'AND anulBugetar='"+comboBoxYearChose.getValue()+"'";
+        int an= parseInt(comboBoxYearChose.getValue().toString())-1;
+
+        String denOrg1 = "SELECT denumireOrg AS 'denumire1' from bugetORG WHERE org= '"+comboOrg.getValue()+"'AND anulBugetar='"+an+"'";
         String valInitialaOrg ="SELECT valInitiala AS 'viOrg' from bugetORG  WHERE org= '"+comboOrg.getValue()+"'AND anulBugetar='"+comboBoxYearChose.getValue()+"'";
         String valRectificataOrg ="SELECT valRectificata AS 'vrOrg' from bugetORG  WHERE org= '"+comboOrg.getValue()+"'AND anulBugetar='"+comboBoxYearChose.getValue()+"'";
         String valFinalaOrg = "SELECT valFinala AS 'vfOrg' from bugetORG  WHERE org= '"+comboOrg.getValue()+"'AND anulBugetar='"+comboBoxYearChose.getValue()+"'";
 
-
-//        Statement stm2 = connection.createStatement();
         ResultSet rsDenOrg = stm.executeQuery( denOrg );
         try {
             String denumireOrg = null;
             while (rsDenOrg.next()){
                 denumireOrg= (String) rsDenOrg.getObject( "denumire" );
             }
+            System.out.println(an );
             txtDenOrg.setText( denumireOrg );
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if (txtDenOrg.getText().isEmpty()){
+            ResultSet rsDenOrg1 = stm.executeQuery( denOrg1 );
+            try {
+                String denumireOrg1 = null;
+                while (rsDenOrg1.next()){
+                    denumireOrg1= (String) rsDenOrg1.getObject( "denumire1" );
+                }
+                txtDenOrg.setText( denumireOrg1 );
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         ResultSet rsValInitOrg = stm.executeQuery( valInitialaOrg );
@@ -105,7 +121,7 @@ public class ControllerStage03AdminBugete implements Initializable {
             while (rsValRectificareOrg.next()){
                 vrOrg= (String) rsValRectificareOrg.getObject( "vrOrg" );
             }
-            txtValoarareRectificareOrg.setText( vrOrg );
+            txtValoareRectificareOrg.setText( vrOrg );
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -127,6 +143,8 @@ public class ControllerStage03AdminBugete implements Initializable {
     }
 
     public void comboBProjAction ( ActionEvent event ) throws SQLException {
+        checkProj.setDisable( false );
+
         String denProj = "SELECT denProiect AS 'denumire' from bugetPROJ WHERE nrProiect= '"+comboBProj.getValue()+"'";
         String valInitialaProj ="SELECT valInitiala AS 'viProj' from bugetPROJ  WHERE nrProiect= '"+comboBProj.getValue()+"'";
         String valRectificataProj ="SELECT valRectificare AS 'vrProj' from bugetPROJ  WHERE nrProiect= '"+comboBProj.getValue()+"'";
@@ -189,6 +207,7 @@ public class ControllerStage03AdminBugete implements Initializable {
     }
 
     public void comboBContractAction ( ActionEvent event ) throws SQLException {
+        checkContract.setDisable( false );
 
         String denFurnizor = "SELECT furnizor AS 'denumireFz' from bugetCONTRACT WHERE nrContract= '"+comboBContract.getValue()+"'";
         String valInitialaContract ="SELECT valInitiala AS 'viContract' from bugetCONTRACT  WHERE nrContract= '"+comboBContract.getValue()+"'";
@@ -249,12 +268,25 @@ public class ControllerStage03AdminBugete implements Initializable {
 
 
     public void buttonAplicaBugetOrgAction ( ActionEvent event ) throws SQLException {
+        if (comboBoxYearChose.getValue()==null){
+            Alert alert = new Alert( Alert.AlertType.INFORMATION );
+            alert.setHeaderText( "Alege anul!" );
+            alert.showAndWait();
+            return;
+        }
+        if (comboOrgType.getValue()==null){
+            Alert alert = new Alert( Alert.AlertType.INFORMATION );
+            alert.setHeaderText( "Alege ce vrei sa modifici!" );
+            alert.showAndWait();
+            return;
+        }
 
-    if (comboOrgType.getValue() == "Rectificare") {
+    if (comboOrgType.getValue() == "Rectificare" ) {
         double valIniOrg = (parseDouble( txtValoareOrgInitial.getText() ) * 100) / 100;
         double valRectConf = (parseDouble( textFieldRectificareOrg.getText() ) * 100) / 100;
 
-        double valRectificareAnterioaraOrg = (parseDouble( txtValoarareRectificareOrg.getText() ) * 100) / 100;
+        if (txtValoareRectificareOrg.getText().isEmpty()){txtValoareRectificareOrg.setText( "0" );}
+        double valRectificareAnterioaraOrg = (parseDouble( txtValoareRectificareOrg.getText() ) * 100) / 100;
         double valrRectificareTotalaOrg = valRectConf + valRectificareAnterioaraOrg;
         double valFinConfirnata = valIniOrg + valRectConf + valRectificareAnterioaraOrg;
 
@@ -267,11 +299,11 @@ public class ControllerStage03AdminBugete implements Initializable {
 
         if (result.get() == ButtonType.OK) {
 
-            String addRectificareBugetProj = "UPDATE bugetORG SET valRectificata = '" + valrRectificareTotalaOrg + "' WHERE org = '" + comboOrg.getValue() + "'";
+            String addRectificareBugetProj = "UPDATE bugetORG SET valRectificata = '" + valrRectificareTotalaOrg + "' WHERE org = '" + comboOrg.getValue() + "' AND anulBugetar='"+comboBoxYearChose.getValue()+"'";
 
             try (PreparedStatement statement = connection.prepareStatement( addRectificareBugetProj )) {
-                statement.executeUpdate( "UPDATE bugetORG SET valRectificata='" + valrRectificareTotalaOrg + "' WHERE org = '" + comboOrg.getValue() + "' AND anulBugetar='"+comboBoxYearChose+"'" );
-                statement.executeUpdate( "UPDATE bugetORG SET valFinala= '" + valFinConfirnata + "' WHERE org = '" + comboOrg.getValue() + "'  AND anulBugetar='"+comboBoxYearChose+"'" );
+                statement.executeUpdate( "UPDATE bugetORG SET valRectificata='" + valrRectificareTotalaOrg + "' WHERE org = '" + comboOrg.getValue() + "' AND anulBugetar='"+comboBoxYearChose.getValue()+"'" );
+                statement.executeUpdate( "UPDATE bugetORG SET valFinala= '" + valFinConfirnata + "' WHERE org = '" + comboOrg.getValue() + "'  AND anulBugetar='"+comboBoxYearChose.getValue()+"'" );
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -279,9 +311,9 @@ public class ControllerStage03AdminBugete implements Initializable {
             textFieldRectificareOrg.clear();
             buttonAplicaBugetOrg.setDisable( true );
 
-            String valInitialaOrg = "SELECT valInitiala AS 'viOrg' from bugetORG  WHERE org= '" + comboOrg.getValue() + "' AND anulBugetar='"+comboBoxYearChose+"'";
-            String valRectificataOrg = "SELECT valRectificata AS 'vrOrg' from bugetORG  WHERE org= '" + comboOrg.getValue() + "'AND anulBugetar='"+comboBoxYearChose+"'";
-            String valFinalaOrg = "SELECT valFinala AS 'vfOrg' from bugetORG  WHERE org= '" + comboOrg.getValue() + "'AND anulBugetar='"+comboBoxYearChose+"'";
+            String valInitialaOrg = "SELECT valInitiala AS 'viOrg' from bugetORG  WHERE org= '" + comboOrg.getValue() + "' AND anulBugetar='"+comboBoxYearChose.getValue()+"'";
+            String valRectificataOrg = "SELECT valRectificata AS 'vrOrg' from bugetORG  WHERE org= '" + comboOrg.getValue() + "'AND anulBugetar='"+comboBoxYearChose.getValue()+"'";
+            String valFinalaOrg = "SELECT valFinala AS 'vfOrg' from bugetORG  WHERE org= '" + comboOrg.getValue() + "'AND anulBugetar='"+comboBoxYearChose.getValue()+"'";
 
 
             Statement stm2 = connection.createStatement();
@@ -292,7 +324,7 @@ public class ControllerStage03AdminBugete implements Initializable {
                 while (rsValInitOrg.next()) {
                     viOrg = (String) rsValInitOrg.getObject( "viOrg" );
                 }
-                txtValoareProjInitial.setText( viOrg );
+                txtValoareOrgInitial.setText( viOrg );
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -303,7 +335,7 @@ public class ControllerStage03AdminBugete implements Initializable {
                 while (rsValRectificareOrg.next()) {
                     vrOrg = (String) rsValRectificareOrg.getObject( "vrOrg" );
                 }
-                txtValoarareRectificareOrg.setText( vrOrg );
+                txtValoareRectificareOrg.setText( vrOrg );
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -321,8 +353,9 @@ public class ControllerStage03AdminBugete implements Initializable {
         } else {
             textFieldRectificareOrg.clear();
         }
+    }
 
-    }if(comboOrgType.getValue() == "Buget Initial"){
+        if(comboOrgType.getValue() == "Buget Initial" && txtValoareOrgInitial.getText().isEmpty()){
 //            double valIniOrg = (parseDouble( txtValoareOrgInitial.getText() ) * 100) / 100;
 //            double valRectConf = (parseDouble( textFieldRectificareOrg.getText() ) * 100) / 100;
 //            double valRectificareAnterioaraOrg = (parseDouble( txtValoarareRectificareOrg.getText() ) * 100) / 100;
@@ -332,29 +365,22 @@ public class ControllerStage03AdminBugete implements Initializable {
 
             Alert alert = new Alert( Alert.AlertType.CONFIRMATION );
             alert.setTitle( "Buget Initial!" );
-            alert.setHeaderText( "Bugetul Initial al: "+comboOrg.getValue()+" este de " + textFieldRectificareOrg.getText() + "?"  );
+            alert.setHeaderText( "Bugetul Initial al: "+comboOrg.getValue()+" pe anul "+ comboBoxYearChose.getValue()+" este de " + textFieldRectificareOrg.getText() + "?"  );
             alert.setContentText( "Valoarea initiala a proiectului este: " + textFieldRectificareOrg.getText() + "?   Este bine?" );
 
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.get() == ButtonType.OK) {
 
-                String addRectificareBugetProj = "UPDATE bugetORG SET valInitiala = '" + textFieldRectificareOrg.getText() + "'AND anulBugetar ='"+comboBoxYearChose.getValue()+"' WHERE org = '" + comboOrg.getValue() + "'";
+                stm.executeUpdate(  "INSERT INTO  bugetORG (org, denumireOrg, anulBugetar, valInitiala,valRectificata, valFinala) VALUES ('"+comboOrg.getValue()+"','"+txtDenOrg.getText()+"','"+comboBoxYearChose.getValue()+"','"+ textFieldRectificareOrg.getText() + "','0','"+ textFieldRectificareOrg.getText() + "') ");
 
-                try (PreparedStatement statement = connection.prepareStatement( addRectificareBugetProj )) {
-                    statement.executeUpdate( "UPDATE bugetORG SET valInitiala='" + textFieldRectificareOrg.getText() + "' WHERE org = '" + comboOrg.getValue() + "'" );
-                    statement.executeUpdate( "UPDATE bugetORG SET valFinala= '" + textFieldRectificareOrg.getText() + "' WHERE org = '" + comboOrg.getValue() + "'" );
-                    statement.executeUpdate( "UPDATE bugetORG SET anulBugetar= '" + comboBoxYearChose.getValue() + "' WHERE org = '" + comboOrg.getValue() + "'" );
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
                 textFieldRectificareOrg.clear();
                 buttonAplicaBugetOrg.setDisable( true );
+                checkOrg.isSelected();
 
-                String valInitialaOrg = "SELECT valInitiala AS 'viOrg' from bugetORG  WHERE org= '" + comboOrg.getValue() + "'";
-                String valRectificataOrg = "SELECT valRectificata AS 'vrOrg' from bugetORG  WHERE org= '" + comboOrg.getValue() + "'";
-                String valFinalaOrg = "SELECT valFinala AS 'vfOrg' from bugetORG  WHERE org= '" + comboOrg.getValue() + "'";
+                String valInitialaOrg = "SELECT valInitiala AS 'viOrg' from bugetORG  WHERE org= '" + comboOrg.getValue() + "' AND anulBugetar ='"+comboBoxYearChose.getValue()+"'";
+                String valRectificataOrg = "SELECT valRectificata AS 'vrOrg' from bugetORG  WHERE org= '" + comboOrg.getValue() + "' AND anulBugetar ='"+comboBoxYearChose.getValue()+"'";
+                String valFinalaOrg = "SELECT valFinala AS 'vfOrg' from bugetORG  WHERE org= '" + comboOrg.getValue() + "' AND anulBugetar ='"+comboBoxYearChose.getValue()+"'";
 
 
                 Statement stm2 = connection.createStatement();
@@ -376,7 +402,7 @@ public class ControllerStage03AdminBugete implements Initializable {
                     while (rsValRectificareOrg.next()) {
                         vrOrg = (String) rsValRectificareOrg.getObject( "vrOrg" );
                     }
-                    txtValoarareRectificareOrg.setText( vrOrg );
+                    txtValoareRectificareOrg.setText( vrOrg );
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -395,6 +421,12 @@ public class ControllerStage03AdminBugete implements Initializable {
                 textFieldRectificareOrg.clear();
             }
         }
+//        if ( txtValoareOrgInitial.getText().isEmpty()        ){
+//            Alert alert = new Alert( Alert.AlertType.INFORMATION );
+//            alert.setHeaderText( "Deja ai un sold initial pe organizatie si an!!" );
+//            alert.showAndWait();
+//            return;
+//        }
 
     }
 
@@ -654,12 +686,28 @@ public class ControllerStage03AdminBugete implements Initializable {
         comboBProj.setItems( FXCollections.observableArrayList(projActiv));
 
         comboOrgType.getItems().addAll( "Buget Initial", "Rectificare" );
+//        comboOrgType.getItems().add( 0, "Buget Initial" );
+//        comboOrgType.getItems().add( 1, "Rectificare" );
+//
+//        DefaultListSelectionModel model = new DefaultListSelectionModel();
+//        model.addSelectionInterval( 0, 0 );
+//        model.addSelectionInterval( 1,1 );
+//
+
+        String orgExistenteInBDOrg = "SELECT org AS 'orgExistentInBD' from bugetOrg";
+
+
+
         comboBoxYearChose.getItems().addAll( "2021", "2022","2023","2024","2025","2026","2027","2028","2029","2030" );
 
         comboOrgType.setDisable( true );
         buttonAplicaBugetContract.setDisable( true );
         buttonAplicaBugetOrg.setDisable( true );
         buttonAplicaBugetProj.setDisable( true );
+
+        checkOrg.setDisable( true );
+        checkProj.setDisable( true );
+        checkContract.setDisable( true );
     }
 
 
