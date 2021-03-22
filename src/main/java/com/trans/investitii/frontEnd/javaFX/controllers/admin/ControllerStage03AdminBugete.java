@@ -30,7 +30,7 @@ public class ControllerStage03AdminBugete implements Initializable {
 
 
     public ComboBox comboOrg;
-    public ComboBox comboOrgType;
+//    public ComboBox comboOrgType;///scoasa
     public ComboBox comboBProj;
     public ComboBox comboBContract;
     public Button buttonAplicaBugetOrg;
@@ -56,6 +56,8 @@ public class ControllerStage03AdminBugete implements Initializable {
     public TextField textFieldRectificareProj;
     public ComboBox comboBoxYearChose;
     public Text txtDenOrg;
+    public CheckBox checkOrgBugetInitial;
+    public CheckBox checkOrgRectificareBuget;
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
     Statement stm = connection.createStatement();
@@ -65,12 +67,11 @@ public class ControllerStage03AdminBugete implements Initializable {
 
 
     public void comboOrgAction ( ActionEvent event )  {
-        checkOrg.setDisable( false );
         comboBoxYearChose.setDisable( false );
     }
 
     public void comboBYearAction ( ActionEvent event ) throws SQLException {
-
+        checkOrg.setDisable( false );
 
         String denOrg = "SELECT denumireOrg AS 'denumire' from bugetORG WHERE org= '"+comboOrg.getValue()+"'AND anulBugetar='"+comboBoxYearChose.getValue()+"'";
         int an= parseInt(comboBoxYearChose.getValue().toString())-1;
@@ -86,7 +87,6 @@ public class ControllerStage03AdminBugete implements Initializable {
             while (rsDenOrg.next()){
                 denumireOrg= (String) rsDenOrg.getObject( "denumire" );
             }
-            System.out.println(an );
             txtDenOrg.setText( denumireOrg );
         } catch (Exception e) {
             e.printStackTrace();
@@ -136,10 +136,6 @@ public class ControllerStage03AdminBugete implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void comboOrgTypeAction ( ActionEvent event ) {
-
     }
 
     public void comboBProjAction ( ActionEvent event ) throws SQLException {
@@ -274,14 +270,14 @@ public class ControllerStage03AdminBugete implements Initializable {
             alert.showAndWait();
             return;
         }
-        if (comboOrgType.getValue()==null){
+        if (!checkOrgRectificareBuget.isSelected() && !checkOrgBugetInitial.isSelected()){
             Alert alert = new Alert( Alert.AlertType.INFORMATION );
             alert.setHeaderText( "Alege ce vrei sa modifici!" );
             alert.showAndWait();
             return;
         }
 
-    if (comboOrgType.getValue() == "Rectificare" ) {
+    if (checkOrgRectificareBuget.isSelected() ) {
         double valIniOrg = (parseDouble( txtValoareOrgInitial.getText() ) * 100) / 100;
         double valRectConf = (parseDouble( textFieldRectificareOrg.getText() ) * 100) / 100;
 
@@ -355,13 +351,7 @@ public class ControllerStage03AdminBugete implements Initializable {
         }
     }
 
-        if(comboOrgType.getValue() == "Buget Initial" && txtValoareOrgInitial.getText().isEmpty()){
-//            double valIniOrg = (parseDouble( txtValoareOrgInitial.getText() ) * 100) / 100;
-//            double valRectConf = (parseDouble( textFieldRectificareOrg.getText() ) * 100) / 100;
-//            double valRectificareAnterioaraOrg = (parseDouble( txtValoarareRectificareOrg.getText() ) * 100) / 100;
-//            double valrRectificareTotala = valRectConf + valRectificareAnterioaraOrg;
-//            double valFinConfirnata = valIniOrg + valRectConf + valRectificareAnterioaraOrg;
-//            double valFinConfirnata = valIniOrg + valRectConf + valRectificareAnterioaraOrg;
+        if(checkOrgBugetInitial.isSelected() && txtValoareOrgInitial.getText().isEmpty()){
 
             Alert alert = new Alert( Alert.AlertType.CONFIRMATION );
             alert.setTitle( "Buget Initial!" );
@@ -421,13 +411,11 @@ public class ControllerStage03AdminBugete implements Initializable {
                 textFieldRectificareOrg.clear();
             }
         }
-//        if ( txtValoareOrgInitial.getText().isEmpty()        ){
-//            Alert alert = new Alert( Alert.AlertType.INFORMATION );
-//            alert.setHeaderText( "Deja ai un sold initial pe organizatie si an!!" );
-//            alert.showAndWait();
-//            return;
-//        }
-
+        checkOrg.setSelected( false );
+        checkOrgBugetInitial.setSelected( false );
+        checkOrgRectificareBuget.setSelected( false );
+        checkOrgRectificareBuget.setDisable( true );
+        checkOrgBugetInitial.setDisable( true );
     }
 
     public void buttonAplicaBugetProjAction ( ActionEvent event ) throws SQLException {
@@ -523,8 +511,8 @@ public class ControllerStage03AdminBugete implements Initializable {
                 }
             }
         }
+        checkProj.setSelected( false );
     }
-
 
     public void buttonAplicaBugetContractAction ( ActionEvent event ) throws SQLException {
         if (txtValoareContractInitial.getText().isEmpty()) {
@@ -616,6 +604,7 @@ public class ControllerStage03AdminBugete implements Initializable {
                 }
             }
         }
+        checkContract.setSelected( false );
     }
 
     public void goOnStage0 ( ActionEvent event ) throws IOException {
@@ -627,14 +616,24 @@ public class ControllerStage03AdminBugete implements Initializable {
     }
 
     public void checkOrgAction ( ActionEvent event ) {
+
         if (checkOrg.isSelected()){
-            comboOrgType.setDisable( false );
-            comboBoxYearChose.setDisable( false );
-            buttonAplicaBugetOrg.setDisable( false );
+                    if  (txtValoareOrgInitial.getText()=="0" || txtValoareOrgInitial.getText()==null || txtValoareOrgInitial.getText()==""){
+                        checkOrgBugetInitial.setDisable( false );
+                        checkOrgRectificareBuget.setDisable( true );
+                        buttonAplicaBugetOrg.setDisable( false );
+                    }
+                    else {
+                        checkOrgBugetInitial.setDisable( true );
+                        checkOrgRectificareBuget.setDisable( false );
+                        buttonAplicaBugetOrg.setDisable( false );
+                    }
         }
-        if (!checkOrg.isSelected()){
-            comboOrgType.setDisable( true );
-            comboBoxYearChose.setDisable( true );
+        else {
+            checkOrgBugetInitial.setSelected( false );
+            checkOrgRectificareBuget.setSelected( false );
+            checkOrgRectificareBuget.setDisable( true );
+            checkOrgBugetInitial.setDisable( true );
             buttonAplicaBugetOrg.setDisable( true );
         }
     }
@@ -685,7 +684,7 @@ public class ControllerStage03AdminBugete implements Initializable {
                 .collect( Collectors.toList() );
         comboBProj.setItems( FXCollections.observableArrayList(projActiv));
 
-        comboOrgType.getItems().addAll( "Buget Initial", "Rectificare" );
+//        comboOrgType.getItems().addAll( "Buget Initial", "Rectificare" );
 //        comboOrgType.getItems().add( 0, "Buget Initial" );
 //        comboOrgType.getItems().add( 1, "Rectificare" );
 //
@@ -700,7 +699,9 @@ public class ControllerStage03AdminBugete implements Initializable {
 
         comboBoxYearChose.getItems().addAll( "2021", "2022","2023","2024","2025","2026","2027","2028","2029","2030" );
 
-        comboOrgType.setDisable( true );
+//        comboOrgType.setDisable( true );
+        checkOrgBugetInitial.setDisable( true );
+        checkOrgRectificareBuget.setDisable( true );
         buttonAplicaBugetContract.setDisable( true );
         buttonAplicaBugetOrg.setDisable( true );
         buttonAplicaBugetProj.setDisable( true );
@@ -708,7 +709,13 @@ public class ControllerStage03AdminBugete implements Initializable {
         checkOrg.setDisable( true );
         checkProj.setDisable( true );
         checkContract.setDisable( true );
+        comboBoxYearChose.setDisable( true );
     }
 
 
+    public void checkOrgBugetInitialAction ( ActionEvent event ) {
+    }
+
+    public void checkOrgRectificareBugetAction ( ActionEvent event ) {
+    }
 }

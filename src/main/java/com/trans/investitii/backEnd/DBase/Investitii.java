@@ -11,7 +11,7 @@ public class Investitii {
     public static final String USE_DATABASE = "USE invDB";
     public static String URL0 = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","sys" );
     public static String URL = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","invDB" );
-    public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS invTBL (nrCrt INT(5) AUTO_INCREMENT PRIMARY KEY, furnizor CHAR(70) not null, nrFactura char(20) , dataFacturii DATE, dataContabilizarii DATE, valoare varCHAR(20), nrPIF CHAR (50), dataPIF DATE, valInitiala varCHAR(20), tva varCHAR(20), valTot varCHAR(20), contract CHAR(10), contInv CHAR(20), contFz CHAR(20), nrProiect CHAR(20), deviz CHAR(20), org CHAR(10), respProiect CHAR(50))";
+    public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS invTBL (nrCrt INT(5) AUTO_INCREMENT PRIMARY KEY, furnizor CHAR(70) not null, nrFactura char(20) , dataFacturii DATE, dataContabilizarii DATE, valoare varCHAR(20), nrPIF CHAR (50), dataPIF DATE, descriereFactura varChar(100), valInitiala varCHAR(20), tva varCHAR(20), valTot varCHAR(20), contract CHAR(10), contInv CHAR(20), contFz CHAR(20), nrProiect CHAR(20), deviz CHAR(20), org CHAR(10), respProiect CHAR(50))";
     public static final String CREATE_TABLE_BUGET_ORG = "CREATE TABLE IF NOT EXISTS bugetORG (nrCrt INT(5) AUTO_INCREMENT PRIMARY KEY, org CHAR(10) NOT NULL,denumireOrg CHAR(70), anulBugetar CHAR(4), valInitiala varChar(10), valRectificata CHAR(10), valFinala CHAR(10))";
     public static final String CREATE_TABLE_BUGET_PROJ = "CREATE TABLE IF NOT EXISTS bugetPROJ (nrCrt INT(5) AUTO_INCREMENT PRIMARY KEY, nrProiect CHAR(20), denProiect CHAR(200), startProiect DATE, valInitiala VARCHAR(10), valRectificare VARCHAR(10) NOT NULL, valFinala VARCHAR(10))";
     public static final String CREATE_TABLE_BUGET_CONTRACT = "CREATE TABLE IF NOT EXISTS bugetCONTRACT (nrCrt INT(5) AUTO_INCREMENT PRIMARY KEY, nrContract CHAR(20), furnizor CHAR(80), CUIfurnizor CHAR(10), adresa CHAR (100),valInitiala VARCHAR(10), valRectificare VARCHAR(10) NOT NULL, valFinala VARCHAR(10) )";
@@ -37,6 +37,7 @@ public class Investitii {
     private Object respProiect;
     private Object alegeColumn;
     private String addContract;
+    private String descriereFactura;
 
     // bugetcontract
     private String CUIfurnizor;
@@ -230,9 +231,15 @@ public class Investitii {
         this.org = org;
     }
 
+    public String getDescriereFactura () {return descriereFactura;}
+
+    public void setDescriereFactura ( String descriereFactura ) {
+        this.descriereFactura = descriereFactura;
+    }
+
 
     //constructor pt ctrl1StageIntro
-    public Investitii ( Object furnizor, String nrfactura, String valoare, LocalDate dataFacturii, LocalDate dataContabilizarii, Object contract, Object ctInv, Object ctFz,  Object respProj, Object deviz, Object org, Object  nrProj ) {
+    public Investitii ( Object furnizor, String nrfactura, String valoare, LocalDate dataFacturii, LocalDate dataContabilizarii, Object contract, Object ctInv, Object ctFz,  Object respProj, Object deviz, Object org, Object  nrProj, String descriereFactura ) {
         this.furnizor=furnizor;
         this.nrFactura = nrfactura;
         this.valoare= valoare;
@@ -245,6 +252,7 @@ public class Investitii {
         this.deviz=deviz;
         this.org=org;
         this.respProiect=respProj;
+        this.descriereFactura=descriereFactura;
     }
     // constructor pentru popularea listei definite in CtrlStage1Intro
     public Investitii ( Object furnizor, String nrFactura, String valoare, Object contInv, Object nrProiect, Object respProiect, String dataContabilizarii ) {

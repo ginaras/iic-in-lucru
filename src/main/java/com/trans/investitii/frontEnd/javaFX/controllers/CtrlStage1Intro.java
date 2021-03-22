@@ -61,6 +61,8 @@ public class CtrlStage1Intro implements Initializable {
     public Button ButtonSt2Rapoarte;
     public Button butonStage3Rapoarte;
     public Button goToStage4Pif;
+    public TextField fieldDescriere;
+    public CheckBox checkTVA;
 
     @FXML
     TableView <Investitii> tableView;
@@ -110,7 +112,7 @@ public class CtrlStage1Intro implements Initializable {
 
     }
     public void addFactToSQL (Connection connection){
-        String addSql = "INSERT INTO invTBL  (furnizor, nrFactura, dataFacturii, dataContabilizarii, valoare, valInitiala tva, valTot, contract, contInv, contFz, nrProiect, deviz, org, respProiect)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String addSql = "INSERT INTO invTBL  (furnizor, nrFactura, dataFacturii, dataContabilizarii, valoare, valInitiala tva, valTot, contract, contInv, contFz, nrProiect, deviz, org, respProiect, descriereaFacturii)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try (PreparedStatement statement = connection.prepareStatement(addSql) ){
 
             Investitii newInvestitii = new Investitii(
@@ -125,30 +127,59 @@ public class CtrlStage1Intro implements Initializable {
                     comboBoxRespProj.getValue(),
                     comboBoxDeviz.getValue(),
                     comboBoxOrg.getValue(),
-                    cBProjNr.getValue());
+                    cBProjNr.getValue(),
+                    fieldDescriere.getText());
 
            if(!fieldValFact.getText().isEmpty() || !(fieldDataGL.getValue() ==null) || !(fieldDataFactura.getValue()==null))
             {
-               double val= parseDouble( fieldValFact.getText());
+                if (checkTVA.isSelected()){
+                       double val= parseDouble( fieldValFact.getText());
+                            val = Math.round( val*100);
+                            val = val/100;
+                       double tva0 = val * 0;
+                       tva0 = Math.round( tva0 * 100 );
+                       double tva = tva0 / 100;
+                       double valTot = val + tva;
+                       valTot = Math.round( valTot * 100 );
+                       valTot = valTot / 100;
+
+                       statement.executeUpdate( "INSERT INTO invTBL (furnizor, nrFactura, dataFacturii, dataContabilizarii, valoare, valInitiala, tva, valTot, contract, contInv, contFz, nrProiect, deviz, org, respProiect, descriereFactura) VALUES('"+comBoboxFz.getValue()+"','" +fieldNrFact.getText().toUpperCase()+ "','" +fieldDataFactura.getValue()+ " ',' " +fieldDataGL.getValue() + "','" +val+ " ','" +val+ " ',' " +tva+ " ' , '" +valTot+ " ',' " +
+                               comboBoxContract.getValue()+ "','" +comboBoxCtInv.getValue()+ "','" +cBCtFz.getValue()+ "','" +cBProjNr.getValue()+ "','" +comboBoxDeviz.getValue() +"','"+comboBoxOrg.getValue()+"','"+comboBoxRespProj.getValue()+"','"+fieldDescriere.getText()+"')" );
+
+                       Alert confirm = new Alert( Alert.AlertType.INFORMATION );
+                       confirm.setHeaderText( "Factura a fost adaugata" );
+                       confirm.setContentText( "TVA :  " + tva + "   Valoare Totala  : " + valTot );
+                       confirm.show();
+
+                       tableView.getItems().addAll( newInvestitii ); // adauga campuri in tabel)
+                }
+                if (!checkTVA.isSelected()){
+                    double val= parseDouble( fieldValFact.getText());
                     val = Math.round( val*100);
                     val = val/100;
-               double tva0 = val * 0.19;
-               tva0 = Math.round( tva0 * 100 );
-               double tva = tva0 / 100;
-               double valTot = val + tva;
-               valTot = Math.round( valTot * 100 );
-               valTot = valTot / 100;
+                    double tva0 = val * 0.19;
+                    tva0 = Math.round( tva0 * 100 );
+                    double tva = tva0 / 100;
+                    double valTot = val + tva;
+                    valTot = Math.round( valTot * 100 );
+                    valTot = valTot / 100;
 
-               statement.executeUpdate( "INSERT INTO invTBL (furnizor, nrFactura, dataFacturii, dataContabilizarii, valoare, valInitiala, tva, valTot, contract, contInv, contFz, nrProiect, deviz, org, respProiect) VALUES('"+comBoboxFz.getValue()+"','" +fieldNrFact.getText().toUpperCase()+ "','" +fieldDataFactura.getValue()+ " ',' " +fieldDataGL.getValue() + "','" +val+ " ','" +val+ " ',' " +tva+ " ' , '" +valTot+ " ',' " +
-                       comboBoxContract.getValue()+ "','" +comboBoxCtInv.getValue()+ "','" +cBCtFz.getValue()+ "','" +cBProjNr.getValue()+ "','" +comboBoxDeviz.getValue() +"','"+comboBoxOrg.getValue()+"','"+comboBoxRespProj.getValue()+"')" );
+                    statement.executeUpdate( "INSERT INTO invTBL (furnizor, nrFactura, dataFacturii, dataContabilizarii, valoare, valInitiala, tva, valTot, contract, contInv, contFz, nrProiect, deviz, org, respProiect, descriereFactura) VALUES('"+comBoboxFz.getValue()+"','" +fieldNrFact.getText().toUpperCase()+ "','" +fieldDataFactura.getValue()+ " ',' " +fieldDataGL.getValue() + "','" +val+ " ','" +val+ " ',' " +tva+ " ' , '" +valTot+ " ',' " +
+                            comboBoxContract.getValue()+ "','" +comboBoxCtInv.getValue()+ "','" +cBCtFz.getValue()+ "','" +cBProjNr.getValue()+ "','" +comboBoxDeviz.getValue() +"','"+comboBoxOrg.getValue()+"','"+comboBoxRespProj.getValue()+"','"+fieldDescriere.getText()+"')" );
+//
+                    Alert confirm = new Alert( Alert.AlertType.INFORMATION );
+                    confirm.setHeaderText( "Factura a fost adaugata" );
+                    confirm.setContentText( "TVA:  " + tva + "    Valoare Totala:   " + valTot );
+                    confirm.show();
 
-               Alert confirm = new Alert( Alert.AlertType.INFORMATION );
-               confirm.setHeaderText( "Factura a fost adaugata" );
-               confirm.setContentText( "TVA:" + tva + "  Valoare Totala: " + valTot );
-               confirm.show();
+                    tableView.getItems().addAll( newInvestitii ); // adauga campuri in tabel)
+                }
 
-               tableView.getItems().addAll( newInvestitii ); // adauga campuri in tabel)
-           }  } catch (SQLException throwables) {
+
+
+
+            }
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
@@ -262,6 +293,7 @@ public class CtrlStage1Intro implements Initializable {
         cBProjNr.getSelectionModel().select( null);
         comboBoxDeviz.getSelectionModel().select( null);
         comboBoxOrg.getSelectionModel().select( null);
+        fieldDescriere.clear();
     }
 
     public void validareCampuri() throws InterruptedException {
@@ -348,19 +380,60 @@ public class CtrlStage1Intro implements Initializable {
             alert.showAndWait();
             return;
         }
+        if (fieldDescriere.getText().isEmpty()) {
+            Alert alert = new Alert( Alert.AlertType.INFORMATION );
+            alert.setHeaderText( "Completeaza obiectul facturii" );
+            alert.showAndWait();
+            return;
+        }
 
         if (   comBoboxFz.getValue() != null && !fieldNrFact.getText().isEmpty() && !fieldValFact.getText().isEmpty()
                 && fieldDataFactura.getValue() != null && fieldDataGL.getValue() != null
                 && !(comboBoxContract.getValue() == null) && !(comboBoxCtInv.getValue() == null) && !(cBCtFz.getValue() == null)
                 && !(cBProjNr.getValue() == null) && !(comboBoxDeviz.getValue() == null)
-                && !(comboBoxOrg.getValue() == null) && !(comboBoxRespProj.getValue() == null))
+                && !(comboBoxOrg.getValue() == null) && !(comboBoxRespProj.getValue() == null)
+                && !fieldDescriere.getText().isEmpty())
         {
             Alert alert = new Alert( Alert.AlertType.INFORMATION );
             alert.setHeaderText( "Toate campurile au fost completate!" );
             alert.showAndWait();
             addFacturaButtonId.setDisable( false );
         }
-    }
+
+
+        if (checkTVA.isSelected()){
+            double val= parseDouble( fieldValFact.getText());
+            val = Math.round( val*100);
+            val = val/100;
+            double tva0 = val * 0;
+            tva0 = Math.round( tva0 * 100 );
+            double tva = tva0 / 100;
+            double valTot = val + tva;
+            valTot = Math.round( valTot * 100 );
+            valTot = valTot / 100;
+
+            Alert confirm = new Alert( Alert.AlertType.INFORMATION );
+            confirm.setHeaderText( "Factura nu are TVA" );
+            confirm.setContentText( "TVA   :" + tva + "     Valoare Totala:   " + valTot );
+            confirm.show();
+        }
+        if (!checkTVA.isSelected()) {
+            double val = parseDouble( fieldValFact.getText() );
+            val = Math.round( val * 100 );
+            val = val / 100;
+            double tva0 = val * 0.19;
+            tva0 = Math.round( tva0 * 100 );
+            double tva = tva0 / 100;
+            double valTot = val + tva;
+            valTot = Math.round( valTot * 100 );
+            valTot = valTot / 100;
+
+            Alert confirm = new Alert( Alert.AlertType.INFORMATION );
+            confirm.setHeaderText( "Factura are TVA" );
+            confirm.setContentText( "TVA :  " + tva + "    Valoare Totala : " + valTot );
+            confirm.show();
+        }
+        }
 
     public void goOnStage3Rapoarte ( ActionEvent event ) throws IOException {
         Parent stage3Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage3RapoarteInv.fxml" ) );

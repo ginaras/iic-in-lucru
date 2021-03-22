@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trans.investitii.frontEnd.javaFX.controllers.admin.ControllerStage03AdminBugete">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="530.0" layoutX="26.0" layoutY="177.0" stroke="BLACK" strokeType="INSIDE" width="349.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="530.0" layoutX="33.0" layoutY="180.0" stroke="BLACK" strokeType="INSIDE" width="349.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="530.0" layoutX="428.0" layoutY="176.0" stroke="BLACK" strokeType="INSIDE" width="349.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="530.0" layoutX="827.0" layoutY="174.0" stroke="BLACK" strokeType="INSIDE" width="349.0" />
       <Rectangle arcHeight="5.0" arcWidth="20.0" fill="#065bab" height="110.0" layoutX="4.0" layoutY="3.0" stroke="BLACK" strokeDashOffset="5.0" strokeLineJoin="BEVEL" strokeWidth="10.0" width="1190.0" />
@@ -83,15 +83,15 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <Text fx:id="txtValoareOrgInitial" fontSmoothingType="LCD" layoutX="192.0" layoutY="396.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare initiala" />
-      <Text fx:id="txtValoareRectificareOrg" layoutX="192.0" layoutY="430.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare rectificare" />
-      <Text fx:id="txtValoareFinalaOrg" layoutX="192.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare finala" />
-      <Text fx:id="txtValoareFinalaProj" layoutX="581.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare finala" />
-      <Text fx:id="txtValoarareRectificareProj" layoutX="581.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare rectificare" />
-      <Text fx:id="txtValoareProjInitial" layoutX="581.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare initiala proiect" />
-      <Text fx:id="txtValoareContractInitial" layoutX="999.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text fx:id="txtValoarareRectificareContract" layoutX="1000.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoarare rectificare" />
-      <Text fx:id="txtValoareFinalaContract" layoutX="999.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare finala" />
+      <Text fx:id="txtValoareOrgInitial" fontSmoothingType="LCD" layoutX="192.0" layoutY="396.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fx:id="txtValoareRectificareOrg" layoutX="192.0" layoutY="430.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fx:id="txtValoareFinalaOrg" layoutX="192.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fx:id="txtValoareFinalaProj" layoutX="581.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fx:id="txtValoarareRectificareProj" layoutX="581.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fx:id="txtValoareProjInitial" layoutX="581.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fx:id="txtValoareContractInitial" layoutX="999.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fx:id="txtValoarareRectificareContract" layoutX="1000.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fx:id="txtValoareFinalaContract" layoutX="1002.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
       <Text layoutX="491.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Evidenta bugetelor">
          <font>
             <Font size="24.0" />
@@ -99,7 +99,6 @@
       </Text>
       <Text layoutX="1091.0" layoutY="781.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bySorinGinara" />
       <ComboBox fx:id="comboOrg" layoutX="47.0" layoutY="273.0" onAction="#comboOrgAction" prefWidth="150.0" promptText="Organizatie" />
-      <ComboBox fx:id="comboOrgType" layoutX="105.0" layoutY="560.0" onAction="#comboOrgTypeAction" prefHeight="31.0" prefWidth="157.0" promptText="Varianta Buget" />
       <ComboBox fx:id="comboBProj" layoutX="527.0" layoutY="273.0" onAction="#comboBProjAction" prefWidth="150.0" promptText="Proiect" />
       <ComboBox fx:id="comboBContract" layoutX="931.0" layoutY="272.0" onAction="#comboBContractAction" prefWidth="150.0" promptText="Contract" />
       <Button fx:id="buttonAplicaBugetOrg" layoutX="247.0" layoutY="613.0" mnemonicParsing="false" onAction="#buttonAplicaBugetOrgAction" prefHeight="11.0" prefWidth="119.0" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Aplica" textFill="#fcfbf5">
@@ -162,8 +161,8 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <CheckBox fx:id="checkOrg" layoutX="331.0" layoutY="533.0" mnemonicParsing="false" onAction="#checkOrgAction" />
-      <Label layoutX="36.0" layoutY="533.0" text="Selecteaza pentru a putea modifica datele" />
+      <CheckBox fx:id="checkOrg" layoutX="343.0" layoutY="496.0" mnemonicParsing="false" onAction="#checkOrgAction" />
+      <Label layoutX="48.0" layoutY="495.0" text="Selecteaza pentru a putea modifica datele" />
       <Label layoutX="477.0" layoutY="543.0" text="Selecteaza pentru a putea rectifica" />
       <CheckBox fx:id="checkProj" layoutX="582.0" layoutY="582.0" mnemonicParsing="false" onAction="#checkProjAction" />
       <Label layoutX="868.0" layoutY="540.0" text="Selecteaza pentru a putea rectifica" />
@@ -192,5 +191,9 @@
       <Text fx:id="txtDenProj" layoutX="522.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denumire Proiect" />
       <Text fx:id="txtDenFurnizor" layoutX="942.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nume furnizor" />
       <Text fx:id="txtDenOrg" layoutX="128.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denumire Org" />
+      <CheckBox fx:id="checkOrgBugetInitial" layoutX="105.0" layoutY="544.0" mnemonicParsing="false" onAction="#checkOrgBugetInitialAction" />
+      <CheckBox fx:id="checkOrgRectificareBuget" layoutX="105.0" layoutY="573.0" mnemonicParsing="false" onAction="#checkOrgRectificareBugetAction" />
+      <Label layoutX="140.0" layoutY="544.0" text="Adauga buget initial" />
+      <Label layoutX="140.0" layoutY="574.0" text="Adauga rectificarea de buget" />
    </children>
 </AnchorPane>

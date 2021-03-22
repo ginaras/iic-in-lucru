@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
+
 <AnchorPane prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trans.investitii.frontEnd.javaFX.controllers.CtrlStage1Intro">
    <children>
       <AnchorPane layoutX="-2.0" layoutY="1.0" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: fff;">
          <children>
+            <Rectangle arcHeight="5.0" arcWidth="20.0" fill="#065bab" height="110.0" layoutX="5.0" layoutY="4.0" stroke="BLACK" strokeDashOffset="5.0" strokeLineJoin="BEVEL" strokeWidth="10.0" width="1190.0" />
             <Label fx:id="furnizor" layoutX="51.0" layoutY="160.0" text="Furnizor" />
             <Label fx:id="nrFactura" layoutX="397.0" layoutY="160.0" text="Nr Factura" />
             <Label fx:id="valoare" layoutX="558.0" layoutY="160.0" text="Valoare" />
@@ -26,13 +31,36 @@
             <TextField fx:id="fieldValFact" layoutX="549.0" layoutY="197.0" prefHeight="31.0" prefWidth="157.0" promptText="Valoare" style="-fx-background-radius: 10;" />
             <DatePicker fx:id="fieldDataFactura" layoutX="722.0" layoutY="197.0" prefHeight="31.0" prefWidth="150.0" promptText="data fact" style="-fx-background-radius: 10;" />
             <DatePicker fx:id="fieldDataGL" layoutX="883.0" layoutY="197.0" prefHeight="31.0" prefWidth="157.0" promptText="data GL" style="-fx-background-radius: 10;" />
+            <ComboBox fx:id="comboBoxRespProj" layoutX="1061.0" layoutY="197.0" prefHeight="31.0" prefWidth="115.0" promptText="Resp proiect" style="-fx-background-radius: 10;" />
             <ComboBox fx:id="comboBoxContract" layoutX="20.0" layoutY="308.0" prefHeight="31.0" prefWidth="115.0" promptText="contract" style="-fx-background-radius: 10;" />
             <ComboBox fx:id="comboBoxCtInv" layoutX="183.0" layoutY="308.0" prefHeight="31.0" prefWidth="180.0" promptText="ct investitii" style="-fx-background-radius: 10;" />
             <ComboBox fx:id="cBCtFz" layoutX="403.0" layoutY="308.0" prefHeight="31.0" prefWidth="143.0" promptText="ct. furnizori" style="-fx-background-radius: 10;" />
+            <ComboBox fx:id="cBProjNr" layoutX="587.0" layoutY="308.0" prefHeight="31.0" prefWidth="281.0" promptText="Nr Proiect" style="-fx-background-radius: 10;" />
             <ComboBox fx:id="comboBoxDeviz" layoutX="892.0" layoutY="308.0" prefHeight="31.0" prefWidth="150.0" promptText="deviz" style="-fx-background-radius: 10;" />
             <ComboBox fx:id="comboBoxOrg" layoutX="1069.0" layoutY="308.0" prefHeight="31.0" prefWidth="115.0" promptText="Org" style="-fx-background-radius: 10;" />
-            <ComboBox fx:id="comboBoxRespProj" layoutX="1061.0" layoutY="197.0" prefHeight="31.0" prefWidth="115.0" promptText="Resp proiect" style="-fx-background-radius: 10;" />
-            <Button fx:id="addFacturaButtonId" layoutX="1014.0" layoutY="384.0" mnemonicParsing="false" onAction="#addFacturaButton" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Adauga factura" textFill="#fcfbf5">
+            <TextField fx:id="fieldDescriere" layoutX="265.0" layoutY="389.0" prefHeight="31.0" prefWidth="570.0" promptText="descriere" style="-fx-background-radius: 10;" />
+            <CheckBox fx:id="checkTVA" layoutX="881.0" layoutY="390.0" mnemonicParsing="false" text="Fara TVA" />
+            <Button fx:id="validFacturaButton" layoutX="865.0" layoutY="448.0" mnemonicParsing="false" onAction="#validareCampuri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Valideaza factura" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="addFacturaButtonId" layoutX="1014.0" layoutY="448.0" mnemonicParsing="false" onAction="#addFacturaButton" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Adauga factura" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
                      <input>
@@ -89,40 +117,6 @@
                <font>
                   <Font size="16.0" />
                </font></Button>
-            <ComboBox fx:id="cBProjNr" layoutX="587.0" layoutY="308.0" prefHeight="31.0" prefWidth="281.0" promptText="Nr Proiect" style="-fx-background-radius: 10;" />
-            <Label layoutX="66.0" layoutY="392.0" text="Ai introdus" />
-            <TableView fx:id="tableView" layoutX="41.0" layoutY="421.0" prefHeight="200.0" prefWidth="761.0" style="-fx-background-radius: 10;">
-              <columns>
-                  <TableColumn fx:id="furnizorColumn" prefWidth="153.0" text="Furnizor" />
-                  <TableColumn fx:id="facturaColumn" prefWidth="78.0" text="Factura" />
-                  <TableColumn fx:id="valoareColumn" minWidth="5.0" prefWidth="121.0" text="Valoare" />
-                  <TableColumn fx:id="nrProjColumn" minWidth="0.0" prefWidth="82.0" text=" Proiect" />
-                  <TableColumn fx:id="contInvColumn" prefWidth="102.0" text="Cont investitii" />
-                  <TableColumn fx:id="respProjColumn" prefWidth="103.0" text="Resp proiect" />
-                  <TableColumn fx:id="dataContabilizarii" prefWidth="129.0" text="Data contabilizarii" />
-              </columns>
-            </TableView>
-            <Button fx:id="validFacturaButton" layoutX="865.0" layoutY="384.0" mnemonicParsing="false" onAction="#validareCampuri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Valideaza factura" textFill="#fcfbf5">
-               <effect>
-                  <Bloom threshold="0.1">
-                     <input>
-                        <Blend mode="SRC_ATOP" opacity="0.57">
-                           <topInput>
-                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
-                                 <bumpInput>
-                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
-                                 </bumpInput>
-                              </Lighting>
-                           </topInput>
-                        </Blend>
-                     </input>
-                  </Bloom>
-               </effect>
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Rectangle arcHeight="5.0" arcWidth="20.0" fill="#065bab" height="110.0" layoutX="5.0" layoutY="4.0" stroke="BLACK" strokeDashOffset="5.0" strokeLineJoin="BEVEL" strokeWidth="10.0" width="1190.0" />
             <Button fx:id="butonStage3Rapoarte" layoutX="390.0" layoutY="717.0" mnemonicParsing="false" onAction="#goOnStage3Rapoarte" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte Sumarizate" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
@@ -163,6 +157,19 @@
                   <Font size="16.0" />
                </font>
             </Button>
+            <Label layoutX="66.0" layoutY="442.0" text="Ai introdus" />
+            <TableView fx:id="tableView" layoutX="41.0" layoutY="467.0" prefHeight="200.0" prefWidth="761.0" style="-fx-background-radius: 10;">
+              <columns>
+                  <TableColumn fx:id="furnizorColumn" prefWidth="153.0" text="Furnizor" />
+                  <TableColumn fx:id="facturaColumn" prefWidth="78.0" text="Factura" />
+                  <TableColumn fx:id="valoareColumn" minWidth="5.0" prefWidth="121.0" text="Valoare" />
+                  <TableColumn fx:id="nrProjColumn" minWidth="0.0" prefWidth="82.0" text=" Proiect" />
+                  <TableColumn fx:id="contInvColumn" prefWidth="102.0" text="Cont investitii" />
+                  <TableColumn fx:id="respProjColumn" prefWidth="103.0" text="Resp proiect" />
+                  <TableColumn fx:id="dataContabilizarii" prefWidth="129.0" text="Data contabilizarii" />
+              </columns>
+            </TableView>
+            <Label layoutX="35.0" layoutY="395.0" text="Descrierea obiectului facturii" />
          </children>
          <effect>
             <Blend />
