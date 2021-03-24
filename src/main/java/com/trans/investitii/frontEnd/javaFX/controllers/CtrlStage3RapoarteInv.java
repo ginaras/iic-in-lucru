@@ -67,11 +67,14 @@ public class CtrlStage3RapoarteInv implements Initializable {
     public ComboBox comboBoxButtonFz;
     public ComboBox comboBoxButtonOrg;
     public ComboBox comboBoxButtonProj;
+    public ComboBox comboBoxButtonOrgYear;
     public Button resetButton;
     public Button selectButton;
     public Button butonStage2Rapoarte;
     public Button goToStage4Pif;
     public Button butonStage1Intro;
+    public ComboBox comboBoxButtonFzContract;
+
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
     Statement stm = connection.createStatement();
@@ -84,6 +87,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
 
     @Override
     public void initialize ( URL location, ResourceBundle resources ) {
+        comboBoxButtonFzContract.setDisable( true );
         List<String> myListFz = null;
         List<String> myListProj = null;
         List<String> myListOrg = null;
@@ -130,6 +134,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
 
         Object valueProj = comboBoxButtonProj.getValue();
         Object valueFz = comboBoxButtonFz.getValue();
+        Object valueCtr= comboBoxButtonFzContract.getValue();
         Object valueOrg = comboBoxButtonOrg.getValue();
 
         if(valueProj ==null && valueFz==null && valueOrg==null)    {
@@ -296,19 +301,35 @@ public class CtrlStage3RapoarteInv implements Initializable {
 
 
         if(valueFz !=null && valueOrg==null && valueProj==null) {
-                query2 +="furnizor='"+valueFz.toString()+"' ";
-                Statement stm2=connection.createStatement();
+            if (comboBoxButtonFzContract.getValue() == "Total") {
+                query2 += "furnizor='" + valueFz.toString() + "'";
+                Statement stm2 = connection.createStatement();
                 ResultSet rsFz2 = stm2.executeQuery( query2 );
-                double totalProiect=0.00;
+                double totalProiect = 0.00;
                 try {
                     while (rsFz2.next()) {
                         totalProiect = rsFz2.getDouble( "totalProiect" );
                     }
                     labelTotalRealizatFz.setText( String.valueOf( totalProiect ) );
-                }catch (SQLException throwables){
+                } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
             }
+            else{
+                query2 += "furnizor='" + valueFz.toString() + "' AND contract='" + valueCtr.toString() + "'";
+                Statement stm2 = connection.createStatement();
+                ResultSet rsFz2 = stm2.executeQuery( query2 );
+                double totalProiect = 0.00;
+                try {
+                    while (rsFz2.next()) {
+                        totalProiect = rsFz2.getDouble( "totalProiect" );
+                    }
+                    labelTotalRealizatFz.setText( String.valueOf( totalProiect ) );
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        }
         calcOrgDownStage();
         calcProjDownStage();
         calcFzDownStage();
@@ -362,6 +383,9 @@ public class CtrlStage3RapoarteInv implements Initializable {
         }
     }
 
+    public void comboBoxActOrgYear ( ActionEvent event ) {
+    }
+
 
     public void comboBoxActProj ( ActionEvent actionEvent ) throws SQLException {
         String selectFz = "SELECT furnizor FROM invTbl WHERE nrProiect ='"+ comboBoxButtonProj.getValue()+"' ";
@@ -408,6 +432,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
         String selectProj = "SELECT nrProiect FROM invTbl WHERE furnizor ='"+ comboBoxButtonFz.getValue()+"' ";
         String selectOrg = "SELECT org FROM invTbl WHERE furnizor ='"+ comboBoxButtonFz.getValue()+"' ";
 
+
         Object valueProj = comboBoxButtonProj.getValue();
         Object valueOrg = comboBoxButtonOrg.getValue();
 
@@ -442,6 +467,106 @@ public class CtrlStage3RapoarteInv implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        comboBoxButtonFzContract.setDisable( false );
+
+        String populeazaComboBoxFzContract = "SELECT nrContract AS 'nrContract' FROM bugetContract WHERE furnizor='"+ comboBoxButtonFz.getValue()+"'";
+
+        List <String> nrContractList = new ArrayList<>();
+        ResultSet rsNrContract = stm.executeQuery(populeazaComboBoxFzContract);
+        try {
+            while (rsNrContract.next()){
+                nrContractList.add( rsNrContract.getString( "nrContract" ));
+            }
+            nrContractList.add( "Total" );
+            List <String> nrContract =nrContractList.stream().distinct().collect( Collectors.toList());
+            comboBoxButtonFzContract.setItems( FXCollections.observableList( nrContract ) );
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+    public void comboBoxFzContractAct ( ActionEvent event ) throws SQLException {
+        if (comboBoxButtonFzContract.getValue()=="Total"){
+            String valInitFzTotal = "SELECT ROUND(SUM(valInitiala),2) AS 'valInitialaFzTotal' FROM bugetContract WHERE furnizor ='"+ comboBoxButtonFz.getValue()+"' ";
+            String valRectificareFzTotal = "SELECT ROUND(SUM(valRectificare),2) AS 'valRectificareFzTotal' FROM bugetContract WHERE furnizor ='"+ comboBoxButtonFz.getValue()+"' ";
+            String valFinalaFzTotal = "SELECT ROUND(SUM(valFinala),2) AS 'valFinalaFzTotal' FROM bugetContract WHERE furnizor ='"+ comboBoxButtonFz.getValue()+"' ";
+
+            ResultSet rsValInitialaCtr = stm.executeQuery(valInitFzTotal);
+            double valInit = 0;
+            try {
+                while (rsValInitialaCtr.next()){
+                    valInit=rsValInitialaCtr.getDouble( "valInitialaFzTotal" );
+                }
+                labelEstimatInitFz.setText(String.valueOf(  valInit) );
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+            ResultSet rsValRectificareCtr = stm.executeQuery(valRectificareFzTotal);
+            double valRectificare = 0;
+            try {
+                while (rsValRectificareCtr.next()){
+                    valRectificare=rsValRectificareCtr.getDouble( "valRectificareFzTotal" );
+                }
+                labelAditionalFz.setText(String.valueOf(  valRectificare) );
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+            ResultSet rsValFinalaCtr = stm.executeQuery(valFinalaFzTotal);
+            double valFinala = 0;
+            try {
+                while (rsValFinalaCtr.next()){
+                    valFinala=rsValFinalaCtr.getDouble( "valFinalaFzTotal" );
+                }
+                lababelTotalEstimatFz.setText(String.valueOf(  valFinala) );
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        else {
+            String valInitFzContract = "SELECT valInitiala AS 'valInitialaFzContractDB' FROM bugetContract WHERE nrContract ='" + comboBoxButtonFzContract.getValue() + "' ";
+            String valRectificareFzContract = "SELECT valRectificare AS 'valRectificareFzContractDB' FROM bugetContract WHERE nrContract ='" + comboBoxButtonFzContract.getValue() + "' ";
+            String valFinalaFzContract = "SELECT valFinala AS 'valFinalaFzContractDB' FROM bugetContract WHERE nrContract ='" + comboBoxButtonFzContract.getValue() + "' ";
+
+            ResultSet rsValInitialaCtr = stm.executeQuery( valInitFzContract );
+            double valInit = 0;
+            try {
+                while (rsValInitialaCtr.next()) {
+                    valInit = rsValInitialaCtr.getDouble( "valInitialaFzContractDB" );
+                }
+                labelEstimatInitFz.setText( String.valueOf( valInit ) );
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+            ResultSet rsValRectificareCtr = stm.executeQuery( valRectificareFzContract );
+            double valRectificare = 0;
+            try {
+                while (rsValRectificareCtr.next()) {
+                    valRectificare = rsValRectificareCtr.getDouble( "valRectificareFzContractDB" );
+                }
+                labelAditionalFz.setText( String.valueOf( valRectificare ) );
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+            ResultSet rsValFinalaCtr = stm.executeQuery( valFinalaFzContract );
+            double valFinala = 0;
+            try {
+                while (rsValFinalaCtr.next()) {
+                    valFinala = rsValFinalaCtr.getDouble( "valFinalaFzContractDB" );
+                }
+                lababelTotalEstimatFz.setText( String.valueOf( valFinala ) );
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+
+
     }
 
     //todo tabelul de jos
@@ -887,4 +1012,5 @@ public class CtrlStage3RapoarteInv implements Initializable {
         windowStage1Intro.setScene( tableViewScene );
         windowStage1Intro.show();
     }
+
 }
