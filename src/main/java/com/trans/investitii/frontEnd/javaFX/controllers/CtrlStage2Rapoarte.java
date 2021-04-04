@@ -26,11 +26,16 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+
+import static java.lang.Double.parseDouble;
 
 public class CtrlStage2Rapoarte implements Initializable {
 
@@ -244,7 +249,12 @@ public class CtrlStage2Rapoarte implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        valoareaTotala.setText( String.valueOf( totalProiect ) );
+        double tp =  totalProiect * 100 / 100;
+        NumberFormat nf = NumberFormat.getNumberInstance( new Locale( "ro", "RO" ) );
+        nf.setMaximumFractionDigits( 2 );
+        DecimalFormat df = (DecimalFormat) nf;
+
+        valoareaTotala.setText( df.format( tp  ));
 
     }
 

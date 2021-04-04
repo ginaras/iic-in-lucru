@@ -188,9 +188,9 @@
          </font>
       </Button>
       <ComboBox fx:id="comboBoxYearChose" layoutX="207.0" layoutY="273.0" onAction="#comboBYearAction" prefWidth="150.0" promptText="Alege anul" />
-      <Text fx:id="txtDenProj" layoutX="522.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denumire Proiect" />
-      <Text fx:id="txtDenFurnizor" layoutX="942.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nume furnizor" />
-      <Text fx:id="txtDenOrg" layoutX="128.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denumire Org" />
+      <Text fx:id="txtDenProj" layoutX="522.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="." />
+      <Text fx:id="txtDenFurnizor" layoutX="942.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="." />
+      <Text fx:id="txtDenOrg" layoutX="128.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="." />
       <CheckBox fx:id="checkOrgBugetInitial" layoutX="105.0" layoutY="544.0" mnemonicParsing="false" onAction="#checkOrgBugetInitialAction" />
       <CheckBox fx:id="checkOrgRectificareBuget" layoutX="105.0" layoutY="573.0" mnemonicParsing="false" onAction="#checkOrgRectificareBugetAction" />
       <Label layoutX="140.0" layoutY="544.0" text="Adauga buget initial" />

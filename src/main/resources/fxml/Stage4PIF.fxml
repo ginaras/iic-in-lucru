@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
+
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trans.investitii.frontEnd.javaFX.controllers.CtrlStage4PIF">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="20.0" fill="#065bab" height="110.0" layoutX="5.0" layoutY="3.0" stroke="BLACK" strokeDashOffset="5.0" strokeLineJoin="BEVEL" strokeWidth="10.0" width="1190.0" />
@@ -26,8 +30,8 @@
             <TableColumn fx:id="nrCrtColumn" prefWidth="31.0" style="-fx-alignment: center-right;" text="N" />
         </columns>
       </TableView>
-      <Label fx:id="totalProiect" layoutX="498.0" layoutY="694.0" text="Label" />
-      <Label fx:id="totalPIF" layoutX="1037.0" layoutY="683.0" text="total PIF" />
+      <Label fx:id="totalProiect" layoutX="498.0" layoutY="694.0" text="." />
+      <Label fx:id="totalPIF" layoutX="1037.0" layoutY="683.0" text="." />
       <Label layoutX="335.0" layoutY="693.0" text="Total Proiect">
          <font>
             <Font name="System Bold" size="15.0" />
@@ -208,13 +212,154 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Label fx:id="labelNrCrt" layoutX="602.0" layoutY="534.0" />
-      <Label fx:id="labelNrCrt1" layoutX="601.0" layoutY="550.0" />
-      <Label fx:id="labelNrCrt2" layoutX="600.0" layoutY="565.0" />
-      <Label fx:id="labelNrCrt3" layoutX="600.0" layoutY="580.0" />
-      <Label fx:id="labelNrCrt4" layoutX="600.0" layoutY="594.0" />
-      <Label fx:id="labelNrCrt5" layoutX="601.0" layoutY="608.0" />
-      <Label fx:id="labelNrCrtReturn" layoutX="715.0" layoutY="517.0" />
+      <Label fx:id="labelNrCrt" layoutX="600.0" layoutY="424.0">
+         <font>
+            <Font size="9.0" />
+         </font></Label>
+      <Label fx:id="labelNrCrt1" layoutX="600.0" layoutY="434.0">
+         <font>
+            <Font size="9.0" />
+         </font></Label>
+      <Label fx:id="labelNrCrt2" layoutX="600.0" layoutY="444.0">
+         <font>
+            <Font size="9.0" />
+         </font></Label>
+      <Label fx:id="labelNrCrt3" layoutX="600.0" layoutY="454.0">
+         <font>
+            <Font size="9.0" />
+         </font></Label>
+      <Label fx:id="labelNrCrt4" layoutX="600.0" layoutY="464.0">
+         <font>
+            <Font size="9.0" />
+         </font></Label>
+      <Label fx:id="labelNrCrt5" layoutX="600.0" layoutY="474.0">
+         <font>
+            <Font size="9.0" />
+         </font></Label>
+      <Label fx:id="labelNrCrt6" layoutX="610.0" layoutY="484.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt7" layoutX="620.0" layoutY="494.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt8" layoutX="630.0" layoutY="504.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt9" layoutX="640.0" layoutY="514.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt10" layoutX="650.0" layoutY="524.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt11" layoutX="660.0" layoutY="534.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt12" layoutX="670.0" layoutY="544.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt13" layoutX="680.0" layoutY="554.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt14" layoutX="690.0" layoutY="564.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt15" layoutX="700.0" layoutY="574.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt16" layoutX="710.0" layoutY="584.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt17" layoutX="720.0" layoutY="594.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt18" layoutX="730.0" layoutY="604.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt19" layoutX="740.0" layoutY="614.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt20" layoutX="750.0" layoutY="624.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt21" layoutX="760.0" layoutY="634.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt22" layoutX="770.0" layoutY="644.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt23" layoutX="780.0" layoutY="654.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt24" layoutX="790.0" layoutY="664.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt25" layoutX="800.0" layoutY="674.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt26" layoutX="810.0" layoutY="684.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt27" layoutX="820.0" layoutY="694.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt28" layoutX="830.0" layoutY="704.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrt29" layoutX="840.0" layoutY="714.0">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNrCrtReturn" layoutX="707.0" layoutY="398.0">
+         <font>
+            <Font size="9.0" />
+         </font></Label>
       <Button fx:id="buttonReset" layoutX="709.0" layoutY="152.0" mnemonicParsing="false" onAction="#reset" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Reseteaza cautarea" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">

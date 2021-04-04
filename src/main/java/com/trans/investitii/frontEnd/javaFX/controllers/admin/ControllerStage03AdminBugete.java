@@ -30,7 +30,6 @@ public class ControllerStage03AdminBugete implements Initializable {
 
 
     public ComboBox comboOrg;
-//    public ComboBox comboOrgType;///scoasa
     public ComboBox comboBProj;
     public ComboBox comboBContract;
     public Button buttonAplicaBugetOrg;
@@ -190,6 +189,7 @@ public class ControllerStage03AdminBugete implements Initializable {
             String vfProj = null;
             while (rsValFinalaProj.next()){
                 vfProj= (String) rsValFinalaProj.getObject( "vfProj" );
+                System.out.println(vfProj);
             }
             assert vfProj !=null;
             double vfprojD = parseDouble( vfProj);
@@ -403,7 +403,14 @@ public class ControllerStage03AdminBugete implements Initializable {
                     while (rsValFinalaOrg.next()) {
                         vfOrg = (String) rsValFinalaOrg.getObject( "vfOrg" );
                     }
-                    txtValoareFinalaOrg.setText( vfOrg );
+
+                    double vfOrgD = parseDouble( vfOrg ) * 100 / 100;
+                    NumberFormat nfOrg = NumberFormat.getNumberInstance( new Locale( "ro", "RO" ) );
+                    nfOrg.setMaximumFractionDigits( 2 );
+                    DecimalFormat dfOrg = (DecimalFormat) nfOrg;
+
+                    txtValoareFinalaOrg.setText( dfOrg.format(vfOrgD ));
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

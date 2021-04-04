@@ -42,6 +42,30 @@ public class CtrlStage4PIF implements Initializable {
     public Label labelNrCrt3;
     public Label labelNrCrt4;
     public Label labelNrCrt5;
+    public Label labelNrCrt6;
+    public Label labelNrCrt7;
+    public Label labelNrCrt8;
+    public Label labelNrCrt9;
+    public Label labelNrCrt10;
+    public Label labelNrCrt11;
+    public Label labelNrCrt12;
+    public Label labelNrCrt13;
+    public Label labelNrCrt14;
+    public Label labelNrCrt15;
+    public Label labelNrCrt16;
+    public Label labelNrCrt17;
+    public Label labelNrCrt18;
+    public Label labelNrCrt19;
+    public Label labelNrCrt20;
+    public Label labelNrCrt21;
+    public Label labelNrCrt22;
+    public Label labelNrCrt23;
+    public Label labelNrCrt24;
+    public Label labelNrCrt25;
+    public Label labelNrCrt26;
+    public Label labelNrCrt27;
+    public Label labelNrCrt28;
+    public Label labelNrCrt29;
 
     public Label labelNrCrtReturn;
 
@@ -67,6 +91,7 @@ public class CtrlStage4PIF implements Initializable {
     public ObservableList<Investitii> tabelFinalDePif2;
     public Button buttonReset;
     public DatePicker dataPIF;
+
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
     Statement stm = connection.createStatement();
@@ -226,14 +251,142 @@ public class CtrlStage4PIF implements Initializable {
         }
         else if (!labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && labelNrCrt5.getText().equals( "" ) && selectValoare != null){
             labelNrCrt5.setText( selectValoare.getNrCrt().toString() );
-        }
-        else if(labelNrCrt.getText().equals( labelNrCrt1.getText()) || labelNrCrt.getText().equals( labelNrCrt2.getText()) || labelNrCrt.getText().equals( labelNrCrt3.getText())|| labelNrCrt.getText().equals( labelNrCrt4.getText())|| labelNrCrt.getText().equals( labelNrCrt5.getText())|| labelNrCrt.getText().equals( labelNrCrt5.getText())&& selectValoare != null){
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && labelNrCrt6.getText().equals( "" ) ){
+            labelNrCrt6.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && labelNrCrt7.getText().equals( "" ) ){
+            labelNrCrt7.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && labelNrCrt8.getText().equals( "" ) ){
+            labelNrCrt8.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" ) && labelNrCrt9.getText().equals( "" )){
+            labelNrCrt9.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" ) && !labelNrCrt9.getText().equals( "" )&& labelNrCrt10.getText().equals( "" )){
+            labelNrCrt10.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && labelNrCrt11.getText().equals( "" ) ){
+            labelNrCrt11.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && labelNrCrt12.getText().equals( "" ) ){
+            labelNrCrt12.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && !labelNrCrt12.getText().equals( "" )
+                && labelNrCrt13.getText().equals( "" )){
+            labelNrCrt13.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && !labelNrCrt12.getText().equals( "" )
+                && !labelNrCrt13.getText().equals( "" ) && labelNrCrt14.getText().equals( "" )){
+            labelNrCrt14.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && !labelNrCrt12.getText().equals( "" )
+                && !labelNrCrt13.getText().equals( "" ) && !labelNrCrt14.getText().equals( "" ) && labelNrCrt15.getText().equals( "" )){
+            labelNrCrt15.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && !labelNrCrt12.getText().equals( "" )
+                && !labelNrCrt13.getText().equals( "" ) && !labelNrCrt14.getText().equals( "" ) && !labelNrCrt15.getText().equals( "" ) && labelNrCrt16.getText().equals( "" )){
+            labelNrCrt16.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && !labelNrCrt12.getText().equals( "" )
+                && !labelNrCrt13.getText().equals( "" ) && !labelNrCrt14.getText().equals( "" ) && !labelNrCrt15.getText().equals( "" ) && !labelNrCrt16.getText().equals( "" ) && labelNrCrt17.getText().equals( "" )){
+            labelNrCrt17.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && !labelNrCrt12.getText().equals( "" )
+                && !labelNrCrt13.getText().equals( "" ) && !labelNrCrt14.getText().equals( "" ) && !labelNrCrt15.getText().equals( "" ) && !labelNrCrt16.getText().equals( "" ) && !labelNrCrt17.getText().equals( "" ) && labelNrCrt18.getText().equals( "" )){
+            labelNrCrt18.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && !labelNrCrt12.getText().equals( "" )
+                && !labelNrCrt13.getText().equals( "" ) && !labelNrCrt14.getText().equals( "" ) && !labelNrCrt15.getText().equals( "" ) && !labelNrCrt16.getText().equals( "" ) && !labelNrCrt17.getText().equals( "" ) && !labelNrCrt18.getText().equals( "" ) && labelNrCrt19.getText().equals( "" )){
+            labelNrCrt19.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && !labelNrCrt12.getText().equals( "" )
+                && !labelNrCrt13.getText().equals( "" ) && !labelNrCrt14.getText().equals( "" ) && !labelNrCrt15.getText().equals( "" ) && !labelNrCrt16.getText().equals( "" ) && !labelNrCrt17.getText().equals( "" ) && !labelNrCrt18.getText().equals( "" ) && !labelNrCrt19.getText().equals( "" )
+                && labelNrCrt20.getText().equals( "" )){
+            labelNrCrt20.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && !labelNrCrt12.getText().equals( "" )
+                && !labelNrCrt13.getText().equals( "" ) && !labelNrCrt14.getText().equals( "" ) && !labelNrCrt15.getText().equals( "" ) && !labelNrCrt16.getText().equals( "" ) && !labelNrCrt17.getText().equals( "" ) && !labelNrCrt18.getText().equals( "" ) && !labelNrCrt19.getText().equals( "" )
+                && !labelNrCrt20.getText().equals( "" ) && labelNrCrt21.getText().equals( "" )){
+            labelNrCrt21.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && !labelNrCrt12.getText().equals( "" )
+                && !labelNrCrt13.getText().equals( "" ) && !labelNrCrt14.getText().equals( "" ) && !labelNrCrt15.getText().equals( "" ) && !labelNrCrt16.getText().equals( "" ) && !labelNrCrt17.getText().equals( "" ) && !labelNrCrt18.getText().equals( "" ) && !labelNrCrt19.getText().equals( "" )
+                && !labelNrCrt20.getText().equals( "" ) && !labelNrCrt21.getText().equals( "" ) && labelNrCrt22.getText().equals( "" )){
+            labelNrCrt22.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && !labelNrCrt12.getText().equals( "" )
+                && !labelNrCrt13.getText().equals( "" ) && !labelNrCrt14.getText().equals( "" ) && !labelNrCrt15.getText().equals( "" ) && !labelNrCrt16.getText().equals( "" ) && !labelNrCrt17.getText().equals( "" ) && !labelNrCrt18.getText().equals( "" ) && !labelNrCrt19.getText().equals( "" )
+                && !labelNrCrt20.getText().equals( "" ) && !labelNrCrt21.getText().equals( "" ) && !labelNrCrt22.getText().equals( "" ) && labelNrCrt23.getText().equals( "" )){
+            labelNrCrt23.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && !labelNrCrt12.getText().equals( "" )
+                && !labelNrCrt13.getText().equals( "" ) && !labelNrCrt14.getText().equals( "" ) && !labelNrCrt15.getText().equals( "" ) && !labelNrCrt16.getText().equals( "" ) && !labelNrCrt17.getText().equals( "" ) && !labelNrCrt18.getText().equals( "" ) && !labelNrCrt19.getText().equals( "" )
+                && !labelNrCrt20.getText().equals( "" ) && !labelNrCrt21.getText().equals( "" ) && !labelNrCrt22.getText().equals( "" ) && !labelNrCrt23.getText().equals( "" ) && labelNrCrt24.getText().equals( "" )){
+            labelNrCrt24.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && !labelNrCrt12.getText().equals( "" )
+                && !labelNrCrt13.getText().equals( "" ) && !labelNrCrt14.getText().equals( "" ) && !labelNrCrt15.getText().equals( "" ) && !labelNrCrt16.getText().equals( "" ) && !labelNrCrt17.getText().equals( "" ) && !labelNrCrt18.getText().equals( "" ) && !labelNrCrt19.getText().equals( "" )
+                && !labelNrCrt20.getText().equals( "" ) && !labelNrCrt21.getText().equals( "" ) && !labelNrCrt22.getText().equals( "" ) && !labelNrCrt23.getText().equals( "" ) && !labelNrCrt24.getText().equals( "" ) && labelNrCrt25.getText().equals( "" )){
+            labelNrCrt25.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && !labelNrCrt12.getText().equals( "" )
+                && !labelNrCrt13.getText().equals( "" ) && !labelNrCrt14.getText().equals( "" ) && !labelNrCrt15.getText().equals( "" ) && !labelNrCrt16.getText().equals( "" ) && !labelNrCrt17.getText().equals( "" ) && !labelNrCrt18.getText().equals( "" ) && !labelNrCrt19.getText().equals( "" )
+                && !labelNrCrt20.getText().equals( "" ) && !labelNrCrt21.getText().equals( "" ) && !labelNrCrt22.getText().equals( "" ) && !labelNrCrt23.getText().equals( "" ) && !labelNrCrt24.getText().equals( "" ) && !labelNrCrt25.getText().equals( "" ) && labelNrCrt26.getText().equals( "" )){
+            labelNrCrt26.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && !labelNrCrt12.getText().equals( "" )
+                && !labelNrCrt13.getText().equals( "" ) && !labelNrCrt14.getText().equals( "" ) && !labelNrCrt15.getText().equals( "" ) && !labelNrCrt16.getText().equals( "" ) && !labelNrCrt17.getText().equals( "" ) && !labelNrCrt18.getText().equals( "" ) && !labelNrCrt19.getText().equals( "" )
+                && !labelNrCrt20.getText().equals( "" ) && !labelNrCrt21.getText().equals( "" ) && !labelNrCrt22.getText().equals( "" ) && !labelNrCrt23.getText().equals( "" ) && !labelNrCrt24.getText().equals( "" ) && !labelNrCrt25.getText().equals( "" ) && !labelNrCrt26.getText().equals( "" )
+                && labelNrCrt27.getText().equals( "" )){
+            labelNrCrt27.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && !labelNrCrt12.getText().equals( "" )
+                && !labelNrCrt13.getText().equals( "" ) && !labelNrCrt14.getText().equals( "" ) && !labelNrCrt15.getText().equals( "" ) && !labelNrCrt16.getText().equals( "" ) && !labelNrCrt17.getText().equals( "" ) && !labelNrCrt18.getText().equals( "" ) && !labelNrCrt19.getText().equals( "" )
+                && !labelNrCrt20.getText().equals( "" ) && !labelNrCrt21.getText().equals( "" ) && !labelNrCrt22.getText().equals( "" ) && !labelNrCrt23.getText().equals( "" ) && !labelNrCrt24.getText().equals( "" ) && !labelNrCrt25.getText().equals( "" ) && !labelNrCrt26.getText().equals( "" )
+                && !labelNrCrt27.getText().equals( "" ) && labelNrCrt28.getText().equals( "" )){
+            labelNrCrt28.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && !labelNrCrt12.getText().equals( "" )
+                && !labelNrCrt13.getText().equals( "" ) && !labelNrCrt14.getText().equals( "" ) && !labelNrCrt15.getText().equals( "" ) && !labelNrCrt16.getText().equals( "" ) && !labelNrCrt17.getText().equals( "" ) && !labelNrCrt18.getText().equals( "" ) && !labelNrCrt19.getText().equals( "" )
+                && !labelNrCrt20.getText().equals( "" ) && !labelNrCrt21.getText().equals( "" ) && !labelNrCrt22.getText().equals( "" ) && !labelNrCrt23.getText().equals( "" ) && !labelNrCrt24.getText().equals( "" ) && !labelNrCrt25.getText().equals( "" ) && !labelNrCrt26.getText().equals( "" )
+                && !labelNrCrt27.getText().equals( "" ) && !labelNrCrt28.getText().equals( "" ) && labelNrCrt29.getText().equals( "" )){
+            labelNrCrt29.setText( selectValoare.getNrCrt().toString() );
+        }else if (selectValoare != null && !labelNrCrt.getText().equals( "" ) && !labelNrCrt1.getText().equals( "" ) && !labelNrCrt2.getText().equals( "" ) && !labelNrCrt3.getText().equals( "" ) && !labelNrCrt4.getText().equals( "" ) && !labelNrCrt5.getText().equals( "" )
+                && !labelNrCrt6.getText().equals( "" ) && !labelNrCrt7.getText().equals( "" ) && !labelNrCrt8.getText().equals( "" )&& !labelNrCrt9.getText().equals( "" ) && !labelNrCrt10.getText().equals( "" ) && !labelNrCrt11.getText().equals( "" ) && !labelNrCrt12.getText().equals( "" )
+                && !labelNrCrt13.getText().equals( "" ) && !labelNrCrt14.getText().equals( "" ) && !labelNrCrt15.getText().equals( "" ) && !labelNrCrt16.getText().equals( "" ) && !labelNrCrt17.getText().equals( "" ) && !labelNrCrt18.getText().equals( "" ) && !labelNrCrt19.getText().equals( "" )
+                && !labelNrCrt20.getText().equals( "" ) && !labelNrCrt21.getText().equals( "" ) && !labelNrCrt22.getText().equals( "" ) && !labelNrCrt23.getText().equals( "" ) && !labelNrCrt24.getText().equals( "" ) && !labelNrCrt25.getText().equals( "" ) && !labelNrCrt26.getText().equals( "" )
+                && !labelNrCrt27.getText().equals( "" ) && !labelNrCrt28.getText().equals( "" ) && !labelNrCrt29.getText().equals( "" )){
+
+            Alert confirm = new Alert( Alert.AlertType.INFORMATION );
+            confirm.setHeaderText( "Ați ajuns la limita de 30 de facturi selectate!" );
+            confirm.setContentText( "Apargeti PIFul in mai multe");
+            confirm.show();
+
 
         }
 
+        ObservableList<Investitii> selectedCels, selectedRows, allInvoice;
+        allInvoice = tabelFacturiPIF.getItems();
+        selectedRows = tabelFacturiPIF.getSelectionModel().getSelectedItems();
 
-        String selectForPIF = "SELECT * FROM invTBL WHERE org='"+comboBoxButtonOrg.getValue()+"' AND nrProiect='"+comboBoxButtonProj.getValue()+"' AND nrCrt='"+labelNrCrt.getText()+"' or nrcrt='"+labelNrCrt1.getText()+"'or nrcrt='"+labelNrCrt2.getText()+"'or nrcrt='"+labelNrCrt3.getText()+"'or nrcrt='"+labelNrCrt.getText()+"'or nrcrt='"+labelNrCrt5.getText()+"'";
-        String totalSelectForPIF = "SELECT ROUND(SUM(valoare),2) as 'totalPif' FROM invTBL WHERE org='"+comboBoxButtonOrg.getValue()+"' AND nrProiect='"+comboBoxButtonProj.getValue()+"' AND nrCrt='"+labelNrCrt.getText()+"' or nrcrt='"+labelNrCrt1.getText()+"'or nrcrt='"+labelNrCrt2.getText()+"'or nrcrt='"+labelNrCrt3.getText()+"'or nrcrt='"+labelNrCrt.getText()+"'or nrcrt='"+labelNrCrt5.getText()+"'";
+        int selectNrCrt1 =tabelFacturiPIF.getSelectionModel().getSelectedItem().getNrCrt();
+
+//        for (Investitii factura : selectedRows) {
+//            allInvoice.remove( factura );
+//        }
+//
+//        String selectForPIF="SELECT * FROM invTBL WHERE org='"+comboBoxButtonOrg.getValue()+"' AND nrProiect='"+comboBoxButtonProj.getValue()+"' AND nrCrt='"+selectNrCrt1+"'";
+//        String totalSelectForPIF = "SELECT ROUND(SUM(valoare),2) as 'totalPif' FROM invTBL WHERE org='"+comboBoxButtonOrg.getValue()+"' AND nrProiect='"+comboBoxButtonProj.getValue()+"' AND nrCrt='"+selectedCels+"'";
+
+        String selectForPIF = "SELECT * FROM invTBL WHERE org='"+comboBoxButtonOrg.getValue()+"' AND nrProiect='"+comboBoxButtonProj.getValue()+"' AND nrCrt='"+labelNrCrt.getText()+"' or nrcrt='"+labelNrCrt1.getText()+"'or nrcrt='"+labelNrCrt2.getText()+"'or nrcrt='"+labelNrCrt3.getText()+"'or nrcrt='"+labelNrCrt4.getText()+"'or nrcrt='"+labelNrCrt5.getText()+"'or nrcrt='"+labelNrCrt6.getText()+
+                "'or nrcrt='"+labelNrCrt7.getText()+"'or nrcrt='"+labelNrCrt8.getText()+"'or nrcrt='"+labelNrCrt9.getText()+"'or nrcrt='"+labelNrCrt10.getText()+"'or nrcrt='"+labelNrCrt11.getText()+"'or nrcrt='"+labelNrCrt12.getText()+"'or nrcrt='"+labelNrCrt13.getText()+"'or nrcrt='"+labelNrCrt14.getText()+"'or nrcrt='"+labelNrCrt15.getText()+"'or nrcrt='"+labelNrCrt16.getText()+"'or nrcrt='"+labelNrCrt17.getText()+
+                "'or nrcrt='"+labelNrCrt18.getText()+"'or nrcrt='"+labelNrCrt19.getText()+"'or nrcrt='"+labelNrCrt20.getText()+"'or nrcrt='"+labelNrCrt21.getText()+"'or nrcrt='"+labelNrCrt22.getText()+"'or nrcrt='"+labelNrCrt23.getText()+"'or nrcrt='"+labelNrCrt24.getText()+"'or nrcrt='"+labelNrCrt25.getText()+"'or nrcrt='"+labelNrCrt26.getText()+"'or nrcrt='"+labelNrCrt27.getText()+"'or nrcrt='"+labelNrCrt28.getText()+"'or nrcrt='"+labelNrCrt29.getText()+"'";
+
+        String totalSelectForPIF = "SELECT ROUND(SUM(valoare),2) as 'totalPif' FROM invTBL WHERE org='"+comboBoxButtonOrg.getValue()+"' AND nrProiect='"+comboBoxButtonProj.getValue()+"' AND nrCrt='"+labelNrCrt.getText()+"' or nrcrt='"+labelNrCrt1.getText()+"'or nrcrt='"+labelNrCrt2.getText()+"'or nrcrt='"+labelNrCrt3.getText()+"'or nrcrt='"+labelNrCrt.getText()+"'or nrcrt='"+labelNrCrt5.getText()+"' or nrcrt='"+labelNrCrt6.getText()+
+                "'or nrcrt='"+labelNrCrt7.getText()+"'or nrcrt='"+labelNrCrt8.getText()+"'or nrcrt='"+labelNrCrt9.getText()+"'or nrcrt='"+labelNrCrt10.getText()+"'or nrcrt='"+labelNrCrt11.getText()+"'or nrcrt='"+labelNrCrt12.getText()+"'or nrcrt='"+labelNrCrt13.getText()+"'or nrcrt='"+labelNrCrt14.getText()+"'or nrcrt='"+labelNrCrt15.getText()+"'or nrcrt='"+labelNrCrt16.getText()+"'or nrcrt='"+labelNrCrt17.getText()+
+                "'or nrcrt='"+labelNrCrt18.getText()+"'or nrcrt='"+labelNrCrt19.getText()+"'or nrcrt='"+labelNrCrt20.getText()+"'or nrcrt='"+labelNrCrt21.getText()+"'or nrcrt='"+labelNrCrt22.getText()+"'or nrcrt='"+labelNrCrt23.getText()+"'or nrcrt='"+labelNrCrt24.getText()+"'or nrcrt='"+labelNrCrt25.getText()+"'or nrcrt='"+labelNrCrt26.getText()+"'or nrcrt='"+labelNrCrt27.getText()+"'or nrcrt='"+labelNrCrt28.getText()+"'or nrcrt='"+labelNrCrt29.getText()+"' ";
 
         columnFurnizorPif.setCellValueFactory( new PropertyValueFactory<>( "furnizor" ) );
         columnFacturaPif.setCellValueFactory( new PropertyValueFactory<>( "nrFactura" ) );
@@ -267,9 +420,6 @@ public class CtrlStage4PIF implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        ObservableList<Investitii> selectedRows, allInvoice;
-        allInvoice = tabelFacturiPIF.getItems();
-        selectedRows = tabelFacturiPIF.getSelectionModel().getSelectedItems();
 
         for (Investitii factura : selectedRows) {
             allInvoice.remove( factura );
@@ -347,7 +497,7 @@ public class CtrlStage4PIF implements Initializable {
         Investitii selectValoare = tabelFinalPif.getSelectionModel().getSelectedItem();
 
        if (selectValoare!=null){
-        textFieldValoarePIF.setText( selectValoare.getValoare() ) ;
+//        textFieldValoarePIF.setText( selectValoare.getValoare() ) ;
         labelNrCrtReturn.setText( selectValoare.getNrCrt().toString() ) ;
        }
     }
@@ -386,7 +536,7 @@ public class CtrlStage4PIF implements Initializable {
                 }
 
 
-            Alert alert0 = new Alert( Alert.AlertType.CONFIRMATION, "Confirmati PIF de "+total+"?", ButtonType.YES, ButtonType.NO);
+            Alert alert0 = new Alert( Alert.AlertType.CONFIRMATION, "Confirmati PIF in valoare de "+total+" pe proiectul "+ comboBoxButtonProj.getValue()+"?", ButtonType.YES, ButtonType.NO);
                 alert0.setHeaderText( " " );
                 alert0.setTitle( "Validati facturile aferente PIF" );
                 Button noButton = (Button) alert0.getDialogPane().lookupButton( ButtonType.NO );
@@ -422,8 +572,8 @@ public class CtrlStage4PIF implements Initializable {
         reset( event );
 
         Alert confirm = new Alert( Alert.AlertType.INFORMATION );
-        confirm.setHeaderText( "PIF Realizat" );
-        confirm.setContentText( "GATA!");
+        confirm.setHeaderText( "Feliciari! PIF Realizat" );
+        confirm.setContentText( "la proiectul: " + comboBoxButtonProj.getValue() + " in valoare de: " + totalPIF.getText());
         confirm.show();
 
         }
