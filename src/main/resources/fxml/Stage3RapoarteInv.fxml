@@ -95,10 +95,10 @@
       <Label layoutX="378.0" layoutY="337.0" text="Act Aditional" />
       <Label layoutX="448.0" layoutY="362.0" text="Total" />
       <Label layoutX="622.0" layoutY="337.0" text="Realizat:" />
-      <Label layoutX="927.0" layoutY="337.0" text="Diferenta: " />
+      <Label layoutX="927.0" layoutY="337.0" text="Diferenta de realizat: " />
       <Label fx:id="labelProjEstimatInit" layoutX="483.0" layoutY="308.0" text="0" />
       <Label fx:id="labelAditionalProj" layoutX="495.0" layoutY="337.0" text="0" />
-      <Label fx:id="lababelTotalEstimatProj" layoutX="518.0" layoutY="362.0" text="0" textAlignment="RIGHT" />
+      <Label fx:id="labelTotalEstimatProj" layoutX="518.0" layoutY="362.0" text="0" textAlignment="RIGHT" />
       <Label fx:id="labelTotalRealizatProj" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="760.0" layoutY="337.0" text="0" />
       <Label fx:id="labelDiferentaProj" layoutX="1080.0" layoutY="337.0" text="0" />
       <Label fx:id="labelTotalRealizatFz" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="760.0" layoutY="436.0" nodeOrientation="RIGHT_TO_LEFT" text="0" />
@@ -108,9 +108,9 @@
       <Label layoutX="379.0" layoutY="440.0" text="Act Aditional" />
       <Label layoutX="352.0" layoutY="411.0" text="Estimat initial" />
       <Label fx:id="labelDiferentafz" layoutX="1117.0" layoutY="438.0" text="0" />
-      <Label layoutX="957.0" layoutY="438.0" text="Diferenta: " />
+      <Label layoutX="957.0" layoutY="438.0" text="Diferenta de realizat: " />
       <Label layoutX="449.0" layoutY="465.0" text="Total" />
-      <Label fx:id="lababelTotalEstimatFz" layoutX="519.0" layoutY="465.0" text="0" />
+      <Label fx:id="labelTotalEstimatFz" layoutX="519.0" layoutY="465.0" text="0" />
       <Label fx:id="labelEstimatInitFz" layoutX="484.0" layoutY="411.0" text="0" />
       <Label fx:id="labelAditionalFz" layoutX="496.0" layoutY="440.0" text="0" />
       <Label fx:id="labelEstimatInitOrg" layoutX="455.0" layoutY="188.0" text="0" />
@@ -120,7 +120,7 @@
       <Label layoutX="323.0" layoutY="188.0" text="Program Investitii" />
       <Label layoutX="617.0" layoutY="217.0" text="Realizat:" />
       <Label fx:id="labelDiferentaOrg" layoutX="1080.0" layoutY="217.0" text="0" />
-      <Label layoutX="922.0" layoutY="217.0" text="Diferenta: " />
+      <Label layoutX="922.0" layoutY="217.0" text="Diferenta de realizat: " />
       <Label layoutX="420.0" layoutY="242.0" text="Total" />
       <Label fx:id="labetTotalEstimatOrg" layoutX="490.0" layoutY="242.0" text="0" />
       <Text layoutX="1093.0" layoutY="782.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bySorinGinara" />

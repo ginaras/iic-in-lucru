@@ -37,11 +37,11 @@ public class ControllerStageAdminFz implements Initializable {
     public Button addButton;
     public TextArea ItemList;
     public Button exportButton;
-    public TextField addFz;
     public Button adminDeviz;
     public Button adminOrg;
     public Text added;
     public String pathAdmFz = "C:\\Investitii\\resurse\\Fz";
+    public TextField addFz;
     public TextField addCUI;
     public TextField addNrContract;
     public TextField addValoareContract;
@@ -62,6 +62,8 @@ public class ControllerStageAdminFz implements Initializable {
         windowStage1Intro.setScene( tableViewScene );
         windowStage1Intro.show();
     }
+
+
 
 
    public void click(){
@@ -268,6 +270,12 @@ public class ControllerStageAdminFz implements Initializable {
                     addValoareContract.clear();
 // 10.03.21
                     addFz.clear();
+                    addCUI.clear();
+                    addAdresa.clear();
+                    addNrContract.clear();
+                    addDataContract.setValue(LocalDate.now());
+                    addValoareContract.clear();
+// 10.03.21
                     this.added.setText( "Ati adaugat cu succes" );
                     sortFile();
                 }

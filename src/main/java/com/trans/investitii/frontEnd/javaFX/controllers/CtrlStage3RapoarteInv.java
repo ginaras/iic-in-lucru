@@ -16,8 +16,11 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -26,15 +29,16 @@ public class CtrlStage3RapoarteInv implements Initializable {
 
     public Label labelProjEstimatInit;
     public Label labelAditionalProj;
-    public Label lababelTotalEstimatProj;
+    public Label labelTotalEstimatProj;
     public Label labelTotalRealizatProj;
     public Label labelDiferentaProj;
 
     public Label labelEstimatInitFz;
     public Label labelAditionalFz;
-    public Label lababelTotalEstimatFz;
+    public Label labelTotalEstimatFz;
     public Label labelTotalRealizatFz;
-    public Label labelDiferentaFz;
+//    public Label labelDiferentaFz;
+    public Label labelDiferentafz;
 
 
     public Label labelEstimatInitOrg;
@@ -76,6 +80,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
     public ComboBox comboBoxButtonFzContract;
 
 
+
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
     Statement stm = connection.createStatement();
 
@@ -104,7 +109,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
         comboBoxButtonFz.setItems( FXCollections.observableArrayList(myListFz));
         comboBoxButtonOrg.setItems( FXCollections.observableArrayList(myListOrg));
         comboBoxButtonProj.setItems( FXCollections.observableArrayList(myListProj));
-
+        comboBoxButtonOrgYear.getItems().addAll("2020","2021", "2022", "2023","2024","2025","2026","2027","2028","2029","2030" );
 
     }
 
@@ -116,7 +121,6 @@ public class CtrlStage3RapoarteInv implements Initializable {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene( tabeleViewScene );
         window.show();
-
     }
 
     public void resetAct ( ActionEvent event ) throws IOException {
@@ -128,9 +132,10 @@ public class CtrlStage3RapoarteInv implements Initializable {
     }
 
     public void apliFiter ( ActionEvent actionEvent ) throws SQLException {
-        String query1 = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE ";
-        String query2 = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE ";
-        String query3 = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE ";
+//        String query1 = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE ";
+        String query1 = "SELECT round(SUM(valInitiala), 2) as 'totalProiect' FROM invTBL WHERE  ";
+        String query2 = "SELECT round(SUM(valInitiala), 2) as 'totalProiect' FROM invTBL WHERE ";
+        String query3 = "SELECT round(SUM(valInitiala), 2) as 'totalProiect' FROM invTBL WHERE ";
 
         Object valueProj = comboBoxButtonProj.getValue();
         Object valueFz = comboBoxButtonFz.getValue();
@@ -144,20 +149,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
             return;
         }
 
-        if (valueOrg !=null && valueProj==null &&  valueFz==null){
-            query1 += "org = '"+valueOrg.toString()+"'";
 
-            ResultSet rsOrg=stm.executeQuery( query1 );
-            double totalProiect=0.00;
-            try {
-                while ((rsOrg.next())){
-                    totalProiect=rsOrg.getDouble( "totalProiect" );
-                }
-                labelTotalRealizatOrg.setText( String.valueOf( totalProiect ) );
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }
 
         if(valueProj !=null) {
             if (valueOrg == null && valueFz==null) {
@@ -219,16 +211,16 @@ public class CtrlStage3RapoarteInv implements Initializable {
                     throwables.printStackTrace();
                 }
 
-                ResultSet rsOrg=stm.executeQuery( query2 );
-                try {
-                double totalProiect1=0.00;
-                    while ((rsOrg.next())){
-                        totalProiect1=rsOrg.getDouble( "totalProiect" );
-                    }
-                    labelTotalRealizatOrg.setText( String.valueOf( totalProiect1 ) );
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
+//                ResultSet rsOrg=stm.executeQuery( query2 );
+//                try {
+//                double totalProiect1=0.00;
+//                    while ((rsOrg.next())){
+//                        totalProiect1=rsOrg.getDouble( "totalProiect" );
+//                    }
+//                    labelTotalRealizatOrg.setText( String.valueOf( totalProiect1 ) );
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
             }
             if (valueOrg != null && valueFz!=null) {
                 query1 += "org = '"+valueOrg.toString()+"'";
@@ -247,16 +239,16 @@ public class CtrlStage3RapoarteInv implements Initializable {
                     throwables.printStackTrace();
                 }
 
-                ResultSet rsOrg=stm.executeQuery( query1 );
-                try {
-                    double totalProiect1=0.00;
-                    while ((rsOrg.next())){
-                        totalProiect1=rsOrg.getDouble( "totalProiect" );
-                    }
-                    labelTotalRealizatOrg.setText( String.valueOf( totalProiect1 ) );
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
+//                ResultSet rsOrg=stm.executeQuery( query1 );
+//                try {
+//                    double totalProiect1=0.00;
+//                    while ((rsOrg.next())){
+//                        totalProiect1=rsOrg.getDouble( "totalProiect" );
+//                    }
+//                    labelTotalRealizatOrg.setText( String.valueOf( totalProiect1 ) );
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
 
                 ResultSet rsFz=stm.executeQuery( query3 );
                 try {
@@ -277,15 +269,15 @@ public class CtrlStage3RapoarteInv implements Initializable {
             query2 += "furnizor='" + valueFz.toString() + "' AND org='" +valueOrg.toString()+"'";
             Statement stm2= connection.createStatement();
             ResultSet rsOrg=stm2.executeQuery( query1 );
-            double totalProiect = 0;
-            try {
-                while (rsOrg.next()){
-                    totalProiect=rsOrg.getDouble( "totalProiect" );
-                }
-                labelTotalRealizatOrg.setText( String.valueOf( totalProiect ) );
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+//            double totalProiect = 0;
+//            try {
+//                while (rsOrg.next()){
+//                    totalProiect=rsOrg.getDouble( "totalProiect" );
+//                }
+//                labelTotalRealizatOrg.setText( String.valueOf( totalProiect ) );
+//            } catch (SQLException throwables) {
+//                throwables.printStackTrace();
+//            }
 
             ResultSet rsFzOrg = stm2.executeQuery( query2 );
             double totalProiect2 = 0;
@@ -343,6 +335,33 @@ public class CtrlStage3RapoarteInv implements Initializable {
         if ( comboBoxButtonFz.getValue()!=null){
         setFz.setText( comboBoxButtonFz.getValue().toString() );
         }
+
+
+        NumberFormat nf = NumberFormat.getNumberInstance( new Locale( "ro", "RO" ) );
+        nf.setMaximumFractionDigits( 2 );
+        DecimalFormat df = (DecimalFormat) nf;
+
+                    String estimatFinalProj = labelTotalEstimatProj.getText();
+                    estimatFinalProj = estimatFinalProj.replace(".", "");
+                    estimatFinalProj = estimatFinalProj.replace(",", "");
+
+                    String totalRealizatProj = labelTotalRealizatProj.getText();
+                    totalRealizatProj = totalRealizatProj.replace(",", "");
+                    totalRealizatProj = totalRealizatProj.replace(".","");
+
+                    double difProj = Integer.parseInt(estimatFinalProj)-Integer.parseInt(totalRealizatProj)/100;
+                    labelDiferentaProj.setText(df.format(difProj));
+
+        String estimatFinalFz = labelTotalEstimatFz.getText();
+        estimatFinalFz = estimatFinalFz.replace(".", "");
+        estimatFinalFz = estimatFinalFz.replace(",", "");
+
+        String totalRealizatFz = labelTotalRealizatFz.getText();
+        totalRealizatFz = totalRealizatFz.replace(",", "");
+        totalRealizatFz = totalRealizatFz.replace(".","");
+
+        double difFz = Integer.parseInt(estimatFinalFz)-Integer.parseInt(totalRealizatFz)/100;
+        labelDiferentafz.setText(df.format(difFz));
     }
 
     public void comboBoxActOrg ( ActionEvent actionEvent ) throws SQLException {
@@ -381,9 +400,98 @@ public class CtrlStage3RapoarteInv implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
     }
 
-    public void comboBoxActOrgYear ( ActionEvent event ) {
+    public void comboBoxActOrgYear ( ActionEvent event ) throws SQLException {
+        Statement stm= connection.createStatement();
+        ResultSet rsOrgBugetInitial = stm.executeQuery("Select valInitiala FROM bugetOrg WHERE org = '"+comboBoxButtonOrg.getValue()+"'  AND anulBugetar='"+comboBoxButtonOrgYear.getValue()+"'");
+
+        double bugetEstimatInitial = 0;
+        try {
+            while (rsOrgBugetInitial.next()){
+                bugetEstimatInitial=rsOrgBugetInitial.getDouble("valInitiala");
+            }
+            double bugetEstimatInitialD =  bugetEstimatInitial * 100 / 100;
+            NumberFormat nf = NumberFormat.getNumberInstance( new Locale( "ro", "RO" ) );
+            nf.setMaximumFractionDigits( 2 );
+            DecimalFormat df = (DecimalFormat) nf;
+
+            labelEstimatInitOrg.setText(df.format(bugetEstimatInitialD));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        ResultSet rsOrgBugetRectificat = stm.executeQuery("Select valRectificata FROM bugetOrg WHERE org = '"+comboBoxButtonOrg.getValue()+"'  AND anulBugetar='"+comboBoxButtonOrgYear.getValue()+"'");
+        double bugetEstimatRectificat = 0;
+        try {
+            while (rsOrgBugetRectificat.next()){
+                bugetEstimatRectificat=rsOrgBugetRectificat.getDouble("valRectificata");
+            }
+            double bugetEstimatRectificatD =  bugetEstimatRectificat * 100 / 100;
+            NumberFormat nf = NumberFormat.getNumberInstance( new Locale( "ro", "RO" ) );
+            nf.setMaximumFractionDigits( 2 );
+            DecimalFormat df = (DecimalFormat) nf;
+
+            labelAditionalOrg.setText(df.format(bugetEstimatRectificatD));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        ResultSet rsOrgBugetFinal = stm.executeQuery("Select valFinala FROM bugetOrg WHERE org = '"+comboBoxButtonOrg.getValue()+"'  AND anulBugetar='"+comboBoxButtonOrgYear.getValue()+"'");
+        double bugetEstimatFinal = 0;
+        try {
+            while (rsOrgBugetFinal.next()){
+                bugetEstimatFinal=rsOrgBugetFinal.getDouble("valFinala");
+            }
+            double bugetEstimatFinalD =  bugetEstimatFinal * 100 / 100;
+            NumberFormat nf = NumberFormat.getNumberInstance( new Locale( "ro", "RO" ) );
+            nf.setMaximumFractionDigits( 2 );
+            DecimalFormat df = (DecimalFormat) nf;
+
+            labetTotalEstimatOrg.setText(df.format(bugetEstimatFinalD));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+            String query1 = "SELECT round(SUM(valInitiala), 2) as 'totalProiect' FROM invTBL WHERE org = '"+comboBoxButtonOrg.toString()+"' " +
+                    "AND EXTRACT(YEAR FROM dataContabilizarii) = '"+comboBoxButtonOrgYear.getValue()+ "' ";
+
+        ResultSet rsOrg=stm.executeQuery( query1 );
+            double totalAnRealizatOrg=0.00;
+            try {
+                while ((rsOrg.next())){
+                    totalAnRealizatOrg=rsOrg.getDouble( "totalProiect" );
+                }
+                double totalAnRealizatOrgD =  totalAnRealizatOrg * 100 / 100;
+
+                NumberFormat nf = NumberFormat.getNumberInstance( new Locale( "ro", "RO" ) );
+                nf.setMaximumFractionDigits( 2 );
+                DecimalFormat df = (DecimalFormat) nf;
+
+                labelTotalRealizatOrg.setText( df.format(totalAnRealizatOrgD)  );
+
+                System.out.println("qe pasa?  "+totalAnRealizatOrgD);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        //Calcul coloana de diferenta
+        String estimatFinalOrg = labetTotalEstimatOrg.getText();
+        estimatFinalOrg = estimatFinalOrg.replace(".", "");
+        estimatFinalOrg = estimatFinalOrg.replace(",", "");
+
+        String totalRealizatOrg = labelTotalRealizatOrg.getText();
+        totalRealizatOrg = totalRealizatOrg.replace(",", "");
+        totalRealizatOrg = totalRealizatOrg.replace(".","");
+
+        double difOrg = Integer.parseInt(estimatFinalOrg)-Integer.parseInt(totalRealizatOrg)/100;
+
+        NumberFormat nf = NumberFormat.getNumberInstance( new Locale( "ro", "RO" ) );
+        nf.setMaximumFractionDigits( 2 );
+        DecimalFormat df = (DecimalFormat) nf;
+        labelDiferentaOrg.setText(df.format(difOrg));
+
+
     }
 
 
@@ -522,7 +630,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
                 while (rsValFinalaCtr.next()){
                     valFinala=rsValFinalaCtr.getDouble( "valFinalaFzTotal" );
                 }
-                lababelTotalEstimatFz.setText(String.valueOf(  valFinala) );
+                labelTotalEstimatFz.setText(String.valueOf(  valFinala) );
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -560,7 +668,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
                 while (rsValFinalaCtr.next()) {
                     valFinala = rsValFinalaCtr.getDouble( "valFinalaFzContractDB" );
                 }
-                lababelTotalEstimatFz.setText( String.valueOf( valFinala ) );
+                labelTotalEstimatFz.setText( String.valueOf( valFinala ) );
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

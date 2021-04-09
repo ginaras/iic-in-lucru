@@ -91,7 +91,7 @@
         </columns>
       </TableView>
       <Text layoutX="96.0" layoutY="661.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total" />
-      <Label fx:id="valoareaTotala" layoutX="334.0" layoutY="645.0" prefHeight="21.0" prefWidth="150.0" text="Valoarea" />
+      <Label fx:id="valoareaTotala" layoutX="334.0" layoutY="645.0" prefHeight="21.0" prefWidth="250.0" text="Valoarea" />
       <ComboBox fx:id="comboBoxAlegeProj" layoutX="256.0" layoutY="143.0" onAction="#comboBoxAlegeProj" prefHeight="31.0" prefWidth="183.0" promptText="Alege proiectul" style="-fx-background-radius: 10;" />
       <ComboBox fx:id="comboBoxAlegeOrg" layoutX="46.0" layoutY="145.0" onAction="#comboBoxAlegeOrg" prefHeight="31.0" prefWidth="183.0" promptText="Alege Organizatia" style="-fx-background-radius: 10;" />
       <DatePicker fx:id="secondDate" layoutX="467.0" layoutY="184.0" />

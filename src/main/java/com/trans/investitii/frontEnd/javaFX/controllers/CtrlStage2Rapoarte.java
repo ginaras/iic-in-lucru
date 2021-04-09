@@ -71,7 +71,7 @@ public class CtrlStage2Rapoarte implements Initializable {
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
     Statement stm = connection.createStatement();
-    ResultSet rs1 = stm.executeQuery( "SELECT * FROM invTBL " );
+    ResultSet rs1 = stm.executeQuery( "SELECT * FROM invTBL WHERE valoare <>'0' " );
     private URL location;
     private ResourceBundle resources;
 
@@ -121,7 +121,7 @@ public class CtrlStage2Rapoarte implements Initializable {
         tabelFacturi = FXCollections.observableArrayList();
         try {
             while (rs1.next()) {
-                tabelFacturi.addAll( new Investitii(
+                tabelFacturi.addAll( new Investitii (
                         rs1.getString( "furnizor" ),
                         rs1.getString( "nrFactura" ),
                         rs1.getString( "valoare" ),
@@ -163,7 +163,7 @@ public class CtrlStage2Rapoarte implements Initializable {
 
     public void selectButtton () throws SQLException {
 
-    String query = "SELECT * FROM invTBL WHERE ";
+    String query = "SELECT * FROM invTBL WHERE  valoare <> '0' AND  ";
     String query2 = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE ";
 
     Object valueProj = comboBoxAlegeProj.getValue();
@@ -195,17 +195,17 @@ public class CtrlStage2Rapoarte implements Initializable {
 
         if(valueFDdate !=null && valueSDate!=null) {
                 if (valueProj != null && valueOrg != null) {
-                    query += "nrProiect='" + valueProj.toString() + "' AND org='" + valueOrg.toString() + "' AND dataContabilizarii BETWEEN '" +valueFDdate.toString()+ "' AND '" +valueSDate.toString()+ "' ";
-                    query2 += "nrProiect='" + valueProj.toString() + "' AND org='" + valueOrg.toString() + "' AND dataContabilizarii BETWEEN '" +valueFDdate.toString()+ "' AND '" +valueSDate.toString()+ "' ";
+                    query += "nrProiect='" + valueProj.toString() + "' AND org='" + valueOrg.toString() + "' AND dataContabilizarii BETWEEN '" +valueFDdate+ "' AND '" +valueSDate+ "' ";
+                    query2 += "nrProiect='" + valueProj.toString() + "' AND org='" + valueOrg.toString() + "' AND dataContabilizarii BETWEEN '" +valueFDdate+ "' AND '" +valueSDate+ "' ";
                 }
                 if (valueProj == null && valueOrg !=null){
-                    query += "org='" + valueOrg.toString() + "' AND dataContabilizarii BETWEEN '" +valueFDdate.toString()+ "' AND '" +valueSDate.toString()+"' ";
-                    query2 += "org='" + valueOrg.toString() + "' AND dataContabilizarii BETWEEN '" +valueFDdate.toString()+ "' AND '" +valueSDate.toString()+ "' ";
+                    query += "org='" + valueOrg.toString() + "' AND dataContabilizarii BETWEEN '" +valueFDdate+ "' AND '" +valueSDate+"' ";
+                    query2 += "org='" + valueOrg.toString() + "' AND dataContabilizarii BETWEEN '" +valueFDdate.toString()+ "' AND '" +valueSDate+ "' ";
 
                 }
                 if (valueProj ==null && valueOrg ==null){
-                    query += "dataContabilizarii BETWEEN '" + valueFDdate.toString() + "' AND '"+ valueSDate.toString()+ "' ";
-                    query2 += "dataContabilizarii BETWEEN '" +valueFDdate.toString() + "' AND '" +valueSDate.toString()+ "' ";
+                    query += "dataContabilizarii BETWEEN '" + valueFDdate + "' AND '"+ valueSDate+ "' ";
+                    query2 += "dataContabilizarii BETWEEN '" +valueFDdate.toString() + "' AND '" +valueSDate+ "' ";
                 }
          }
         if ((valueFDdate ==null && valueSDate!=null) || (valueFDdate !=null && valueSDate==null)){

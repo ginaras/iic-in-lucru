@@ -18,10 +18,15 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+
+import static java.lang.Double.parseDouble;
 
 public class CtrlStage4PIF implements Initializable {
     public ComboBox comboBoxButtonOrg;
@@ -82,7 +87,6 @@ public class CtrlStage4PIF implements Initializable {
     public Button butonStage1Intro;
     public Button butonStage2Rapoarte;
     public Button butonStage3RapoarteInv;
-    public TextField textFieldValoarePIF;
     public TextField textFieldNrPVR;
     public Button buttonPIF;
     public Button buttonValidare;
@@ -136,28 +140,28 @@ public class CtrlStage4PIF implements Initializable {
         if (comboBoxButtonOrg!=null){
             comboBoxButtonProj.setDisable( false );
 
-        String selectProj = "SELECT nrProiect FROM invTbl WHERE org ='"+comboBoxButtonOrg.getValue()+"'";
-        List<String> myListProj =new ArrayList<>();
+            String selectProj = "SELECT nrProiect FROM invTbl WHERE  valoare <> '0' AND org ='"+comboBoxButtonOrg.getValue()+"'";
+            List<String> myListProj =new ArrayList<>();
 
-        Statement stm = connection.createStatement();
-        ResultSet rsProjOrg = stm.executeQuery( selectProj );
+            Statement stm = connection.createStatement();
+            ResultSet rsProjOrg = stm.executeQuery( selectProj );
 
-        try{
-            while (rsProjOrg.next()) {
-                myListProj.add( rsProjOrg.getString( "nrProiect"));
+            try{
+                while (rsProjOrg.next()) {
+                    myListProj.add( rsProjOrg.getString( "nrProiect"));
+                }
+                List<String> noDuplicatesListProj = myListProj.stream().distinct().collect( Collectors.toList());
+                 comboBoxButtonProj.setItems( FXCollections.observableList( noDuplicatesListProj ) );
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
-            List<String> noDuplicatesListProj = myListProj.stream().distinct().collect( Collectors.toList());
-             comboBoxButtonProj.setItems( FXCollections.observableList( noDuplicatesListProj ) );
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
         }
     }
 
     public void comboBoxActProj ( ActionEvent actionEvent ) throws SQLException {
 
         String totalProiectSql = "SELECT ROUND(SUM(valoare),2) as 'totalProiect' FROM invTBL WHERE org='"+comboBoxButtonOrg.getValue()+"' AND nrProiect='"+comboBoxButtonProj.getValue()+"'";
-        String selectProj = "SELECT * FROM invTBL WHERE org='"+comboBoxButtonOrg.getValue()+"' AND nrProiect='"+comboBoxButtonProj.getValue()+"'";
+        String selectProj = "SELECT * FROM invTBL WHERE  valoare <> '0' AND org='"+comboBoxButtonOrg.getValue()+"' AND nrProiect='"+comboBoxButtonProj.getValue()+"'";
 
         furnizorColumn.setCellValueFactory( new PropertyValueFactory<>( "furnizor" ) );
         nrFacturaColumn.setCellValueFactory( new PropertyValueFactory<>( "nrFactura" ) );
@@ -188,11 +192,16 @@ public class CtrlStage4PIF implements Initializable {
             while (rsProjTotal.next()){
                 totalProiectValue=rsProjTotal.getDouble( "totalProiect" );
             }
-            totalProiect.setText( String.valueOf( totalProiectValue ) );
+
+            double tp =  totalProiectValue * 100 / 100;
+            NumberFormat nf = NumberFormat.getNumberInstance( new Locale( "ro", "RO" ) );
+            nf.setMaximumFractionDigits( 2 );
+            DecimalFormat df = (DecimalFormat) nf;
+
+            totalProiect.setText( String.valueOf( df.format( tp  ) ) );
             } catch (SQLException throwables) {
             throwables.printStackTrace();
             }
-
     }
 
     @Override
@@ -363,28 +372,17 @@ public class CtrlStage4PIF implements Initializable {
             confirm.setHeaderText( "Ați ajuns la limita de 30 de facturi selectate!" );
             confirm.setContentText( "Apargeti PIFul in mai multe");
             confirm.show();
-
-
         }
 
-        ObservableList<Investitii> selectedCels, selectedRows, allInvoice;
+        ObservableList<Investitii>  selectedRows, allInvoice;
         allInvoice = tabelFacturiPIF.getItems();
         selectedRows = tabelFacturiPIF.getSelectionModel().getSelectedItems();
-
-        int selectNrCrt1 =tabelFacturiPIF.getSelectionModel().getSelectedItem().getNrCrt();
-
-//        for (Investitii factura : selectedRows) {
-//            allInvoice.remove( factura );
-//        }
-//
-//        String selectForPIF="SELECT * FROM invTBL WHERE org='"+comboBoxButtonOrg.getValue()+"' AND nrProiect='"+comboBoxButtonProj.getValue()+"' AND nrCrt='"+selectNrCrt1+"'";
-//        String totalSelectForPIF = "SELECT ROUND(SUM(valoare),2) as 'totalPif' FROM invTBL WHERE org='"+comboBoxButtonOrg.getValue()+"' AND nrProiect='"+comboBoxButtonProj.getValue()+"' AND nrCrt='"+selectedCels+"'";
 
         String selectForPIF = "SELECT * FROM invTBL WHERE org='"+comboBoxButtonOrg.getValue()+"' AND nrProiect='"+comboBoxButtonProj.getValue()+"' AND nrCrt='"+labelNrCrt.getText()+"' or nrcrt='"+labelNrCrt1.getText()+"'or nrcrt='"+labelNrCrt2.getText()+"'or nrcrt='"+labelNrCrt3.getText()+"'or nrcrt='"+labelNrCrt4.getText()+"'or nrcrt='"+labelNrCrt5.getText()+"'or nrcrt='"+labelNrCrt6.getText()+
                 "'or nrcrt='"+labelNrCrt7.getText()+"'or nrcrt='"+labelNrCrt8.getText()+"'or nrcrt='"+labelNrCrt9.getText()+"'or nrcrt='"+labelNrCrt10.getText()+"'or nrcrt='"+labelNrCrt11.getText()+"'or nrcrt='"+labelNrCrt12.getText()+"'or nrcrt='"+labelNrCrt13.getText()+"'or nrcrt='"+labelNrCrt14.getText()+"'or nrcrt='"+labelNrCrt15.getText()+"'or nrcrt='"+labelNrCrt16.getText()+"'or nrcrt='"+labelNrCrt17.getText()+
                 "'or nrcrt='"+labelNrCrt18.getText()+"'or nrcrt='"+labelNrCrt19.getText()+"'or nrcrt='"+labelNrCrt20.getText()+"'or nrcrt='"+labelNrCrt21.getText()+"'or nrcrt='"+labelNrCrt22.getText()+"'or nrcrt='"+labelNrCrt23.getText()+"'or nrcrt='"+labelNrCrt24.getText()+"'or nrcrt='"+labelNrCrt25.getText()+"'or nrcrt='"+labelNrCrt26.getText()+"'or nrcrt='"+labelNrCrt27.getText()+"'or nrcrt='"+labelNrCrt28.getText()+"'or nrcrt='"+labelNrCrt29.getText()+"'";
 
-        String totalSelectForPIF = "SELECT ROUND(SUM(valoare),2) as 'totalPif' FROM invTBL WHERE org='"+comboBoxButtonOrg.getValue()+"' AND nrProiect='"+comboBoxButtonProj.getValue()+"' AND nrCrt='"+labelNrCrt.getText()+"' or nrcrt='"+labelNrCrt1.getText()+"'or nrcrt='"+labelNrCrt2.getText()+"'or nrcrt='"+labelNrCrt3.getText()+"'or nrcrt='"+labelNrCrt.getText()+"'or nrcrt='"+labelNrCrt5.getText()+"' or nrcrt='"+labelNrCrt6.getText()+
+        String totalSelectForPIF = "SELECT ROUND(SUM(valoare),2) as 'totalPif' FROM invTBL WHERE org='"+comboBoxButtonOrg.getValue()+"' AND nrProiect='"+comboBoxButtonProj.getValue()+"' AND nrCrt='"+labelNrCrt.getText()+"' or nrcrt='"+labelNrCrt1.getText()+"'or nrcrt='"+labelNrCrt2.getText()+"'or nrcrt='"+labelNrCrt3.getText()+"'or nrcrt='"+labelNrCrt4.getText()+"'or nrcrt='"+labelNrCrt5.getText()+"' or nrcrt='"+labelNrCrt6.getText()+
                 "'or nrcrt='"+labelNrCrt7.getText()+"'or nrcrt='"+labelNrCrt8.getText()+"'or nrcrt='"+labelNrCrt9.getText()+"'or nrcrt='"+labelNrCrt10.getText()+"'or nrcrt='"+labelNrCrt11.getText()+"'or nrcrt='"+labelNrCrt12.getText()+"'or nrcrt='"+labelNrCrt13.getText()+"'or nrcrt='"+labelNrCrt14.getText()+"'or nrcrt='"+labelNrCrt15.getText()+"'or nrcrt='"+labelNrCrt16.getText()+"'or nrcrt='"+labelNrCrt17.getText()+
                 "'or nrcrt='"+labelNrCrt18.getText()+"'or nrcrt='"+labelNrCrt19.getText()+"'or nrcrt='"+labelNrCrt20.getText()+"'or nrcrt='"+labelNrCrt21.getText()+"'or nrcrt='"+labelNrCrt22.getText()+"'or nrcrt='"+labelNrCrt23.getText()+"'or nrcrt='"+labelNrCrt24.getText()+"'or nrcrt='"+labelNrCrt25.getText()+"'or nrcrt='"+labelNrCrt26.getText()+"'or nrcrt='"+labelNrCrt27.getText()+"'or nrcrt='"+labelNrCrt28.getText()+"'or nrcrt='"+labelNrCrt29.getText()+"' ";
 
@@ -406,24 +404,31 @@ public class CtrlStage4PIF implements Initializable {
                 ) );
             }
             tabelFinalPif.setItems( tabelFinalDePif2 );
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+
         ResultSet rsProjTotal= stm.executeQuery( totalSelectForPIF );
         double totalPifValue=0;
         try {
             while (rsProjTotal.next()){
                 totalPifValue=rsProjTotal.getDouble( "totalPif" );
             }
-            totalPIF.setText( String.valueOf( totalPifValue ) );
+
+            double totPif =  totalPifValue * 100 / 100;
+            NumberFormat nf = NumberFormat.getNumberInstance( new Locale( "ro", "RO" ) );
+            nf.setMaximumFractionDigits( 2 );
+            DecimalFormat df = (DecimalFormat) nf;
+
+            totalPIF.setText( String.valueOf( df.format(totPif) ) );
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         for (Investitii factura : selectedRows) {
             allInvoice.remove( factura );
         }
+
     }
 
 
@@ -482,8 +487,6 @@ public class CtrlStage4PIF implements Initializable {
         }
     }
 
-
-
     public void reset ( ActionEvent event ) throws IOException {
         Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage4Pif.fxml" ) );
         Scene tableViewScene = new Scene( stage1Intro );
@@ -497,14 +500,17 @@ public class CtrlStage4PIF implements Initializable {
         Investitii selectValoare = tabelFinalPif.getSelectionModel().getSelectedItem();
 
        if (selectValoare!=null){
-//        textFieldValoarePIF.setText( selectValoare.getValoare() ) ;
         labelNrCrtReturn.setText( selectValoare.getNrCrt().toString() ) ;
        }
     }
 
 
     public void validarePIF ( ActionEvent event ) throws SQLException {
-        String totalSelectForPIF = "SELECT ROUND(SUM(valoare),2) as 'totalPif' FROM invTBL WHERE org='"+comboBoxButtonOrg.getValue()+"' AND nrProiect='"+comboBoxButtonProj.getValue()+"' AND nrCrt='"+labelNrCrt.getText()+"' or nrcrt='"+labelNrCrt1.getText()+"'or nrcrt='"+labelNrCrt2.getText()+"'or nrcrt='"+labelNrCrt3.getText()+"'or nrcrt='"+labelNrCrt.getText()+"'or nrcrt='"+labelNrCrt5.getText()+"'";
+        String totalSelectForPIF = "SELECT ROUND(SUM(valoare),2) as 'totalPif' FROM invTBL WHERE org='"+comboBoxButtonOrg.getValue()+"' AND nrProiect='"+comboBoxButtonProj.getValue()+"' AND nrCrt='"+labelNrCrt.getText()+"' or nrcrt='"+labelNrCrt1.getText()+"'or nrcrt='"+labelNrCrt2.getText()+"'or nrcrt='"+labelNrCrt3.getText()+"'or nrcrt='"+labelNrCrt4.getText()+"'or nrcrt='"+labelNrCrt5.getText()+"'" +
+                "OR nrCrt = '" + labelNrCrt6.getText() + "'OR nrCrt = '" + labelNrCrt7.getText() + "'OR nrCrt = '" + labelNrCrt8.getText() + "'OR nrCrt = '" + labelNrCrt9.getText() + "'OR nrCrt = '" + labelNrCrt10.getText() + "'OR nrCrt = '" + labelNrCrt11.getText() + "'OR nrCrt = '" + labelNrCrt12.getText() + "'" +
+                "OR nrCrt = '" + labelNrCrt13.getText() + "'OR nrCrt = '" + labelNrCrt14.getText() + "'OR nrCrt = '" + labelNrCrt15.getText() + "'OR nrCrt = '" + labelNrCrt16.getText() + "'OR nrCrt = '" + labelNrCrt17.getText() + "'OR nrCrt = '" + labelNrCrt18.getText() + "'OR nrCrt = '" + labelNrCrt19.getText() + "'" +
+                "OR nrCrt = '" + labelNrCrt20.getText() + "'OR nrCrt = '" + labelNrCrt21.getText() + "'OR nrCrt = '" + labelNrCrt22.getText() + "'OR nrCrt = '" + labelNrCrt23.getText() + "'OR nrCrt = '" + labelNrCrt24.getText() + "'OR nrCrt = '" + labelNrCrt25.getText() + "'OR nrCrt = '" + labelNrCrt26.getText() + "'" +
+                "OR nrCrt = '" + labelNrCrt27.getText() + "'OR nrCrt = '" + labelNrCrt28.getText() + "'OR nrCrt = '" + labelNrCrt29.getText() +"' ";
 
         ResultSet rsProjTotal= stm.executeQuery( totalSelectForPIF );
         double totalPifValue=0;
@@ -513,7 +519,7 @@ public class CtrlStage4PIF implements Initializable {
                 totalPifValue=rsProjTotal.getDouble( "totalPif" );
             }
             totalPIF.setText( String.valueOf( totalPifValue ) );
-            double total = Double.parseDouble( totalPIF.getText());
+            double total = parseDouble( totalPIF.getText());
 
 
                 if (total==0 ){
@@ -550,18 +556,28 @@ public class CtrlStage4PIF implements Initializable {
             }if (alert0.getResult() == ButtonType.NO){
 
             }
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
     }
 
     public void finalizarePIF ( ActionEvent event ) throws IOException {
 
-        String valoare = "UPDATE invTBL SET valoare= '0' WHERE nrCrt = '" + labelNrCrt.getText() + "' OR nrCrt = '" + labelNrCrt1.getText() + "' OR nrCrt = '" + labelNrCrt2.getText() + "' OR nrCrt = '" + labelNrCrt3.getText() + "' OR nrCrt = '" + labelNrCrt4.getText() + "' OR nrCrt = '" + labelNrCrt5.getText() + "' " ;
-        String nrPif= "UPDATE invTBL SET nrPIF='" + textFieldNrPVR.getText() + "' WHERE nrCrt = '" + labelNrCrt.getText() + "' OR nrCrt = '" + labelNrCrt1.getText() + "' OR nrCrt = '" + labelNrCrt2.getText() + "' OR nrCrt = '" + labelNrCrt3.getText() + "' OR nrCrt = '" + labelNrCrt4.getText() + "' OR nrCrt = '" + labelNrCrt5.getText() + "' " ;
-        String dataPIIF="UPDATE invTBL SET dataPIF='" + dataPIF.getValue() + "' WHERE nrCrt = '" + labelNrCrt.getText() + "' OR nrCrt = '" + labelNrCrt1.getText() + "' OR nrCrt = '" + labelNrCrt2.getText() + "' OR nrCrt = '" + labelNrCrt3.getText() + "' OR nrCrt = '" + labelNrCrt4.getText() + "' OR nrCrt = '" + labelNrCrt5.getText() + "' " ;
+        String valoare = "UPDATE invTBL SET valoare= '0' WHERE nrCrt = '" + labelNrCrt.getText() + "' OR nrCrt = '" + labelNrCrt1.getText() + "' OR nrCrt = '" + labelNrCrt2.getText() + "' OR nrCrt = '" + labelNrCrt3.getText() + "' OR nrCrt = '" + labelNrCrt4.getText() + "' OR nrCrt = '" + labelNrCrt5.getText() + "' " +
+                "OR nrCrt = '" + labelNrCrt6.getText() + "'OR nrCrt = '" + labelNrCrt7.getText() + "'OR nrCrt = '" + labelNrCrt8.getText() + "'OR nrCrt = '" + labelNrCrt9.getText() + "'OR nrCrt = '" + labelNrCrt10.getText() + "'OR nrCrt = '" + labelNrCrt11.getText() + "'OR nrCrt = '" + labelNrCrt12.getText() + "'" +
+                "OR nrCrt = '" + labelNrCrt13.getText() + "'OR nrCrt = '" + labelNrCrt14.getText() + "'OR nrCrt = '" + labelNrCrt15.getText() + "'OR nrCrt = '" + labelNrCrt16.getText() + "'OR nrCrt = '" + labelNrCrt17.getText() + "'OR nrCrt = '" + labelNrCrt18.getText() + "'OR nrCrt = '" + labelNrCrt19.getText() + "'" +
+                "OR nrCrt = '" + labelNrCrt20.getText() + "'OR nrCrt = '" + labelNrCrt21.getText() + "'OR nrCrt = '" + labelNrCrt22.getText() + "'OR nrCrt = '" + labelNrCrt23.getText() + "'OR nrCrt = '" + labelNrCrt24.getText() + "'OR nrCrt = '" + labelNrCrt25.getText() + "'OR nrCrt = '" + labelNrCrt26.getText() + "'" +
+                "OR nrCrt = '" + labelNrCrt27.getText() + "'OR nrCrt = '" + labelNrCrt28.getText() + "'OR nrCrt = '" + labelNrCrt29.getText() +"' ";
+                String nrPif= "UPDATE invTBL SET nrPIF='" + textFieldNrPVR.getText() + "' WHERE nrCrt = '" + labelNrCrt.getText() + "' OR nrCrt = '" + labelNrCrt1.getText() + "' OR nrCrt = '" + labelNrCrt2.getText() + "' OR nrCrt = '" + labelNrCrt3.getText() + "' OR nrCrt = '" + labelNrCrt4.getText() + "' OR nrCrt = '" + labelNrCrt5.getText() + "'" +
+                        "OR nrCrt = '" + labelNrCrt6.getText() + "'OR nrCrt = '" + labelNrCrt7.getText() + "'OR nrCrt = '" + labelNrCrt8.getText() + "'OR nrCrt = '" + labelNrCrt9.getText() + "'OR nrCrt = '" + labelNrCrt10.getText() + "'OR nrCrt = '" + labelNrCrt11.getText() + "'OR nrCrt = '" + labelNrCrt12.getText() + "'" +
+                        "OR nrCrt = '" + labelNrCrt13.getText() + "'OR nrCrt = '" + labelNrCrt14.getText() + "'OR nrCrt = '" + labelNrCrt15.getText() + "'OR nrCrt = '" + labelNrCrt16.getText() + "'OR nrCrt = '" + labelNrCrt17.getText() + "'OR nrCrt = '" + labelNrCrt18.getText() + "'OR nrCrt = '" + labelNrCrt19.getText() + "'" +
+                        "OR nrCrt = '" + labelNrCrt20.getText() + "'OR nrCrt = '" + labelNrCrt21.getText() + "'OR nrCrt = '" + labelNrCrt22.getText() + "'OR nrCrt = '" + labelNrCrt23.getText() + "'OR nrCrt = '" + labelNrCrt24.getText() + "'OR nrCrt = '" + labelNrCrt25.getText() + "'OR nrCrt = '" + labelNrCrt26.getText() + "'" +
+                        "OR nrCrt = '" + labelNrCrt27.getText() + "'OR nrCrt = '" + labelNrCrt28.getText() + "'OR nrCrt = '" + labelNrCrt29.getText() +"' ";
+        String dataPIIF="UPDATE invTBL SET dataPIF='" + dataPIF.getValue() + "' WHERE nrCrt = '" + labelNrCrt.getText() + "' OR nrCrt = '" + labelNrCrt1.getText() + "' OR nrCrt = '" + labelNrCrt2.getText() + "' OR nrCrt = '" + labelNrCrt3.getText() + "' OR nrCrt = '" + labelNrCrt4.getText() + "' OR nrCrt = '" + labelNrCrt5.getText() + "' " +
+                "OR nrCrt = '" + labelNrCrt6.getText() + "'OR nrCrt = '" + labelNrCrt7.getText() + "'OR nrCrt = '" + labelNrCrt8.getText() + "'OR nrCrt = '" + labelNrCrt9.getText() + "'OR nrCrt = '" + labelNrCrt10.getText() + "'OR nrCrt = '" + labelNrCrt11.getText() + "'OR nrCrt = '" + labelNrCrt12.getText() + "'" +
+                "OR nrCrt = '" + labelNrCrt13.getText() + "'OR nrCrt = '" + labelNrCrt14.getText() + "'OR nrCrt = '" + labelNrCrt15.getText() + "'OR nrCrt = '" + labelNrCrt16.getText() + "'OR nrCrt = '" + labelNrCrt17.getText() + "'OR nrCrt = '" + labelNrCrt18.getText() + "'OR nrCrt = '" + labelNrCrt19.getText() + "'" +
+                "OR nrCrt = '" + labelNrCrt20.getText() + "'OR nrCrt = '" + labelNrCrt21.getText() + "'OR nrCrt = '" + labelNrCrt22.getText() + "'OR nrCrt = '" + labelNrCrt23.getText() + "'OR nrCrt = '" + labelNrCrt24.getText() + "'OR nrCrt = '" + labelNrCrt25.getText() + "'OR nrCrt = '" + labelNrCrt26.getText() + "'" +
+                "OR nrCrt = '" + labelNrCrt27.getText() + "'OR nrCrt = '" + labelNrCrt28.getText() + "'OR nrCrt = '" + labelNrCrt29.getText() +"' ";
         try (Statement stm = connection.createStatement() ){
             int updateValoare =stm.executeUpdate( valoare );
             int updateNrPif =stm.executeUpdate( nrPif );

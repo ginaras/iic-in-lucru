@@ -195,7 +195,7 @@ public class ControllerStage03AdminBugete implements Initializable {
             double vfprojD = parseDouble( vfProj);
             NumberFormat nf = NumberFormat.getNumberInstance(new Locale("ro","RO"));
             nf.setMaximumFractionDigits(2);
-            DecimalFormat df = (DecimalFormat)nf;
+            DecimalFormat df = (DecimalFormat) nf;
             txtValoareFinalaProj.setText( df.format(vfprojD ) );
         } catch (Exception e) {
             e.printStackTrace();
@@ -342,7 +342,14 @@ public class ControllerStage03AdminBugete implements Initializable {
                 while (rsValFinalaOrg.next()) {
                     vfOrg = (String) rsValFinalaOrg.getObject( "vfOrg" );
                 }
-                txtValoareFinalaOrg.setText( vfOrg );
+                double vfOrgD = parseDouble( vfOrg );
+                NumberFormat nf = NumberFormat.getNumberInstance( new Locale( "ro", "RO" ) );
+                nf.setMaximumFractionDigits( 2 );
+                DecimalFormat df = (DecimalFormat) nf;
+
+                txtValoareFinalaOrg.setText( df.format(vfOrgD ));
+                System.out.println(vfOrgD);
+                System.out.println(txtValoareFinalaOrg.getText());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -426,14 +433,14 @@ public class ControllerStage03AdminBugete implements Initializable {
     }
 
     public void buttonAplicaBugetProjAction ( ActionEvent event ) throws SQLException {
-
-        if (txtValoareProjInitial.getText().isEmpty()) {
-            Alert alertComboBContract = new Alert( Alert.AlertType.CONFIRMATION );
-            alertComboBContract.setTitle( "Atentionare" );
-            alertComboBContract.setHeaderText( "Alege un contract!" );
-            alertComboBContract.setContentText( "OK?" );
-            Optional<ButtonType> result = alertComboBContract.showAndWait();
-        } else {
+// todo de scos din cod
+//        if (txtValoareProjInitial.getText().isEmpty()) {
+//            Alert alertComboBContract = new Alert( Alert.AlertType.CONFIRMATION );
+//            alertComboBContract.setTitle( "Atentionare" );
+//            alertComboBContract.setHeaderText( "Alege un contract!" );
+//            alertComboBContract.setContentText( "OK?" );
+//            Optional<ButtonType> result = alertComboBContract.showAndWait();
+//        } else {
             double valIniProj = (parseDouble( txtValoareProjInitial.getText() ) * 100) / 100;
             if (textFieldRectificareProj.getText().isEmpty()) {
                 Alert alertRectificare = new Alert( Alert.AlertType.CONFIRMATION );
@@ -517,7 +524,7 @@ public class ControllerStage03AdminBugete implements Initializable {
                     textFieldRectificareProj.clear();
                 }
             }
-        }
+//        }
         checkProj.setSelected( false );
     }
 
@@ -691,22 +698,10 @@ public class ControllerStage03AdminBugete implements Initializable {
                 .collect( Collectors.toList() );
         comboBProj.setItems( FXCollections.observableArrayList(projActiv));
 
-//        comboOrgType.getItems().addAll( "Buget Initial", "Rectificare" );
-//        comboOrgType.getItems().add( 0, "Buget Initial" );
-//        comboOrgType.getItems().add( 1, "Rectificare" );
-//
-//        DefaultListSelectionModel model = new DefaultListSelectionModel();
-//        model.addSelectionInterval( 0, 0 );
-//        model.addSelectionInterval( 1,1 );
-//
-
-        String orgExistenteInBDOrg = "SELECT org AS 'orgExistentInBD' from bugetOrg";
-
 
 
         comboBoxYearChose.getItems().addAll( "2021", "2022","2023","2024","2025","2026","2027","2028","2029","2030" );
 
-//        comboOrgType.setDisable( true );
         checkOrgBugetInitial.setDisable( true );
         checkOrgRectificareBuget.setDisable( true );
         buttonAplicaBugetContract.setDisable( true );
