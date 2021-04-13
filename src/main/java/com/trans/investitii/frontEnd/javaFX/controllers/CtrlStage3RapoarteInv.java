@@ -78,7 +78,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
     public Button goToStage4Pif;
     public Button butonStage1Intro;
     public ComboBox comboBoxButtonFzContract;
-
+    public Button buttonStage5Solduri;
 
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
@@ -1179,4 +1179,11 @@ public class CtrlStage3RapoarteInv implements Initializable {
         windowStage1Intro.show();
     }
 
+    public void goToStage5Solduri ( ActionEvent actionEvent ) throws IOException {
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage5Solduri.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
+    }
 }

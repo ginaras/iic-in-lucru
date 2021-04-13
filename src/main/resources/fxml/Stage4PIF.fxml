@@ -32,7 +32,7 @@
       </TableView>
       <Label fx:id="totalProiect" layoutX="498.0" layoutY="694.0" text="." />
       <Label fx:id="totalPIF" layoutX="1037.0" layoutY="683.0" text="." />
-      <Label layoutX="335.0" layoutY="693.0" text="Total Proiect">
+      <Label layoutX="348.0" layoutY="693.0" text="Total Proiect">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -92,7 +92,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="butonStage2Rapoarte" layoutX="400.0" layoutY="749.0" mnemonicParsing="false" onAction="#backOnStage2Rapoarte" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte detaliate" textFill="#fcfbf5">
+      <Button fx:id="butonStage2Rapoarte" layoutX="9.0" layoutY="749.0" mnemonicParsing="false" onAction="#backOnStage2Rapoarte" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte detaliate" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -112,7 +112,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="butonStage1Intro" layoutX="209.0" layoutY="749.0" mnemonicParsing="false" onAction="#goOnStage1Intro" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Introducere facturi" textFill="#fcfbf5">
+      <Button fx:id="butonStage1Intro" layoutX="167.0" layoutY="685.0" mnemonicParsing="false" onAction="#goOnStage1Intro" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Introducere facturi" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -132,7 +132,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="butonStage0" layoutX="13.0" layoutY="749.0" mnemonicParsing="false" onAction="#goOnStage0" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Meniul principal" textFill="#fcfbf5">
+      <Button fx:id="butonStage0" layoutX="13.0" layoutY="686.0" mnemonicParsing="false" onAction="#goOnStage0" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Meniul principal" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -152,7 +152,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="butonStage3RapoarteInv" layoutX="597.0" layoutY="750.0" mnemonicParsing="false" onAction="#goOnStage3RapoarteInv" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte sumarizate" textFill="#fcfbf5">
+      <Button fx:id="butonStage3RapoarteInv" layoutX="188.0" layoutY="750.0" mnemonicParsing="false" onAction="#goOnStage3RapoarteInv" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte sumarizate" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -386,5 +386,25 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
+      <Button fx:id="buttonStage5Solduri" layoutX="381.0" layoutY="751.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Solduri" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

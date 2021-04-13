@@ -259,7 +259,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="goToStage4Pif" layoutX="619.0" layoutY="745.0" mnemonicParsing="false" onAction="#goToStage4Pif" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Puneri in functiune" textFill="#fcfbf5">
+      <Button fx:id="goToStage4Pif" layoutX="755.0" layoutY="745.0" mnemonicParsing="false" onAction="#goToStage4Pif" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Puneri in functiune" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -281,5 +281,25 @@
       </Button>
       <ComboBox fx:id="comboBoxButtonOrgYear" layoutX="142.0" layoutY="250.0" onAction="#comboBoxActOrgYear" prefHeight="31.0" prefWidth="131.0" promptText="Alege anul" style="-fx-background-radius: 10;" />
       <ComboBox fx:id="comboBoxButtonFzContract" layoutX="142.0" layoutY="476.0" onAction="#comboBoxFzContractAct" prefHeight="31.0" prefWidth="165.0" promptText="Alege contractul" style="-fx-background-radius: 10;" />
+      <Button fx:id="buttonStage5Solduri" layoutX="624.0" layoutY="747.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Solduri" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

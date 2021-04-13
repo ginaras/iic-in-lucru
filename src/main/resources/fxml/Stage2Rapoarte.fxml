@@ -10,7 +10,7 @@
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trans.investitii.frontEnd.javaFX.controllers.CtrlStage2Rapoarte">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="104.0" layoutX="25.0" layoutY="126.0" stroke="BLACK" strokeType="INSIDE" style="-fx-background-radius: 10;" width="883.0" />
-      <Button fx:id="buttonBackSt0" layoutX="46.0" layoutY="728.0" mnemonicParsing="false" onAction="#goOnSt0" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Meniul principal" textFill="#fcfbf5">
+      <Button fx:id="buttonBackSt0" layoutX="46.0" layoutY="687.0" mnemonicParsing="false" onAction="#goOnSt0" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Meniul principal" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -30,7 +30,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="buttonSt1Intro" layoutX="205.0" layoutY="728.0" mnemonicParsing="false" onAction="#goToStage1Intro" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Introducerea de date" textFill="#fcfbf5">
+      <Button fx:id="buttonSt1Intro" layoutX="43.0" layoutY="735.0" mnemonicParsing="false" onAction="#goToStage1Intro" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Introducerea de date" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -177,7 +177,47 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="buttonStage3Sumar" layoutX="404.0" layoutY="728.0" mnemonicParsing="false" onAction="#goToStage3Sumar" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte sumarizate" textFill="#fcfbf5">
+      <Button fx:id="buttonStage3Sumar" layoutX="235.0" layoutY="687.0" mnemonicParsing="false" onAction="#goToStage3Sumar" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte sumarizate" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="goToStage4Pif" layoutX="237.0" layoutY="735.0" mnemonicParsing="false" onAction="#goToStage4Pif" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Puneri in functiune" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonStage5Solduri" layoutX="432.0" layoutY="710.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Consultare Solduri" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>

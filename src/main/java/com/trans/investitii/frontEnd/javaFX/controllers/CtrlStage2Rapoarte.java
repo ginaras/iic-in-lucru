@@ -67,6 +67,8 @@ public class CtrlStage2Rapoarte implements Initializable {
     public Button RapoarteButton;
     public Button ExportSelectieButton;
     public Button buttonStage3Sumar;
+    public Button buttonStage5Solduri;
+    public Button goToStage4Pif;
 
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
@@ -460,6 +462,22 @@ public class CtrlStage2Rapoarte implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public void goToStage5Solduri ( ActionEvent actionEvent ) throws IOException {
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage5Solduri.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
+    }
+
+    public void goToStage4Pif ( ActionEvent actionEvent ) throws IOException {
+        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage4Pif.fxml" ) );
+        Scene tableViewScene = new Scene( stage1Intro );
+        Stage windowStage1Intro = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        windowStage1Intro.setScene( tableViewScene );
+        windowStage1Intro.show();
     }
 }
 

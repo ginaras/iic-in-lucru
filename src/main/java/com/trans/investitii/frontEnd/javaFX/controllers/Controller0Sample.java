@@ -37,6 +37,7 @@ public class Controller0Sample implements Initializable {
     public Button goToStage4Pif;
     public Button goToStageNewUnit;
     public Button goToStage03AdminBuget;
+    public Button buttonStage5Solduri;
 
     public void goToStage1Intro( ActionEvent event ) throws IOException, SQLException {
         getConectionNew();
@@ -282,6 +283,15 @@ public class Controller0Sample implements Initializable {
     public void goToStage03AdminBugetAction ( ActionEvent event ) throws IOException, SQLException {
         getConectionNew();
         Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/admin/Stage03AdminBugete.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
+    }
+
+    public void goToStage5Solduri ( ActionEvent event ) throws SQLException, IOException {
+        getConectionNew();
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage5Solduri.fxml" ) );
         Scene tabeleViewScene = new Scene( tableView );
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene( tabeleViewScene );

@@ -63,6 +63,7 @@ public class CtrlStage1Intro implements Initializable {
     public Button goToStage4Pif;
     public TextField fieldDescriere;
     public CheckBox checkTVA;
+    public Button buttonStage5Solduri;
 
     @FXML
     TableView <Investitii> tableView;
@@ -450,5 +451,13 @@ public class CtrlStage1Intro implements Initializable {
         windowStage1Intro.setScene( tableViewScene );
         windowStage1Intro.show();
 
+    }
+
+    public void goToStage5Solduri ( ActionEvent actionEvent ) throws IOException {
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage5Solduri.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
     }
 }

@@ -95,6 +95,7 @@ public class CtrlStage4PIF implements Initializable {
     public ObservableList<Investitii> tabelFinalDePif2;
     public Button buttonReset;
     public DatePicker dataPIF;
+    public Button buttonStage5Solduri;
 
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
@@ -593,4 +594,12 @@ public class CtrlStage4PIF implements Initializable {
         confirm.show();
 
         }
+
+    public void goToStage5Solduri ( ActionEvent actionEvent ) throws IOException {
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage5Solduri.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
+    }
 }
