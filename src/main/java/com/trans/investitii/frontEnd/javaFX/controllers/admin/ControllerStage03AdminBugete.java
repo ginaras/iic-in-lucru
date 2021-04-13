@@ -251,11 +251,13 @@ public class ControllerStage03AdminBugete implements Initializable {
             while (rsValFinala.next()){
                 vfContract= (String) rsValFinala.getObject( "vfContract" );
             }
-            assert vfContract != null;
-            double vfContractD = parseDouble( vfContract);
-            NumberFormat nf = NumberFormat.getNumberInstance(new Locale("ro","RO"));
-            nf.setMaximumFractionDigits(2);
-            DecimalFormat df = (DecimalFormat)nf;
+            System.out.println(vfContract);
+//            assert vfContract != null;
+            double vfContractD = parseInt(vfContract) *100 /100;
+            NumberFormat nfContract = NumberFormat.getNumberInstance(new Locale("ro","RO"));
+            nfContract.setMaximumFractionDigits(2);
+            DecimalFormat df = (DecimalFormat) nfContract;
+
             txtValoareFinalaContract.setText( df.format(vfContractD ) );
         } catch (Exception e) {
             e.printStackTrace();
