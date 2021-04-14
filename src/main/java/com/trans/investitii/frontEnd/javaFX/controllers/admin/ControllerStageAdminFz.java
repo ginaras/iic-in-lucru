@@ -47,7 +47,6 @@ public class ControllerStageAdminFz implements Initializable {
     public TextField addValoareContract;
     public DatePicker addDataContract;
     public TextField addAdresa;
-    //  public String pathAdmFz = "\\resources\\adminZone\\fz.txt";
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
     Statement statement = connection.createStatement();
@@ -62,9 +61,6 @@ public class ControllerStageAdminFz implements Initializable {
         windowStage1Intro.setScene( tableViewScene );
         windowStage1Intro.show();
     }
-
-
-
 
    public void click(){
     this.adminFZ.setDisable( true );
