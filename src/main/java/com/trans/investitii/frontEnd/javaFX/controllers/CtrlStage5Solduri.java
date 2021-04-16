@@ -22,6 +22,7 @@ import java.nio.file.Paths;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -77,7 +78,12 @@ public class CtrlStage5Solduri implements Initializable {
 
 
     private void calcSoldOrg() throws SQLException {
+
         Object valueOrg = comboBoxButtonOrg.getValue();
+        if (dataSold.getValue()==null){
+            dataSold.setValue(LocalDate.now());
+        }
+        Object data = dataSold.getValue();
         Statement stm2 = connection.createStatement();
 
 
@@ -85,11 +91,20 @@ public class CtrlStage5Solduri implements Initializable {
 
         }
         else{
-            String queryCM = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.01.01.01' AND ";
-            String queryEchip = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.01.01' AND ";
-            String queryEchipInDep = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.02.01' AND ";
-            String queryAlteInv = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.03.01.01' AND ";
-            String querySoldTotalOrg = "SELECT round(SUM(valoare), 2) as 'totalSoldOrg' FROM invTBL";
+            String queryCM = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.01.01.01' AND dataContabilizarii <= '"+data+"' AND ";
+            String queryCMFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldOrgFactPifuite01' FROM invTBL WHERE contInv = '231.01.01.01' AND valoare= '0' AND dataContabilizarii <= '"+data+"' AND dataPIF> '"+data+"' AND org = '"+valueOrg+"' ";
+
+            String queryEchip = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.01.01' AND dataContabilizarii <= '"+data+"' AND ";
+            String queryEchipFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldOrgFactPifuite0201' FROM invTBL WHERE contInv = '231.02.01.01' AND valoare= '0' AND dataContabilizarii <= '"+data+"' AND dataPIF> '"+data+"' AND org = '"+valueOrg+"' ";
+
+            String queryEchipInDep = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.02.01' AND dataContabilizarii <= '"+data+"' AND ";
+            String queryEchipInDepFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldOrgFactPifuite0202' FROM invTBL WHERE contInv = '231.02.02.01' AND valoare= '0' AND dataContabilizarii <= '"+data+"' AND dataPIF> '"+data+"' AND org = '"+valueOrg+"' ";
+
+            String queryAlteInv = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.03.01.01' AND dataContabilizarii <= '"+data+"' AND ";
+            String queryAlteInvFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldOrgFactPifuite03' FROM invTBL WHERE contInv = '231.03.01.01' AND valoare= '0' AND dataContabilizarii <= '"+data+"' AND dataPIF> '"+data+"' AND org = '"+valueOrg+"' ";
+
+            String querySoldTotalOrg = "SELECT round(SUM(valoare), 2) as 'totalSoldOrg' FROM invTBL WHERE dataContabilizarii <= '"+data+"' AND org = '" +valueOrg+"' ";
+            String querySoldProjFactPifuite= "SELECT round(SUM(valInitiala), 2) as 'soldOrgFactPifuite' FROM invTBL WHERE valoare= '0' AND dataContabilizarii <= '"+data+"' AND dataPIF> '"+data+"'  AND org = '"+valueOrg+"' ";
 
             queryCM += "org = '" +valueOrg.toString()+"' ";
             queryEchip += "org = '" +valueOrg.toString()+"' ";
@@ -99,60 +114,116 @@ public class CtrlStage5Solduri implements Initializable {
             NumberFormat nf = NumberFormat.getNumberInstance( new Locale( "ro", "RO" ) );
             nf.setMaximumFractionDigits( 2 );
             DecimalFormat df = (DecimalFormat) nf;
-
+//01
             ResultSet rsProjCM = stm2.executeQuery( queryCM );
-
-            double totalProiect = 0.00;
+            double cMOrg = 0.00;
             try {
                 while (rsProjCM.next()) {
-                    totalProiect = rsProjCM.getDouble( "totalProiect" );
+                    cMOrg = rsProjCM.getDouble( "totalProiect" );
                 }
-                labelCMOrg.setText( df.format (totalProiect)  );
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            ResultSet rsProjCMPifuite = stm2.executeQuery( queryCMFactPifuite );
+            double cMOrgPifuite = 0.00;
+            try {
+                while (rsProjCMPifuite.next()) {
+                    cMOrgPifuite = rsProjCMPifuite.getDouble( "soldOrgFactPifuite01" );
+                }
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+            labelCMOrg.setText( df.format (cMOrg+cMOrgPifuite)  );
 
+//02.01
             ResultSet rsProjEchip = stm2.executeQuery( queryEchip );
+            double echipamenteOrg = 0;
             try {
                 while (rsProjEchip.next()){
-                    totalProiect=rsProjEchip.getDouble( "totalProiect" );
+                    echipamenteOrg =rsProjEchip.getDouble( "totalProiect" );
                 }
-                labelEchipamenteOrg.setText( df.format (totalProiect ) );
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+            ResultSet rsProjEchipPifuite = stm2.executeQuery( queryEchipFactPifuite );
+            double echipamenteOrgPifuite = 0;
+            try {
+                while (rsProjEchipPifuite.next()){
+                    echipamenteOrgPifuite =rsProjEchipPifuite.getDouble( "soldOrgFactPifuite0201" );
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            labelEchipamenteOrg.setText( df.format (echipamenteOrg+echipamenteOrgPifuite ) );
 
+
+
+//02.02
             ResultSet rsProjEchipInDep = stm2.executeQuery(queryEchipInDep);
+           double echipInDep=0;
             try {
                 while(rsProjEchipInDep.next()){
-                    totalProiect=rsProjEchipInDep.getDouble( "totalProiect" );
+                    echipInDep=rsProjEchipInDep.getDouble( "totalProiect" );
                 }
-                labelMagazieOrg.setText( df.format (totalProiect ) );
+                labelMagazieOrg.setText( df.format (echipInDep ) );
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+            ResultSet rsProjEchipInDepFactPifuite = stm2.executeQuery(queryEchipInDepFactPifuite);
+            double echipInDepFactPifuite = 0;
+            try {
+                while (rsProjEchipInDepFactPifuite.next()){
+                    echipInDepFactPifuite = rsProjEchipInDepFactPifuite.getDouble("soldOrgFactPifuite0202");
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            labelMagazieOrg.setText( df.format (echipInDep+echipInDepFactPifuite ) );
 
+//03
             ResultSet rsProjAlteInv = stm2.executeQuery( queryAlteInv );
+           double alteInvOrg=0;
             try{
                 while (rsProjAlteInv.next()){
-                    totalProiect = rsProjAlteInv.getDouble( "totalProiect" );
+                    alteInvOrg = rsProjAlteInv.getDouble( "totalProiect" );
                 }
-                labelAlteInvOrg.setText( df.format ( totalProiect ) );
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            ResultSet rsProjAlteInvFactPifiute = stm2.executeQuery(queryAlteInvFactPifuite);
+
+           double alteInvOrgFactPifuite=0;
+            try {
+                while (rsProjAlteInvFactPifiute.next()) {
+                    alteInvOrgFactPifuite = rsProjAlteInvFactPifiute.getDouble("soldOrgFactPifuite03");
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            labelAlteInvOrg.setText( df.format (alteInvOrg+ alteInvOrgFactPifuite ) );
+
+//sold
+            ResultSet rsOrgSoldTotal =stm2.executeQuery(querySoldTotalOrg);
+            double soldOrgFactPifuite=0;
+            double soldTotalOrg =0;
+            try {
+                while (rsOrgSoldTotal.next()) {
+                    soldTotalOrg = rsOrgSoldTotal.getDouble("totalSoldOrg");
+                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
 
-            ResultSet rsOrgSoldTotal =stm2.executeQuery(querySoldTotalOrg);
-            double soldTotalOrg =0;
+            ResultSet rsSoldProjFactPifiute = stm2.executeQuery(querySoldProjFactPifuite);
             try {
-                while (rsOrgSoldTotal.next()){
-                    soldTotalOrg =  rsOrgSoldTotal.getDouble("totalSoldOrg");
-                }
+               while (rsSoldProjFactPifiute.next()) {
+                   soldOrgFactPifuite = rsSoldProjFactPifiute.getDouble("soldOrgFactPifuite");
+               }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            labelTotalOrg.setText(df.format(soldTotalOrg));
+            labelTotalOrg.setText(df.format(soldTotalOrg+soldOrgFactPifuite));
         }
 
     }
@@ -160,6 +231,7 @@ public class CtrlStage5Solduri implements Initializable {
     public void calcSoldProj() throws SQLException {
         Object valueProj = comboBoxButtonProj.getValue();
         Object valueOrg = comboBoxButtonOrg.getValue();
+        Object data = dataSold.getValue();
 
         NumberFormat nf = NumberFormat.getNumberInstance( new Locale( "ro", "RO" ) );
         nf.setMaximumFractionDigits( 2 );
@@ -169,11 +241,13 @@ public class CtrlStage5Solduri implements Initializable {
         }
         else {
             if (valueOrg==null){
-                String queryProjCM = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.01.01.01' AND ";
-                String queryProjEchip = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.01.01' AND ";
-                String queryProjEchipInDep = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.02.01' AND ";
-                String queryProjAlteInv = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.03.01.01' AND ";
-                String querySoldProj= "SELECT round(SUM(valoare), 2) as 'soldProiect' FROM invTBL WHERE nrProiect = '"+valueProj+"'";
+                String queryProjCM = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.01.01.01' AND dataContabilizarii <= '"+data+"' AND ";
+                String queryProjEchip = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.01.01' AND dataContabilizarii <= '"+data+"' AND ";
+                String queryProjEchipInDep = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.02.01' AND dataContabilizarii <= '"+data+"' AND ";
+                String queryProjAlteInv = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.03.01.01' AND dataContabilizarii <= '"+data+"'AND ";
+
+                String querySoldProj= "SELECT round(SUM(valoare), 2) as 'soldProiect' FROM invTBL WHERE nrProiect = '"+valueProj+"' AND dataContabilizarii <= '"+data+"'";
+                String querySoldProjFactPifuite= "SELECT round(SUM(valInitiala), 2) as 'soldProiectFactPifuite' FROM invTBL WHERE nrProiect = '"+valueProj+"' AND org ='"+valueOrg+"' AND valoare= '0' ";
 
                 queryProjCM += "nrProiect = '" + valueProj.toString() + "' ";
                 queryProjEchip += "nrProiect = '" + valueProj.toString() + "' ";
@@ -225,12 +299,21 @@ public class CtrlStage5Solduri implements Initializable {
                 }
 
                 ResultSet rsSoldProj = stm2.executeQuery(querySoldProj);
+                ResultSet rsSoldProjFactPifiute = stm2.executeQuery(querySoldProjFactPifuite);
+
+
+                double soldProiectFactPifuite=0;
                 double soldProiect=0;
                 try {
                     while (rsSoldProj.next()){
                         soldProiect= rsSoldProj.getDouble("soldProiect");
                     }
-                    labelTotalProj.setText(df.format(soldProiect));
+                    while (rsSoldProjFactPifiute.next()){
+                        soldProiectFactPifuite= rsSoldProjFactPifiute.getDouble("soldProiectFactPifuite");
+                    }
+                    labelTotalProj.setText(df.format(soldProiect+soldProiectFactPifuite));
+                    System.out.println("soldProiect + soldProiectFactPifuite"+soldProiect + soldProiectFactPifuite);
+//                    labelTotalProj.setText(df.format(soldProiect));
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -239,9 +322,9 @@ public class CtrlStage5Solduri implements Initializable {
                 String queryProjEchip = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.01.01' AND ";
                 String queryProjEchipInDep = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.02.01' AND ";
                 String queryProjAlteInv = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.03.01.01' AND ";
-                String querySoldProj= "SELECT round(SUM(valoare), 2) as 'soldProiect' FROM invTBL WHERE nrProiect = '"+valueProj+"' AND org ='"+valueOrg+"' ";
 
-                //        Object valueFz = comboBoxButtonFz.getValue();
+                String querySoldProj= "SELECT round(SUM(valoare), 2) as 'soldProiect' FROM invTBL WHERE nrProiect = '"+valueProj+"' AND org ='"+valueOrg+"' ";
+                String querySoldProjFactPifuite= "SELECT round(SUM(valInitiala), 2) as 'soldProiectFactPifuite' FROM invTBL WHERE nrProiect = '"+valueProj+"' AND org ='"+valueOrg+"' AND valoare= '0' ";
 
                 queryProjCM += "nrProiect = '" + valueProj.toString() + "' AND org = '"+valueOrg.toString()+"' ";
                 queryProjEchip += "nrProiect = '" + valueProj.toString() + "' AND org = '"+valueOrg.toString()+"' ";
@@ -249,8 +332,8 @@ public class CtrlStage5Solduri implements Initializable {
                 queryProjAlteInv += "nrProiect = '" + valueProj.toString() + "' AND org = '"+valueOrg.toString()+"' ";
 
                 Statement stm2 = connection.createStatement();
-                ResultSet rsProjCM = stm2.executeQuery( queryProjCM );
 
+                ResultSet rsProjCM = stm2.executeQuery( queryProjCM );
                 double totalProiect = 0.00;
                 try {
                     while (rsProjCM.next()) {
@@ -292,12 +375,20 @@ public class CtrlStage5Solduri implements Initializable {
                 }
 
                 ResultSet rsSoldProj = stm2.executeQuery(querySoldProj);
+                ResultSet rsSoldProjFactPifiute = stm2.executeQuery(querySoldProjFactPifuite);
+
                 double soldProiect=0;
+                double soldProiectFactPifuite=0;
+
                 try {
                     while (rsSoldProj.next()){
                         soldProiect= rsSoldProj.getDouble("soldProiect");
                     }
-                    labelTotalProj.setText(df.format(soldProiect));
+                    while (rsSoldProjFactPifiute.next()){
+                        soldProiectFactPifuite= rsSoldProjFactPifiute.getDouble("soldProiectFactPifuite");
+                    }
+                    labelTotalProj.setText(df.format(soldProiect+soldProiectFactPifuite));
+                    System.out.println("soldProiect + soldProiectFactPifuite"+soldProiect + soldProiectFactPifuite);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -462,7 +553,7 @@ public class CtrlStage5Solduri implements Initializable {
                 String queryFzEchip = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.01.01' AND ";
                 String queryFzEchipInDep = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.02.01' AND ";
                 String queryFzAlteInv = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.03.01.01' AND ";
-                String querySoldTotalFz = "SELECT round(SUM(valoare), 2) as 'totalSoldFz' FROM invTBL WHERE furnizor = '"+valueFz+" AND org = '" + valueOrg.toString() + "' ";
+                String querySoldTotalFz = "SELECT round(SUM(valoare), 2) as 'totalSoldFz' FROM invTBL WHERE furnizor = '"+valueFz+"' AND org = '" + valueOrg + "' ";
 
                 queryFzCM += "furnizor = '" + valueFz.toString() + "' AND org = '" + valueOrg.toString() + "'";
                 queryFzEchip += "furnizor = '" + valueFz.toString() + "' AND org = '" + valueOrg.toString() + "' ";
