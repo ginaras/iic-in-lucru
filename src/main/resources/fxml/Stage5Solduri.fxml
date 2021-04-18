@@ -17,7 +17,7 @@
             <Font size="30.0" />
          </font>
       </Text>
-      <ComboBox fx:id="comboBoxButtonProj" layoutX="257.0" layoutY="175.0" onAction="#comboBoxActProj" prefHeight="31.0" prefWidth="175.0" promptText="Alege proiectul" style="-fx-background-radius: 10;" />
+      <ComboBox fx:id="comboBoxButtonProj" layoutX="257.0" layoutY="195.0" onAction="#comboBoxActProj" prefHeight="31.0" prefWidth="175.0" promptText="Alege proiectul" style="-fx-background-radius: 10;" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="31.0" layoutX="14.0" layoutY="126.0" stroke="BLACK" strokeType="INSIDE" width="1179.0">
          <fill>
             <LinearGradient cycleMethod="REPEAT" endX="1.0" endY="1.0" startX="0.766990291262136">
@@ -32,27 +32,27 @@
             </LinearGradient>
          </fill>
       </Rectangle>
-      <ComboBox fx:id="comboBoxButtonFz" layoutX="532.0" layoutY="175.0" onAction="#comboBoxFzAct" prefHeight="31.0" prefWidth="175.0" promptText="Alege furnizorul" style="-fx-background-radius: 10;" />
-      <ComboBox fx:id="comboBoxButtonOrg" layoutX="14.0" layoutY="175.0" onAction="#comboBoxActOrg" prefHeight="31.0" prefWidth="175.0" promptText="Alege organizatia" style="-fx-background-radius: 10;" />
+      <ComboBox fx:id="comboBoxButtonFz" layoutX="532.0" layoutY="195.0" onAction="#comboBoxFzAct" prefHeight="31.0" prefWidth="175.0" promptText="Alege furnizorul" style="-fx-background-radius: 10;" />
+      <ComboBox fx:id="comboBoxButtonOrg" layoutX="14.0" layoutY="195.0" onAction="#comboBoxActOrg" prefHeight="31.0" prefWidth="175.0" promptText="Alege organizatia" style="-fx-background-radius: 10;" />
       <Text layoutX="1093.0" layoutY="782.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bySorinGinara" />
-      <Label layoutX="32.0" layoutY="411.0" text="Total constructii montaj" />
-      <Label fx:id="labelCMProj" contentDisplay="RIGHT" layoutX="699.0" layoutY="412.0" text="0" textAlignment="RIGHT" />
-      <Label layoutX="32.0" layoutY="438.0" text="Total echipamente" />
-      <Label fx:id="labelEchipamenteProj" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="699.0" layoutY="438.0" text="0" textAlignment="RIGHT" />
-      <Label fx:id="labelMagazieProj" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="699.0" layoutY="466.0" text="0" textAlignment="RIGHT" />
-      <Label layoutX="32.0" layoutY="466.0" text="Total echipamente in magazie" />
-      <Label layoutX="32.0" layoutY="495.0" text="Total alte investitii" />
-      <Label fx:id="labelAlteInvProj" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="699.0" layoutY="495.0" text="0" textAlignment="RIGHT" />
-      <Label fx:id="labelAlteInvFz" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="892.0" layoutY="495.0" text="0" textAlignment="RIGHT" />
-      <Label fx:id="labelEchipamenteFz" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="892.0" layoutY="438.0" text="0" textAlignment="RIGHT" />
-      <Label fx:id="labelCMFz" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="892.0" layoutY="412.0" text="0" textAlignment="RIGHT" />
-      <Label fx:id="labelMagazieFz" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="892.0" layoutY="466.0" text="0" textAlignment="RIGHT" />
-      <Label fx:id="labelMagazieOrg" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="429.0" layoutY="466.0" style="-fx-alignment: CENTER_RIGHT;" text="0" textAlignment="RIGHT" />
-      <Label fx:id="labelEchipamenteOrg" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="429.0" layoutY="438.0" nodeOrientation="LEFT_TO_RIGHT" text="0" textAlignment="RIGHT" />
-      <Label fx:id="labelCMOrg" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="429.0" layoutY="412.0" nodeOrientation="RIGHT_TO_LEFT" styleClass="text-align: right;" text="0" textAlignment="RIGHT" />
-      <Label fx:id="labelAlteInvOrg" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="429.0" layoutY="495.0" style="-fx-alignment: CENTER_LEFT;" text="0" textAlignment="RIGHT" />
-      <Label layoutX="639.0" layoutY="338.0" text="pe proiectul:" />
-      <Label contentDisplay="RIGHT" layoutX="820.0" layoutY="338.0" text="pe furnizorul:" />
+      <Label layoutX="32.0" layoutY="444.0" text="Total constructii montaj" />
+      <Label fx:id="labelCMProj" contentDisplay="RIGHT" layoutX="574.0" layoutY="445.0" text="0" textAlignment="RIGHT" />
+      <Label layoutX="32.0" layoutY="471.0" text="Total echipamente" />
+      <Label fx:id="labelEchipamenteProj" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="574.0" layoutY="471.0" text="0" textAlignment="RIGHT" />
+      <Label fx:id="labelMagazieProj" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="574.0" layoutY="499.0" text="0" textAlignment="RIGHT" />
+      <Label layoutX="32.0" layoutY="499.0" text="Total echipamente in magazie" />
+      <Label layoutX="32.0" layoutY="528.0" text="Total alte investitii" />
+      <Label fx:id="labelAlteInvProj" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="574.0" layoutY="528.0" text="0" textAlignment="RIGHT" />
+      <Label fx:id="labelAlteInvFz" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="787.0" layoutY="528.0" text="0" textAlignment="RIGHT" />
+      <Label fx:id="labelEchipamenteFz" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="787.0" layoutY="471.0" text="0" textAlignment="RIGHT" />
+      <Label fx:id="labelCMFz" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="787.0" layoutY="445.0" text="0" textAlignment="RIGHT" />
+      <Label fx:id="labelMagazieFz" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="787.0" layoutY="499.0" text="0" textAlignment="RIGHT" />
+      <Label fx:id="labelMagazieOrg" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="334.0" layoutY="499.0" style="-fx-alignment: CENTER_RIGHT;" text="0" textAlignment="RIGHT" />
+      <Label fx:id="labelEchipamenteOrg" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="334.0" layoutY="471.0" nodeOrientation="LEFT_TO_RIGHT" text="0" textAlignment="RIGHT" />
+      <Label fx:id="labelCMOrg" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="334.0" layoutY="445.0" nodeOrientation="RIGHT_TO_LEFT" styleClass="text-align: right;" text="0" textAlignment="RIGHT" />
+      <Label fx:id="labelAlteInvOrg" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="334.0" layoutY="528.0" style="-fx-alignment: CENTER_LEFT;" text="0" textAlignment="RIGHT" />
+      <Label layoutX="569.0" layoutY="338.0" text="pe proiectul:" />
+      <Label contentDisplay="RIGHT" layoutX="805.0" layoutY="338.0" text="pe furnizorul:" />
       <Label layoutX="351.0" layoutY="338.0" text="organizatia:" />
       <Button fx:id="buttonBackSt0" layoutX="14.0" layoutY="748.0" mnemonicParsing="false" onAction="#goOnSt0" prefHeight="37.0" prefWidth="175.0" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Meniul principal" textFill="#fcfbf5">
          <effect>
@@ -94,7 +94,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="resetButton" layoutX="937.0" layoutY="175.0" mnemonicParsing="false" onAction="#resetAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Reseteaza cautarea" textFill="#fcfbf5">
+      <Button fx:id="resetButton" layoutX="937.0" layoutY="195.0" mnemonicParsing="false" onAction="#resetAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Reseteaza cautarea" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -114,7 +114,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="selectButton" layoutX="798.0" layoutY="175.0" mnemonicParsing="false" onAction="#apliFiter" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Aplica filtrul" textFill="#fcfbf5">
+      <Button fx:id="selectButton" layoutX="798.0" layoutY="195.0" mnemonicParsing="false" onAction="#apliFiter" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Aplica filtrul" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -134,20 +134,20 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Label fx:id="setOrg" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="384.0" layoutY="366.0" text=".">
+      <Label fx:id="setOrg" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="351.0" layoutY="366.0" text=".">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-      <Label fx:id="setProj" layoutX="647.0" layoutY="362.0" text=".">
+      <Label fx:id="setProj" layoutX="577.0" layoutY="362.0" text=".">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-      <Label fx:id="setFz" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="806.0" layoutY="362.0" text=".">
+      <Label fx:id="setFz" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="806.0" layoutY="394.0" text=".">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-      <Label layoutX="645.0" layoutY="317.0" text="Din care" />
-      <Label layoutX="831.0" layoutY="317.0" text="Din care" />
+      <Label layoutX="575.0" layoutY="317.0" text="Din care" />
+      <Label layoutX="816.0" layoutY="317.0" text="Din care" />
       <Label layoutX="363.0" layoutY="315.0" text="Sold  pe" />
       <Button fx:id="butonStage2Rapoarte" layoutX="418.0" layoutY="747.0" mnemonicParsing="false" onAction="#goOnStage2Rapoarte" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte Detaliate" textFill="#fcfbf5">
          <effect>
@@ -189,8 +189,6 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <ComboBox fx:id="comboBoxButtonOrgYear" layoutX="36.0" layoutY="222.0" onAction="#comboBoxActOrgYear" prefHeight="31.0" prefWidth="131.0" promptText="Alege anul" style="-fx-background-radius: 10;" />
-      <ComboBox fx:id="comboBoxButtonFzContract" layoutX="539.0" layoutY="216.0" onAction="#comboBoxFzContractAct" prefHeight="31.0" prefWidth="165.0" promptText="Alege contractul" style="-fx-background-radius: 10;" />
       <Button fx:id="butonStage3Rapoarte" layoutX="600.0" layoutY="747.0" mnemonicParsing="false" onAction="#goOnStage3Rapoarte" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte Sumarizate" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
@@ -211,15 +209,15 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Label layoutX="122.0" layoutY="543.0" text="Total sold" />
-      <Label fx:id="labelTotalOrg" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="430.0" layoutY="543.0" style="-fx-alignment: CENTER_LEFT;" text="0" textAlignment="RIGHT" />
-      <Label fx:id="labelTotalProj" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="698.0" layoutY="543.0" text="0" textAlignment="RIGHT" />
-      <Label fx:id="labelTotalFz" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="893.0" layoutY="543.0" text="0" textAlignment="RIGHT" />
-      <Line endX="800.0" layoutX="119.0" layoutY="532.0" startX="-100.0" strokeWidth="5.0" />
-      <Line endX="800.0" layoutX="117.0" layoutY="491.0" startX="-100.0" />
-      <Line endX="800.0" layoutX="116.0" layoutY="462.0" startX="-100.0" />
-      <Line endX="800.0" layoutX="116.0" layoutY="435.0" startX="-100.0" />
-      <Line endX="800.0" layoutX="115.0" layoutY="397.0" startX="-100.0" strokeWidth="5.0" />
+      <Label layoutX="122.0" layoutY="576.0" text="Total sold" />
+      <Label fx:id="labelTotalOrg" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="335.0" layoutY="576.0" style="-fx-alignment: CENTER_LEFT;" text="0" textAlignment="RIGHT" />
+      <Label fx:id="labelTotalProj" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="573.0" layoutY="576.0" text="0" textAlignment="RIGHT" />
+      <Label fx:id="labelTotalFz" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="788.0" layoutY="576.0" text="0" textAlignment="RIGHT" />
+      <Line endX="800.0" layoutX="119.0" layoutY="565.0" startX="-100.0" strokeWidth="5.0" />
+      <Line endX="800.0" layoutX="117.0" layoutY="524.0" startX="-100.0" />
+      <Line endX="800.0" layoutX="116.0" layoutY="495.0" startX="-100.0" />
+      <Line endX="800.0" layoutX="116.0" layoutY="468.0" startX="-100.0" />
+      <Line endX="800.0" layoutX="115.0" layoutY="430.0" startX="-100.0" strokeWidth="5.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="31.0" layoutX="14.0" layoutY="272.0" stroke="BLACK" strokeType="INSIDE" width="1179.0">
          <fill>
             <LinearGradient cycleMethod="REPEAT" endX="1.0" endY="1.0" startX="0.766990291262136">

@@ -375,15 +375,19 @@ public class CtrlStage5Solduri implements Initializable {
                 }
 
                 ResultSet rsSoldProj = stm2.executeQuery(querySoldProj);
-                ResultSet rsSoldProjFactPifiute = stm2.executeQuery(querySoldProjFactPifuite);
 
                 double soldProiect=0;
                 double soldProiectFactPifuite=0;
 
                 try {
-                    while (rsSoldProj.next()){
-                        soldProiect= rsSoldProj.getDouble("soldProiect");
+                    while (rsSoldProj.next()) {
+                        soldProiect = rsSoldProj.getDouble( "soldProiect" );
                     }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                try {
+                    ResultSet rsSoldProjFactPifiute = stm2.executeQuery(querySoldProjFactPifuite);
                     while (rsSoldProjFactPifiute.next()){
                         soldProiectFactPifuite= rsSoldProjFactPifiute.getDouble("soldProiectFactPifuite");
                     }
@@ -859,7 +863,6 @@ public class CtrlStage5Solduri implements Initializable {
         comboBoxButtonFz.setItems( FXCollections.observableArrayList(myListFz));
         comboBoxButtonOrg.setItems( FXCollections.observableArrayList(myListOrg));
         comboBoxButtonProj.setItems( FXCollections.observableArrayList(myListProj));
-        comboBoxButtonOrgYear.getItems().addAll("2020","2021", "2022", "2023","2024","2025","2026","2027","2028","2029","2030" );
 
 
     }
