@@ -31,7 +31,6 @@
             </LinearGradient>
          </fill>
       </Rectangle>
-      <ComboBox fx:id="comboBoxButtonProj" layoutX="34.0" layoutY="332.0" onAction="#comboBoxActProj" prefHeight="31.0" prefWidth="175.0" promptText="Alege proiectul" style="-fx-background-radius: 10;" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="31.0" layoutX="14.0" layoutY="126.0" stroke="BLACK" strokeType="INSIDE" width="1179.0">
          <fill>
             <LinearGradient cycleMethod="REPEAT" endX="1.0" endY="1.0" startX="0.766990291262136">
@@ -74,8 +73,31 @@
             </LinearGradient>
          </fill>
       </Rectangle>
-      <ComboBox fx:id="comboBoxButtonFz" layoutX="28.0" layoutY="464.0" onAction="#comboBoxFzAct" prefHeight="31.0" prefWidth="175.0" promptText="Alege furnizorul" style="-fx-background-radius: 10;" />
       <ComboBox fx:id="comboBoxButtonOrg" layoutX="26.0" layoutY="209.0" onAction="#comboBoxActOrg" prefHeight="31.0" prefWidth="175.0" promptText="Alege organizatia" style="-fx-background-radius: 10;" />
+      <ComboBox fx:id="comboBoxButtonOrgYear" layoutX="209.0" layoutY="237.0" onAction="#comboBoxActOrgYear" prefHeight="31.0" prefWidth="131.0" promptText="Alege anul" style="-fx-background-radius: 10;" />
+      <ComboBox fx:id="comboBoxButtonProj" layoutX="34.0" layoutY="332.0" onAction="#comboBoxActProj" prefHeight="31.0" prefWidth="175.0" promptText="Alege proiectul" style="-fx-background-radius: 10;" />
+      <ComboBox fx:id="comboBoxButtonFz" layoutX="28.0" layoutY="464.0" onAction="#comboBoxFzAct" prefHeight="31.0" prefWidth="175.0" promptText="Alege furnizorul" style="-fx-background-radius: 10;" />
+      <ComboBox fx:id="comboBoxButtonFzContract" layoutX="142.0" layoutY="502.0" onAction="#comboBoxFzContractAct" prefHeight="31.0" prefWidth="165.0" promptText="Alege contractul" style="-fx-background-radius: 10;" />
+      <Button fx:id="resetButton" layoutX="23.0" layoutY="574.0" mnemonicParsing="false" onAction="#resetAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Reseteaza cautarea" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
       <Label layoutX="368.0" layoutY="126.0" text="Estimat initial / Act aditional">
          <font>
             <Font name="System Bold" size="20.0" />
@@ -124,66 +146,6 @@
       <Label layoutX="420.0" layoutY="242.0" text="Total" />
       <Label fx:id="labetTotalEstimatOrg" layoutX="490.0" layoutY="242.0" text="0" />
       <Text layoutX="1093.0" layoutY="782.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bySorinGinara" />
-      <Button fx:id="buttonBackSt0" layoutX="14.0" layoutY="748.0" mnemonicParsing="false" onAction="#goOnSt0" prefHeight="37.0" prefWidth="175.0" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Meniul principal" textFill="#fcfbf5">
-         <effect>
-            <Bloom threshold="0.1">
-               <input>
-                  <Blend mode="SRC_ATOP" opacity="0.57">
-                     <topInput>
-                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
-                           <bumpInput>
-                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
-                           </bumpInput>
-                        </Lighting>
-                     </topInput>
-                  </Blend>
-               </input>
-            </Bloom>
-         </effect>
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
-      <Button fx:id="butonStage1Intro" layoutX="224.0" layoutY="747.0" mnemonicParsing="false" onAction="#goOnStage1Intro" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Introducere facturi" textFill="#fcfbf5">
-         <effect>
-            <Bloom threshold="0.1">
-               <input>
-                  <Blend mode="SRC_ATOP" opacity="0.57">
-                     <topInput>
-                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
-                           <bumpInput>
-                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
-                           </bumpInput>
-                        </Lighting>
-                     </topInput>
-                  </Blend>
-               </input>
-            </Bloom>
-         </effect>
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
-      <Button fx:id="resetButton" layoutX="23.0" layoutY="574.0" mnemonicParsing="false" onAction="#resetAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Reseteaza cautarea" textFill="#fcfbf5">
-         <effect>
-            <Bloom threshold="0.1">
-               <input>
-                  <Blend mode="SRC_ATOP" opacity="0.57">
-                     <topInput>
-                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
-                           <bumpInput>
-                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
-                           </bumpInput>
-                        </Lighting>
-                     </topInput>
-                  </Blend>
-               </input>
-            </Bloom>
-         </effect>
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
       <Label layoutX="30.0" layoutY="439.0" text="Furnizor" />
       <Label fx:id="setOrg" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="42.0" layoutY="259.0" text=".">
          <font>
@@ -193,7 +155,7 @@
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-      <Button fx:id="butonStage2Rapoarte" layoutX="418.0" layoutY="747.0" mnemonicParsing="false" onAction="#goOnStage2Rapoarte" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte Detaliate" textFill="#fcfbf5">
+      <Button fx:id="butonStage2Rapoarte" layoutX="230.0" layoutY="748.0" mnemonicParsing="false" onAction="#goOnStage2Rapoarte" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte Detaliate" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -213,7 +175,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="goToStage4Pif" layoutX="755.0" layoutY="745.0" mnemonicParsing="false" onAction="#goToStage4Pif" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Puneri in functiune" textFill="#fcfbf5">
+      <Button fx:id="goToStage4Pif" layoutX="430.0" layoutY="699.0" mnemonicParsing="false" onAction="#goToStage4Pif" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Puneri in functiune" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -233,9 +195,67 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <ComboBox fx:id="comboBoxButtonOrgYear" layoutX="212.0" layoutY="233.0" onAction="#comboBoxActOrgYear" prefHeight="31.0" prefWidth="131.0" promptText="Alege anul" style="-fx-background-radius: 10;" />
-      <ComboBox fx:id="comboBoxButtonFzContract" layoutX="142.0" layoutY="502.0" onAction="#comboBoxFzContractAct" prefHeight="31.0" prefWidth="165.0" promptText="Alege contractul" style="-fx-background-radius: 10;" />
-      <Button fx:id="buttonStage5Solduri" layoutX="624.0" layoutY="747.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Solduri" textFill="#fcfbf5">
+      <Button fx:id="buttonBackSt0" layoutX="14.0" layoutY="722.0" mnemonicParsing="false" onAction="#goOnSt0" prefHeight="37.0" prefWidth="175.0" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Meniul principal" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="butonStage1Intro" layoutX="231.0" layoutY="699.0" mnemonicParsing="false" onAction="#goOnStage1Intro" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Introducere facturi" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonStage6AnalizaPif" layoutX="431.0" layoutY="748.0" mnemonicParsing="false" onAction="#goToStage6AnalizaPif" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Analiza PIF-urilor" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonStage5Solduri" layoutX="624.0" layoutY="724.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Consultare solduri" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>

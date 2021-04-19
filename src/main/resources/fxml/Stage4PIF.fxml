@@ -386,7 +386,27 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="buttonStage5Solduri" layoutX="381.0" layoutY="751.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Solduri" textFill="#fcfbf5">
+      <Button fx:id="buttonStage5Solduri" layoutX="381.0" layoutY="751.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Consultare solduri" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonStage6AnalizaPif" layoutX="609.0" layoutY="748.0" mnemonicParsing="false" onAction="#goToStage6AnalizaPif" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Analiza PIF-urilor" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>

@@ -21,8 +21,9 @@
    <children>
       <AnchorPane cacheHint="SPEED" prefHeight="785.0" prefWidth="1191.0" style="-fx-background-color: fff;">
          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="167.0" layoutX="782.0" layoutY="505.0" stroke="BLACK" strokeType="INSIDE" width="402.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="501.0" layoutX="16.0" layoutY="224.0" stroke="BLACK" strokeType="INSIDE" width="468.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="309.0" layoutX="784.0" layoutY="153.0" stroke="BLACK" strokeType="INSIDE" width="402.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="231.0" layoutX="784.0" layoutY="153.0" stroke="BLACK" strokeType="INSIDE" width="402.0" />
             <Rectangle arcHeight="5.0" arcWidth="20.0" fill="#065bab" height="110.0" layoutX="5.0" layoutY="-3.0" stroke="BLACK" strokeDashOffset="5.0" strokeLineJoin="BEVEL" strokeWidth="10.0" width="1190.0" />
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="332.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Program de evidenta a imobilizarilor in curs">
                <font>
@@ -30,25 +31,6 @@
                </font>
             </Text>
             <Text layoutX="1093.0" layoutY="752.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bySorinGinara" />
-            <Button fx:id="goToStage1Intro" layoutX="820.0" layoutY="225.0" mnemonicParsing="false" onAction="#goToStage1Intro" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Introducere facturi" textFill="#fcfbf5">
-               <effect>
-                  <Bloom threshold="0.1">
-                     <input>
-                        <Blend mode="SRC_ATOP" opacity="0.57">
-                           <topInput>
-                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
-                                 <bumpInput>
-                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
-                                 </bumpInput>
-                              </Lighting>
-                           </topInput>
-                        </Blend>
-                     </input>
-                  </Bloom>
-               </effect>
-               <font>
-                  <Font size="16.0" />
-               </font></Button>
             <Text layoutX="146.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zona Adminstrativa">
                <font>
                   <Font size="24.0" />
@@ -249,70 +231,10 @@
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="goToStage2Rapoarte" layoutX="821.0" layoutY="289.0" mnemonicParsing="false" onAction="#goToStage2Rapoarte" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte detaliate" textFill="#fcfbf5">
-               <effect>
-                  <Bloom threshold="0.1">
-                     <input>
-                        <Blend mode="SRC_ATOP" opacity="0.57">
-                           <topInput>
-                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
-                                 <bumpInput>
-                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
-                                 </bumpInput>
-                              </Lighting>
-                           </topInput>
-                        </Blend>
-                     </input>
-                  </Bloom>
-               </effect>
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="buttonStage3Sumar" layoutX="996.0" layoutY="288.0" mnemonicParsing="false" onAction="#goToStage3Sumar" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte sumarizate" textFill="#fcfbf5">
-               <effect>
-                  <Bloom threshold="0.1">
-                     <input>
-                        <Blend mode="SRC_ATOP" opacity="0.57">
-                           <topInput>
-                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
-                                 <bumpInput>
-                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
-                                 </bumpInput>
-                              </Lighting>
-                           </topInput>
-                        </Blend>
-                     </input>
-                  </Bloom>
-               </effect>
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="goToStage4Pif" layoutX="1000.0" layoutY="224.0" mnemonicParsing="false" onAction="#goToStage4Pif" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Puneri in functiune" textFill="#fcfbf5">
-               <effect>
-                  <Bloom threshold="0.1">
-                     <input>
-                        <Blend mode="SRC_ATOP" opacity="0.57">
-                           <topInput>
-                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
-                                 <bumpInput>
-                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
-                                 </bumpInput>
-                              </Lighting>
-                           </topInput>
-                        </Blend>
-                     </input>
-                  </Bloom>
-               </effect>
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
             <Line endX="100.0" layoutX="134.0" layoutY="163.0" startX="-100.0" strokeWidth="10.0" />
             <Line endX="100.0" layoutX="351.0" layoutY="164.0" startX="-100.0" strokeWidth="10.0" />
-            <Line endX="100.0" layoutX="822.0" layoutY="591.0" startX="-100.0" strokeWidth="10.0" />
-            <Line endX="100.0" layoutX="1037.0" layoutY="591.0" startX="-100.0" strokeWidth="10.0" />
+            <Line endX="100.0" layoutX="863.0" layoutY="456.0" startX="-100.0" strokeWidth="10.0" />
+            <Line endX="100.0" layoutX="1078.0" layoutY="456.0" startX="-100.0" strokeWidth="10.0" />
             <Button fx:id="goToStageNewUnit" layoutX="300.0" layoutY="297.0" mnemonicParsing="false" onAction="#goToStageNewUnit" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Creare unitate noua" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
@@ -353,7 +275,106 @@
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="buttonStage5Solduri" layoutX="948.0" layoutY="355.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Solduri" textFill="#fcfbf5">
+            <Button fx:id="goToStage1Intro" layoutX="820.0" layoutY="225.0" mnemonicParsing="false" onAction="#goToStage1Intro" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Introducere facturi" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+            <Button fx:id="goToStage2Rapoarte" layoutX="821.0" layoutY="289.0" mnemonicParsing="false" onAction="#goToStage2Rapoarte" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte detaliate" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonStage3Sumar" layoutX="996.0" layoutY="288.0" mnemonicParsing="false" onAction="#goToStage3Sumar" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte sumarizate" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonStage5Solduri" layoutX="998.0" layoutY="225.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Consultare solduri" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="goToStage4Pif" layoutX="802.0" layoutY="573.0" mnemonicParsing="false" onAction="#goToStage4Pif" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Puneri in functiune" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonStage6AnalizaPif" layoutX="1011.0" layoutY="573.0" mnemonicParsing="false" onAction="#goToStage6AnalizaPif" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Analiza PIF-urilor" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
                      <input>

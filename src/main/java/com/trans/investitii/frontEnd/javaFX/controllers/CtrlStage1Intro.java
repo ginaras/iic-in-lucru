@@ -64,6 +64,7 @@ public class CtrlStage1Intro implements Initializable {
     public TextField fieldDescriere;
     public CheckBox checkTVA;
     public Button buttonStage5Solduri;
+    public Button buttonStage6AnalizaPif;
 
     @FXML
     TableView <Investitii> tableView;
@@ -459,5 +460,8 @@ public class CtrlStage1Intro implements Initializable {
         Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene( tabeleViewScene );
         window.show();
+    }
+
+    public void goToStage6AnalizaPif ( ActionEvent actionEvent ) {
     }
 }

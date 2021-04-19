@@ -69,6 +69,7 @@ public class CtrlStage2Rapoarte implements Initializable {
     public Button buttonStage3Sumar;
     public Button buttonStage5Solduri;
     public Button goToStage4Pif;
+    public Button buttonStage6AnalizaPif;
 
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
@@ -478,6 +479,9 @@ public class CtrlStage2Rapoarte implements Initializable {
         Stage windowStage1Intro = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         windowStage1Intro.setScene( tableViewScene );
         windowStage1Intro.show();
+    }
+
+    public void goToStage6AnalizaPif ( ActionEvent actionEvent ) {
     }
 }
 

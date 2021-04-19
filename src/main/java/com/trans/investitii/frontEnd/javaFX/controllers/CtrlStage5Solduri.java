@@ -70,6 +70,7 @@ public class CtrlStage5Solduri implements Initializable {
     public Label labelTotalOrg;
     public Label labelTotalProj;
     public Label labelTotalFz;
+    public Button buttonStage6AnalizaPif;
 
     Connection connection = DriverManager.getConnection(Investitii.URL, Investitii.USER, Investitii.PASSWORD );
 
@@ -1315,6 +1316,9 @@ public class CtrlStage5Solduri implements Initializable {
         comboBoxButtonProj.setItems( FXCollections.observableArrayList(myListProj));
 
 
+    }
+
+    public void goToStage6AnalizaPif ( ActionEvent actionEvent ) {
     }
 }
 

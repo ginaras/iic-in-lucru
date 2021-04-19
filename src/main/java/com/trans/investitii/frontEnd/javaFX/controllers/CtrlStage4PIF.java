@@ -96,6 +96,7 @@ public class CtrlStage4PIF implements Initializable {
     public Button buttonReset;
     public DatePicker dataPIF;
     public Button buttonStage5Solduri;
+    public Button buttonStage6AnalizaPif;
 
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
@@ -601,5 +602,8 @@ public class CtrlStage4PIF implements Initializable {
         Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene( tabeleViewScene );
         window.show();
+    }
+
+    public void goToStage6AnalizaPif ( ActionEvent actionEvent ) {
     }
 }

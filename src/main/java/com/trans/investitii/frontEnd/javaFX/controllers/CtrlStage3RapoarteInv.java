@@ -63,6 +63,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
     public Button butonStage1Intro;
     public ComboBox comboBoxButtonFzContract;
     public Button buttonStage5Solduri;
+    public Button buttonStage6AnalizaPif;
 
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
@@ -610,5 +611,8 @@ public class CtrlStage3RapoarteInv implements Initializable {
         Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene( tabeleViewScene );
         window.show();
+    }
+
+    public void goToStage6AnalizaPif ( ActionEvent actionEvent ) {
     }
 }

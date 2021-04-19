@@ -38,6 +38,7 @@ public class Controller0Sample implements Initializable {
     public Button goToStageNewUnit;
     public Button goToStage03AdminBuget;
     public Button buttonStage5Solduri;
+    public Button buttonStage6AnalizaPif;
 
     public void goToStage1Intro( ActionEvent event ) throws IOException, SQLException {
         getConectionNew();
@@ -296,6 +297,9 @@ public class Controller0Sample implements Initializable {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene( tabeleViewScene );
         window.show();
+    }
+
+    public void goToStage6AnalizaPif ( ActionEvent actionEvent ) {
     }
 }
 
