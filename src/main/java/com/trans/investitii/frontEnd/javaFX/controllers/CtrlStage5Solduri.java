@@ -242,89 +242,150 @@ public class CtrlStage5Solduri implements Initializable {
         else {
             if (valueOrg==null){
                 String queryProjCM = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.01.01.01' AND dataContabilizarii <= '"+data+"' AND ";
+                String queryProjCMFFacturiPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldProjFactPifuite01' FROM invTBL WHERE contInv = '231.01.01.01' AND dataContabilizarii <= '"+data+"' AND dataPIF> '"+data+"' AND nrProiect = '"+valueProj+"' ";
+
                 String queryProjEchip = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.01.01' AND dataContabilizarii <= '"+data+"' AND ";
+                String queryProjEchipFacturiPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldProjFactPifuite02' FROM invTBL WHERE contInv = '231.02.01.01' AND dataContabilizarii <= '"+data+"' AND nrProiect = '"+valueProj+"' AND dataPIF> '"+data+"'  ";
+
                 String queryProjEchipInDep = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.02.01' AND dataContabilizarii <= '"+data+"' AND ";
+                String queryProjEchipInDepFacturiPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldProjFactPifuite0202' FROM invTBL WHERE contInv = '231.02.02.01' AND dataContabilizarii <= '"+data+"' AND nrProiect = '"+valueProj+"' AND dataPIF> '"+data+"' ";
+
                 String queryProjAlteInv = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.03.01.01' AND dataContabilizarii <= '"+data+"'AND ";
+                String queryProjAlteInvFacturiPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldProjFactPifuite03' FROM invTBL WHERE contInv = '231.03.01.01' AND dataContabilizarii <= '"+data+"' AND nrProiect = '"+valueProj+"' AND dataPIF> '"+data+"' ";
 
                 String querySoldProj= "SELECT round(SUM(valoare), 2) as 'soldProiect' FROM invTBL WHERE nrProiect = '"+valueProj+"' AND dataContabilizarii <= '"+data+"'";
-                String querySoldProjFactPifuite= "SELECT round(SUM(valInitiala), 2) as 'soldProiectFactPifuite' FROM invTBL WHERE nrProiect = '"+valueProj+"' AND org ='"+valueOrg+"' AND valoare= '0' ";
+                String querySoldProjFactPifuite= "SELECT round(SUM(valInitiala), 2) as 'soldProiectFactPifuite' FROM invTBL WHERE nrProiect = '"+valueProj+"' AND dataPIF> '"+data+"'  AND dataContabilizarii <= '"+data+"'";
 
-                queryProjCM += "nrProiect = '" + valueProj.toString() + "' ";
-                queryProjEchip += "nrProiect = '" + valueProj.toString() + "' ";
-                queryProjEchipInDep += "nrProiect = '" + valueProj.toString() + "' ";
-                queryProjAlteInv += "nrProiect = '" + valueProj.toString() + "' ";
+                queryProjCM += "nrProiect = '" + valueProj+ "' ";
+                queryProjEchip += "nrProiect = '" + valueProj + "' ";
+                queryProjEchipInDep += "nrProiect = '" + valueProj + "' ";
+                queryProjAlteInv += "nrProiect = '" + valueProj + "' ";
 
                 Statement stm2 = connection.createStatement();
+
+//01
                 ResultSet rsProjCM = stm2.executeQuery( queryProjCM );
-
-
                 double totalProiect = 0.00;
                 try {
                     while (rsProjCM.next()) {
                         totalProiect = rsProjCM.getDouble( "totalProiect" );
                     }
-                    labelCMProj.setText( df.format ( totalProiect ) );
+                }
+                catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                double soldProjCMFactPifuite=0;
+                ResultSet rsProjCMFacturiPifuite= stm2.executeQuery(queryProjCMFFacturiPifuite);
+                try {
+                    while (rsProjCMFacturiPifuite.next()){
+                        soldProjCMFactPifuite = rsProjCMFacturiPifuite.getDouble("soldProjFactPifuite01");
+                    }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                labelCMProj.setText( df.format( totalProiect + soldProjCMFactPifuite ) );
 
+//02.01
                 ResultSet rsProjEchip = stm2.executeQuery( queryProjEchip );
                 try {
                     while (rsProjEchip.next()) {
                         totalProiect = rsProjEchip.getDouble( "totalProiect" );
                     }
-                    labelEchipamenteProj.setText( df.format( totalProiect ) );
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                ResultSet rsProjEchipFactPifuite = stm2.executeQuery(queryProjEchipFacturiPifuite);
+                double soldProjEchipFactPifuite=0;
+                try {
+                    while (rsProjEchipFactPifuite.next()){
+                        soldProjEchipFactPifuite = rsProjEchipFactPifuite.getDouble("soldProjFactPifuite02");
+                    }
+                }
+                catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                labelEchipamenteProj.setText( df.format( totalProiect +soldProjEchipFactPifuite) );
 
+
+//.02.02
                 ResultSet rsProjEchipInDep = stm2.executeQuery( queryProjEchipInDep );
                 try {
                     while (rsProjEchipInDep.next()) {
-                        totalProiect = rsProjEchipInDep.getDouble( "totalProiect" );
+                        totalProiect = rsProjEchipInDep.getDouble("totalProiect");
                     }
-                    labelMagazieProj.setText( df.format( totalProiect ) );
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                ResultSet rsProjEchipInDepFactPifuite = stm2.executeQuery( queryProjEchipInDepFacturiPifuite );
+                double soldProjEchipInDepFactPifuite=0;
+                try {
+                    while (rsProjEchipInDepFactPifuite.next()) {
+                        soldProjEchipInDepFactPifuite= rsProjEchipInDepFactPifuite.getDouble("soldProjFactPifuite0202");
+                    }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
 
+                labelMagazieProj.setText( df.format( totalProiect + soldProjEchipInDepFactPifuite) );
+
+
+//03
                 ResultSet rsProjAlteInv = stm2.executeQuery( queryProjAlteInv );
                 try {
                     while (rsProjAlteInv.next()) {
-                        totalProiect = rsProjAlteInv.getDouble( "totalProiect" );
+                        totalProiect = rsProjAlteInv.getDouble("totalProiect");
                     }
-                    labelAlteInvProj.setText( df.format( totalProiect ) );
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
 
+                ResultSet rsProjAlteInvFactPifuite = stm2.executeQuery( queryProjAlteInvFacturiPifuite );
+                double soldProjAlteInvFactPifuite =0;
+                try {
+                    while(rsProjAlteInvFactPifuite.next()){
+                        soldProjAlteInvFactPifuite = rsProjAlteInvFactPifuite.getDouble("soldProjFactPifuite03");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                labelAlteInvProj.setText( df.format( totalProiect+ soldProjAlteInvFactPifuite) );
+
+
+//SoldTotal
                 ResultSet rsSoldProj = stm2.executeQuery(querySoldProj);
-                ResultSet rsSoldProjFactPifiute = stm2.executeQuery(querySoldProjFactPifuite);
-
-
-                double soldProiectFactPifuite=0;
                 double soldProiect=0;
                 try {
-                    while (rsSoldProj.next()){
-                        soldProiect= rsSoldProj.getDouble("soldProiect");
+                    while (rsSoldProj.next()) {
+                        soldProiect = rsSoldProj.getDouble("soldProiect");
                     }
-                    while (rsSoldProjFactPifiute.next()){
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                ResultSet rsSoldProjFactPifiute = stm2.executeQuery(querySoldProjFactPifuite);
+                double soldProiectFactPifuite=0;
+                try{
+                while (rsSoldProjFactPifiute.next()){
                         soldProiectFactPifuite= rsSoldProjFactPifiute.getDouble("soldProiectFactPifuite");
                     }
                     labelTotalProj.setText(df.format(soldProiect+soldProiectFactPifuite));
-                    System.out.println("soldProiect + soldProiectFactPifuite"+soldProiect + soldProiectFactPifuite);
-//                    labelTotalProj.setText(df.format(soldProiect));
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
             }else{
                 String queryProjCM = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.01.01.01' AND ";
+                String queryProjCMFFacturiPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldProjFactPifuite01' FROM invTBL WHERE contInv = '231.01.01.01' AND dataContabilizarii <= '"+data+"' AND dataPIF> '"+data+"' AND nrProiect = '"+valueProj+"' AND org = '"+valueOrg+"'";
+
                 String queryProjEchip = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.01.01' AND ";
+                String queryProjEchipFacturiPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldProjFactPifuite02' FROM invTBL WHERE contInv = '231.02.01.01' AND dataContabilizarii <= '"+data+"' AND dataPIF> '"+data+"' AND nrProiect = '"+valueProj+"' AND org = '"+valueOrg+"'";
+
                 String queryProjEchipInDep = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.02.01' AND ";
+                String queryProjEchipInDepFacturiPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldProjFactPifuite0202' FROM invTBL WHERE contInv = '231.02.02.01' AND dataContabilizarii <= '"+data+"' AND dataPIF> '"+data+"' AND nrProiect = '"+valueProj+"' AND org = '"+valueOrg+"'";
+
                 String queryProjAlteInv = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.03.01.01' AND ";
+                String queryProjAlteInvFacturiPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldProjFactPifuite03' FROM invTBL WHERE contInv = '231.03.01.01' AND dataContabilizarii <= '"+data+"' AND dataPIF>= '"+data+"' AND nrProiect = '"+valueProj+"' AND org = '"+valueOrg+"'";
 
                 String querySoldProj= "SELECT round(SUM(valoare), 2) as 'soldProiect' FROM invTBL WHERE nrProiect = '"+valueProj+"' AND org ='"+valueOrg+"' ";
-                String querySoldProjFactPifuite= "SELECT round(SUM(valInitiala), 2) as 'soldProiectFactPifuite' FROM invTBL WHERE nrProiect = '"+valueProj+"' AND org ='"+valueOrg+"' AND valoare= '0' ";
+                String querySoldProjFactPifuite= "SELECT round(SUM(valInitiala), 2) as 'soldProiectFactPifuite' FROM invTBL WHERE nrProiect = '"+valueProj+"' AND org ='"+valueOrg+"' AND dataPIF> '"+data+"' ";
 
                 queryProjCM += "nrProiect = '" + valueProj.toString() + "' AND org = '"+valueOrg.toString()+"' ";
                 queryProjEchip += "nrProiect = '" + valueProj.toString() + "' AND org = '"+valueOrg.toString()+"' ";
@@ -332,53 +393,95 @@ public class CtrlStage5Solduri implements Initializable {
                 queryProjAlteInv += "nrProiect = '" + valueProj.toString() + "' AND org = '"+valueOrg.toString()+"' ";
 
                 Statement stm2 = connection.createStatement();
-
+//01
                 ResultSet rsProjCM = stm2.executeQuery( queryProjCM );
                 double totalProiect = 0.00;
                 try {
                     while (rsProjCM.next()) {
                         totalProiect = rsProjCM.getDouble( "totalProiect" );
                     }
-                    labelCMProj.setText( df.format( totalProiect ) );
+                }
+                catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                double soldProjCMFactPifuite=0;
+                ResultSet rsProjCMFacturiPifuite= stm2.executeQuery(queryProjCMFFacturiPifuite);
+                try {
+                    while (rsProjCMFacturiPifuite.next()){
+                        soldProjCMFactPifuite = rsProjCMFacturiPifuite.getDouble("soldProjFactPifuite01");
+                    }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-
+                labelCMProj.setText( df.format( totalProiect + soldProjCMFactPifuite ) );
+//02.01
                 ResultSet rsProjEchip = stm2.executeQuery( queryProjEchip );
                 try {
                     while (rsProjEchip.next()) {
                         totalProiect = rsProjEchip.getDouble( "totalProiect" );
                     }
-                    labelEchipamenteProj.setText( df.format( totalProiect ) );
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                ResultSet rsProjEchipFactPifuite = stm2.executeQuery(queryProjEchipFacturiPifuite);
+                double soldProjEchipFactPifuite=0;
+                try {
+                    while (rsProjEchipFactPifuite.next()){
+                        soldProjEchipFactPifuite = rsProjEchipFactPifuite.getDouble("soldProjFactPifuite02");
+                    }
+                }
+                catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                labelEchipamenteProj.setText( df.format( totalProiect +soldProjEchipFactPifuite) );
 
+//02.02
                 ResultSet rsProjEchipInDep = stm2.executeQuery( queryProjEchipInDep );
                 try {
                     while (rsProjEchipInDep.next()) {
-                        totalProiect = rsProjEchipInDep.getDouble( "totalProiect" );
+                        totalProiect = rsProjEchipInDep.getDouble("totalProiect");
                     }
-                    labelMagazieProj.setText( df.format( totalProiect ) );
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                ResultSet rsProjEchipInDepFactPifuite = stm2.executeQuery( queryProjEchipInDepFacturiPifuite );
+                double soldProjEchipInDepFactPifuite=0;
+                try {
+                    while (rsProjEchipInDepFactPifuite.next()) {
+                        soldProjEchipInDepFactPifuite= rsProjEchipInDepFactPifuite.getDouble("soldProjFactPifuite0202");
+                    }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
 
+                labelMagazieProj.setText( df.format( totalProiect + soldProjEchipInDepFactPifuite) );
+//03.01
                 ResultSet rsProjAlteInv = stm2.executeQuery( queryProjAlteInv );
                 try {
                     while (rsProjAlteInv.next()) {
-                        totalProiect = rsProjAlteInv.getDouble( "totalProiect" );
+                        totalProiect = rsProjAlteInv.getDouble("totalProiect");
                     }
-                    labelAlteInvProj.setText( df.format( totalProiect ) );
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
 
+                ResultSet rsProjAlteInvFactPifuite = stm2.executeQuery( queryProjAlteInvFacturiPifuite );
+                double soldProjAlteInvFactPifuite =0;
+                try {
+                    while(rsProjAlteInvFactPifuite.next()){
+                       soldProjAlteInvFactPifuite = rsProjAlteInvFactPifuite.getDouble("soldProjFactPifuite03");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                labelAlteInvProj.setText( df.format( totalProiect+ soldProjAlteInvFactPifuite) );
+
+
+//sold
                 ResultSet rsSoldProj = stm2.executeQuery(querySoldProj);
 
                 double soldProiect=0;
                 double soldProiectFactPifuite=0;
-
                 try {
                     while (rsSoldProj.next()) {
                         soldProiect = rsSoldProj.getDouble( "soldProiect" );
@@ -386,13 +489,13 @@ public class CtrlStage5Solduri implements Initializable {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+
+                ResultSet rsSoldProjFactPifiute = stm2.executeQuery(querySoldProjFactPifuite);
                 try {
-                    ResultSet rsSoldProjFactPifiute = stm2.executeQuery(querySoldProjFactPifuite);
                     while (rsSoldProjFactPifiute.next()){
                         soldProiectFactPifuite= rsSoldProjFactPifiute.getDouble("soldProiectFactPifuite");
                     }
                     labelTotalProj.setText(df.format(soldProiect+soldProiectFactPifuite));
-                    System.out.println("soldProiect + soldProiectFactPifuite"+soldProiect + soldProiectFactPifuite);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -406,6 +509,11 @@ public class CtrlStage5Solduri implements Initializable {
         Object valueProj = comboBoxButtonProj.getValue();
         Object valueOrg = comboBoxButtonOrg.getValue();
 
+        if (dataSold.getValue()==null){
+            dataSold.setValue(LocalDate.now());
+        }
+        Object data = dataSold.getValue();
+
         NumberFormat nf = NumberFormat.getNumberInstance( new Locale( "ro", "RO" ) );
         nf.setMaximumFractionDigits( 2 );
         DecimalFormat df = (DecimalFormat) nf;
@@ -416,214 +524,454 @@ public class CtrlStage5Solduri implements Initializable {
         else {
             if(valueOrg == null && valueProj == null) {
                 String queryFzCM = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.01.01.01' AND ";
+                String queryFzCMFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite01' FROM invTBL WHERE contInv = '231.01.01.01' AND dataPIF> '"+data+"' AND furnizor = '" + valueFz + "' AND dataContabilizarii <'"+data+"' ";
+
                 String queryFzEchip = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.01.01' AND ";
+                String queryFzEchipFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite02' FROM invTBL WHERE contInv = '231.02.01.01' AND dataPIF> '"+data+"' AND furnizor = '" + valueFz + "' AND dataContabilizarii <'"+data+"' ";
+
                 String queryFzEchipInDep = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.02.01' AND ";
+                String queryFzEchipInDepFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite0202' FROM invTBL WHERE contInv = '231.02.02.01' AND dataPIF> '"+data+"' AND furnizor = '" + valueFz + "' AND dataContabilizarii <'"+data+"' ";
+
                 String queryFzAlteInv = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.03.01.01' AND ";
+                String queryFzAlteInvFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite03' FROM invTBL WHERE contInv = '231.03.01.01' AND dataPIF> '"+data+"' AND furnizor = '" + valueFz + "' AND dataContabilizarii <'"+data+"' ";
+
                 String querySoldTotalFz = "SELECT round(SUM(valoare), 2) as 'totalSoldFz' FROM invTBL WHERE furnizor = '"+valueFz+"' ";
+                String querySoldTotalFzFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite' FROM invTBL WHERE furnizor = '"+valueFz+"' AND dataPIF > '"+data+"' AND dataContabilizarii <'"+data+"' ";
 
                 queryFzCM += "furnizor = '" + valueFz.toString() + "' ";
                 queryFzEchip += "furnizor = '" + valueFz.toString() + "' ";
                 queryFzEchipInDep += "furnizor = '" + valueFz.toString() + "' ";
                 queryFzAlteInv += "furnizor = '" + valueFz.toString() + "' ";
-
+//01
                 Statement stm2 = connection.createStatement();
                 ResultSet rsFZCM = stm2.executeQuery( queryFzCM );
 
                 double totalProiect = 0.00;
                 try {
                     while (rsFZCM.next()) {
-                        totalProiect = rsFZCM.getDouble( "totalProiect" );
+                        totalProiect = rsFZCM.getDouble("totalProiect");
                     }
-                    labelCMFz.setText( df.format( totalProiect ) );
-
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                ResultSet rsFZCMFactPifite = stm2.executeQuery( queryFzCMFactPifuite );
+                double soldFzCMFactPifuite=0;
+                try {
+                    while (rsFZCMFactPifite.next()){
+                        soldFzCMFactPifuite = rsFZCMFactPifite.getDouble("soldFzFactPifuite01");
+                    }
+            } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } labelCMFz.setText( df.format( totalProiect+soldFzCMFactPifuite ));
 
+///02.01
                 ResultSet rsFzEchip = stm2.executeQuery( queryFzEchip );
                 try {
                     while (rsFzEchip.next()) {
                         totalProiect = rsFzEchip.getDouble( "totalProiect" );
                     }
-                    labelEchipamenteFz.setText( df.format( totalProiect ) );
+
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-
+                ResultSet rsFzEchipFactPifite = stm2.executeQuery( queryFzEchipFactPifuite );
+                double soldFzEchipFactPifuite=0;
+                try {
+                    while (rsFzEchipFactPifite.next()){
+                        soldFzEchipFactPifuite = rsFzEchipFactPifite.getDouble("soldFzFactPifuite02");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                    labelEchipamenteFz.setText( df.format( totalProiect +soldFzEchipFactPifuite) );
+//02.02
                 ResultSet rsFzEchipInDep = stm2.executeQuery( queryFzEchipInDep );
                 try {
                     while (rsFzEchipInDep.next()) {
                         totalProiect = rsFzEchipInDep.getDouble( "totalProiect" );
                     }
-                    labelMagazieFz.setText( df.format( totalProiect ) );
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                ResultSet rsFzEchipInDepFactPifite = stm2.executeQuery( queryFzEchipInDepFactPifuite );
+                double soldFzEchipFactInDepPifuite=0;
+                try {
+                    while (rsFzEchipInDepFactPifite.next()){
+                        soldFzEchipFactInDepPifuite = rsFzEchipInDepFactPifite.getDouble("soldFzFactPifuite0202");
+                    }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
 
+                labelMagazieFz.setText( df.format( totalProiect+soldFzEchipFactInDepPifuite ) );
+//03.01
                 ResultSet rsFzjAlteInv = stm2.executeQuery( queryFzAlteInv );
                 try {
                     while (rsFzjAlteInv.next()) {
                         totalProiect = rsFzjAlteInv.getDouble( "totalProiect" );
                     }
-                    labelAlteInvFz.setText( df.format( totalProiect ) );
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
 
+                ResultSet rsFzAlteInvFactPifuite = stm2.executeQuery(queryFzAlteInvFactPifuite);
+                double soldFzAlteInvFactPifuite=0;
+                try {
+                    while (rsFzAlteInvFactPifuite.next()){
+                        soldFzAlteInvFactPifuite =rsFzAlteInvFactPifuite.getDouble("soldFzFactPifuite03");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                labelAlteInvFz.setText( df.format( totalProiect+soldFzAlteInvFactPifuite ) );
+
+//sold
                 ResultSet rsSoldFz = stm2.executeQuery(querySoldTotalFz);
                 double soldFz = 0;
                 try {
                     while (rsSoldFz.next()){
                         soldFz = rsSoldFz.getDouble("totalSoldFz");
                     }
-                    labelTotalFz.setText(df.format(soldFz));
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                ResultSet rsSoldFzFactPifuite= stm2.executeQuery(querySoldTotalFzFactPifuite);
+                double soldFzFactPifuite = 0;
+                try {
+                    while (rsSoldFzFactPifuite.next()){
+                        soldFzFactPifuite = rsSoldFzFactPifuite.getDouble("soldFzFactPifuite");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                labelTotalFz.setText(df.format(soldFz+soldFzFactPifuite));
+
 
             }
             if(valueOrg == null && valueProj != null) {
                 String queryFzCM = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.01.01.01' AND ";
+                String queryFzCMFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite01' FROM invTBL WHERE contInv = '231.01.01.01' AND dataPIF> '"+data+"' AND furnizor = '" + valueFz + "' AND nrProiect = '" + valueProj + "'AND dataContabilizarii <'"+data+"' ";
+
                 String queryFzEchip = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.01.01' AND ";
+                String queryFzEchipFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite02' FROM invTBL WHERE contInv = '231.02.01.01' AND dataPIF> '"+data+"' AND furnizor = '" + valueFz + "' AND nrProiect = '" + valueProj + "' AND dataContabilizarii <'"+data+"' ";
+
                 String queryFzEchipInDep = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.02.01' AND ";
+                String queryFzEchipInDepFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite0202' FROM invTBL WHERE contInv = '231.02.02.01' AND dataPIF> '"+data+"' AND furnizor = '" + valueFz + "' AND nrProiect = '" + valueProj + "'AND dataContabilizarii <'"+data+"' ";
+
                 String queryFzAlteInv = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.03.01.01' AND ";
-                String querySoldTotalFz = "SELECT round(SUM(valoare), 2) as 'totalSoldFz' FROM invTBL WHERE furnizor = '"+valueFz+"' AND nrProiect = '" + valueProj.toString() + "' ";
+                String queryFzAlteInvFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite03' FROM invTBL WHERE contInv = '231.03.01.01' AND dataPIF> '"+data+"' AND furnizor = '" + valueFz + "' AND nrProiect = '" + valueProj + "' AND dataContabilizarii <'"+data+"' ";
+
+                String querySoldTotalFz = "SELECT round(SUM(valoare), 2) as 'totalSoldFz' FROM invTBL WHERE furnizor = '"+valueFz+"' AND nrProiect = '" + valueProj + "' ";
+                String querySoldTotalFzFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite' FROM invTBL WHERE furnizor = '"+valueFz+"' AND dataPIF > '"+data+"' AND nrProiect = '" + valueProj + "' AND dataContabilizarii <'"+data+"' ";
 
                 queryFzCM += "furnizor = '" + valueFz.toString() + "' AND nrProiect = '" + valueProj.toString() + "'";
                 queryFzEchip += "furnizor = '" + valueFz.toString() + "' AND nrProiect = '" + valueProj.toString() + "' ";
                 queryFzEchipInDep += "furnizor = '" + valueFz.toString() + "'AND nrProiect = '" + valueProj.toString() + "' ";
                 queryFzAlteInv += "furnizor = '" + valueFz.toString() + "' AND nrProiect = '" + valueProj.toString() + "'";
-
+//01
                 Statement stm2 = connection.createStatement();
                 ResultSet rsFZCM = stm2.executeQuery( queryFzCM );
 
                 double totalProiect = 0.00;
                 try {
                     while (rsFZCM.next()) {
-                        totalProiect = rsFZCM.getDouble( "totalProiect" );
+                        totalProiect = rsFZCM.getDouble("totalProiect");
                     }
-                    labelCMFz.setText( df.format( totalProiect ) );
-
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                ResultSet rsFZCMFactPifite = stm2.executeQuery( queryFzCMFactPifuite );
+                double soldFzCMFactPifuite=0;
+                try {
+                    while (rsFZCMFactPifite.next()){
+                        soldFzCMFactPifuite = rsFZCMFactPifite.getDouble("soldFzFactPifuite01");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } labelCMFz.setText( df.format( totalProiect+soldFzCMFactPifuite ));
 
+///02.01
                 ResultSet rsFzEchip = stm2.executeQuery( queryFzEchip );
                 try {
                     while (rsFzEchip.next()) {
                         totalProiect = rsFzEchip.getDouble( "totalProiect" );
                     }
-                    labelEchipamenteFz.setText( df.format( totalProiect ) );
+
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-
+                ResultSet rsFzEchipFactPifite = stm2.executeQuery( queryFzEchipFactPifuite );
+                double soldFzEchipFactPifuite=0;
+                try {
+                    while (rsFzEchipFactPifite.next()){
+                        soldFzEchipFactPifuite = rsFzEchipFactPifite.getDouble("soldFzFactPifuite02");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                labelEchipamenteFz.setText( df.format( totalProiect +soldFzEchipFactPifuite) );
+//02.02
                 ResultSet rsFzEchipInDep = stm2.executeQuery( queryFzEchipInDep );
                 try {
                     while (rsFzEchipInDep.next()) {
                         totalProiect = rsFzEchipInDep.getDouble( "totalProiect" );
                     }
-                    labelMagazieFz.setText( df.format( totalProiect ) );
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                ResultSet rsFzEchipInDepFactPifite = stm2.executeQuery( queryFzEchipInDepFactPifuite );
+                double soldFzEchipFactInDepPifuite=0;
+                try {
+                    while (rsFzEchipInDepFactPifite.next()){
+                        soldFzEchipFactInDepPifuite = rsFzEchipInDepFactPifite.getDouble("soldFzFactPifuite0202");
+                    }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
 
+                labelMagazieFz.setText( df.format( totalProiect+soldFzEchipFactInDepPifuite ) );
+//03.01
                 ResultSet rsFzjAlteInv = stm2.executeQuery( queryFzAlteInv );
                 try {
                     while (rsFzjAlteInv.next()) {
                         totalProiect = rsFzjAlteInv.getDouble( "totalProiect" );
                     }
-                    labelAlteInvFz.setText( df.format( totalProiect ) );
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
 
+                ResultSet rsFzAlteInvFactPifuite = stm2.executeQuery(queryFzAlteInvFactPifuite);
+                double soldFzAlteInvFactPifuite=0;
+                try {
+                    while (rsFzAlteInvFactPifuite.next()){
+                        soldFzAlteInvFactPifuite =rsFzAlteInvFactPifuite.getDouble("soldFzFactPifuite03");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                labelAlteInvFz.setText( df.format( totalProiect+soldFzAlteInvFactPifuite ) );
+
+//sold
                 ResultSet rsSoldFz = stm2.executeQuery(querySoldTotalFz);
                 double soldFz = 0;
                 try {
                     while (rsSoldFz.next()){
                         soldFz = rsSoldFz.getDouble("totalSoldFz");
                     }
-                    labelTotalFz.setText(df.format(soldFz));
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-
+                ResultSet rsSoldFzFactPifuite= stm2.executeQuery(querySoldTotalFzFactPifuite);
+                double soldFzFactPifuite = 0;
+                try {
+                    while (rsSoldFzFactPifuite.next()){
+                        soldFzFactPifuite = rsSoldFzFactPifuite.getDouble("soldFzFactPifuite");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                labelTotalFz.setText(df.format(soldFz+soldFzFactPifuite));
 
 
             }
             if(valueOrg != null && valueProj == null) {
                 String queryFzCM = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.01.01.01' AND ";
+                String queryFzCMFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite01' FROM invTBL WHERE contInv = '231.01.01.01' AND dataPIF> '"+data+"' AND furnizor = '" + valueFz + "' AND org = '" + valueOrg + "'AND dataContabilizarii <'"+data+"' ";
+
                 String queryFzEchip = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.01.01' AND ";
+                String queryFzEchipFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite02' FROM invTBL WHERE contInv = '231.02.01.01' AND dataPIF> '"+data+"' AND furnizor = '" + valueFz + "' AND org = '" + valueOrg + "'AND dataContabilizarii <'"+data+"' ";
+
                 String queryFzEchipInDep = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.02.01' AND ";
+                String queryFzEchipInDepFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite0202' FROM invTBL WHERE contInv = '231.02.02.01' AND dataPIF> '"+data+"' AND furnizor = '" + valueFz + "' AND org = '" + valueOrg + "'AND dataContabilizarii <'"+data+"' ";
+
                 String queryFzAlteInv = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.03.01.01' AND ";
+                String queryFzAlteInvFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite03' FROM invTBL WHERE contInv = '231.03.01.01' AND dataPIF> '"+data+"' AND furnizor = '" + valueFz + "' AND org = '" + valueOrg + "' AND dataContabilizarii <'"+data+"' ";
+
                 String querySoldTotalFz = "SELECT round(SUM(valoare), 2) as 'totalSoldFz' FROM invTBL WHERE furnizor = '"+valueFz+"' AND org = '" + valueOrg + "' ";
+                String querySoldTotalFzFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite' FROM invTBL WHERE furnizor = '"+valueFz+"' AND dataPIF > '"+data+"' AND org = '" + valueOrg + "' AND dataContabilizarii <'"+data+"' ";
 
                 queryFzCM += "furnizor = '" + valueFz.toString() + "' AND org = '" + valueOrg.toString() + "'";
                 queryFzEchip += "furnizor = '" + valueFz.toString() + "' AND org = '" + valueOrg.toString() + "' ";
                 queryFzEchipInDep += "furnizor = '" + valueFz.toString() + "'AND org = '" + valueOrg.toString() + "' ";
                 queryFzAlteInv += "furnizor = '" + valueFz.toString() + "' AND org = '" + valueOrg.toString() + "'";
 
+//01
                 Statement stm2 = connection.createStatement();
                 ResultSet rsFZCM = stm2.executeQuery( queryFzCM );
 
                 double totalProiect = 0.00;
                 try {
                     while (rsFZCM.next()) {
-                        totalProiect = rsFZCM.getDouble( "totalProiect" );
+                        totalProiect = rsFZCM.getDouble("totalProiect");
                     }
-                    labelCMFz.setText( df.format( totalProiect ) );
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                ResultSet rsFZCMFactPifite = stm2.executeQuery( queryFzCMFactPifuite );
+                double soldFzCMFactPifuite=0;
+                try {
+                    while (rsFZCMFactPifite.next()){
+                        soldFzCMFactPifuite = rsFZCMFactPifite.getDouble("soldFzFactPifuite01");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } labelCMFz.setText( df.format( totalProiect+soldFzCMFactPifuite ));
 
+///02.01
                 ResultSet rsFzEchip = stm2.executeQuery( queryFzEchip );
                 try {
                     while (rsFzEchip.next()) {
                         totalProiect = rsFzEchip.getDouble( "totalProiect" );
                     }
-                    labelEchipamenteFz.setText( df.format( totalProiect ) );
+
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-
+                ResultSet rsFzEchipFactPifite = stm2.executeQuery( queryFzEchipFactPifuite );
+                double soldFzEchipFactPifuite=0;
+                try {
+                    while (rsFzEchipFactPifite.next()){
+                        soldFzEchipFactPifuite = rsFzEchipFactPifite.getDouble("soldFzFactPifuite02");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                labelEchipamenteFz.setText( df.format( totalProiect +soldFzEchipFactPifuite) );
+//02.02
                 ResultSet rsFzEchipInDep = stm2.executeQuery( queryFzEchipInDep );
                 try {
                     while (rsFzEchipInDep.next()) {
                         totalProiect = rsFzEchipInDep.getDouble( "totalProiect" );
                     }
-                    labelMagazieFz.setText( df.format( totalProiect ) );
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                ResultSet rsFzEchipInDepFactPifite = stm2.executeQuery( queryFzEchipInDepFactPifuite );
+                double soldFzEchipFactInDepPifuite=0;
+                try {
+                    while (rsFzEchipInDepFactPifite.next()){
+                        soldFzEchipFactInDepPifuite = rsFzEchipInDepFactPifite.getDouble("soldFzFactPifuite0202");
+                    }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
 
+                labelMagazieFz.setText( df.format( totalProiect+soldFzEchipFactInDepPifuite ) );
+//03.01
                 ResultSet rsFzjAlteInv = stm2.executeQuery( queryFzAlteInv );
                 try {
                     while (rsFzjAlteInv.next()) {
                         totalProiect = rsFzjAlteInv.getDouble( "totalProiect" );
                     }
-                    labelAlteInvFz.setText( df.format( totalProiect ) );
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
 
+                ResultSet rsFzAlteInvFactPifuite = stm2.executeQuery(queryFzAlteInvFactPifuite);
+                double soldFzAlteInvFactPifuite=0;
+                try {
+                    while (rsFzAlteInvFactPifuite.next()){
+                        soldFzAlteInvFactPifuite =rsFzAlteInvFactPifuite.getDouble("soldFzFactPifuite03");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                labelAlteInvFz.setText( df.format( totalProiect+soldFzAlteInvFactPifuite ) );
+
+//sold
                 ResultSet rsSoldFz = stm2.executeQuery(querySoldTotalFz);
                 double soldFz = 0;
                 try {
                     while (rsSoldFz.next()){
                         soldFz = rsSoldFz.getDouble("totalSoldFz");
                     }
-                    labelTotalFz.setText(df.format(soldFz));
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                ResultSet rsSoldFzFactPifuite= stm2.executeQuery(querySoldTotalFzFactPifuite);
+                double soldFzFactPifuite = 0;
+                try {
+                    while (rsSoldFzFactPifuite.next()){
+                        soldFzFactPifuite = rsSoldFzFactPifuite.getDouble("soldFzFactPifuite");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                labelTotalFz.setText(df.format(soldFz+soldFzFactPifuite));
+
+
+//                Statement stm2 = connection.createStatement();
+//                ResultSet rsFZCM = stm2.executeQuery( queryFzCM );
+//
+//                double totalProiect = 0.00;
+//                try {
+//                    while (rsFZCM.next()) {
+//                        totalProiect = rsFZCM.getDouble( "totalProiect" );
+//                    }
+//                    labelCMFz.setText( df.format( totalProiect ) );
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
+//
+//                ResultSet rsFzEchip = stm2.executeQuery( queryFzEchip );
+//                try {
+//                    while (rsFzEchip.next()) {
+//                        totalProiect = rsFzEchip.getDouble( "totalProiect" );
+//                    }
+//                    labelEchipamenteFz.setText( df.format( totalProiect ) );
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
+//
+//                ResultSet rsFzEchipInDep = stm2.executeQuery( queryFzEchipInDep );
+//                try {
+//                    while (rsFzEchipInDep.next()) {
+//                        totalProiect = rsFzEchipInDep.getDouble( "totalProiect" );
+//                    }
+//                    labelMagazieFz.setText( df.format( totalProiect ) );
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
+//
+//                ResultSet rsFzjAlteInv = stm2.executeQuery( queryFzAlteInv );
+//                try {
+//                    while (rsFzjAlteInv.next()) {
+//                        totalProiect = rsFzjAlteInv.getDouble( "totalProiect" );
+//                    }
+//                    labelAlteInvFz.setText( df.format( totalProiect ) );
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
+//
+//                ResultSet rsSoldFz = stm2.executeQuery(querySoldTotalFz);
+//                double soldFz = 0;
+//                try {
+//                    while (rsSoldFz.next()){
+//                        soldFz = rsSoldFz.getDouble("totalSoldFz");
+//                    }
+//                    labelTotalFz.setText(df.format(soldFz));
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
             }
             if(valueOrg != null && valueProj != null) {
                 String queryFzCM = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.01.01.01' AND ";
+                String queryFzCMFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite01' FROM invTBL WHERE contInv = '231.01.01.01' AND dataPIF> '"+data+"' AND furnizor = '" + valueFz + "' AND nrProiect = '" + valueProj + "' AND org = '" + valueOrg+"' AND dataContabilizarii <'"+data+"' ";
+
                 String queryFzEchip = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.01.01' AND ";
+                String queryFzEchipFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite02' FROM invTBL WHERE contInv = '231.02.01.01' AND dataPIF> '"+data+"' AND furnizor = '" + valueFz + "' AND nrProiect = '" + valueProj + "'AND org = '" + valueOrg+"' AND dataContabilizarii <'"+data+"' ";
+
                 String queryFzEchipInDep = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.02.02.01' AND ";
+                String queryFzEchipInDepFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite0202' FROM invTBL WHERE contInv = '231.02.02.01' AND dataPIF> '"+data+"' AND furnizor = '" + valueFz + "' AND nrProiect = '" + valueProj + "'AND org = '" + valueOrg+"' AND dataContabilizarii <'"+data+"' ";
+
                 String queryFzAlteInv = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.03.01.01' AND ";
+                String queryFzAlteInvFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite03' FROM invTBL WHERE contInv = '231.03.01.01' AND dataPIF> '"+data+"' AND furnizor = '" + valueFz + "' AND nrProiect = '" + valueProj + "'AND org = '" + valueOrg+"' AND dataContabilizarii <'"+data+"' ";
+
                 String querySoldTotalFz = "SELECT round(SUM(valoare), 2) as 'totalSoldFz' FROM invTBL WHERE furnizor = '"+valueFz+"' AND org= '"+valueOrg+"'AND nrProiect = '"+valueProj+"'  ";
+                String querySoldTotalFzFactPifuite = "SELECT round(SUM(valInitiala), 2) as 'soldFzFactPifuite' FROM invTBL WHERE furnizor = '"+valueFz+"' AND dataPIF > '"+data+"' AND nrProiect = '" + valueProj + "'AND org = '" + valueOrg+"' AND dataContabilizarii <'"+data+"' ";
 
 
                 queryFzCM += "furnizor = '" + valueFz.toString() + "' AND org = '" + valueOrg.toString() + "'AND nrProiect = '" + valueProj.toString() + "'";
@@ -631,67 +979,169 @@ public class CtrlStage5Solduri implements Initializable {
                 queryFzEchipInDep += "furnizor = '" + valueFz.toString() + "'AND org = '" + valueOrg.toString() + "' AND nrProiect = '" + valueProj.toString() + "'";
                 queryFzAlteInv += "furnizor = '" + valueFz.toString() + "' AND org = '" + valueOrg.toString() + "'AND nrProiect = '" + valueProj.toString() + "'";
 
+                //01
                 Statement stm2 = connection.createStatement();
                 ResultSet rsFZCM = stm2.executeQuery( queryFzCM );
 
                 double totalProiect = 0.00;
                 try {
                     while (rsFZCM.next()) {
-                        totalProiect = rsFZCM.getDouble( "totalProiect" );
+                        totalProiect = rsFZCM.getDouble("totalProiect");
                     }
-                    labelCMFz.setText( df.format( totalProiect ) );
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                ResultSet rsFZCMFactPifite = stm2.executeQuery( queryFzCMFactPifuite );
+                double soldFzCMFactPifuite=0;
+                try {
+                    while (rsFZCMFactPifite.next()){
+                        soldFzCMFactPifuite = rsFZCMFactPifite.getDouble("soldFzFactPifuite01");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } labelCMFz.setText( df.format( totalProiect+soldFzCMFactPifuite ));
 
+///02.01
                 ResultSet rsFzEchip = stm2.executeQuery( queryFzEchip );
                 try {
                     while (rsFzEchip.next()) {
                         totalProiect = rsFzEchip.getDouble( "totalProiect" );
                     }
-                    labelEchipamenteFz.setText( df.format( totalProiect ) );
+
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-
+                ResultSet rsFzEchipFactPifite = stm2.executeQuery( queryFzEchipFactPifuite );
+                double soldFzEchipFactPifuite=0;
+                try {
+                    while (rsFzEchipFactPifite.next()){
+                        soldFzEchipFactPifuite = rsFzEchipFactPifite.getDouble("soldFzFactPifuite02");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                labelEchipamenteFz.setText( df.format( totalProiect +soldFzEchipFactPifuite) );
+//02.02
                 ResultSet rsFzEchipInDep = stm2.executeQuery( queryFzEchipInDep );
                 try {
                     while (rsFzEchipInDep.next()) {
                         totalProiect = rsFzEchipInDep.getDouble( "totalProiect" );
                     }
-                    labelMagazieFz.setText( df.format( totalProiect ) );
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                ResultSet rsFzEchipInDepFactPifite = stm2.executeQuery( queryFzEchipInDepFactPifuite );
+                double soldFzEchipFactInDepPifuite=0;
+                try {
+                    while (rsFzEchipInDepFactPifite.next()){
+                        soldFzEchipFactInDepPifuite = rsFzEchipInDepFactPifite.getDouble("soldFzFactPifuite0202");
+                    }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
 
+                labelMagazieFz.setText( df.format( totalProiect+soldFzEchipFactInDepPifuite ) );
+//03.01
                 ResultSet rsFzjAlteInv = stm2.executeQuery( queryFzAlteInv );
                 try {
                     while (rsFzjAlteInv.next()) {
                         totalProiect = rsFzjAlteInv.getDouble( "totalProiect" );
                     }
-                    labelAlteInvFz.setText( df.format( totalProiect ) );
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+
+                ResultSet rsFzAlteInvFactPifuite = stm2.executeQuery(queryFzAlteInvFactPifuite);
+                double soldFzAlteInvFactPifuite=0;
+                try {
+                    while (rsFzAlteInvFactPifuite.next()){
+                        soldFzAlteInvFactPifuite =rsFzAlteInvFactPifuite.getDouble("soldFzFactPifuite03");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                labelAlteInvFz.setText( df.format( totalProiect+soldFzAlteInvFactPifuite ) );
+
+//sold
                 ResultSet rsSoldFz = stm2.executeQuery(querySoldTotalFz);
                 double soldFz = 0;
                 try {
                     while (rsSoldFz.next()){
                         soldFz = rsSoldFz.getDouble("totalSoldFz");
                     }
-                    labelTotalFz.setText(df.format(soldFz));
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                ResultSet rsSoldFzFactPifuite= stm2.executeQuery(querySoldTotalFzFactPifuite);
+                double soldFzFactPifuite = 0;
+                try {
+                    while (rsSoldFzFactPifuite.next()){
+                        soldFzFactPifuite = rsSoldFzFactPifuite.getDouble("soldFzFactPifuite");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                labelTotalFz.setText(df.format(soldFz+soldFzFactPifuite));
+
+
+
+//                Statement stm2 = connection.createStatement();
+//                ResultSet rsFZCM = stm2.executeQuery( queryFzCM );
+//
+//                double totalProiect = 0.00;
+//                try {
+//                    while (rsFZCM.next()) {
+//                        totalProiect = rsFZCM.getDouble( "totalProiect" );
+//                    }
+//                    labelCMFz.setText( df.format( totalProiect ) );
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
+//
+//                ResultSet rsFzEchip = stm2.executeQuery( queryFzEchip );
+//                try {
+//                    while (rsFzEchip.next()) {
+//                        totalProiect = rsFzEchip.getDouble( "totalProiect" );
+//                    }
+//                    labelEchipamenteFz.setText( df.format( totalProiect ) );
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
+//
+//                ResultSet rsFzEchipInDep = stm2.executeQuery( queryFzEchipInDep );
+//                try {
+//                    while (rsFzEchipInDep.next()) {
+//                        totalProiect = rsFzEchipInDep.getDouble( "totalProiect" );
+//                    }
+//                    labelMagazieFz.setText( df.format( totalProiect ) );
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
+//
+//                ResultSet rsFzjAlteInv = stm2.executeQuery( queryFzAlteInv );
+//                try {
+//                    while (rsFzjAlteInv.next()) {
+//                        totalProiect = rsFzjAlteInv.getDouble( "totalProiect" );
+//                    }
+//                    labelAlteInvFz.setText( df.format( totalProiect ) );
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
+//                ResultSet rsSoldFz = stm2.executeQuery(querySoldTotalFz);
+//                double soldFz = 0;
+//                try {
+//                    while (rsSoldFz.next()){
+//                        soldFz = rsSoldFz.getDouble("totalSoldFz");
+//                    }
+//                    labelTotalFz.setText(df.format(soldFz));
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
             }
         }
     }
 
-    public void comboBoxActOrgYear ( ActionEvent actionEvent ) {
-    }
-
-    public void comboBoxFzContractAct ( ActionEvent actionEvent ) {
-    }
 
     public void comboBoxActOrg ( ActionEvent actionEvent ) throws SQLException {
         Object valueOrg = comboBoxButtonOrg.getValue();
