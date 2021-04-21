@@ -78,36 +78,16 @@ public class CtrlStage2Rapoarte implements Initializable {
     private URL location;
     private ResourceBundle resources;
 
+
     public CtrlStage2Rapoarte () throws SQLException {
     }
 
-    public void goOnSt0 ( ActionEvent event ) throws IOException {
-        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/sample.fxml" ) );
-        Scene tabeleViewScene = new Scene( tableView );
-        //This line gets the stage inforation
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene( tabeleViewScene );
-        window.show();
-    }
-
-    public void goToStage1Intro ( ActionEvent event ) throws IOException {
-        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage1Intro.fxml" ) );
-        Scene tableViewScene = new Scene( stage1Intro );
-        Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        windowStage1Intro.setScene( tableViewScene );
-        windowStage1Intro.show();
-    }
-    public void goToStage3Sumar ( ActionEvent event ) throws IOException {
-        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage3RapoarteInv.fxml" ) );
-        Scene tableViewScene = new Scene( stage1Intro );
-        Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        windowStage1Intro.setScene( tableViewScene );
-        windowStage1Intro.show();
-    }
-
     @Override
-
     public void initialize ( URL location, ResourceBundle resources ) {
+        NumberFormat nf = NumberFormat.getNumberInstance( new Locale( "ro", "RO" ) );
+        nf.setMaximumFractionDigits( 2 );
+        DecimalFormat df = (DecimalFormat) nf;
+
         this.location = location;
         this.resources = resources;
         furnizorColumn.setCellValueFactory( new PropertyValueFactory<>( "furnizor" ) );
@@ -149,7 +129,7 @@ public class CtrlStage2Rapoarte implements Initializable {
             while (total.next()) {
                 double valoarea = total.getDouble( "valoare" );
                 double valTotala = ++valoarea;
-                valoareaTotala.setText( String.valueOf( valTotala ) );
+                valoareaTotala.setText(df.format( valTotala ) );
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -465,12 +445,29 @@ public class CtrlStage2Rapoarte implements Initializable {
         }
     }
 
-    public void goToStage5Solduri ( ActionEvent actionEvent ) throws IOException {
-        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage5Solduri.fxml" ) );
+    public void goOnSt0 ( ActionEvent event ) throws IOException {
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/sample.fxml" ) );
         Scene tabeleViewScene = new Scene( tableView );
-        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        //This line gets the stage inforation
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene( tabeleViewScene );
         window.show();
+    }
+
+    public void goToStage1Intro ( ActionEvent event ) throws IOException {
+        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage1Intro.fxml" ) );
+        Scene tableViewScene = new Scene( stage1Intro );
+        Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        windowStage1Intro.setScene( tableViewScene );
+        windowStage1Intro.show();
+    }
+
+    public void goToStage3Sumar ( ActionEvent event ) throws IOException {
+        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage3RapoarteInv.fxml" ) );
+        Scene tableViewScene = new Scene( stage1Intro );
+        Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        windowStage1Intro.setScene( tableViewScene );
+        windowStage1Intro.show();
     }
 
     public void goToStage4Pif ( ActionEvent actionEvent ) throws IOException {
@@ -481,7 +478,20 @@ public class CtrlStage2Rapoarte implements Initializable {
         windowStage1Intro.show();
     }
 
-    public void goToStage6AnalizaPif ( ActionEvent actionEvent ) {
+    public void goToStage5Solduri ( ActionEvent actionEvent ) throws IOException {
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage5Solduri.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
+    }
+
+    public void goToStage6AnalizaPif ( ActionEvent event ) throws IOException {
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage6AnalizaPIF.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
     }
 }
 

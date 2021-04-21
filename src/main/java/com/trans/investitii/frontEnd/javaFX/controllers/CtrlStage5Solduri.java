@@ -34,8 +34,6 @@ public class CtrlStage5Solduri implements Initializable {
     public ComboBox comboBoxButtonProj;
     public ComboBox comboBoxButtonFz;
     public ComboBox comboBoxButtonOrg;
-    public ComboBox comboBoxButtonOrgYear;
-    public ComboBox comboBoxButtonFzContract;
 
     public Button resetButton;
     public Button selectButton;
@@ -232,6 +230,9 @@ public class CtrlStage5Solduri implements Initializable {
     public void calcSoldProj() throws SQLException {
         Object valueProj = comboBoxButtonProj.getValue();
         Object valueOrg = comboBoxButtonOrg.getValue();
+        if (dataSold.getValue()==null){
+            dataSold.setValue(LocalDate.now());
+        }
         Object data = dataSold.getValue();
 
         NumberFormat nf = NumberFormat.getNumberInstance( new Locale( "ro", "RO" ) );
@@ -903,60 +904,6 @@ public class CtrlStage5Solduri implements Initializable {
                 }
                 labelTotalFz.setText(df.format(soldFz+soldFzFactPifuite));
 
-
-//                Statement stm2 = connection.createStatement();
-//                ResultSet rsFZCM = stm2.executeQuery( queryFzCM );
-//
-//                double totalProiect = 0.00;
-//                try {
-//                    while (rsFZCM.next()) {
-//                        totalProiect = rsFZCM.getDouble( "totalProiect" );
-//                    }
-//                    labelCMFz.setText( df.format( totalProiect ) );
-//                } catch (SQLException throwables) {
-//                    throwables.printStackTrace();
-//                }
-//
-//                ResultSet rsFzEchip = stm2.executeQuery( queryFzEchip );
-//                try {
-//                    while (rsFzEchip.next()) {
-//                        totalProiect = rsFzEchip.getDouble( "totalProiect" );
-//                    }
-//                    labelEchipamenteFz.setText( df.format( totalProiect ) );
-//                } catch (SQLException throwables) {
-//                    throwables.printStackTrace();
-//                }
-//
-//                ResultSet rsFzEchipInDep = stm2.executeQuery( queryFzEchipInDep );
-//                try {
-//                    while (rsFzEchipInDep.next()) {
-//                        totalProiect = rsFzEchipInDep.getDouble( "totalProiect" );
-//                    }
-//                    labelMagazieFz.setText( df.format( totalProiect ) );
-//                } catch (SQLException throwables) {
-//                    throwables.printStackTrace();
-//                }
-//
-//                ResultSet rsFzjAlteInv = stm2.executeQuery( queryFzAlteInv );
-//                try {
-//                    while (rsFzjAlteInv.next()) {
-//                        totalProiect = rsFzjAlteInv.getDouble( "totalProiect" );
-//                    }
-//                    labelAlteInvFz.setText( df.format( totalProiect ) );
-//                } catch (SQLException throwables) {
-//                    throwables.printStackTrace();
-//                }
-//
-//                ResultSet rsSoldFz = stm2.executeQuery(querySoldTotalFz);
-//                double soldFz = 0;
-//                try {
-//                    while (rsSoldFz.next()){
-//                        soldFz = rsSoldFz.getDouble("totalSoldFz");
-//                    }
-//                    labelTotalFz.setText(df.format(soldFz));
-//                } catch (SQLException throwables) {
-//                    throwables.printStackTrace();
-//                }
             }
             if(valueOrg != null && valueProj != null) {
                 String queryFzCM = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE contInv = '231.01.01.01' AND ";
@@ -1084,61 +1031,6 @@ public class CtrlStage5Solduri implements Initializable {
                     throwables.printStackTrace();
                 }
                 labelTotalFz.setText(df.format(soldFz+soldFzFactPifuite));
-
-
-
-//                Statement stm2 = connection.createStatement();
-//                ResultSet rsFZCM = stm2.executeQuery( queryFzCM );
-//
-//                double totalProiect = 0.00;
-//                try {
-//                    while (rsFZCM.next()) {
-//                        totalProiect = rsFZCM.getDouble( "totalProiect" );
-//                    }
-//                    labelCMFz.setText( df.format( totalProiect ) );
-//                } catch (SQLException throwables) {
-//                    throwables.printStackTrace();
-//                }
-//
-//                ResultSet rsFzEchip = stm2.executeQuery( queryFzEchip );
-//                try {
-//                    while (rsFzEchip.next()) {
-//                        totalProiect = rsFzEchip.getDouble( "totalProiect" );
-//                    }
-//                    labelEchipamenteFz.setText( df.format( totalProiect ) );
-//                } catch (SQLException throwables) {
-//                    throwables.printStackTrace();
-//                }
-//
-//                ResultSet rsFzEchipInDep = stm2.executeQuery( queryFzEchipInDep );
-//                try {
-//                    while (rsFzEchipInDep.next()) {
-//                        totalProiect = rsFzEchipInDep.getDouble( "totalProiect" );
-//                    }
-//                    labelMagazieFz.setText( df.format( totalProiect ) );
-//                } catch (SQLException throwables) {
-//                    throwables.printStackTrace();
-//                }
-//
-//                ResultSet rsFzjAlteInv = stm2.executeQuery( queryFzAlteInv );
-//                try {
-//                    while (rsFzjAlteInv.next()) {
-//                        totalProiect = rsFzjAlteInv.getDouble( "totalProiect" );
-//                    }
-//                    labelAlteInvFz.setText( df.format( totalProiect ) );
-//                } catch (SQLException throwables) {
-//                    throwables.printStackTrace();
-//                }
-//                ResultSet rsSoldFz = stm2.executeQuery(querySoldTotalFz);
-//                double soldFz = 0;
-//                try {
-//                    while (rsSoldFz.next()){
-//                        soldFz = rsSoldFz.getDouble("totalSoldFz");
-//                    }
-//                    labelTotalFz.setText(df.format(soldFz));
-//                } catch (SQLException throwables) {
-//                    throwables.printStackTrace();
-//                }
             }
         }
     }
@@ -1239,6 +1131,43 @@ public class CtrlStage5Solduri implements Initializable {
     }
 
 
+    public void resetAct ( ActionEvent actionEvent ) throws IOException {
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage5Solduri.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
+    }
+
+    public void apliFiter ( ActionEvent actionEvent ) throws SQLException {
+        calcSoldOrg();
+        calcSoldProj();
+        calcSoldFz();
+    }
+
+      @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        List<String> myListFz = null;
+        List<String> myListProj = null;
+        List<String> myListOrg = null;
+
+        try {
+            myListFz = Files.readAllLines( ( Paths.get("C:/Investitii/resurse/fz") ));
+            myListOrg = Files.readAllLines( ( Paths.get("C:/Investitii/resurse/org") ));
+            myListProj = Files.readAllLines( (Paths.get( "C:/Investitii/resurse/newproj" ) ));
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        comboBoxButtonFz.setItems( FXCollections.observableArrayList(myListFz));
+        comboBoxButtonOrg.setItems( FXCollections.observableArrayList(myListOrg));
+        comboBoxButtonProj.setItems( FXCollections.observableArrayList(myListProj));
+
+
+    }
+
     public void goOnSt0 ( ActionEvent event ) throws IOException {
         Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/sample.fxml" ) );
         Scene tabeleViewScene = new Scene( tableView );
@@ -1253,20 +1182,6 @@ public class CtrlStage5Solduri implements Initializable {
         Stage windowStage1Intro = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         windowStage1Intro.setScene( tableViewScene );
         windowStage1Intro.show();
-    }
-
-    public void resetAct ( ActionEvent actionEvent ) throws IOException {
-        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage5Solduri.fxml" ) );
-        Scene tabeleViewScene = new Scene( tableView );
-        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        window.setScene( tabeleViewScene );
-        window.show();
-    }
-
-    public void apliFiter ( ActionEvent actionEvent ) throws SQLException {
-        calcSoldOrg();
-        calcSoldProj();
-        calcSoldFz();
     }
 
     public void goOnStage2Rapoarte ( ActionEvent actionEvent ) throws IOException {
@@ -1292,33 +1207,12 @@ public class CtrlStage5Solduri implements Initializable {
     }
 
 
-
-
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-        List<String> myListFz = null;
-        List<String> myListProj = null;
-        List<String> myListOrg = null;
-
-        try {
-            myListFz = Files.readAllLines( ( Paths.get("C:/Investitii/resurse/fz") ));
-            myListOrg = Files.readAllLines( ( Paths.get("C:/Investitii/resurse/org") ));
-            myListProj = Files.readAllLines( (Paths.get( "C:/Investitii/resurse/newproj" ) ));
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        comboBoxButtonFz.setItems( FXCollections.observableArrayList(myListFz));
-        comboBoxButtonOrg.setItems( FXCollections.observableArrayList(myListOrg));
-        comboBoxButtonProj.setItems( FXCollections.observableArrayList(myListProj));
-
-
-    }
-
-    public void goToStage6AnalizaPif ( ActionEvent actionEvent ) {
+    public void goToStage6AnalizaPif ( ActionEvent event ) throws IOException {
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage6AnalizaPIF.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
     }
 }
 

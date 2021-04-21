@@ -104,41 +104,7 @@ public class CtrlStage4PIF implements Initializable {
 
     public CtrlStage4PIF () throws SQLException {
     }
-
-    public void goOnStage0 ( ActionEvent event ) throws IOException {
-        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/sample.fxml" ) );
-        Scene tabeleViewScene = new Scene( tableView );
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene( tabeleViewScene );
-        window.show();
-    }
-
-    public void goOnStage1Intro ( ActionEvent event ) throws IOException {
-        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage1Intro.fxml" ) );
-        Scene tableViewScene = new Scene( stage1Intro );
-        Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        windowStage1Intro.setScene( tableViewScene );
-        windowStage1Intro.show();
-    }
-
-    public void backOnStage2Rapoarte ( ActionEvent event ) throws IOException {
-        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage2Rapoarte.fxml" ) );
-        Scene tableViewScene = new Scene( stage1Intro );
-        Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        windowStage1Intro.setScene( tableViewScene );
-        windowStage1Intro.show();
-    }
-
-    public void goOnStage3RapoarteInv ( ActionEvent event ) throws IOException {
-        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage3RapoarteInv.fxml" ) );
-        Scene tableViewScene = new Scene( stage1Intro );
-        Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        windowStage1Intro.setScene( tableViewScene );
-        windowStage1Intro.show();
-    }
-
-
-    public void comboBoxActOrg ( ActionEvent actionEvent ) throws SQLException {
+        public void comboBoxActOrg ( ActionEvent actionEvent ) throws SQLException {
         if (comboBoxButtonOrg!=null){
             comboBoxButtonProj.setDisable( false );
 
@@ -595,6 +561,37 @@ public class CtrlStage4PIF implements Initializable {
         confirm.show();
 
         }
+    public void goOnStage0 ( ActionEvent event ) throws IOException {
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/sample.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
+    }
+
+    public void goOnStage1Intro ( ActionEvent event ) throws IOException {
+        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage1Intro.fxml" ) );
+        Scene tableViewScene = new Scene( stage1Intro );
+        Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        windowStage1Intro.setScene( tableViewScene );
+        windowStage1Intro.show();
+    }
+
+    public void backOnStage2Rapoarte ( ActionEvent event ) throws IOException {
+        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage2Rapoarte.fxml" ) );
+        Scene tableViewScene = new Scene( stage1Intro );
+        Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        windowStage1Intro.setScene( tableViewScene );
+        windowStage1Intro.show();
+    }
+
+    public void goOnStage3RapoarteInv ( ActionEvent event ) throws IOException {
+        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage3RapoarteInv.fxml" ) );
+        Scene tableViewScene = new Scene( stage1Intro );
+        Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        windowStage1Intro.setScene( tableViewScene );
+        windowStage1Intro.show();
+    }
 
     public void goToStage5Solduri ( ActionEvent actionEvent ) throws IOException {
         Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage5Solduri.fxml" ) );
@@ -604,6 +601,12 @@ public class CtrlStage4PIF implements Initializable {
         window.show();
     }
 
-    public void goToStage6AnalizaPif ( ActionEvent actionEvent ) {
+    public void goToStage6AnalizaPif ( ActionEvent event ) throws IOException {
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage6AnalizaPIF.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
     }
+
 }

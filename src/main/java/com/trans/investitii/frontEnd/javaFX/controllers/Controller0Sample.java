@@ -40,6 +40,10 @@ public class Controller0Sample implements Initializable {
     public Button buttonStage5Solduri;
     public Button buttonStage6AnalizaPif;
 
+    private void goToStage(){
+
+    }
+
     public void goToStage1Intro( ActionEvent event ) throws IOException, SQLException {
         getConectionNew();
         Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage1Intro.fxml" ) );
@@ -71,8 +75,35 @@ public class Controller0Sample implements Initializable {
         Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
         windowStage1Intro.setScene( tableViewScene );
         windowStage1Intro.show();
-
     }
+
+    public void goToStage03AdminBugetAction ( ActionEvent event ) throws IOException, SQLException {
+        getConectionNew();
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/admin/Stage03AdminBugete.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
+    }
+
+    public void goToStage5Solduri ( ActionEvent event ) throws SQLException, IOException {
+        getConectionNew();
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage5Solduri.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
+    }
+
+    public void goToStage6AnalizaPif ( ActionEvent event ) throws IOException, SQLException {
+        getConectionNew();
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage6AnalizaPIF.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
+    }
+
     public Connection getConectionNew () throws SQLException, FileNotFoundException {
         Connection connection =DriverManager.getConnection( Investitii.URL0, Investitii.USER, Investitii.PASSWORD );
         Statement statement = connection.createStatement();
@@ -281,25 +312,6 @@ public class Controller0Sample implements Initializable {
     public void goToStageNewUnit ( ActionEvent event ) {
     }
 
-    public void goToStage03AdminBugetAction ( ActionEvent event ) throws IOException, SQLException {
-        getConectionNew();
-        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/admin/Stage03AdminBugete.fxml" ) );
-        Scene tabeleViewScene = new Scene( tableView );
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene( tabeleViewScene );
-        window.show();
-    }
 
-    public void goToStage5Solduri ( ActionEvent event ) throws SQLException, IOException {
-        getConectionNew();
-        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage5Solduri.fxml" ) );
-        Scene tabeleViewScene = new Scene( tableView );
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene( tabeleViewScene );
-        window.show();
-    }
-
-    public void goToStage6AnalizaPif ( ActionEvent actionEvent ) {
-    }
 }
 

@@ -159,36 +159,6 @@ public class ControllerStageAdminFz implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        try {
-//            FileReader fileReader = new FileReader( pathAdmFz );
-//            BufferedReader bufferedReader = new BufferedReader( fileReader );
-//            List<String> lines = new ArrayList<>();
-//            boolean line = true;
-//            String line1=null;
-//            while ((line1 = bufferedReader.readLine() )!= null) {
-//                line = bufferedReader.readLine() != null;
-//                lines.add( line +"ceva");
-//            }
-//            bufferedReader.close();
-//
-//            System.out.println( lines );
-//            Collections.sort(lines, Collator.getInstance());
-//
-//
-//            for (String furnizor : lines) {
-//                ItemList.appendText( furnizor+ "\r\n" );
-//                System.out.println(furnizor+"\r\n"+"----------");
-//            }
-//        }
-//        catch(FileNotFoundException e){
-//                e.printStackTrace();
-//            } catch(IOException e){
-//                e.printStackTrace();
-//            }
-//
-
-
-
 
         try {
             Scanner s = new Scanner(new File(pathAdmFz)).useDelimiter("\\s+");
@@ -264,14 +234,14 @@ public class ControllerStageAdminFz implements Initializable {
                     addNrContract.clear();
                     addDataContract.setValue( null);
                     addValoareContract.clear();
-// 10.03.21
+
                     addFz.clear();
                     addCUI.clear();
                     addAdresa.clear();
                     addNrContract.clear();
                     addDataContract.setValue(LocalDate.now());
                     addValoareContract.clear();
-// 10.03.21
+
                     this.added.setText( "Ati adaugat cu succes" );
                     sortFile();
                 }

@@ -190,7 +190,7 @@ public class ControllerStageAdminContInv implements Initializable {
                         if (fileLine.equalsIgnoreCase( inactiveString )) {
                             Alert fail2 = new Alert( Alert.AlertType.INFORMATION );
                             fail2.setHeaderText( "Atentie!" );
-                            fail2.setContentText( "Elementul " + addCtInvString + " este WHILE inactiv in baza de date" );
+                            fail2.setContentText( "Elementul " + addCtInvString + " este inactiv in baza de date" );
                             fail2.showAndWait();
                             addCtInv.clear();
                             break;

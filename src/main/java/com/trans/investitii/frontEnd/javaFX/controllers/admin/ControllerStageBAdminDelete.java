@@ -113,7 +113,6 @@ public class ControllerStageBAdminDelete implements Initializable {
 
         try {
             myListFz = Files.readAllLines( (Paths.get( pathFileFz )) );
-            // myListCUI = Files.readAllLines( ( Paths.get("C:/Investitii/resurse/cui") ));///.collect( Collectors.toList());
             myListContract = Files.readAllLines( ( Paths.get(pathFileContract) ));
             myListCtInvest = Files.readAllLines( ( Paths.get(pathFileCtInv) ));
             myListCtFz = Files.readAllLines( ( Paths.get(pathFileCtFz) ));
@@ -121,7 +120,6 @@ public class ControllerStageBAdminDelete implements Initializable {
             myListOrg = Files.readAllLines( ( Paths.get(pathFileOrg) ));
             myListRespProj = Files.readAllLines( ( Paths.get(pathFileRespProj) ));
             myListNrProj = Files.readAllLines( (Paths.get( pathFileNrProj ) ));
-//               System.out.println(pathAdmFz);
         } catch (IOException e) {
             e.printStackTrace();
         }

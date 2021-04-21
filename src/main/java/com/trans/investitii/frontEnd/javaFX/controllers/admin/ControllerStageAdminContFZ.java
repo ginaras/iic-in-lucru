@@ -47,8 +47,7 @@ public class ControllerStageAdminContFZ implements Initializable {
     public Text added;
 
     public String pathFileCtFz = "C:\\Investitii\\resurse\\ctFz";
-//    public String pathFileCtFz = "/resources/adminZone/ctFz.txt";
-//    public String pathFileCtFz = ("/main/resources/adminZone/ctFz");
+
 
     public void goToStage1Intro( ActionEvent event ) throws IOException {
         Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage1Intro.fxml" ) );
@@ -197,7 +196,7 @@ public class ControllerStageAdminContFZ implements Initializable {
                              if (fileLine.equalsIgnoreCase( inactiveString )) {
                                  Alert fail = new Alert( Alert.AlertType.INFORMATION );
                                  fail.setHeaderText( "Atentie!" );
-                                 fail.setContentText( "Elementul " + addCtFzString + " este WHILE inactiv in baza de date" );
+                                 fail.setContentText( "Elementul " + addCtFzString + " este inactiv in baza de date" );
                                  fail.showAndWait();
                                  addCtFZ.clear();
                                  break;
@@ -212,7 +211,7 @@ public class ControllerStageAdminContFZ implements Initializable {
                             ItemList.appendText( addCtFzString + "\n" ); // ad data in TextArea from text field
                             addCtFZ.clear();
                             this.added.setText( "Ati adaugat cu succes" );
-                            this.added.setText("INACTIV-".concat( addCtFzString));
+//                            this.added.setText("INACTIV-".concat( addCtFzString));
 
                             sortFile();
                         }

@@ -98,16 +98,6 @@ public class CtrlStage3RapoarteInv implements Initializable {
 
     }
 
-
-    public void goOnSt0 ( ActionEvent event ) throws IOException {
-        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/sample.fxml" ) );
-        Scene tabeleViewScene = new Scene( tableView );
-        //This line gets the stage inforation
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene( tabeleViewScene );
-        window.show();
-    }
-
     public void resetAct ( ActionEvent event ) throws IOException {
         Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage3RapoarteInv.fxml" ) );
         Scene tableViewScene = new Scene( stage1Intro );
@@ -116,27 +106,6 @@ public class CtrlStage3RapoarteInv implements Initializable {
         windowStage1Intro.show();
     }
 
-    public void apliFiter ( ActionEvent actionEvent ) throws SQLException {
-        String query1 = "SELECT round(SUM(valInitiala), 2) as 'totalProiect' FROM invTBL WHERE  ";
-        String query2 = "SELECT round(SUM(valInitiala), 2) as 'totalProiect' FROM invTBL WHERE ";
-        String query3 = "SELECT round(SUM(valInitiala), 2) as 'totalProiect' FROM invTBL WHERE ";
-
-        Object valueProj = comboBoxButtonProj.getValue();
-        Object valueFz = comboBoxButtonFz.getValue();
-        Object valueCtr= comboBoxButtonFzContract.getValue();
-        Object valueOrg = comboBoxButtonOrg.getValue();
-
-        if(valueProj ==null && valueFz==null && valueOrg==null)    {
-            Alert alert = new Alert( Alert.AlertType.INFORMATION );
-            alert.setHeaderText( "Da-mi un criteriu sa-ti pot arata ceva" );
-            alert.showAndWait();
-            return;
-        }
-        if ( comboBoxButtonFz.getValue()!=null){
-        setFz.setText( comboBoxButtonFz.getValue().toString() );
-        }
-
-    }
 
     public void comboBoxActOrg ( ActionEvent actionEvent ) throws SQLException {
         String selectProj = "SELECT nrProiect FROM invTbl WHERE org ='"+ comboBoxButtonOrg.getValue()+"' ";
@@ -565,7 +534,6 @@ public class CtrlStage3RapoarteInv implements Initializable {
 
             String estimatFinalFz = labelTotalEstimatFz.getText();
             estimatFinalFz = estimatFinalFz.replace(".", "");
-//            estimatFinalFz = estimatFinalFz.replace(",", "");
 
             String totalRealizatFz = labelTotalRealizatFz.getText();
             totalRealizatFz = totalRealizatFz.replace(",", "");
@@ -576,8 +544,23 @@ public class CtrlStage3RapoarteInv implements Initializable {
             labelDiferentafz.setText(df.format(difFz));
 
         }
+    }
 
+    public void goOnSt0 ( ActionEvent event ) throws IOException {
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/sample.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        //This line gets the stage inforation
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
+    }
 
+    public void goOnStage1Intro ( ActionEvent event ) throws IOException {
+        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage1Intro.fxml" ) );
+        Scene tableViewScene = new Scene( stage1Intro );
+        Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        windowStage1Intro.setScene( tableViewScene );
+        windowStage1Intro.show();
     }
 
     public void goOnStage2Rapoarte ( ActionEvent event ) throws IOException {
@@ -596,15 +579,6 @@ public class CtrlStage3RapoarteInv implements Initializable {
         windowStage1Intro.show();
 
     }
-
-    public void goOnStage1Intro ( ActionEvent event ) throws IOException {
-        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage1Intro.fxml" ) );
-        Scene tableViewScene = new Scene( stage1Intro );
-        Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        windowStage1Intro.setScene( tableViewScene );
-        windowStage1Intro.show();
-    }
-
     public void goToStage5Solduri ( ActionEvent actionEvent ) throws IOException {
         Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage5Solduri.fxml" ) );
         Scene tabeleViewScene = new Scene( tableView );
@@ -613,6 +587,11 @@ public class CtrlStage3RapoarteInv implements Initializable {
         window.show();
     }
 
-    public void goToStage6AnalizaPif ( ActionEvent actionEvent ) {
+    public void goToStage6AnalizaPif ( ActionEvent event ) throws IOException {
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage6AnalizaPIF.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
     }
 }

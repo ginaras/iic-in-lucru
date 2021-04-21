@@ -2,6 +2,7 @@ package com.trans.investitii.backEnd.DBase;
 
 import javafx.scene.control.TextField;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Investitii {
@@ -39,6 +40,17 @@ public class Investitii {
     private String addContract;
     private String descriereFactura;
 
+
+//Stage6
+    private String nrPIF;
+    private String denProiect;
+
+    private Date dataPIF;
+    private String valInitialaInvTBL;
+
+
+
+
     // bugetcontract
     private String CUIfurnizor;
     private CharSequence adresa;
@@ -55,6 +67,63 @@ public class Investitii {
             this.dataContract=value;
             this.valInitiala=characters3;
         }
+// Stage6
+
+    public Investitii(String nrPIF, String denProiect, Date dataPIF, String valInitiala) {
+        this.nrPIF = nrPIF;
+        this.denProiect = denProiect;
+        this.dataPIF = dataPIF;
+        this.valInitialaInvTBL=valInitiala;
+    }
+
+    public Investitii(String org, String nrProiect, String denProiect, String nrPIF, Date dataPIF, String valoare, String respProiect) {
+        this.org = org;
+        this.nrProiect = nrProiect;
+        this.denProiect = denProiect;
+        this.nrPIF =nrPIF;
+        this.dataPIF=dataPIF;
+        this.valInitiala=valoare;
+        this.respProiect =respProiect;
+    }
+
+    public String getNrPIF() {
+        return nrPIF;
+    }
+
+    public void setNrPIF(String nrPIF) {
+        this.nrPIF = nrPIF;
+    }
+
+    public String getDenProiect() {
+        return denProiect;
+    }
+
+    public void setDenProiect(String denProiect) {
+        this.denProiect = denProiect;
+    }
+
+    public Date getDataPIF() {
+        return dataPIF;
+    }
+
+    public void setDataPIF(Date dataPIF) {
+        this.dataPIF = dataPIF;
+    }
+//    public void setValInitiala(String valInitiala) {
+//        this.valInitiala = valInitiala;
+//    }
+
+
+    public String getValInitialaInvTBL() {
+        return valInitialaInvTBL;
+    }
+
+    public void setValInitialaInvTBL(String valInitialaInvTBL) {
+        this.valInitialaInvTBL = valInitialaInvTBL;
+    }
+
+//pana aici Stage6
+
 
     public String getCUIfurnizor() {
         return CUIfurnizor;
