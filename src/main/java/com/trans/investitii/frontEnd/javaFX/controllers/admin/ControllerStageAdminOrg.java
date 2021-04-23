@@ -44,7 +44,11 @@ public class ControllerStageAdminOrg implements Initializable {
     public TextField addPOrg;
     public Text added;
     public String pathFileOrg = "C:\\Investitii\\resurse\\org";
+    public String pathFileAni = "C:\\Investitii\\resurse\\ani";
     public TextField addDenOrg;
+    public Button addButtonAni;
+    public TextField addAni;
+    public TextArea ItemListAni;
 
     Connection connection = DriverManager.getConnection( Investitii.URL,Investitii.USER, Investitii.PASSWORD );
     Statement statement = connection.createStatement();
@@ -108,8 +112,6 @@ public class ControllerStageAdminOrg implements Initializable {
         windowStage1Intro.setScene( tableViewScene );
         windowStage1Intro.show();
     }
-
-
     public void goOnAdminDeviz ( ActionEvent event ) throws IOException {
         Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/admin/StageAdminDeviz.fxml" ) );
         Scene tableViewScene = new Scene( stage1Intro );
@@ -117,7 +119,6 @@ public class ControllerStageAdminOrg implements Initializable {
         windowStage1Intro.setScene( tableViewScene );
         windowStage1Intro.show();
     }
-
     public void goOnAdminOrg ( ActionEvent event ) throws IOException {
         Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/admin/StageAdminOrg.fxml" ) );
         Scene tableViewScene = new Scene( stage1Intro );
@@ -132,17 +133,6 @@ public class ControllerStageAdminOrg implements Initializable {
         windowStage1Intro.setScene( tableViewScene );
         windowStage1Intro.show();
     }
-    public void exportOrg ( ActionEvent event ) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter( new FileWriter("C:\\Investitii\\rapoarte\\export.txt") );
-        bufferedWriter.append( ItemList.getText() );
-        bufferedWriter.close();
-
-        Desktop desktop= null;
-        try {
-            desktop.getDesktop().open( new File( "C:\\Investitii\\rapoarte\\export.txt" ) ); ;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }}
     public void click(){
         this.adminOrg.setDisable( true );
     }
@@ -161,6 +151,18 @@ public class ControllerStageAdminOrg implements Initializable {
                     ItemList.appendText(s.nextInt() + " "+"\n"); // display the found integer
                 } else {
                     ItemList.appendText(s.next() + " "+"\n"); // else read the next token
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            System.err.println(ex);
+        }
+        try {
+            Scanner s = new Scanner(new File("C:\\Investitii\\resurse\\ani")).useDelimiter("\\s+");
+            while (s.hasNext()) {
+                if (s.hasNextInt()) { // check if next token is an int
+                    ItemListAni.appendText(s.nextInt() + " "+"\n"); // display the found integer
+                } else {
+                    ItemListAni.appendText(s.next() + " "+"\n"); // else read the next token
                 }
             }
         } catch (FileNotFoundException ex) {
@@ -244,5 +246,60 @@ public class ControllerStageAdminOrg implements Initializable {
             writer.write(str + "\r\n");
         }
         writer.close();
+    }
+
+    public void addAni(ActionEvent actionEvent) throws FileNotFoundException {
+        BufferedReader bReaderAni = new BufferedReader(new FileReader( pathFileAni ));
+        String fileLine;
+        String addStringAni = addAni.getCharacters().toString();
+        String inactiveString = "INACTIV-".concat( addStringAni );
+        String addAniString = addAni.getCharacters().toString();
+
+        if (addStringAni.isEmpty()) {
+            Alert fail = new Alert( Alert.AlertType.INFORMATION );
+            fail.setHeaderText( "Atentie!" );
+            fail.setContentText( "Nu poti introduce campuri goale!" );
+            fail.showAndWait();
+        }
+        else {
+            try {
+                while((fileLine=bReaderAni.readLine()) != null){
+                    if(fileLine.equalsIgnoreCase(addStringAni)) {
+                        Alert fail = new Alert( Alert.AlertType.INFORMATION );
+                        fail.setHeaderText( "Atentie!" );
+                        fail.setContentText( "Elementul "+addStringAni+" exista in baza de date" );
+                        fail.showAndWait();
+                        addPOrg.clear();
+                        break;
+                    }
+                    if (fileLine.equalsIgnoreCase( inactiveString )) {
+                        Alert fail = new Alert( Alert.AlertType.INFORMATION );
+                        fail.setHeaderText( "Atentie!" );
+                        fail.setContentText( "Elementul " + addStringAni + " este  inactiv in baza de date" );
+                        fail.showAndWait();
+                        addPOrg.clear();
+                        break;
+                    }
+                }
+
+                if (fileLine == null || (!(fileLine.equalsIgnoreCase(addAniString))
+                        && !(inactiveString.equalsIgnoreCase( fileLine )))){
+                    BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileAni, true ) );
+                    writer.append( addStringAni.toUpperCase()+ "\n" );
+                    writer.close();
+                    ItemListAni.appendText( addStringAni.toUpperCase() + "\n" ); // ad data in TextArea from text field
+                    this.added.setText( "Ati adaugat cu succes" );
+
+
+                    addAni.clear();
+                }
+
+        } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
     }
 }

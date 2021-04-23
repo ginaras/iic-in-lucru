@@ -80,11 +80,13 @@ public class CtrlStage3RapoarteInv implements Initializable {
         List<String> myListFz = null;
         List<String> myListProj = null;
         List<String> myListOrg = null;
+        List <String> myListAni = null;
 
         try {
             myListFz = Files.readAllLines( ( Paths.get("C:/Investitii/resurse/fz") ));
             myListOrg = Files.readAllLines( ( Paths.get("C:/Investitii/resurse/org") ));
             myListProj = Files.readAllLines( (Paths.get( "C:/Investitii/resurse/newproj" ) ));
+            myListAni = Files.readAllLines((Paths.get("C:/Investitii/resurse/ani")));
 
 
         } catch (IOException e) {
@@ -93,7 +95,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
         comboBoxButtonFz.setItems( FXCollections.observableArrayList(myListFz));
         comboBoxButtonOrg.setItems( FXCollections.observableArrayList(myListOrg));
         comboBoxButtonProj.setItems( FXCollections.observableArrayList(myListProj));
-        comboBoxButtonOrgYear.getItems().addAll("2020","2021", "2022", "2023","2024","2025","2026","2027","2028","2029","2030" );
+        comboBoxButtonOrgYear.setItems(FXCollections.observableArrayList(myListAni));
         comboBoxButtonOrgYear.setDisable(true);
 
     }

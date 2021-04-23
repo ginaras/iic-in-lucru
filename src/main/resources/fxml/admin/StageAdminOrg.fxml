@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.Shadow?>
-<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trans.investitii.frontEnd.javaFX.controllers.admin.ControllerStageAdminOrg">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trans.investitii.frontEnd.javaFX.controllers.admin.ControllerStageAdminOrg">
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="785.0" prefWidth="1191.0" style="-fx-background-color: fff;">
          <children>
@@ -180,26 +179,7 @@
                <font>
                   <Font size="16.0" />
                </font></Button>
-            <Button fx:id="exportButton" layoutX="1029.0" layoutY="671.0" mnemonicParsing="false" onAction="#exportOrg" style="-fx-background-color: #0F4CC1;" text="Exporta lista" textFill="#fcfbf5">
-               <effect>
-                  <Bloom threshold="0.1">
-                     <input>
-                        <Blend mode="SRC_ATOP" opacity="0.57">
-                           <topInput>
-                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
-                                 <bumpInput>
-                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
-                                 </bumpInput>
-                              </Lighting>
-                           </topInput>
-                        </Blend>
-                     </input>
-                  </Bloom>
-               </effect>
-               <font>
-                  <Font size="16.0" />
-               </font></Button>
-            <TextArea fx:id="ItemList" layoutX="708.0" layoutY="403.0" prefHeight="320.0" prefWidth="275.0" />
+            <TextArea fx:id="ItemList" layoutX="708.0" layoutY="403.0" prefHeight="84.0" prefWidth="275.0" />
             <Text layoutX="583.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista organizatii" />
             <Button fx:id="addButton" layoutX="1003.0" layoutY="305.0" mnemonicParsing="false" onAction="#addNewOrg" prefHeight="31.0" prefWidth="173.0" style="-fx-background-color: #0F4CC1;" text="Adauga" textFill="#fcfbf5">
                <effect>
@@ -241,7 +221,7 @@
                <font>
                   <Font size="16.0" />
                </font></Button>
-            <Button fx:id="adminOrg" layoutX="93.0" layoutY="682.0" mnemonicParsing="false" onAction="#goOnAdminOrg" onMouseMoved="#click" style="-fx-background-color: #0F4CC1;" text="Administrare organizatii" textFill="#fcfbf5">
+            <Button fx:id="adminOrg" layoutX="93.0" layoutY="682.0" mnemonicParsing="false" onAction="#goOnAdminOrg" onMouseMoved="#click" style="-fx-background-color: #0F4CC1;" text="Administrare organizatii si ani" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
                      <input>
@@ -262,11 +242,40 @@
                </font></Button>
             <TextField fx:id="addDenOrg" layoutX="708.0" layoutY="349.0" prefHeight="31.0" prefWidth="278.0" promptText="Introduceti denumirea noii  organizatii" />
             <Text layoutX="512.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denumire organizatie noua" />
-            <Text fx:id="added" layoutX="1029.0" layoutY="407.0" strokeType="OUTSIDE" strokeWidth="0.0" underline="true" wrappingWidth="1.0">
+            <Text fx:id="added" layoutX="452.0" layoutY="430.0" strokeType="OUTSIDE" strokeWidth="0.0" underline="true" wrappingWidth="22.0">
                <font>
                   <Font size="12.0" />
                </font>
             </Text>
+            <Button fx:id="addButtonAni" layoutX="1001.0" layoutY="578.0" mnemonicParsing="false" onAction="#addAni" prefHeight="31.0" prefWidth="173.0" style="-fx-background-color: #0F4CC1;" text="Adauga" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <TextField fx:id="addAni" layoutX="706.0" layoutY="578.0" prefHeight="31.0" prefWidth="275.0" promptText="Introduceti simbolul noii  organizatii" />
+            <Text layoutX="557.0" layoutY="599.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adauga ani in lucru" />
+            <Text layoutX="793.0" layoutY="539.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrare ani">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Text>
+            <TextArea fx:id="ItemListAni" layoutX="705.0" layoutY="643.0" prefHeight="84.0" prefWidth="275.0" />
+            <Text layoutX="552.0" layoutY="662.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista anilor adaugati" />
          </children>
       </AnchorPane>
    </children>

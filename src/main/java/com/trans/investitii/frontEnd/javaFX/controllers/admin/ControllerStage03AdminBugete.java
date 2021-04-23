@@ -435,14 +435,7 @@ public class ControllerStage03AdminBugete implements Initializable {
     }
 
     public void buttonAplicaBugetProjAction ( ActionEvent event ) throws SQLException {
-// todo de scos din cod
-//        if (txtValoareProjInitial.getText().isEmpty()) {
-//            Alert alertComboBContract = new Alert( Alert.AlertType.CONFIRMATION );
-//            alertComboBContract.setTitle( "Atentionare" );
-//            alertComboBContract.setHeaderText( "Alege un contract!" );
-//            alertComboBContract.setContentText( "OK?" );
-//            Optional<ButtonType> result = alertComboBContract.showAndWait();
-//        } else {
+
             double valIniProj = (parseDouble( txtValoareProjInitial.getText() ) * 100) / 100;
             if (textFieldRectificareProj.getText().isEmpty()) {
                 Alert alertRectificare = new Alert( Alert.AlertType.CONFIRMATION );
@@ -676,11 +669,14 @@ public class ControllerStage03AdminBugete implements Initializable {
         List<String> myListContract = null;
         List<String> myListProj = null;
         List<String> myListOrg = null;
+        List<String> myListAni = null;
 
         try {
             myListContract = Files.readAllLines( (Paths.get( "C:/Investitii/resurse/contract" )) );
             myListOrg = Files.readAllLines( (Paths.get( "C:/Investitii/resurse/org" )) );
             myListProj = Files.readAllLines( (Paths.get( "C:/Investitii/resurse/newproj" )) );
+            myListAni = Files.readAllLines((Paths.get("C:/Investitii/resurse/ani")));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -700,9 +696,7 @@ public class ControllerStage03AdminBugete implements Initializable {
                 .collect( Collectors.toList() );
         comboBProj.setItems( FXCollections.observableArrayList(projActiv));
 
-
-
-        comboBoxYearChose.getItems().addAll( "2021", "2022","2023","2024","2025","2026","2027","2028","2029","2030" );
+        comboBoxYearChose.setItems(FXCollections.observableArrayList(myListAni));
 
         checkOrgBugetInitial.setDisable( true );
         checkOrgRectificareBuget.setDisable( true );

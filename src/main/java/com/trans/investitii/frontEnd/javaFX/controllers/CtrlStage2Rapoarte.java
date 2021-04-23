@@ -35,15 +35,14 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-import static java.lang.Double.parseDouble;
-
 public class CtrlStage2Rapoarte implements Initializable {
 
     @FXML    public Button buttonBackSt0;
     @FXML    public Button buttonSt1Intro;
     @FXML    public TableView<Investitii> tableViewTotal;
     @FXML    public TableColumn<Investitii, String> furnizorColumn;
-    @FXML    public TableColumn<Investitii, String> valoareFactColumn;
+    @FXML    public TableColumn<Investitii, String> valoareFactSoldColumn;
+    @FXML    public TableColumn<Investitii, String> valoareFactInitColumn;
     @FXML    public TableColumn<Investitii, String> dataCtbColumn;
     @FXML    public TableColumn<Investitii, String> respProjColumn;
     @FXML    public TableColumn<Investitii, String> contractColumn;
@@ -52,7 +51,6 @@ public class CtrlStage2Rapoarte implements Initializable {
     @FXML    public TableColumn<Investitii, String> orgColumn;
 
     public TableColumn<Investitii, String> nrProjColumn;
-    public Label valoareaTotala;
 
     public ObservableList<Investitii> tabelFacturi;
     public TableColumn<Object, Object> nrFactColumn;
@@ -70,6 +68,9 @@ public class CtrlStage2Rapoarte implements Initializable {
     public Button buttonStage5Solduri;
     public Button goToStage4Pif;
     public Button buttonStage6AnalizaPif;
+    public Label valoareaTotalaSold;
+    public Label valoareaTotalaInitiala;
+    public ComboBox comboBoxAlegeProjNume;
 
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
@@ -92,7 +93,8 @@ public class CtrlStage2Rapoarte implements Initializable {
         this.resources = resources;
         furnizorColumn.setCellValueFactory( new PropertyValueFactory<>( "furnizor" ) );
         nrFactColumn.setCellValueFactory( new PropertyValueFactory<>( "nrFactura" ) );
-        valoareFactColumn.setCellValueFactory( new PropertyValueFactory<>( "valoare" ) );
+        valoareFactSoldColumn.setCellValueFactory( new PropertyValueFactory<>( "valoare" ) );
+        valoareFactInitColumn.setCellValueFactory( new PropertyValueFactory<>( "valInitiala" ) );
         dataCtbColumn.setCellValueFactory( new PropertyValueFactory<>( "dataContabilizarii" ) );
         respProjColumn.setCellValueFactory( new PropertyValueFactory<>( "respProiect" ) );
         contractColumn.setCellValueFactory( new PropertyValueFactory<>( "contract" ) );
@@ -108,6 +110,7 @@ public class CtrlStage2Rapoarte implements Initializable {
                         rs1.getString( "furnizor" ),
                         rs1.getString( "nrFactura" ),
                         rs1.getString( "valoare" ),
+                        rs1.getString( "valInitiala" ),
                         rs1.getString( "dataContabilizarii" ),
                         rs1.getString( "respProiect" ),
                         rs1.getString( "contract" ),
@@ -116,7 +119,7 @@ public class CtrlStage2Rapoarte implements Initializable {
                         rs1.getString( "nrProiect" ),
                         rs1.getString( "org" )) );
             }
-            valoareaTotala.setTextAlignment( TextAlignment.RIGHT );
+            valoareaTotalaInitiala.setTextAlignment( TextAlignment.RIGHT );
 
             tableViewTotal.setItems( tabelFacturi );
         } catch (SQLException throwables) {
@@ -129,11 +132,22 @@ public class CtrlStage2Rapoarte implements Initializable {
             while (total.next()) {
                 double valoarea = total.getDouble( "valoare" );
                 double valTotala = ++valoarea;
-                valoareaTotala.setText(df.format( valTotala ) );
+                valoareaTotalaSold.setText(df.format( valTotala ) );
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+        try {
+            ResultSet rsTotalValInit = stm.executeQuery("SELECT ROUND(SUM(valInitiala),2) AS valInitiala FROM invTBL WHERE valoare<>'0'  ");
+            while (rsTotalValInit.next()){
+                double valInit = rsTotalValInit.getDouble("valInitiala");
+                valoareaTotalaInitiala.setText(df.format(valInit+1));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         try {
             comboBoxAlegeProj.setItems( FXCollections.observableArrayList( Files.readAllLines( (Paths.get( "C:/Investitii/resurse/newproj" )) ) ) );
             comboBoxAlegeOrg.setItems( FXCollections.observableArrayList( Files.readAllLines( (Paths.get( "C:/Investitii/resurse/org" )) ) ) );
@@ -142,12 +156,28 @@ public class CtrlStage2Rapoarte implements Initializable {
             e.printStackTrace();
         }
         tableViewTotal.setPlaceholder(new Label("Nici o factura in combinatia selectata! Reseteaza selectia si ia-o de la capat "));
+
+
+        java.util.List<String> myListNumeProj =new ArrayList<>();
+        try {
+           ResultSet rsProj = stm.executeQuery( "SELECT denProiect FROM bugetProj" );
+
+           while (rsProj.next()) {
+               myListNumeProj.add( rsProj.getString( "denProiect"));
+            }
+            java.util.List<String> noDuplicatesList = myListNumeProj.stream().distinct().collect(Collectors.toList());
+                comboBoxAlegeProjNume.setItems(FXCollections.observableList( noDuplicatesList ) );
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 
     public void selectButtton () throws SQLException {
 
-    String query = "SELECT * FROM invTBL WHERE  valoare <> '0' AND  ";
-    String query2 = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE ";
+    String query = "SELECT * FROM invTBL WHERE ";
+    String sumValSold = "SELECT round(SUM(valoare), 2) as 'totalProiect' FROM invTBL WHERE ";
+    String sumValInitiala = "SELECT round(SUM(valInitiala), 2) as 'totalValInitiala' FROM invTBL WHERE ";
 
     Object valueProj = comboBoxAlegeProj.getValue();
     Object valueOrg = comboBoxAlegeOrg.getValue();
@@ -162,33 +192,43 @@ public class CtrlStage2Rapoarte implements Initializable {
         }
 
         if(valueProj !=null && valueOrg==null && valueFDdate==null && valueSDate==null )    {
-                query += "nrProiect='"+valueProj.toString()+"'";
-                query2 += "nrProiect='"+valueProj.toString()+"'";
+                query += "nrProiect='"+valueProj+"'";
+                sumValSold += "nrProiect='"+valueProj+"'";
+                sumValInitiala += "nrProiect='"+valueProj+"'";
          }
 
         if(valueOrg !=null && valueFDdate==null && valueSDate==null) {
                 if (valueProj == null) {
-                    query += " org ='"+valueOrg.toString()+"' ";
-                    query2 += " org='"+valueOrg.toString()+"' ";
+                    query += " org ='"+valueOrg+"' ";
+                    sumValSold += " org='"+valueOrg+"' ";
                 } else {
-                    query  += "nrProiect='"+valueProj.toString()+"' AND org='"+valueOrg.toString()+ "' ";
-                    query2 += "nrProiect='"+valueProj.toString()+"' AND org='"+valueOrg.toString()+ "' ";
+                    query  += "nrProiect='"+valueProj+"' AND org='"+valueOrg+ "' ";
+                    sumValSold += "nrProiect='"+valueProj+"' AND org='"+valueOrg+ "' ";
+                    sumValInitiala += "nrProiect='"+valueProj+"' AND org='"+valueOrg+ "' ";
                 }
          }
 
         if(valueFDdate !=null && valueSDate!=null) {
                 if (valueProj != null && valueOrg != null) {
-                    query += "nrProiect='" + valueProj.toString() + "' AND org='" + valueOrg.toString() + "' AND dataContabilizarii BETWEEN '" +valueFDdate+ "' AND '" +valueSDate+ "' ";
-                    query2 += "nrProiect='" + valueProj.toString() + "' AND org='" + valueOrg.toString() + "' AND dataContabilizarii BETWEEN '" +valueFDdate+ "' AND '" +valueSDate+ "' ";
+                    query += "nrProiect='" + valueProj+ "' AND org='" + valueOrg+ "' AND dataContabilizarii BETWEEN '" +valueFDdate+ "' AND '" +valueSDate+ "' ";
+                    sumValSold += "nrProiect='" + valueProj+ "' AND org='" + valueOrg+ "' AND dataContabilizarii BETWEEN '" +valueFDdate+ "' AND '" +valueSDate+ "' ";
+                    sumValInitiala += "nrProiect='" + valueProj+ "' AND org='" + valueOrg+ "' AND dataContabilizarii BETWEEN '" +valueFDdate+ "' AND '" +valueSDate+ "' ";
                 }
                 if (valueProj == null && valueOrg !=null){
-                    query += "org='" + valueOrg.toString() + "' AND dataContabilizarii BETWEEN '" +valueFDdate+ "' AND '" +valueSDate+"' ";
-                    query2 += "org='" + valueOrg.toString() + "' AND dataContabilizarii BETWEEN '" +valueFDdate.toString()+ "' AND '" +valueSDate+ "' ";
+                    query += "org='" + valueOrg + "' AND dataContabilizarii BETWEEN '" +valueFDdate + "' AND '" +valueSDate +"' ";
+                    sumValSold += "org='" + valueOrg+ "' AND dataContabilizarii BETWEEN '" +valueFDdate.toString()+ "' AND '" +valueSDate+ "' ";
+                    sumValInitiala += "org='" + valueOrg+ "' AND dataContabilizarii BETWEEN '" +valueFDdate.toString()+ "' AND '" +valueSDate+ "' ";
+
+                } if (valueProj != null && valueOrg ==null){
+                    query += "nrProiect='" + valueProj+ "' AND dataContabilizarii BETWEEN '" +valueFDdate + "' AND '" +valueSDate +"' ";
+                    sumValSold += "nrProiect='" + valueProj+ "' AND dataContabilizarii BETWEEN '" +valueFDdate.toString()+ "' AND '" +valueSDate+ "' ";
+                    sumValInitiala += "nrProiect='" + valueProj+ "' AND dataContabilizarii BETWEEN '" +valueFDdate.toString()+ "' AND '" +valueSDate+ "' ";
 
                 }
                 if (valueProj ==null && valueOrg ==null){
                     query += "dataContabilizarii BETWEEN '" + valueFDdate + "' AND '"+ valueSDate+ "' ";
-                    query2 += "dataContabilizarii BETWEEN '" +valueFDdate.toString() + "' AND '" +valueSDate+ "' ";
+                    sumValSold += "dataContabilizarii BETWEEN '" +valueFDdate.toString() + "' AND '" +valueSDate+ "' ";
+                    sumValInitiala += "dataContabilizarii BETWEEN '" +valueFDdate.toString() + "' AND '" +valueSDate+ "' ";
                 }
          }
         if ((valueFDdate ==null && valueSDate!=null) || (valueFDdate !=null && valueSDate==null)){
@@ -207,6 +247,7 @@ public class CtrlStage2Rapoarte implements Initializable {
                         rsProj.getString( "furnizor" ),
                         rsProj.getString( "nrFactura" ),
                         rsProj.getString( "valoare" ),
+                        rsProj.getString( "valInitiala"),
                         rsProj.getString( "dataContabilizarii" ),
                         rsProj.getString( "respProiect" ),
                         rsProj.getString( "contract" ),
@@ -219,11 +260,9 @@ public class CtrlStage2Rapoarte implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-
 // face totalul
         Statement stm2=connection.createStatement();
-        ResultSet rsProj2 = stm2.executeQuery( query2 );
+        ResultSet rsProj2 = stm2.executeQuery( sumValSold );
         double totalProiect=0.00;
         try {
             while (rsProj2.next()) {
@@ -237,7 +276,18 @@ public class CtrlStage2Rapoarte implements Initializable {
         nf.setMaximumFractionDigits( 2 );
         DecimalFormat df = (DecimalFormat) nf;
 
-        valoareaTotala.setText( df.format( tp  ));
+        valoareaTotalaSold.setText( df.format( tp  ));
+
+        ResultSet rsProj3= stm.executeQuery(sumValInitiala);
+        double totalValInitiala = 0;
+        try {
+            while(rsProj3.next()){
+                totalValInitiala=rsProj3.getDouble("totalValInitiala");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        valoareaTotalaInitiala.setText(df.format(totalValInitiala));
 
     }
 
@@ -286,8 +336,8 @@ public class CtrlStage2Rapoarte implements Initializable {
                     String respProiectPrint = rs.getString( "respProiect" );
 
 //print - adaugarea datelor in fisier
-                    String datele = (Integer) nrCrtPrint + ";" + (String) furnizorPrint + ";" + (String) nrFacturaPrint + ";" +dataFacturiiPrint+";"+ dataContabilizariiPrint+";"+ (String) valoarePrint + ";"+nrPIFPrint+";"+dataPIFPrint+";"+ (String) valoareInitialaPrint + ";"+(String) tvaPrint + ";"  + (String) valTotPrint + ";" + (String) contractPrint + ";" + (String) contInvPrint + ";" + (String) contFzPrint
-                            + ";" +(String) nrProiectPrint  + ";" +(String) devizPrint + ";" +(String)orgPrint  + ";" +(String)respProiectPrint;
+                    String datele =  nrCrtPrint + ";" + furnizorPrint + ";" + nrFacturaPrint + ";" +dataFacturiiPrint+";"+ dataContabilizariiPrint+";"+ valoarePrint + ";"+nrPIFPrint+";"+dataPIFPrint+";"+valoareInitialaPrint + ";"+tvaPrint + ";"  +valTotPrint + ";" +contractPrint + ";" +contInvPrint + ";" +contFzPrint
+                            + ";" +nrProiectPrint  + ";" +devizPrint + ";" +orgPrint  + ";" +respProiectPrint;
                     BufferedWriter writer = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\detaliu_investitii-" + replaceNume2 + ".csv", true ) );
                     writer.append( " \n" );
                     writer.append( datele );
@@ -387,8 +437,8 @@ public class CtrlStage2Rapoarte implements Initializable {
             String respProiectPrint = rsSelectXLS.getString( "respProiect" );
 
 
-            String datele = (Integer) nrCrtPrint + ";" + (String) furnizorPrint + ";" + (String) nrFacturaPrint + ";" + dataFacturiiPrint + ";" + dataContabilizariiPrint + ";" + (String) valoarePrint +";"+nrPIFPrint+";"+dataPIFPrint+ ";" + (String) valoareInitPrint + ";" + (String) tvaPrint + ";" + (String) valTotPrint + ";" + (String) contractPrint + ";" + (String) contInvPrint + ";" + (String) contFzPrint
-                    + ";" + (String) nrProiectPrint + ";" + (String) devizPrint + ";" + (String) orgPrint + ";" + (String) respProiectPrint;
+            String datele = nrCrtPrint + ";" +furnizorPrint + ";" +nrFacturaPrint + ";" + dataFacturiiPrint + ";" + dataContabilizariiPrint + ";" +valoarePrint +";"+nrPIFPrint+";"+dataPIFPrint+ ";" +valoareInitPrint + ";" +tvaPrint + ";" +valTotPrint + ";" +contractPrint + ";" +contInvPrint + ";" +contFzPrint
+                    + ";" +nrProiectPrint + ";" +devizPrint + ";" +orgPrint + ";" +respProiectPrint;
             BufferedWriter writer = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\Selectie-investitii-" + replaceNume2 + ".csv", true ) );
             writer.append( " \n" );
             writer.append( datele );
@@ -406,6 +456,7 @@ public class CtrlStage2Rapoarte implements Initializable {
     public void comboBoxAlegeProj ( ActionEvent event ) throws SQLException {
         String selectOrg = "SELECT org FROM invTbl WHERE nrProiect ='"+ comboBoxAlegeProj.getValue()+"' ";
         Object valueOrg = comboBoxAlegeOrg.getValue();
+//        comboBoxAlegeProjNume.setValue(null);
 
         java.util.List<String> myListOrg =new ArrayList<>();
 
@@ -422,7 +473,44 @@ public class CtrlStage2Rapoarte implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+
+        ResultSet rsProj = stm.executeQuery( "SELECT denProiect FROM bugetProj WHERE nrProiect ='"+ comboBoxAlegeProj.getValue()+"' " );
+        try {
+            String proj=null;
+            while (rsProj.next()) {
+                proj = rsProj.getString( "denProiect");
+            }
+            if(comboBoxAlegeProjNume.getValue()==null){
+                comboBoxAlegeProjNume.setValue(proj);
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+            comboBoxAlegeProjNume.setDisable(true);
+            comboBoxAlegeProj.setDisable(true);
+
     }
+    public void comboBoxAlegeProjNume(ActionEvent actionEvent) throws SQLException {
+        ResultSet rsProj = stm.executeQuery( "SELECT nrProiect FROM bugetProj WHERE denProiect ='"+comboBoxAlegeProjNume.getValue()+"'" );
+        try {
+            String nrProj=null;
+            while (rsProj.next()) {
+                nrProj = rsProj.getString("nrProiect");
+            }
+//            comboBoxAlegeProj.setValue(null);
+            if(comboBoxAlegeProj.getValue()==null){
+                comboBoxAlegeProj.setValue(nrProj);
+        }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        comboBoxAlegeProj.setDisable(true);
+        comboBoxAlegeProjNume.setDisable(true);
+
+    }
+
 
     public void comboBoxAlegeOrg ( ActionEvent event ) throws SQLException {
         String selectProj = "SELECT nrProiect FROM invTbl WHERE org ='"+ comboBoxAlegeOrg.getValue()+"' ";

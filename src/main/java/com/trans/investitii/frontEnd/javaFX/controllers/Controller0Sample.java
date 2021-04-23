@@ -232,6 +232,7 @@ public class Controller0Sample implements Initializable {
         File newproj= new File("c:\\Investitii\\resurse\\newproj" );
         File org= new File("c:\\Investitii\\resurse\\org" );
         File respproj= new File("c:\\Investitii\\resurse\\respproj" );
+        File ani= new File("c:\\Investitii\\resurse\\ani" );
         File export = new File("c:\\Investitii\\rapoarte\\export.txt" );
 
 
@@ -302,6 +303,13 @@ public class Controller0Sample implements Initializable {
         if (!respproj.exists()){
             try {
                 respproj.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if(!ani.exists()){
+            try {
+                ani.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
