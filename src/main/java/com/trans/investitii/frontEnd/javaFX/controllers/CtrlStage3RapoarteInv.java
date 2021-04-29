@@ -9,8 +9,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -18,6 +24,9 @@ import java.nio.file.Paths;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -64,6 +73,10 @@ public class CtrlStage3RapoarteInv implements Initializable {
     public ComboBox comboBoxButtonFzContract;
     public Button buttonStage5Solduri;
     public Button buttonStage6AnalizaPif;
+
+    public Button buttonMachetaTrimestriala;
+    public DatePicker laDataMachetaTrimestriala;
+    public DatePicker deLaDataMachetaTrimestriala;
 
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
@@ -596,4 +609,69 @@ public class CtrlStage3RapoarteInv implements Initializable {
         window.setScene( tabeleViewScene );
         window.show();
     }
+
+    public void goToMachetaTrimestriala(ActionEvent actionEvent) {
+        if(deLaDataMachetaTrimestriala.getValue()==null || laDataMachetaTrimestriala.getValue()==null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Trebuie completate ambele campuri de date!");
+            alert.showAndWait();
+            return;
+        }
+        else{
+        try {
+            Connection connection = DriverManager.getConnection(Investitii.URL, Investitii.USER, Investitii.PASSWORD );
+            Statement st = connection.createStatement();
+            String situatiaImobilizarilor1 = "Select bugetProj.nrCrt, bugetProj.denProiect, ROUND(SUM(invTBL.valInitiala),2) AS soldInitial, bugetProj.nrProiect FROM invTBL, bugetProj WHERE bugetProj.nrProiect=invTBL.nrProiect AND invTBL.dataContabilizarii< '" +deLaDataMachetaTrimestriala.getValue()+"' GROUP BY bugetProj.nrProiect";
+
+            String situatiaImobilizarilor = "SELECT bugetProj.nrCrt, bugetProj.denProiect, " +
+                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS soldInitial FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND invTBL.dataContabilizarii< '" +deLaDataMachetaTrimestriala.getValue()+"' GROUP BY bugetProj.nrProiect) AS soldInitial, " +
+                    "(SELECT ROUND(SUM(invTBL.valoare),2) AS soldFinal FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect  GROUP BY bugetProj.nrProiect) AS soldFinal, " +
+                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS intrari FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+deLaDataMachetaTrimestriala.getValue()+"' < invTBL.dataContabilizarii <'"+laDataMachetaTrimestriala.getValue()+") AS intrari " +
+                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiri FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+deLaDataMachetaTrimestriala.getValue()+"' < invTBL.dataPIF <'"+laDataMachetaTrimestriala.getValue()+") AS iesiri " +
+                    "bugetProj.nrProiect FROM invTBL, bugetProj WHERE bugetProj.nrProiect=invTBL.nrProiect GROUP BY bugetProj.nrProiect ";
+
+            ResultSet rs = st.executeQuery( situatiaImobilizarilor);
+
+//Print - Crearea si prima linie a fisierilui de raport
+            LocalDate date0 = laDataMachetaTrimestriala.getValue();
+            LocalDateTime date1 = LocalDateTime.now();
+            DateTimeFormatter date02 = DateTimeFormatter.ofPattern( "yyyy-MM" );
+            DateTimeFormatter date01 = DateTimeFormatter.ofPattern( "yyyy-MM-dd 'ora' hh.mm" );
+
+            String replaceNumeData2 = date0.format( date02 );
+            String replaceNumeData1 = date1.format( date01 );
+
+            BufferedWriter writer0 = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\SituatiaImobilizarilorLaData-" + replaceNumeData2 + "rulat la "+replaceNumeData1+".csv", false ) );
+            writer0.append( "nrCrt; denProiect; sold la "+deLaDataMachetaTrimestriala.getValue()+"; Din surse proprii; Prin nota de debitare; Total intrari; Iesiri Din existent la 01.01; Iesiri din intrarile perioadei; Total Iesiri; Sold la "+laDataMachetaTrimestriala.getValue()+"; Nr proiect" );
+            writer0.close();
+//Parcurgerea BD si extragerea datelor iterate through the java resultset
+            while (rs.next()) {
+                Integer nrCrtPrint = rs.getInt( "nrCrt" );
+                String denProiectPrint = rs.getString( "denProiect" );
+                String soldInitialPrint = rs.getString( "soldInitial" );
+                String iesiriPrint = rs.getString( "iesiri" );
+                String intrariPrint = rs.getString( "intrari" );
+                String soldFinalPrint = rs.getString( "soldFinal" );
+                String nrProiectPrint = rs.getString( "bugetProj.nrProiect" );
+//                String dinSursePropriiPrint = rs.getString( "dinSurseProprii" );
+//                String totalIesiriPrint = rs.getString( "totalIesiri" );
+
+                System.out.println(soldInitialPrint);
+//print - adaugarea datelor in fisier
+                String datele =  nrCrtPrint+";"+ denProiectPrint + ";" + soldInitialPrint+";"+nrProiectPrint+";"+intrariPrint+";"+iesiriPrint+";"+soldFinalPrint;//" +dinSursePropriiPrint+";"+ totalIesiriPrint;
+                BufferedWriter writer = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\SituatiaImobilizarilorLaData-" + replaceNumeData2 + "rulat la "+replaceNumeData1+".csv", true ) );
+                writer.append( " \n" );
+                writer.append( datele );
+                writer.close();
+            }
+            Desktop desktop = null;
+            desktop.getDesktop().open( new File( "c:\\Investitii\\rapoarte\\SituatiaImobilizarilorLaData-" +  replaceNumeData2 + "rulat la "+replaceNumeData1+".csv" ) );
+
+            } catch (IOException | SQLException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+    }
+
+
 }

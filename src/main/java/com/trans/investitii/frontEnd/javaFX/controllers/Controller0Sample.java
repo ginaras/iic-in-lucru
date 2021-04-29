@@ -263,6 +263,9 @@ public class Controller0Sample implements Initializable {
         if (!ctInv.exists()){
             try {
                 ctInv.createNewFile();
+                FileWriter writer = new FileWriter("C:\\Investitii\\resurse\\ctInv");
+                writer.append("231.01.01.01"+"\r\n"+"231.02.01.01"+"\r\n"+"231.02.02.01"+"\r\n"+"231.03.01.01"+"\r\n");
+                writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

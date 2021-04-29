@@ -1,0 +1,62 @@
+    BufferedReader fz1 = new BufferedReader(new FileReader("C:\\Investitii\\resurse\\fz"));
+        int lineCount = (int) Files.lines(Paths.get("C:\\Investitii\\resurse\\fz")).count();
+        for (int i = 0; i < lineCount; ++i) {
+            System.out.println(fz1.readLine());
+        }
+
+
+
+//Alerta
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Trebuie completate ambele campuri de date!");
+        alert.showAndWait();
+
+
+        Alert alert0 = new Alert( Alert.AlertType.CONFIRMATION, "Confirmati PIF in valoare de "+total+" pe proiectul "+ comboBoxButtonProj.getValue()+"?", ButtonType.YES, ButtonType.NO);
+        alert0.setHeaderText( " " );
+        alert0.setTitle( "Validati facturile aferente PIF" );
+        Button noButton = (Button) alert0.getDialogPane().lookupButton( ButtonType.NO );
+        noButton.setDefaultButton( true );
+        Button yesButton = (Button) alert0.getDialogPane().lookupButton( ButtonType.YES );
+        yesButton.setDefaultButton( false );
+        alert0.showAndWait();
+
+        if (alert0.getResult() == ButtonType.YES) {
+            buttonPIF.setDisable( false );
+        }if (alert0.getResult() == ButtonType.NO){
+
+        }
+
+// formatare numar
+        double tp = 0;
+        NumberFormat nf = NumberFormat.getNumberInstance(new Locale("ro", "RO"));
+        nf.setMaximumFractionDigits(2);
+        DecimalFormat df = (DecimalFormat) nf;
+
+          valoareaTotalaSold.setText(df.format(tp  ));
+
+        
+// Creare lista fara duplicate
+        Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
+        Statement stm = connection.createStatement();
+        String selectOrg = "SELECT org FROM invTbl";
+        List<String> myListOrg =new ArrayList<>();
+
+        ResultSet rsOrg = null;
+        try {
+            rsOrg = stm.executeQuery( selectOrg );
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        try {
+                while (rsOrg.next()) {
+                    myListOrg.add( rsOrg.getString( "org"));
+                }
+            List<String> noDuplicatesList = myListOrg.stream().distinct().collect(Collectors.toList());
+        //            comboBoxButtonOrg. setItems(FXCollections.observableList( noDuplicatesList ) );
+            } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            }
+        }

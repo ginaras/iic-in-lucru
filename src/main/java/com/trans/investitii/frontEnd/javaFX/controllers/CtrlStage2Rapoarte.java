@@ -412,7 +412,7 @@ public class CtrlStage2Rapoarte implements Initializable {
         String replaceNume2 = date0.format( date2 );
 
         BufferedWriter writer0 = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\Selectie-investitii-" + replaceNume2 + ".csv", false ) );
-        writer0.append( "nrCrt; furnizor; nrFactura; dataFacturii; dataContabilizarii; valoare_ramasa; nrPIF; Data_PIF; valoare_Initiala tva; valTot; contract; contInv; contFz; nrProiect; deviz; org; respProiect" );
+        writer0.append( "nrCrt; furnizor; nrFactura; dataFacturii; dataContabilizarii; valoare_ramasa; nrPIF; Data_PIF; valoare_Initiala; tva; valTot; contract; contInv; contFz; nrProiect; deviz; org; respProiect" );
         writer0.close();
 
             ResultSet rsSelectXLS = stm.executeQuery( query );

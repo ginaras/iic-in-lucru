@@ -69,7 +69,7 @@ public class ControllerStageAdminContInv implements Initializable {
         } catch (FileNotFoundException ex) {
             System.err.println( ex );
         }
-
+        addButton.setDisable(true);
 
     }
 
@@ -232,4 +232,5 @@ public class ControllerStageAdminContInv implements Initializable {
         }
         writer.close();
     }
+
 }
