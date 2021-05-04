@@ -180,8 +180,8 @@ public class ControllerStageBAdminDelete implements Initializable {
 
         BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileFz, true ) );
         BufferedReader br=new BufferedReader( new FileReader( pathFileFz ) );
-        String withINACTIV ="INACTIV-"+comboBoxFz.getValue().toString()+"\n";
-        if (comboBoxFz.getValue().toString().contains( "INACTIV" )){
+        String withINACTIV ="Arhivat-"+comboBoxFz.getValue().toString()+"\n";
+        if (comboBoxFz.getValue().toString().contains( "Arhivat" )){
             fzDeleteBut.setDisable( true );
         }else {
             String currentLine0 = comboBoxFz.getValue().toString();
@@ -226,8 +226,8 @@ public class ControllerStageBAdminDelete implements Initializable {
     public void fzReActivBut ( ActionEvent event ) throws IOException {
         BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileFz, true ) );
         BufferedReader br = new BufferedReader( new FileReader( pathFileFz ) );
-        if (comboBoxFz.getValue().toString().contains( "INACTIV" ) ){
-            String withoutINACTIV = comboBoxFz.getValue().toString().replace( "INACTIV-", "" ) + "\n";
+        if (comboBoxFz.getValue().toString().contains( "Arhivat" ) ){
+            String withoutINACTIV = comboBoxFz.getValue().toString().replace( "Arhivat-", "" ) + "\n";
             String currentLine0 = comboBoxFz.getValue().toString();
             while (currentLine0 == br.readLine()) ;
             writer.write( withoutINACTIV );
@@ -273,8 +273,8 @@ public class ControllerStageBAdminDelete implements Initializable {
     public void ctFzDeleteBut ( ActionEvent event ) throws IOException {
         BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileCtFz, true ) );
         BufferedReader br=new BufferedReader( new FileReader( pathFileCtFz ) );
-        String withINACTIV ="INACTIV-"+comboBoxCtFz.getValue().toString()+"\n";
-        if (comboBoxCtFz.getValue().toString().contains( "INACTIV" )){
+        String withINACTIV ="Arhivat-"+comboBoxCtFz.getValue().toString()+"\n";
+        if (comboBoxCtFz.getValue().toString().contains( "Arhivat" )){
             ctFzDeleteBut.setDisable( true );
         }else {
             String currentLine0 = comboBoxCtFz.getValue().toString();
@@ -320,8 +320,8 @@ public class ControllerStageBAdminDelete implements Initializable {
     public void ctFzReActivBut ( ActionEvent event ) throws IOException {
         BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileCtFz, true ) );
         BufferedReader br = new BufferedReader( new FileReader( pathFileCtFz ) );
-        if (comboBoxCtFz.getValue().toString().contains( "INACTIV" ) ){
-            String withoutINACTIV = comboBoxCtFz.getValue().toString().replace( "INACTIV-", "" ) + "\n";
+        if (comboBoxCtFz.getValue().toString().contains( "Arhivat" ) ){
+            String withoutINACTIV = comboBoxCtFz.getValue().toString().replace( "Arhivat-", "" ) + "\n";
             String currentLine0 = comboBoxCtFz.getValue().toString();
             while (currentLine0 == br.readLine()) ;
             writer.write( withoutINACTIV );
@@ -367,8 +367,8 @@ public class ControllerStageBAdminDelete implements Initializable {
     public void contractDeleteBut ( ActionEvent event ) throws IOException
     { BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileContract, true ) );
         BufferedReader br=new BufferedReader( new FileReader( pathFileContract ) );
-        String withINACTIV ="INACTIV-"+comboBoxContr.getValue().toString()+"\n";
-        if (comboBoxContr.getValue().toString().contains( "INACTIV" )){
+        String withINACTIV ="Arhivat-"+comboBoxContr.getValue().toString()+"\n";
+        if (comboBoxContr.getValue().toString().contains( "Arhivat" )){
             contractDeleteBut.setDisable( true );
         }else {
             String currentLine0 = comboBoxContr.getValue().toString();
@@ -414,8 +414,8 @@ public class ControllerStageBAdminDelete implements Initializable {
     public void contractReActivBut ( ActionEvent event ) throws IOException {
         BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileContract, true ) );
         BufferedReader br = new BufferedReader( new FileReader( pathFileContract ) );
-        if (comboBoxContr.getValue().toString().contains( "INACTIV" ) ){
-            String withoutINACTIV = comboBoxContr.getValue().toString().replace( "INACTIV-", "" ) + "\n";
+        if (comboBoxContr.getValue().toString().contains( "Arhivat" ) ){
+            String withoutINACTIV = comboBoxContr.getValue().toString().replace( "Arhivat-", "" ) + "\n";
             String currentLine0 = comboBoxContr.getValue().toString();
             while (currentLine0 == br.readLine()) ;
             writer.write( withoutINACTIV );
@@ -461,8 +461,8 @@ public class ControllerStageBAdminDelete implements Initializable {
     public void ctInvDeleteBut ( ActionEvent event ) throws IOException {
          BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileCtInv, true ) );
             BufferedReader br=new BufferedReader( new FileReader( pathFileCtInv ) );
-            String withINACTIV ="INACTIV-"+comboBoxCtInv.getValue().toString()+"\n";
-            if (comboBoxCtInv.getValue().toString().contains( "INACTIV" )){
+            String withINACTIV ="Arhivat-"+comboBoxCtInv.getValue().toString()+"\n";
+            if (comboBoxCtInv.getValue().toString().contains( "Arhivat" )){
                 ctInvDeleteBut.setDisable( true );
             }else {
                 String currentLine0 = comboBoxCtInv.getValue().toString();
@@ -509,8 +509,8 @@ public class ControllerStageBAdminDelete implements Initializable {
     public void ctInvReActivBut ( ActionEvent event ) throws IOException {
         BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileCtInv, true ) );
         BufferedReader br = new BufferedReader( new FileReader( pathFileCtInv ) );
-        if (comboBoxCtInv.getValue().toString().contains( "INACTIV" ) ){
-            String withoutINACTIV = comboBoxCtInv.getValue().toString().replace( "INACTIV-", "" ) + "\n";
+        if (comboBoxCtInv.getValue().toString().contains( "Arhivat" ) ){
+            String withoutINACTIV = comboBoxCtInv.getValue().toString().replace( "Arhivat-", "" ) + "\n";
             String currentLine0 = comboBoxCtInv.getValue().toString();
             while (currentLine0 == br.readLine()) ;
             writer.write( withoutINACTIV );
@@ -556,8 +556,8 @@ public class ControllerStageBAdminDelete implements Initializable {
      public void nrProjDeleteBut ( ActionEvent event ) throws IOException {
         BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileNrProj, true ) );
         BufferedReader br=new BufferedReader( new FileReader( pathFileNrProj ) );
-        String withINACTIV ="INACTIV-"+comboBoxNrProj.getValue().toString()+"\n";
-        if (comboBoxNrProj.getValue().toString().contains( "INACTIV" )){
+        String withINACTIV ="Arhivat-"+comboBoxNrProj.getValue().toString()+"\n";
+        if (comboBoxNrProj.getValue().toString().contains( "Arhivat" )){
             nrProjDeleteBut.setDisable( true );
         }else {
             String currentLine0 = comboBoxNrProj.getValue().toString();
@@ -603,8 +603,8 @@ public class ControllerStageBAdminDelete implements Initializable {
     public void nrProjReActivBut ( ActionEvent event ) throws IOException {
         BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileNrProj, true ) );
         BufferedReader br = new BufferedReader( new FileReader( pathFileNrProj ) );
-        if (comboBoxNrProj.getValue().toString().contains( "INACTIV" ) ){
-            String withoutINACTIV = comboBoxNrProj.getValue().toString().replace( "INACTIV-", "" ) + "\n";
+        if (comboBoxNrProj.getValue().toString().contains( "Arhivat" ) ){
+            String withoutINACTIV = comboBoxNrProj.getValue().toString().replace( "Arhivat-", "" ) + "\n";
             String currentLine0 = comboBoxNrProj.getValue().toString();
             while (currentLine0 == br.readLine()) ;
             writer.write( withoutINACTIV );
@@ -650,8 +650,8 @@ public class ControllerStageBAdminDelete implements Initializable {
     public void respProjDeleteBut ( ActionEvent event ) throws IOException {
         BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileRespProj, true ) );
         BufferedReader br=new BufferedReader( new FileReader( pathFileRespProj ) );
-        String withINACTIV ="INACTIV-"+comboBoxRespProj.getValue().toString()+"\n";
-        if (comboBoxRespProj.getValue().toString().contains( "INACTIV" )){
+        String withINACTIV ="Arhivat-"+comboBoxRespProj.getValue().toString()+"\n";
+        if (comboBoxRespProj.getValue().toString().contains( "Arhivat" )){
             respProjDeleteBut.setDisable( true );
         }else {
             String currentLine0 = comboBoxRespProj.getValue().toString();
@@ -697,8 +697,8 @@ public class ControllerStageBAdminDelete implements Initializable {
     public void respProjReActivBut ( ActionEvent event ) throws IOException {
         BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileRespProj, true ) );
         BufferedReader br = new BufferedReader( new FileReader( pathFileRespProj ) );
-        if (comboBoxRespProj.getValue().toString().contains( "INACTIV" ) ){
-            String withoutINACTIV = comboBoxRespProj.getValue().toString().replace( "INACTIV-", "" ) + "\n";
+        if (comboBoxRespProj.getValue().toString().contains( "Arhivat" ) ){
+            String withoutINACTIV = comboBoxRespProj.getValue().toString().replace( "Arhivat-", "" ) + "\n";
             String currentLine0 = comboBoxRespProj.getValue().toString();
             while (currentLine0 == br.readLine()) ;
             writer.write( withoutINACTIV );
@@ -744,8 +744,8 @@ public class ControllerStageBAdminDelete implements Initializable {
     public void devizDeleteBut ( ActionEvent event ) throws IOException {
         BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileDeviz, true ) );
         BufferedReader br=new BufferedReader( new FileReader( pathFileDeviz ) );
-        String withINACTIV ="INACTIV-"+comboBoxDeviz.getValue().toString()+"\n";
-        if (comboBoxDeviz.getValue().toString().contains( "INACTIV" )){
+        String withINACTIV ="Arhivat-"+comboBoxDeviz.getValue().toString()+"\n";
+        if (comboBoxDeviz.getValue().toString().contains( "Arhivat" )){
             devizDeleteBut.setDisable( true );
         }else {
             String currentLine0 = comboBoxDeviz.getValue().toString();
@@ -791,8 +791,8 @@ public class ControllerStageBAdminDelete implements Initializable {
     public void devizReActivBut ( ActionEvent event ) throws IOException {
         BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileDeviz, true ) );
         BufferedReader br = new BufferedReader( new FileReader( pathFileDeviz ) );
-        if (comboBoxDeviz.getValue().toString().contains( "INACTIV" ) ){
-            String withoutINACTIV = comboBoxDeviz.getValue().toString().replace( "INACTIV-", "" ) + "\n";
+        if (comboBoxDeviz.getValue().toString().contains( "Arhivat" ) ){
+            String withoutINACTIV = comboBoxDeviz.getValue().toString().replace( "Arhivat-", "" ) + "\n";
             String currentLine0 = comboBoxDeviz.getValue().toString();
             while (currentLine0 == br.readLine()) ;
             writer.write( withoutINACTIV );
@@ -838,8 +838,8 @@ public class ControllerStageBAdminDelete implements Initializable {
     public void orgDeleteBut ( ActionEvent event ) throws IOException {
         BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileOrg, true ) );
         BufferedReader br=new BufferedReader( new FileReader( pathFileOrg ) );
-        String withINACTIV ="INACTIV-"+comboBoxOrg.getValue().toString()+"\n";
-        if (comboBoxOrg.getValue().toString().contains( "INACTIV" )){
+        String withINACTIV ="Arhivat-"+comboBoxOrg.getValue().toString()+"\n";
+        if (comboBoxOrg.getValue().toString().contains( "Arhivat" )){
             orgDeleteBut.setDisable( true );
         }else {
             String currentLine0 = comboBoxOrg.getValue().toString();
@@ -885,8 +885,8 @@ public class ControllerStageBAdminDelete implements Initializable {
     public void orgReActivBut ( ActionEvent event ) throws IOException {
         BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileOrg, true ) );
         BufferedReader br = new BufferedReader( new FileReader( pathFileOrg ) );
-        if (comboBoxOrg.getValue().toString().contains( "INACTIV" ) ){
-            String withoutINACTIV = comboBoxOrg.getValue().toString().replace( "INACTIV-", "" ) + "\n";
+        if (comboBoxOrg.getValue().toString().contains( "Arhivat" ) ){
+            String withoutINACTIV = comboBoxOrg.getValue().toString().replace( "Arhivat-", "" ) + "\n";
             String currentLine0 = comboBoxOrg.getValue().toString();
             while (currentLine0 == br.readLine()) ;
             writer.write( withoutINACTIV );

@@ -145,7 +145,7 @@ public class ControllerStageAdminRespProiect implements Initializable {
         BufferedReader bReader = new BufferedReader(new FileReader( pathFileRespProj ));
         String fileLine;
         String addString = addresp.getCharacters().toString();
-        String inactiveString = "INACTIV-".concat( addString );
+        String inactiveString = "Arhivat-".concat( addString );
         String addCtFzString = addresp.getCharacters().toString();
 
         if (addString.isEmpty()) {
@@ -156,34 +156,42 @@ public class ControllerStageAdminRespProiect implements Initializable {
         }
         else {
             try {
-                while((fileLine=bReader.readLine()) != null){
-                    if(fileLine==null || !fileLine.equalsIgnoreCase(addString)){
+                while((fileLine=bReader.readLine()) != null) {
+                    if (fileLine == null) {
                         Alert fail = new Alert( Alert.AlertType.INFORMATION );
                         fail.setHeaderText( "Atentie!" );
-                        fail.setContentText( "Elementul "+addString+" exista in baza de date" );
+                        fail.setContentText( "Adauga un responsabil" );
+                        fail.showAndWait();
+                        return;
+                    }
+                    if (fileLine.equalsIgnoreCase( addString )) {
+                        Alert fail = new Alert( Alert.AlertType.INFORMATION );
+                        fail.setHeaderText( "Atentie!" );
+                        fail.setContentText( "Elementul " + addString + " exista in baza de date" );
                         fail.showAndWait();
                         addresp.clear();
-                        break;
+                        return;
                     }
                     if (fileLine.equalsIgnoreCase( inactiveString )) {
                         Alert fail2 = new Alert( Alert.AlertType.INFORMATION );
                         fail2.setHeaderText( "Atentie!" );
-                        fail2.setContentText( "Elementul " + addCtFzString + " este WHILE inactiv in baza de date" );
+                        fail2.setContentText( "Elementul " + addCtFzString + " este Arhivat in baza de date" );
                         fail2.showAndWait();
                         addresp.clear();
-                        break;
+                        return;
                     }
-                }
 
-                if (fileLine == null || (!(fileLine.equalsIgnoreCase( addCtFzString ))
-                        && !(inactiveString.equalsIgnoreCase( fileLine )))){
-                    BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileRespProj, true ) );
-                    writer.append( addString+ "\n" );
-                    writer.close();
-                    ItemList.appendText( addString + "\n" ); // ad data in TextArea from text field
-                    addresp.clear();
-                    this.added.setText( "Ati adaugat cu succes" );
-                    sortFile();
+                    if ((!(fileLine.equalsIgnoreCase( addCtFzString ) && fileLine != null)
+                            && !(inactiveString.equalsIgnoreCase( fileLine )))) {
+                        BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileRespProj, true ) );
+                        writer.append( addString + "\n" );
+                        writer.close();
+                        ItemList.appendText( addString + "\n" ); // ad data in TextArea from text field
+                        addresp.clear();
+                        this.added.setText( "Ati adaugat cu succes" );
+                        sortFile();
+                        return;
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();

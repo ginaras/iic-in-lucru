@@ -170,7 +170,7 @@ public class ControllerStageAdminContFZ implements Initializable {
         BufferedReader bReader = new BufferedReader(new FileReader( pathFileCtFz ));
         String fileLine;
         String addString = addCtFZ.getCharacters().toString();
-        String inactiveString = "INACTIV-".concat( addString );
+        String inactiveString = "Arhivat-".concat( addString );
         String addCtFzString = addCtFZ.getCharacters().toString();
 
             if (addCtFzString.isEmpty()) {
@@ -189,32 +189,32 @@ public class ControllerStageAdminContFZ implements Initializable {
                                  fail.setContentText( "Elementul " + addCtFzString + " exista in baza de date" );
                                  fail.showAndWait();
                                  addCtFZ.clear();
-                                 break;
+                                 return;
                              }
 
 
                              if (fileLine.equalsIgnoreCase( inactiveString )) {
                                  Alert fail = new Alert( Alert.AlertType.INFORMATION );
                                  fail.setHeaderText( "Atentie!" );
-                                 fail.setContentText( "Elementul " + addCtFzString + " este inactiv in baza de date" );
+                                 fail.setContentText( "Elementul " + addCtFzString + " este Arhivat in baza de date" );
                                  fail.showAndWait();
                                  addCtFZ.clear();
-                                 break;
+                                 return;
+                             }
+
+
+                             if (fileLine != null && (!(fileLine.equalsIgnoreCase( addCtFzString ))
+                                     && !(inactiveString.equalsIgnoreCase( fileLine )))) {
+                                 BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileCtFz, true ) );
+                                 writer.append( addCtFzString + "\n" );
+                                 writer.close();
+                                 ItemList.appendText( addCtFzString + "\n" ); // ad data in TextArea from text field
+                                 addCtFZ.clear();
+                                 this.added.setText( "Ati adaugat cu succes" );
+                                 sortFile();
+                                 return;
                              }
                          }
-
-                    if (fileLine == null || (!(fileLine.equalsIgnoreCase(addCtFzString))
-                            && !(inactiveString.equalsIgnoreCase( fileLine )))) {
-                        BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileCtFz, true ) );
-                            writer.append( addCtFzString+ "\n" );
-                            writer.close();
-                            ItemList.appendText( addCtFzString + "\n" ); // ad data in TextArea from text field
-                            addCtFZ.clear();
-                            this.added.setText( "Ati adaugat cu succes" );
-//                            this.added.setText("INACTIV-".concat( addCtFzString));
-
-                            sortFile();
-                        }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

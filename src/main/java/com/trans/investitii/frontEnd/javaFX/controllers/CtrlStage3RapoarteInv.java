@@ -660,12 +660,11 @@ public class CtrlStage3RapoarteInv implements Initializable {
 //                String dinSursePropriiPrint = rs.getString( "dinSurseProprii" );
 //                String totalIesiriPrint = rs.getString( "totalIesiri" );
 
+                if(soldInitialPrint==null){soldInitialPrint = "0";}
                 if(iesiriPrint==null){iesiriPrint = "0";}
                 if(iesiriDinSoldPrint==null){ iesiriDinSoldPrint = "0";}
                 if(iesiriDinPerioadaPrint==null){ iesiriDinPerioadaPrint = "0";}
                 if(intrariPrint==null){ intrariPrint = "0";}
-
-
 
 //print - adaugarea datelor in fisier
                 String datele =  nrCrtPrint+";"+ denProiectPrint + ";" + soldInitialPrint+";"+intrariPrint+";"+iesiriDinSoldPrint+";"+iesiriDinPerioadaPrint+";"+iesiriPrint+";"+soldFinalPrint+";"+nrProiectPrint;//" +dinSursePropriiPrint+";"+ totalIesiriPrint;
@@ -681,7 +680,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
                     "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiri FROM invTBL WHERE '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataPIF <= '"+laDataMachetaTrimestriala.getValue()+"') AS iesiri, " +
                     "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiriDinSold FROM invTBL WHERE '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataPIF <= '"+laDataMachetaTrimestriala.getValue()+"' and dataContabilizarii<='"+deLaDataMachetaTrimestriala.getValue()+"') AS iesiriDinSold, " +
                     "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiriDinPerioada FROM invTBL WHERE '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataPIF <= '"+laDataMachetaTrimestriala.getValue()+"' AND dataContabilizarii>='"+deLaDataMachetaTrimestriala.getValue()+"') AS iesiriDinPerioada, " +
-                    "bugetProj.nrProiect, org, FROM invTBL, bugetProj Group BY invtbl.org ";
+                    "bugetProj.nrProiect, org FROM invTBL, bugetProj Group BY invtbl.org ";
 
                 ResultSet rsTotal = st.executeQuery( situatiaImobilizarilorTotal);
 

@@ -173,7 +173,7 @@ public class ControllerStageAdminFz implements Initializable {
     public void addNewFz ( ActionEvent event ) throws IOException {
         String fileLine;
         String addFzString = addFz.getCharacters().toString();
-        String inactiveFzString = "INACTIV-".concat( addFzString );
+        String inactiveFzString = "Arhivat-".concat( addFzString );
         BufferedReader bReader = new BufferedReader( new FileReader( pathAdmFz ) );
 
         if (addFzString.isEmpty()) {
@@ -191,60 +191,61 @@ public class ControllerStageAdminFz implements Initializable {
                         fail.setContentText( "Elementul " + addFzString + " exista in baza de date" );
                         fail.showAndWait();
                         addFz.clear();
-                        break;
+                        return;
                     }
 
-                    if (fileLine.equalsIgnoreCase( inactiveFzString )){
+                    if (fileLine.equalsIgnoreCase( inactiveFzString )) {
                         Alert fail = new Alert( Alert.AlertType.INFORMATION );
                         fail.setHeaderText( "Atentie!" );
-                        fail.setContentText( "Elementul "+addFzString+" este inactiv in baza de date" );
+                        fail.setContentText( "Elementul " + addFzString + " este Arhivat in baza de date" );
                         fail.showAndWait();
                         addFz.clear();
-                        break;
+                        return;
                     }
 
-                }
+                    if (fileLine != null && (!(fileLine.equalsIgnoreCase( addFzString ))
+                            && !(inactiveFzString.equalsIgnoreCase( fileLine )))) {
+                        BufferedWriter writer = new BufferedWriter( new FileWriter( pathAdmFz, true ) );
+                        writer.append( addFzString + "\n" );
+                        writer.close();
+                        ItemList.appendText( addFzString + "\n" ); // ad data in TextArea from text field
 
-                if (fileLine == null || (!(fileLine.equalsIgnoreCase(addFzString))
-                        && !(inactiveFzString.equalsIgnoreCase( fileLine )))) {
-                    BufferedWriter writer = new BufferedWriter( new FileWriter( pathAdmFz, true ) );
-                    writer.append( addFzString+ "\n" );
-                    writer.close();
-                    ItemList.appendText( addFzString + "\n" ); // ad data in TextArea from text field
+                        //  10.03.2021
+                        String addFzDataToBugetcontract = "INSERT INTO bugetcontract (furnizor, CUIfurnizor, adresa,nrContract, dataContract, valInitiala) VALUES(?,?,?,?,?,?)";
+                        try (PreparedStatement stmPrep = connection.prepareStatement( addFzDataToBugetcontract )) {
+                            Investitii addFzDataToBugetcontractInvestitii = new Investitii(
+                                    addFz.getCharacters(),
+                                    addCUI.getText(),
+                                    addAdresa.getCharacters(),
+                                    addNrContract.getCharacters(),
+                                    addDataContract.getValue(),
+                                    addValoareContract.getCharacters()
+                            );
+                            String varRectif = "0";
+                            stmPrep.executeUpdate( "INSERT INTO bugetCONTRACT (furnizor, CUIfurnizor, adresa, nrContract, dataContract, valInitiala, valRectificare, valFinala) VALUES ('" + addFz.getCharacters() + "','" + addCUI.getCharacters() + "','" + addAdresa.getCharacters() + "','" + addNrContract.getCharacters() + "','" + addDataContract.getValue() + "','" + addValoareContract.getCharacters() + "','" + varRectif + "','" + addValoareContract.getCharacters() + "')" );
+                        }
 
-                    //  10.03.2021
-                    String addFzDataToBugetcontract = "INSERT INTO bugetcontract (furnizor, CUIfurnizor, adresa,nrContract, dataContract, valInitiala) VALUES(?,?,?,?,?,?)";
-                    try (PreparedStatement stmPrep= connection.prepareStatement(addFzDataToBugetcontract)) {
-                        Investitii addFzDataToBugetcontractInvestitii = new Investitii(
-                                addFz.getCharacters(),
-                                addCUI.getText(),
-                                addAdresa.getCharacters(),
-                                addNrContract.getCharacters(),
-                                addDataContract.getValue(),
-                                addValoareContract.getCharacters()
-                        );
-                        String varRectif = "0";
-                        stmPrep.executeUpdate("INSERT INTO bugetCONTRACT (furnizor, CUIfurnizor, adresa, nrContract, dataContract, valInitiala, valRectificare, valFinala) VALUES ('" + addFz.getCharacters() + "','" + addCUI.getCharacters() + "','" + addAdresa.getCharacters() + "','" + addNrContract.getCharacters() + "','" + addDataContract.getValue() + "','" + addValoareContract.getCharacters() + "','"+varRectif+"','" + addValoareContract.getCharacters() + "')");
 
+                        addFz.clear();
+                        addCUI.clear();
+                        addAdresa.clear();
+                        addNrContract.clear();
+                        addDataContract.setValue( null );
+                        addValoareContract.clear();
+
+                        addFz.clear();
+                        addCUI.clear();
+                        addAdresa.clear();
+                        addNrContract.clear();
+                        addDataContract.setValue( LocalDate.now() );
+                        addValoareContract.clear();
+
+                        this.added.setText( "Ati adaugat cu succes" );
+                        sortFile();
+                        return;
                     }
-
-                    addFz.clear();
-                    addCUI.clear();
-                    addAdresa.clear();
-                    addNrContract.clear();
-                    addDataContract.setValue( null);
-                    addValoareContract.clear();
-
-                    addFz.clear();
-                    addCUI.clear();
-                    addAdresa.clear();
-                    addNrContract.clear();
-                    addDataContract.setValue(LocalDate.now());
-                    addValoareContract.clear();
-
-                    this.added.setText( "Ati adaugat cu succes" );
-                    sortFile();
                 }
+
             } catch (IOException | SQLException e) {
                 e.printStackTrace();
             }

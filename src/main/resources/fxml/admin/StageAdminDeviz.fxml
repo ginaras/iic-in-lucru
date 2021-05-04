@@ -188,27 +188,8 @@
                 <font>
                     <Font size="16.0" />
                 </font></Button>
-            <Button fx:id="exportButton" layoutX="1029.0" layoutY="445.0" mnemonicParsing="false" onAction="#exportDevizAdminList" style="-fx-background-color: #0F4CC1;" text="Exporta lista" textFill="#fcfbf5">
-                <effect>
-                    <Bloom threshold="0.1">
-                        <input>
-                            <Blend mode="SRC_ATOP" opacity="0.57">
-                                <topInput>
-                                    <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
-                                        <bumpInput>
-                                            <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
-                                        </bumpInput>
-                                    </Lighting>
-                                </topInput>
-                            </Blend>
-                        </input>
-                    </Bloom>
-                </effect>
-                <font>
-                    <Font size="16.0" />
-                </font></Button>
             <TextArea fx:id="ItemList" layoutX="718.0" layoutY="359.0" prefHeight="364.0" prefWidth="275.0" />
-            <Text layoutX="556.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista devize" />
+            <TextField fx:id="addDeviz" layoutX="704.0" layoutY="305.0" prefHeight="31.0" prefWidth="281.0" promptText="Introduceti noul numar de deviz" />
             <Button fx:id="addButton" layoutX="1003.0" layoutY="305.0" mnemonicParsing="false" onAction="#addNewDeviz" prefHeight="31.0" prefWidth="173.0" style="-fx-background-color: #0F4CC1;" text="Adauga" textFill="#fcfbf5">
                 <effect>
                     <Bloom threshold="0.1">
@@ -228,7 +209,26 @@
                 <font>
                     <Font size="16.0" />
                 </font></Button>
-            <TextField fx:id="addDeviz" layoutX="704.0" layoutY="305.0" prefHeight="31.0" prefWidth="281.0" promptText="Introduceti noul numar de deviz" />
+            <Button fx:id="exportButton" layoutX="1029.0" layoutY="445.0" mnemonicParsing="false" onAction="#exportDevizAdminList" style="-fx-background-color: #0F4CC1;" text="Exporta lista" textFill="#fcfbf5">
+                <effect>
+                    <Bloom threshold="0.1">
+                        <input>
+                            <Blend mode="SRC_ATOP" opacity="0.57">
+                                <topInput>
+                                    <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                        <bumpInput>
+                                            <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                        </bumpInput>
+                                    </Lighting>
+                                </topInput>
+                            </Blend>
+                        </input>
+                    </Bloom>
+                </effect>
+                <font>
+                    <Font size="16.0" />
+                </font></Button>
+            <Text layoutX="556.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista devize" />
             <Text layoutX="596.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deviz nou" />
             <Button fx:id="adminDeviz" layoutX="92.0" layoutY="638.0" mnemonicParsing="false" onAction="#goOnAdminDeviz" onMouseMoved="#click" style="-fx-background-color: #0F4CC1;" text="Administrare devize" textFill="#fcfbf5">
                 <effect>

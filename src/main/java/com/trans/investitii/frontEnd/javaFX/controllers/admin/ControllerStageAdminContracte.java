@@ -92,7 +92,7 @@ public class ControllerStageAdminContracte implements Initializable {
                 e.printStackTrace();
             }
             List<String> furnizoriActivi = myListFz.stream()
-                    .filter( furnizor -> !furnizor.contains( "INACTIV-" ) )
+                    .filter( furnizor -> !furnizor.contains( "Arhivat-" ) )
                     .collect( Collectors.toList() );
             comboBoxAlegeFurnizor.setItems( FXCollections.observableArrayList(furnizoriActivi));
 
@@ -182,7 +182,7 @@ public class ControllerStageAdminContracte implements Initializable {
         BufferedReader bReader = new BufferedReader(new FileReader( pathFileContract ));
         String fileLine;
         String addString = addContract.getCharacters().toString();
-        String inactiveString = "INACTIV-".concat( addString );
+        String inactiveString = "Arhivat-".concat( addString );
         String addCtFzString = addContract.getCharacters().toString();
 
         if (comboBoxAlegeFurnizor.getSelectionModel().isEmpty()){
@@ -208,19 +208,18 @@ public class ControllerStageAdminContracte implements Initializable {
                         fail.setContentText( "Elementul " + addContract + " exista in baza de date" );
                         fail.showAndWait();
                         addContract.clear();
-                        break;
+                        return;
                     }
                         if (fileLine.equalsIgnoreCase( inactiveString )) {
                             Alert fail2 = new Alert( Alert.AlertType.INFORMATION );
                             fail2.setHeaderText( "Atentie!" );
-                            fail2.setContentText( "Elementul " + addCtFzString + " este inactiv in baza de date"+"\n"+"Activeaza-l" );
+                            fail2.setContentText( "Elementul " + addCtFzString + " este Arhivat in baza de date"+"\n"+"Activeaza-l" );
                             fail2.showAndWait();
                             addContract.clear();
-                            break;
+                            return;
                         }
-                    }
 
-                    if (fileLine == null || (!(fileLine.equalsIgnoreCase( addCtFzString ))
+                    if (fileLine != null && (!(fileLine.equalsIgnoreCase( addCtFzString ))
                             && !(inactiveString.equalsIgnoreCase( fileLine )))) {
                         BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileContract, true ) );
                         writer.append( addString.toUpperCase() + "\n" );
@@ -230,15 +229,17 @@ public class ControllerStageAdminContracte implements Initializable {
                         sortFile();
 
                         String addContractToDB = "INSERT INTO bugetCONTRACT nrContract";
-                        try (PreparedStatement statement = connection.prepareStatement( addContractToDB );){
+                        try (PreparedStatement statement = connection.prepareStatement( addContractToDB );) {
 
-                            statement.executeUpdate( "INSERT INTO bugetCONTRACT (nrContract, furnizor,valInitiala, valRectificare, valFinala ) VALUES('"+addString.toUpperCase()+"','"+comboBoxAlegeFurnizor.getValue()+"','"+addValInitiala.getText()+"','"+"0"+"','"+addValInitiala.getText()+"')" );
+                            statement.executeUpdate( "INSERT INTO bugetCONTRACT (nrContract, furnizor,valInitiala, valRectificare, valFinala ) VALUES('" + addString.toUpperCase() + "','" + comboBoxAlegeFurnizor.getValue() + "','" + addValInitiala.getText() + "','" + "0" + "','" + addValInitiala.getText() + "')" );
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                         addContract.clear();
                         addValInitiala.clear();
                         this.added.setText( "Ati adaugat cu succes" );
+                        return;
+                    }
                     }
             }catch(IOException e){
                     e.printStackTrace();

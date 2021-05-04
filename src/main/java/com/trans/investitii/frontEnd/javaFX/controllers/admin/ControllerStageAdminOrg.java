@@ -176,7 +176,7 @@ public class ControllerStageAdminOrg implements Initializable {
         BufferedReader bReader = new BufferedReader(new FileReader( pathFileOrg ));
         String fileLine;
         String addString = addPOrg.getCharacters().toString();
-        String inactiveString = "INACTIV-".concat( addString );
+        String inactiveString = "Arhivat-".concat( addString );
         String addCtFzString = addPOrg.getCharacters().toString();
         String addDenumireOrgString = addDenOrg.getCharacters().toString();
 
@@ -185,7 +185,6 @@ public class ControllerStageAdminOrg implements Initializable {
             fail.setHeaderText( "Atentie!" );
             fail.setContentText( "Nu poti introduce campuri goale!" );
             fail.showAndWait();
-            //  break;
         }
         else {
             try {
@@ -201,7 +200,7 @@ public class ControllerStageAdminOrg implements Initializable {
                     if (fileLine.equalsIgnoreCase( inactiveString )) {
                         Alert fail = new Alert( Alert.AlertType.INFORMATION );
                         fail.setHeaderText( "Atentie!" );
-                        fail.setContentText( "Elementul " + addString + " este  inactiv in baza de date" );
+                        fail.setContentText( "Elementul " + addString + " este  Arhivat in baza de date" );
                         fail.showAndWait();
                         addPOrg.clear();
                         break;
@@ -252,7 +251,7 @@ public class ControllerStageAdminOrg implements Initializable {
         BufferedReader bReaderAni = new BufferedReader(new FileReader( pathFileAni ));
         String fileLine;
         String addStringAni = addAni.getCharacters().toString();
-        String inactiveString = "INACTIV-".concat( addStringAni );
+        String inactiveString = "Arhivat-".concat( addStringAni );
         String addAniString = addAni.getCharacters().toString();
 
         if (addStringAni.isEmpty()) {
@@ -263,35 +262,32 @@ public class ControllerStageAdminOrg implements Initializable {
         }
         else {
             try {
-                while((fileLine=bReaderAni.readLine()) != null){
-                    if(fileLine.equalsIgnoreCase(addStringAni)) {
+                while((fileLine=bReaderAni.readLine()) != null) {
+                    if (fileLine.equalsIgnoreCase( addStringAni )) {
                         Alert fail = new Alert( Alert.AlertType.INFORMATION );
                         fail.setHeaderText( "Atentie!" );
-                        fail.setContentText( "Elementul "+addStringAni+" exista in baza de date" );
+                        fail.setContentText( "Elementul " + addStringAni + " exista in baza de date" );
                         fail.showAndWait();
                         addPOrg.clear();
-                        break;
+                        return;
                     }
                     if (fileLine.equalsIgnoreCase( inactiveString )) {
                         Alert fail = new Alert( Alert.AlertType.INFORMATION );
                         fail.setHeaderText( "Atentie!" );
-                        fail.setContentText( "Elementul " + addStringAni + " este  inactiv in baza de date" );
+                        fail.setContentText( "Elementul " + addStringAni + " este  Arhivat in baza de date" );
                         fail.showAndWait();
                         addPOrg.clear();
-                        break;
+                        return;
                     }
-                }
-
-                if (fileLine == null || (!(fileLine.equalsIgnoreCase(addAniString))
-                        && !(inactiveString.equalsIgnoreCase( fileLine )))){
-                    BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileAni, true ) );
-                    writer.append( addStringAni.toUpperCase()+ "\n" );
-                    writer.close();
-                    ItemListAni.appendText( addStringAni.toUpperCase() + "\n" ); // ad data in TextArea from text field
-                    this.added.setText( "Ati adaugat cu succes" );
-
-
-                    addAni.clear();
+                    if (fileLine != null && (!(fileLine.equalsIgnoreCase( addAniString ))
+                            && !(inactiveString.equalsIgnoreCase( fileLine )))) {
+                        BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileAni, true ) );
+                        writer.append( addStringAni.toUpperCase() + "\n" );
+                        writer.close();
+                        ItemListAni.appendText( addStringAni.toUpperCase() + "\n" ); // ad data in TextArea from text field
+                        this.added.setText( "Ati adaugat cu succes" );
+                         addAni.clear();
+                    }
                 }
 
         } catch (IOException e) {

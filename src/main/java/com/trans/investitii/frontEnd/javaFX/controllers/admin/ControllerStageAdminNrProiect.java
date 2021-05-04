@@ -177,7 +177,7 @@ public class ControllerStageAdminNrProiect implements Initializable {
         BufferedReader bReader = new BufferedReader(new FileReader( pathFileNrProiect ));
         String fileLine;
         String addString = addProj.getCharacters().toString();
-        String inactiveString = "INACTIV-".concat( addString );
+        String inactiveString = "Arhivat-".concat( addString );
 
         try {
             double s = Double.parseDouble( addValProj.getText() );
@@ -193,8 +193,6 @@ public class ControllerStageAdminNrProiect implements Initializable {
             alert1.showAndWait();
             return;
         }
-
-
 
         if (addString.isEmpty() || addDenumireProj.getText().isEmpty()
                 || (addDataAprobariiProj.getValue() ==null) || addValProj.getText().isEmpty() ) {
@@ -214,22 +212,21 @@ public class ControllerStageAdminNrProiect implements Initializable {
                         fail.setContentText( "Elementul "+addString+" exista in baza de date" );
                         fail.showAndWait();
                         addProj.clear();
-                        break;
+                        return;
                     }
                     if (fileLine.equalsIgnoreCase( inactiveString )) {
                         Alert fail = new Alert( Alert.AlertType.INFORMATION );
                         fail.setHeaderText( "Atentie!" );
-                        fail.setContentText( "Elementul " + addString + " este inactiv in baza de date" );
+                        fail.setContentText( "Elementul " + addString + " este Arhivat in baza de date" );
                         fail.showAndWait();
                         addProj.clear();
-                        break;
+                        return;
                     }
-                }
 
                 if (fileLine == null || (!(fileLine.equalsIgnoreCase(addString))
-                        && !(inactiveString.equalsIgnoreCase( fileLine )))){
+                        && !(inactiveString.equalsIgnoreCase( fileLine )))) {
                     BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileNrProiect, true ) );
-                    writer.append( addString+ "\n" );
+                    writer.append( addString + "\n" );
                     writer.close();
                     ItemList.appendText( addString + "\n" ); // ad data in TextArea from text field
                     addProj.clear();
@@ -237,19 +234,19 @@ public class ControllerStageAdminNrProiect implements Initializable {
                     sortFile();
 
                     String addProiectToDB = "INSERT INTO bugetPROJ nrProiect";
-                    try (PreparedStatement statement = connection.prepareStatement( addProiectToDB );){
-                        double val= parseDouble( addValProj.getText());
-                        val = Math.round( val*100);
-                        val = val/100;
-                        statement.executeUpdate( "INSERT INTO bugetPROJ (nrProiect, denProiect, startProiect, valInitiala, valRectificare, valFinala ) VALUES('"+addString+"','"+addDenumireProj.getCharacters().toString()+"','"+addDataAprobariiProj.getValue()+"','"+addValProj.getText()+"','0','"+val+"')" );
+                    try (PreparedStatement statement = connection.prepareStatement( addProiectToDB );) {
+                        double val = parseDouble( addValProj.getText() );
+                        val = Math.round( val * 100 );
+                        val = val / 100;
+                        statement.executeUpdate( "INSERT INTO bugetPROJ (nrProiect, denProiect, startProiect, valInitiala, valRectificare, valFinala ) VALUES('" + addString + "','" + addDenumireProj.getCharacters().toString() + "','" + addDataAprobariiProj.getValue() + "','" + addValProj.getText() + "','0','" + val + "')" );
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     addDenumireProj.clear();
                     addValProj.clear();
                     addDataAprobariiProj.getEditor().clear();
-
-
+                    return;
+                }
                 }
             } catch (IOException e) {
                 e.printStackTrace();

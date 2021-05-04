@@ -167,7 +167,7 @@ public class ControllerStageAdminDeviz implements Initializable {
         BufferedReader bReader = new BufferedReader(new FileReader( pathFileDeviz ));
         String fileLine;
         String addString = addDeviz.getCharacters().toString();
-        String inactiveString = "INACTIV-".concat( addString );
+        String inactiveString = "Arhivat-".concat( addString );
         String addCtFzString = addDeviz.getCharacters().toString();
 
         if (addString.isEmpty()) {
@@ -178,11 +178,11 @@ public class ControllerStageAdminDeviz implements Initializable {
         }
         else {
             try {
-                while((fileLine=bReader.readLine()) != null){
-                    if(fileLine.equalsIgnoreCase(addString )) {
+                while((fileLine=bReader.readLine()) != null) {
+                    if (fileLine.equalsIgnoreCase( addString )) {
                         Alert fail = new Alert( Alert.AlertType.INFORMATION );
                         fail.setHeaderText( "Atentie!" );
-                        fail.setContentText( "Elementul "+addString+" exista in baza de date" );
+                        fail.setContentText( "Elementul " + addString + " exista in baza de date" );
                         fail.showAndWait();
                         addDeviz.clear();
                         break;
@@ -190,26 +190,28 @@ public class ControllerStageAdminDeviz implements Initializable {
                     if (fileLine.equalsIgnoreCase( inactiveString )) {
                         Alert fail = new Alert( Alert.AlertType.INFORMATION );
                         fail.setHeaderText( "Atentie!" );
-                        fail.setContentText( "Elementul " + addString + " este inactiv in baza de date" );
+                        fail.setContentText( "Elementul " + addString + " este Arhivat in baza de date" );
                         fail.showAndWait();
                         addDeviz.clear();
                         break;
                     }
                 }
 
-                if (fileLine == null || (!(fileLine.equalsIgnoreCase(addCtFzString))
-                        && !(inactiveString.equalsIgnoreCase( fileLine )))) {
-                    BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileDeviz, true ) );
-                    writer.append( addString+ "\n" );
-                    writer.close();
-                    ItemList.appendText( addString + "\n" ); // ad data in TextArea from text field
-                    addDeviz.clear();
-                    this.added.setText( "Ati adaugat cu succes" );
-                    sortFile();
-                }
-            } catch (IOException e) {
+                    if (fileLine == null || (!(fileLine.equalsIgnoreCase( addCtFzString ))
+                            && !(inactiveString.equalsIgnoreCase( fileLine )))) {
+                        BufferedWriter writer = new BufferedWriter( new FileWriter( pathFileDeviz, true ) );
+                        writer.append( addString + "\n" );
+                        writer.close();
+                        ItemList.appendText( addString + "\n" ); // ad data in TextArea from text field
+                        addDeviz.clear();
+                        this.added.setText( "Ati adaugat cu succes" );
+                        sortFile();
+
+                    }
+                } catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
     }
     public static void sortFile() throws IOException
