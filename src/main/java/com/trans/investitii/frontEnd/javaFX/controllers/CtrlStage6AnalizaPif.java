@@ -1,7 +1,5 @@
-package com.trans.investitii.frontEnd.javaFX.controllers;
+package main.java.com.trans.investitii.frontEnd.javaFX.controllers;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
-import com.sun.xml.internal.fastinfoset.util.ValueArrayResourceException;
 import com.trans.investitii.backEnd.DBase.Investitii;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,9 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.codehaus.jackson.map.deser.PropertyValueBuffer;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -61,10 +57,6 @@ public class CtrlStage6AnalizaPif<dataInceput> implements Initializable {
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
     Statement stm = connection.createStatement();
-//    LocalDate data1 = dataInceput.getValue();
-//    LocalDate data2 =dataSfarsit.getValue();
-
-
 
     ResultSet rs1 = stm.executeQuery( "SELECT org, invTBL.nrProiect, denProiect, nrPIF, dataPIF, respProiect, Round(SUM(invTBL.valInitiala), 2) as valInitiala FROM invTBL, bugetProj WHERE invTBL.nrPIF!='null' AND bugetProj.nrProiect=invTBL.nrProiect  GROUP BY nrPIF " );
 
@@ -81,13 +73,10 @@ public class CtrlStage6AnalizaPif<dataInceput> implements Initializable {
      */
 
 
-
-
     @Override
     public void initialize  (URL location, ResourceBundle resources) {
         if (dataInceput.getValue()==null || dataSfarsit==null){
             dataSfarsit.setValue( LocalDate.now());
-//            data2 = LocalDate.ofEpochDay(01\01\2021);
             dataInceput.setValue(LocalDate.ofEpochDay(01/01/2021));
         }
 
@@ -101,8 +90,6 @@ public class CtrlStage6AnalizaPif<dataInceput> implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         this.location = location;
         this.resources = resources;
 

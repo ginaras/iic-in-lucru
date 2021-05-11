@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trans.investitii.frontEnd.javaFX.controllers.CtrlStage6AnalizaPif">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.trans.investitii.frontEnd.javaFX.controllers.CtrlStage6AnalizaPif">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="20.0" fill="#065bab" height="110.0" layoutX="5.0" layoutY="3.0" stroke="BLACK" strokeDashOffset="5.0" strokeLineJoin="BEVEL" strokeWidth="10.0" width="1190.0" />
       <Text fill="WHITE" fontSmoothingType="LCD" layoutX="391.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Situatia PIF-urilor de investitii">

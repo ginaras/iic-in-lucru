@@ -396,9 +396,7 @@ public class CtrlStage4PIF implements Initializable {
         for (Investitii factura : selectedRows) {
             allInvoice.remove( factura );
         }
-
     }
-
 
     public void returFactura ( ActionEvent event ) {
             ObservableList<Investitii> selectedRows, allInvoice;
@@ -461,8 +459,8 @@ public class CtrlStage4PIF implements Initializable {
         Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
         windowStage1Intro.setScene( tableViewScene );
         windowStage1Intro.show();
-
     }
+
     public void clickedValueTabelFinalPif ( MouseEvent event ){
 
         Investitii selectValoare = tabelFinalPif.getSelectionModel().getSelectedItem();
@@ -536,11 +534,11 @@ public class CtrlStage4PIF implements Initializable {
                 "OR nrCrt = '" + labelNrCrt13.getText() + "'OR nrCrt = '" + labelNrCrt14.getText() + "'OR nrCrt = '" + labelNrCrt15.getText() + "'OR nrCrt = '" + labelNrCrt16.getText() + "'OR nrCrt = '" + labelNrCrt17.getText() + "'OR nrCrt = '" + labelNrCrt18.getText() + "'OR nrCrt = '" + labelNrCrt19.getText() + "'" +
                 "OR nrCrt = '" + labelNrCrt20.getText() + "'OR nrCrt = '" + labelNrCrt21.getText() + "'OR nrCrt = '" + labelNrCrt22.getText() + "'OR nrCrt = '" + labelNrCrt23.getText() + "'OR nrCrt = '" + labelNrCrt24.getText() + "'OR nrCrt = '" + labelNrCrt25.getText() + "'OR nrCrt = '" + labelNrCrt26.getText() + "'" +
                 "OR nrCrt = '" + labelNrCrt27.getText() + "'OR nrCrt = '" + labelNrCrt28.getText() + "'OR nrCrt = '" + labelNrCrt29.getText() +"' ";
-                String nrPif= "UPDATE invTBL SET nrPIF='" + textFieldNrPVR.getText() + "' WHERE nrCrt = '" + labelNrCrt.getText() + "' OR nrCrt = '" + labelNrCrt1.getText() + "' OR nrCrt = '" + labelNrCrt2.getText() + "' OR nrCrt = '" + labelNrCrt3.getText() + "' OR nrCrt = '" + labelNrCrt4.getText() + "' OR nrCrt = '" + labelNrCrt5.getText() + "'" +
-                        "OR nrCrt = '" + labelNrCrt6.getText() + "'OR nrCrt = '" + labelNrCrt7.getText() + "'OR nrCrt = '" + labelNrCrt8.getText() + "'OR nrCrt = '" + labelNrCrt9.getText() + "'OR nrCrt = '" + labelNrCrt10.getText() + "'OR nrCrt = '" + labelNrCrt11.getText() + "'OR nrCrt = '" + labelNrCrt12.getText() + "'" +
-                        "OR nrCrt = '" + labelNrCrt13.getText() + "'OR nrCrt = '" + labelNrCrt14.getText() + "'OR nrCrt = '" + labelNrCrt15.getText() + "'OR nrCrt = '" + labelNrCrt16.getText() + "'OR nrCrt = '" + labelNrCrt17.getText() + "'OR nrCrt = '" + labelNrCrt18.getText() + "'OR nrCrt = '" + labelNrCrt19.getText() + "'" +
-                        "OR nrCrt = '" + labelNrCrt20.getText() + "'OR nrCrt = '" + labelNrCrt21.getText() + "'OR nrCrt = '" + labelNrCrt22.getText() + "'OR nrCrt = '" + labelNrCrt23.getText() + "'OR nrCrt = '" + labelNrCrt24.getText() + "'OR nrCrt = '" + labelNrCrt25.getText() + "'OR nrCrt = '" + labelNrCrt26.getText() + "'" +
-                        "OR nrCrt = '" + labelNrCrt27.getText() + "'OR nrCrt = '" + labelNrCrt28.getText() + "'OR nrCrt = '" + labelNrCrt29.getText() +"' ";
+        String nrPif= "UPDATE invTBL SET nrPIF='" + textFieldNrPVR.getText() + "' WHERE nrCrt = '" + labelNrCrt.getText() + "' OR nrCrt = '" + labelNrCrt1.getText() + "' OR nrCrt = '" + labelNrCrt2.getText() + "' OR nrCrt = '" + labelNrCrt3.getText() + "' OR nrCrt = '" + labelNrCrt4.getText() + "' OR nrCrt = '" + labelNrCrt5.getText() + "'" +
+                "OR nrCrt = '" + labelNrCrt6.getText() + "'OR nrCrt = '" + labelNrCrt7.getText() + "'OR nrCrt = '" + labelNrCrt8.getText() + "'OR nrCrt = '" + labelNrCrt9.getText() + "'OR nrCrt = '" + labelNrCrt10.getText() + "'OR nrCrt = '" + labelNrCrt11.getText() + "'OR nrCrt = '" + labelNrCrt12.getText() + "'" +
+                "OR nrCrt = '" + labelNrCrt13.getText() + "'OR nrCrt = '" + labelNrCrt14.getText() + "'OR nrCrt = '" + labelNrCrt15.getText() + "'OR nrCrt = '" + labelNrCrt16.getText() + "'OR nrCrt = '" + labelNrCrt17.getText() + "'OR nrCrt = '" + labelNrCrt18.getText() + "'OR nrCrt = '" + labelNrCrt19.getText() + "'" +
+                "OR nrCrt = '" + labelNrCrt20.getText() + "'OR nrCrt = '" + labelNrCrt21.getText() + "'OR nrCrt = '" + labelNrCrt22.getText() + "'OR nrCrt = '" + labelNrCrt23.getText() + "'OR nrCrt = '" + labelNrCrt24.getText() + "'OR nrCrt = '" + labelNrCrt25.getText() + "'OR nrCrt = '" + labelNrCrt26.getText() + "'" +
+                "OR nrCrt = '" + labelNrCrt27.getText() + "'OR nrCrt = '" + labelNrCrt28.getText() + "'OR nrCrt = '" + labelNrCrt29.getText() +"' ";
         String dataPIIF="UPDATE invTBL SET dataPIF='" + dataPIF.getValue() + "' WHERE nrCrt = '" + labelNrCrt.getText() + "' OR nrCrt = '" + labelNrCrt1.getText() + "' OR nrCrt = '" + labelNrCrt2.getText() + "' OR nrCrt = '" + labelNrCrt3.getText() + "' OR nrCrt = '" + labelNrCrt4.getText() + "' OR nrCrt = '" + labelNrCrt5.getText() + "' " +
                 "OR nrCrt = '" + labelNrCrt6.getText() + "'OR nrCrt = '" + labelNrCrt7.getText() + "'OR nrCrt = '" + labelNrCrt8.getText() + "'OR nrCrt = '" + labelNrCrt9.getText() + "'OR nrCrt = '" + labelNrCrt10.getText() + "'OR nrCrt = '" + labelNrCrt11.getText() + "'OR nrCrt = '" + labelNrCrt12.getText() + "'" +
                 "OR nrCrt = '" + labelNrCrt13.getText() + "'OR nrCrt = '" + labelNrCrt14.getText() + "'OR nrCrt = '" + labelNrCrt15.getText() + "'OR nrCrt = '" + labelNrCrt16.getText() + "'OR nrCrt = '" + labelNrCrt17.getText() + "'OR nrCrt = '" + labelNrCrt18.getText() + "'OR nrCrt = '" + labelNrCrt19.getText() + "'" +

@@ -282,7 +282,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="buttonMachetaTrimestriala" layoutX="917.0" layoutY="690.0" mnemonicParsing="false" onAction="#goToMachetaTrimestriala" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Macheta Trimestriala" textFill="#fcfbf5">
+      <Button fx:id="buttonMachetaTrimestriala" layoutX="970.0" layoutY="690.0" mnemonicParsing="false" onAction="#goToMachetaTrimestriala" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Afisaza macheta " textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -314,5 +314,16 @@
             <Font size="15.0" />
          </font>
       </Label>
+      <Label layoutX="855.0" layoutY="566.0" text="Raport: Situatia investitiilor in curs in perioada:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelTotalRealizatOrg1" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="770.0" layoutY="246.0" text="0" />
+      <Label fx:id="labelDiferentaOrg1" layoutX="1090.0" layoutY="246.0" text="0" />
+      <Label fx:id="labelTotalRealizatProj1" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="770.0" layoutY="378.0" text="0" />
+      <Label fx:id="labelDiferentaProj1" layoutX="1090.0" layoutY="378.0" text="0" />
+      <Label fx:id="labelTotalRealizatFz1" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="770.0" layoutY="491.0" nodeOrientation="RIGHT_TO_LEFT" text="0" />
+      <Label fx:id="labelDiferentafz1" layoutX="1127.0" layoutY="491.0" text="0" />
    </children>
 </AnchorPane>

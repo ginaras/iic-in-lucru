@@ -59,14 +59,12 @@ public class CtrlStage3RapoarteInv implements Initializable {
     public Label setProj;
     public Label setFz;
 
-    public DatePicker dataFinala;
     public Button buttonBackSt0;
     public ComboBox comboBoxButtonFz;
     public ComboBox comboBoxButtonOrg;
     public ComboBox comboBoxButtonProj;
     public ComboBox comboBoxButtonOrgYear;
     public Button resetButton;
-    public Button selectButton;
     public Button butonStage2Rapoarte;
     public Button goToStage4Pif;
     public Button butonStage1Intro;
@@ -77,6 +75,13 @@ public class CtrlStage3RapoarteInv implements Initializable {
     public Button buttonMachetaTrimestriala;
     public DatePicker laDataMachetaTrimestriala;
     public DatePicker deLaDataMachetaTrimestriala;
+
+    public Label labelTotalRealizatOrg1;
+    public Label labelDiferentaOrg1;
+    public Label labelTotalRealizatProj1;
+    public Label labelDiferentaProj1;
+    public Label labelTotalRealizatFz1;
+    public Label labelDiferentafz1;
 
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
@@ -230,6 +235,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
                     totalAnRealizatOrg=rsOrg.getDouble( "totalAnRealizatOrg" );
                 }
                 double totalAnRealizatOrgD =  totalAnRealizatOrg * 100 / 100;
+                double totalAnRealizatOrgD1 =  totalAnRealizatOrg * 100 / 100;
 
                 labelTotalRealizatOrg.setText( df.format(totalAnRealizatOrgD)  );
 
@@ -247,7 +253,15 @@ public class CtrlStage3RapoarteInv implements Initializable {
         totalRealizatOrg = totalRealizatOrg.replace(".","");
 
         double difOrg = Integer.parseInt(estimatFinalOrg)-Integer.parseInt(totalRealizatOrg)/100;
-        labelDiferentaOrg.setText(df.format(difOrg));
+        if (estimatFinalOrg!=null) {
+            double difOrg1 = ( Double.parseDouble(estimatFinalOrg) - Double.parseDouble(totalRealizatOrg) / 100 ) * 100 / Double.parseDouble(estimatFinalOrg);
+            labelDiferentaOrg1.setText(df.format(difOrg1) + " %");
+
+            double totalAnRealizatOrgD = ( ( Double.parseDouble(totalRealizatOrg) / 100 ) ) * 100 / Double.parseDouble(estimatFinalOrg);
+            labelTotalRealizatOrg1.setText(df.format(totalAnRealizatOrgD)+" %");
+        }
+            labelDiferentaOrg.setText(df.format(difOrg));
+
     }
 
     public void comboBoxActProj ( ActionEvent actionEvent ) throws SQLException {
@@ -356,9 +370,30 @@ public class CtrlStage3RapoarteInv implements Initializable {
 
 
         double totalRealizatDouble = Double.parseDouble(totalRealizatProjBrut);
+        if (estimatFinalProj !=null) {
+            double totalRealizatDouble1 = Double.parseDouble(totalRealizatProjBrut) * 100 / Double.parseDouble(estimatFinalProj);
+            labelTotalRealizatProj1.setText(df.format(totalRealizatDouble1)+" %");
 
+            double difProj1 = (Double.parseDouble(estimatFinalProj)-Double.parseDouble(String.valueOf(totalRealizatDouble)))*100/Double.parseDouble(estimatFinalProj);
+            labelDiferentaProj1.setText(df.format(difProj1)+" %");
+        }
         int difProj = Integer.parseInt(estimatFinalProj)-((int) totalRealizatDouble);
         labelDiferentaProj.setText(df.format(difProj));
+
+        if(comboBoxButtonProj.getValue()!=null){
+
+            String denProj="SELECT denProiect from bugetProj WHERE nrProiect = '"+comboBoxButtonProj.getValue()+"' ";
+            ResultSet rsDenProj= stm.executeQuery(denProj);
+            try {
+                while (rsDenProj.next()){
+                    String denProjInTbl = rsDenProj.getString("denProiect");
+                    setProj.setText( denProjInTbl);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
 
 
     }
@@ -491,7 +526,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
             totalRealizatFz = totalRealizatFz.replace(",", "");
             totalRealizatFz = totalRealizatFz.replace(".","");
 
-            double difFz = Integer.parseInt(estimatFinalFz)-Integer.parseInt(totalRealizatFz)/100;
+            double difFz = Integer.parseInt(estimatFinalFz)-Integer.parseInt(totalRealizatFz);
             labelDiferentafz.setText(df.format(difFz));
 
 
@@ -555,7 +590,14 @@ public class CtrlStage3RapoarteInv implements Initializable {
             totalRealizatFz = totalRealizatFz.replace(".","");
 
 
-            double difFz = Integer.parseInt(estimatFinalFz)-Integer.parseInt(totalRealizatFz)/100;
+            double difFz = Integer.parseInt(estimatFinalFz)-Integer.parseInt(totalRealizatFz);
+            if (estimatFinalFz!=null) {
+                double difFz1 = ( Double.parseDouble(estimatFinalFz) - Double.parseDouble(totalRealizatFz)  ) * 100 / Double.parseDouble(estimatFinalFz);
+                labelDiferentafz1.setText(df.format(difFz1)+" %");
+
+                double totalRealizatFz1 = ((Double.parseDouble(totalRealizatFz))*100/Double.parseDouble(estimatFinalFz));
+                labelTotalRealizatFz1.setText(df.format(totalRealizatFz1)+" %");
+            }
             labelDiferentafz.setText(df.format(difFz));
 
         }
