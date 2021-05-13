@@ -1,4 +1,4 @@
-package com.trans.investitii.frontEnd.javaFX.controllers.admin;
+package main.java.com.trans.investitii.frontEnd.javaFX.controllers.admin;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -9,21 +9,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import javax.security.auth.callback.Callback;
-import javax.security.auth.callback.ConfirmationCallback;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.Collator;
-import java.util.*;
-import java.util.regex.Pattern;
+import java.util.List;
+import java.util.ResourceBundle;
 
 
 @SuppressWarnings("ALL")

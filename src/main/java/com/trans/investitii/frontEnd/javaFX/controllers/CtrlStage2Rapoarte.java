@@ -1,4 +1,4 @@
-package com.trans.investitii.frontEnd.javaFX.controllers;
+package main.java.com.trans.investitii.frontEnd.javaFX.controllers;
 
 import com.trans.investitii.backEnd.DBase.Investitii;
 import javafx.collections.FXCollections;
@@ -311,8 +311,8 @@ public class CtrlStage2Rapoarte implements Initializable {
                 DateTimeFormatter date2 = DateTimeFormatter.ofPattern( "yyyy-MM-dd 'ora' hh.mm" );
                 String replaceNume2 = date0.format( date2 );
 
-                BufferedWriter writer0 = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\detaliu_investitii-" + replaceNume2 + ".csv", false ) );
-                writer0.append( "nrCrt; furnizor; nrFactura; dataFacturii; dataContabilizarii; valoare; nr_PIF; Data_PIF; valoare_Initiala; tva; valTot; contract; contInv; contFz; nrProiect; deviz; org; respProiect" );
+                BufferedWriter writer0 = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\"+replaceNume2+" - detaliu_investitii.csv", false ) );
+                writer0.append( "nrCrt; furnizor; nrFactura; dataFacturii; dataContabilizarii; valoare; descriereFactura; nr_PIF; Data_PIF; valoare_Initiala; tva; valTot; contract; contInv; contFz; nrProiect; deviz; org; respProiect" );
                 writer0.close();
 //Parcurgerea BD si extragerea datelor iterate through the java resultset
                 while (rs.next()) {
@@ -322,6 +322,7 @@ public class CtrlStage2Rapoarte implements Initializable {
                     Date dataFacturiiPrint = rs.getDate( "dataFacturii" );
                     Date dataContabilizariiPrint = rs.getDate( "dataContabilizarii" );
                     String valoarePrint = rs.getString( "valoare" );
+                    String descrierePrint = rs.getString("descriereFactura");
                     String nrPIFPrint = rs.getString( "nrPIF" );
                     Date dataPIFPrint = rs.getDate( "dataPIF" );
                     String valoareInitialaPrint = rs.getString( "valInitiala" );
@@ -336,15 +337,15 @@ public class CtrlStage2Rapoarte implements Initializable {
                     String respProiectPrint = rs.getString( "respProiect" );
 
 //print - adaugarea datelor in fisier
-                    String datele =  nrCrtPrint + ";" + furnizorPrint + ";" + nrFacturaPrint + ";" +dataFacturiiPrint+";"+ dataContabilizariiPrint+";"+ valoarePrint + ";"+nrPIFPrint+";"+dataPIFPrint+";"+valoareInitialaPrint + ";"+tvaPrint + ";"  +valTotPrint + ";" +contractPrint + ";" +contInvPrint + ";" +contFzPrint
+                    String datele =  nrCrtPrint + ";" + furnizorPrint + ";" + nrFacturaPrint + ";" +dataFacturiiPrint+";"+ dataContabilizariiPrint+";"+ valoarePrint +";"+descrierePrint+ ";"+nrPIFPrint+";"+dataPIFPrint+";"+valoareInitialaPrint + ";"+tvaPrint + ";"  +valTotPrint + ";" +contractPrint + ";" +contInvPrint + ";" +contFzPrint
                             + ";" +nrProiectPrint  + ";" +devizPrint + ";" +orgPrint  + ";" +respProiectPrint;
-                    BufferedWriter writer = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\detaliu_investitii-" + replaceNume2 + ".csv", true ) );
+                    BufferedWriter writer = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\"+replaceNume2+" - detaliu_investitii.csv", true ) );
                     writer.append( " \n" );
                     writer.append( datele );
                     writer.close();
                 }
                 Desktop desktop = null;
-                desktop.getDesktop().open( new File( "c:\\Investitii\\rapoarte\\detaliu_investitii-" + replaceNume2 + ".csv" ) );
+                desktop.getDesktop().open( new File( "c:\\Investitii\\rapoarte\\"+replaceNume2+" - detaliu_investitii.csv" ) );
 
             } catch (IOException | SQLException ioException) {
                 ioException.printStackTrace();
@@ -411,8 +412,8 @@ public class CtrlStage2Rapoarte implements Initializable {
         DateTimeFormatter date2 = DateTimeFormatter.ofPattern( "yyyy-MM-dd 'ora' hh.mm" );
         String replaceNume2 = date0.format( date2 );
 
-        BufferedWriter writer0 = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\Selectie-investitii-" + replaceNume2 + ".csv", false ) );
-        writer0.append( "nrCrt; furnizor; nrFactura; dataFacturii; dataContabilizarii; valoare_ramasa; nrPIF; Data_PIF; valoare_Initiala; tva; valTot; contract; contInv; contFz; nrProiect; deviz; org; respProiect" );
+        BufferedWriter writer0 = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\"+replaceNume2+" - detaliu_investitii.csv", false ) );
+        writer0.append( "nrCrt; furnizor; nrFactura; dataFacturii; dataContabilizarii; valoare_ramasa; descriereFactura; nrPIF; Data_PIF; valoare_Initiala; tva; valTot; contract; contInv; contFz; nrProiect; deviz; org; respProiect" );
         writer0.close();
 
             ResultSet rsSelectXLS = stm.executeQuery( query );
@@ -423,6 +424,7 @@ public class CtrlStage2Rapoarte implements Initializable {
             Date dataFacturiiPrint = rsSelectXLS.getDate( "dataFacturii" );
             Date dataContabilizariiPrint = rsSelectXLS.getDate( "dataContabilizarii" );
             String valoarePrint = rsSelectXLS.getString( "valoare" );
+            String descrierePrint = rsSelectXLS.getString("descriereFactura");
             String nrPIFPrint = rsSelectXLS.getString( "nrPIF" );
             Date dataPIFPrint = rsSelectXLS.getDate( "dataPIF" );
             String valoareInitPrint = rsSelectXLS.getString( "valInitiala" );
@@ -437,15 +439,15 @@ public class CtrlStage2Rapoarte implements Initializable {
             String respProiectPrint = rsSelectXLS.getString( "respProiect" );
 
 
-            String datele = nrCrtPrint + ";" +furnizorPrint + ";" +nrFacturaPrint + ";" + dataFacturiiPrint + ";" + dataContabilizariiPrint + ";" +valoarePrint +";"+nrPIFPrint+";"+dataPIFPrint+ ";" +valoareInitPrint + ";" +tvaPrint + ";" +valTotPrint + ";" +contractPrint + ";" +contInvPrint + ";" +contFzPrint
+            String datele = nrCrtPrint + ";" +furnizorPrint + ";" +nrFacturaPrint + ";" + dataFacturiiPrint + ";" + dataContabilizariiPrint + ";" +valoarePrint +";"+descrierePrint+";"+nrPIFPrint+";"+dataPIFPrint+ ";" +valoareInitPrint + ";" +tvaPrint + ";" +valTotPrint + ";" +contractPrint + ";" +contInvPrint + ";" +contFzPrint
                     + ";" +nrProiectPrint + ";" +devizPrint + ";" +orgPrint + ";" +respProiectPrint;
-            BufferedWriter writer = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\Selectie-investitii-" + replaceNume2 + ".csv", true ) );
+            BufferedWriter writer = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\"+replaceNume2+" - detaliu_investitii.csv", true ) );
             writer.append( " \n" );
             writer.append( datele );
             writer.close();
         }
             Desktop desktop1 = null;
-            desktop1.getDesktop().open( new File( "c:\\Investitii\\rapoarte\\Selectie-investitii-" + replaceNume2 + ".csv" ) );
+            desktop1.getDesktop().open( new File( "c:\\Investitii\\rapoarte\\"+replaceNume2+" - detaliu_investitii.csv" ) );
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (IOException e) {

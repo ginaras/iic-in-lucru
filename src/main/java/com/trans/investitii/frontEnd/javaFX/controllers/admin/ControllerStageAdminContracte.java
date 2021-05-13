@@ -1,4 +1,4 @@
-package com.trans.investitii.frontEnd.javaFX.controllers.admin;
+package main.java.com.trans.investitii.frontEnd.javaFX.controllers.admin;
 
 import com.trans.investitii.backEnd.DBase.Investitii;
 import javafx.collections.FXCollections;

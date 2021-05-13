@@ -109,9 +109,6 @@ public class Investitii {
     public void setDataPIF(Date dataPIF) {
         this.dataPIF = dataPIF;
     }
-//    public void setValInitiala(String valInitiala) {
-//        this.valInitiala = valInitiala;
-//    }
 
 
     public String getValInitialaInvTBL() {
@@ -191,7 +188,6 @@ public class Investitii {
 
     public Investitii ( String addContract ) {
         this.addContract = addContract;
-
     }
 
 
@@ -334,7 +330,7 @@ public class Investitii {
         this.dataContabilizarii= LocalDate.parse(dataContabilizarii);
     }
     // constructor pt rapoarte
-    public Investitii ( String furnizor, String nrFactura, String valoare,String valInitiala, String dataContabilizarii, String respProiect, String contract, String contInv, String contFz, String nrProiect, String org ) {
+    public Investitii ( String furnizor, String nrFactura, String valoare, String valInitiala, String dataContabilizarii, String respProiect, String contract, String contInv, String contFz, String nrProiect, String org ) {
         this.furnizor=furnizor;
         this.valoare= valoare;
         this.valInitiala =valInitiala;
