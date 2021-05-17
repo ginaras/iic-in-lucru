@@ -660,17 +660,25 @@ public class CtrlStage3RapoarteInv implements Initializable {
             return;
         }
         else{
+            Object dataInit=deLaDataMachetaTrimestriala.getValue();
+            Object dataFinala = laDataMachetaTrimestriala.getValue();
         try {
             Connection connection = DriverManager.getConnection(Investitii.URL, Investitii.USER, Investitii.PASSWORD );
             Statement st = connection.createStatement();
 
             String situatiaImobilizarilor = "SELECT bugetProj.nrCrt, bugetProj.denProiect, " +
-                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS soldInitial FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND invTBL.dataContabilizarii<= '" +deLaDataMachetaTrimestriala.getValue()+"' GROUP BY bugetProj.nrProiect) AS soldInitial, " +
-                    "(SELECT ROUND(SUM(invTBL.valoare),2) AS soldFinal FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect and dataContabilizarii<='"+laDataMachetaTrimestriala.getValue()+"') AS soldFinal, " +
-                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS intrari FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataContabilizarii  AND invTBL.dataContabilizarii <='"+laDataMachetaTrimestriala.getValue()+"') AS intrari, " +
-                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiri FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataPIF <= '"+laDataMachetaTrimestriala.getValue()+"') AS iesiri, " +
-                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiriDinSold FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataPIF <= '"+laDataMachetaTrimestriala.getValue()+"' and dataContabilizarii<='"+deLaDataMachetaTrimestriala.getValue()+"') AS iesiriDinSold, " +
-                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiriDinPerioada FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataPIF <= '"+laDataMachetaTrimestriala.getValue()+"' AND dataContabilizarii>='"+deLaDataMachetaTrimestriala.getValue()+"') AS iesiriDinPerioada, " +
+                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS soldInitial FROM invTBL WHERE (bugetProj.nrProiect=invTBL.nrProiect AND invTBL.dataContabilizarii<= '" +dataInit+"'  ) GROUP BY bugetProj.nrProiect) AS soldInitial, " + //invTBL.dataPIF<='"+dataInit+"') OR (
+                    "(SELECT ROUND(SUM(invTBL.valoare),2) AS soldFinal FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND dataContabilizarii<='"+dataFinala+"') AS soldFinal, " +
+                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS intrari FROM invTBL WHERE  bugetProj.nrProiect=invTBL.nrProiect AND '"+dataInit+"' <= invTBL.dataContabilizarii  AND invTBL.dataContabilizarii <='"+dataFinala+"') AS intrari, " +
+                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiri FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND invTBL.dataPIF>= '"+dataInit+"' AND invTBL.dataPIF<= '"+dataFinala+"') AS iesiri, " +
+                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiriDinSold FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+dataInit+"' <= invTBL.dataPIF  AND invTBL.dataPIF<= '"+dataFinala+"' and dataContabilizarii<='"+dataInit+"') AS iesiriDinSold, " +
+                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiriDinPerioada FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+dataInit+"' <= invTBL.dataPIF AND invTBL.dataPIF <= '"+dataFinala+"' AND dataContabilizarii>='"+dataInit+"') AS iesiriDinPerioada, " +
+//                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS soldInitial FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND invTBL.dataContabilizarii<= '" +deLaDataMachetaTrimestriala.getValue()+"' GROUP BY bugetProj.nrProiect) AS soldInitial, " +
+//                    "(SELECT ROUND(SUM(invTBL.valoare),2) AS soldFinal FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect and dataContabilizarii<='"+laDataMachetaTrimestriala.getValue()+"') AS soldFinal, " +
+//                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS intrari FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataContabilizarii  AND invTBL.dataContabilizarii <='"+laDataMachetaTrimestriala.getValue()+"') AS intrari, " +
+//                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiri FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataPIF <= '"+laDataMachetaTrimestriala.getValue()+"') AS iesiri, " +
+//                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiriDinSold FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataPIF <= '"+laDataMachetaTrimestriala.getValue()+"' and dataContabilizarii<='"+deLaDataMachetaTrimestriala.getValue()+"') AS iesiriDinSold, " +
+//                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiriDinPerioada FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataPIF <= '"+laDataMachetaTrimestriala.getValue()+"' AND dataContabilizarii>='"+deLaDataMachetaTrimestriala.getValue()+"') AS iesiriDinPerioada, " +
 
                     "bugetProj.nrProiect FROM invTBL, bugetProj WHERE bugetProj.nrProiect=invTBL.nrProiect GROUP BY bugetProj.nrProiect ";
 
@@ -686,7 +694,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
             String replaceNumeData1 = date1.format( date01 );
 
             BufferedWriter writer0 = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\SituatiaImobilizarilorLaData-" + replaceNumeData2 + "rulat la "+replaceNumeData1+".csv", false ) );
-            writer0.append( "nrCrt; denProiect; sold initial la "+deLaDataMachetaTrimestriala.getValue()+";  Total intrari; Iesiri Din existent la "+deLaDataMachetaTrimestriala.getValue()+"; Iesiri din intrarile perioadei; Total Iesiri; Sold la "+laDataMachetaTrimestriala.getValue()+"; Nr proiect" );
+            writer0.append( "nrCrt, denProiect, sold initial la "+dataInit+",  Total intrari, Iesiri Din existent la "+dataInit+", Iesiri din intrarile perioadei, Total Iesiri, Sold la "+dataFinala+", Nr proiect" );
             writer0.close();
 //Parcurgerea BD si extragerea datelor iterate through the java resultset
             while (rs.next()) {
@@ -709,19 +717,20 @@ public class CtrlStage3RapoarteInv implements Initializable {
                 if(intrariPrint==null){ intrariPrint = "0";}
 
 //print - adaugarea datelor in fisier
-                String datele =  nrCrtPrint+";"+ denProiectPrint + ";" + soldInitialPrint+";"+intrariPrint+";"+iesiriDinSoldPrint+";"+iesiriDinPerioadaPrint+";"+iesiriPrint+";"+soldFinalPrint+";"+nrProiectPrint;//" +dinSursePropriiPrint+";"+ totalIesiriPrint;
+                String datele =  nrCrtPrint+","+ denProiectPrint + "," + soldInitialPrint+","+intrariPrint+","+iesiriDinSoldPrint+","+iesiriDinPerioadaPrint+","+iesiriPrint+","+soldFinalPrint+","+nrProiectPrint;//" +dinSursePropriiPrint+";"+ totalIesiriPrint;
                 BufferedWriter writer = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\SituatiaImobilizarilorLaData-" + replaceNumeData2 + "rulat la "+replaceNumeData1+".csv", true ) );
                 writer.append( " \n" );
                 writer.append( datele );
                 writer.close();
             }
+
             String situatiaImobilizarilorTotal = "SELECT bugetProj.nrCrt, bugetProj.denProiect, " +
-                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS soldInitial FROM invTBL WHERE invTBL.dataContabilizarii<= '" +deLaDataMachetaTrimestriala.getValue()+"' GROUP BY bugetProj.nrProiect) AS soldInitial, " +
-                    "(SELECT ROUND(SUM(invTBL.valoare),2) AS soldFinal FROM invTBL WHERE dataContabilizarii<='"+laDataMachetaTrimestriala.getValue()+"') AS soldFinal, " +
-                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS intrari FROM invTBL WHERE  '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataContabilizarii  AND invTBL.dataContabilizarii <='"+laDataMachetaTrimestriala.getValue()+"') AS intrari, " +
-                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiri FROM invTBL WHERE '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataPIF <= '"+laDataMachetaTrimestriala.getValue()+"') AS iesiri, " +
-                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiriDinSold FROM invTBL WHERE '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataPIF <= '"+laDataMachetaTrimestriala.getValue()+"' and dataContabilizarii<='"+deLaDataMachetaTrimestriala.getValue()+"') AS iesiriDinSold, " +
-                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiriDinPerioada FROM invTBL WHERE '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataPIF <= '"+laDataMachetaTrimestriala.getValue()+"' AND dataContabilizarii>='"+deLaDataMachetaTrimestriala.getValue()+"') AS iesiriDinPerioada, " +
+                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS soldInitial FROM invTBL WHERE invTBL.dataContabilizarii<= '" +dataInit+"' AND invTBL.dataPIF>='"+dataInit+"' GROUP BY bugetProj.nrProiect) AS soldInitial, " +
+                    "(SELECT ROUND(SUM(invTBL.valoare),2) AS soldFinal FROM invTBL WHERE dataContabilizarii<='"+dataFinala+"') AS soldFinal, " +
+                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS intrari FROM invTBL WHERE  '"+dataInit+"' <= invTBL.dataContabilizarii  AND invTBL.dataContabilizarii <='"+dataFinala+"') AS intrari, " +
+                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiri FROM invTBL WHERE invTBL.dataPIF>= '"+dataInit+"' AND invTBL.dataPIF<= '"+dataFinala+"') AS iesiri, " +
+                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiriDinSold FROM invTBL WHERE '"+dataInit+"' <= invTBL.dataPIF  AND invTBL.dataPIF<= '"+dataFinala+"' and dataContabilizarii<='"+dataInit+"') AS iesiriDinSold, " +
+                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiriDinPerioada FROM invTBL WHERE '"+dataInit+"' <= invTBL.dataPIF AND invTBL.dataPIF <= '"+dataFinala+"' AND dataContabilizarii>='"+dataInit+"') AS iesiriDinPerioada, " +
                     "bugetProj.nrProiect, org FROM invTBL, bugetProj Group BY invtbl.org ";
 
                 ResultSet rsTotal = st.executeQuery( situatiaImobilizarilorTotal);
@@ -736,7 +745,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
                     String intrariPrintTotal = rsTotal.getString( "intrari" );
                     String soldFinalPrintTotal = rsTotal.getString( "soldFinal" );
 
-                    String totaluri =  ";Total  "+orgPrintTotal+";" + soldInitialPrintTotal+";"+intrariPrintTotal+";"+iesiriDinSoldPrintTotal+";"+iesiriDinPerioadaPrintTotal+";"+iesiriPrintTotal+";"+soldFinalPrintTotal+";";//" +dinSursePropriiPrint+";"+ totalIesiriPrint;
+                    String totaluri =  ",Total  "+orgPrintTotal+"," + soldInitialPrintTotal+","+intrariPrintTotal+","+iesiriDinSoldPrintTotal+","+iesiriDinPerioadaPrintTotal+","+iesiriPrintTotal+","+soldFinalPrintTotal+";";//" +dinSursePropriiPrint+";"+ totalIesiriPrint;
                     BufferedWriter writer = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\SituatiaImobilizarilorLaData-" + replaceNumeData2 + "rulat la "+replaceNumeData1+".csv", true ) );
                     writer.append( " \n" );
                     writer.append( totaluri );

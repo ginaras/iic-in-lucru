@@ -35,6 +35,7 @@ public class ControllerStage03AdminBugete implements Initializable {
     public Button buttonAplicaBugetOrg;
     public Button buttonAplicaBugetProj;
     public Button buttonAplicaBugetContract;
+
     public Button butonStage0;
     public CheckBox checkOrg;
     public CheckBox checkProj;

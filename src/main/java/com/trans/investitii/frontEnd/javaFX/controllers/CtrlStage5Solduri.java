@@ -1067,7 +1067,6 @@ public class CtrlStage5Solduri implements Initializable {
         List<String> myListFz = new ArrayList<>();
         List<String> myListOrg = new ArrayList<>();
 
-//        if (valueProj != null) {
             ResultSet rsDenProj = stm2.executeQuery("SELECT denProiect FROM bugetProj WHERE nrProiect='" + valueProj + "'");
             String denProj = null;
             try {
@@ -1078,7 +1077,6 @@ public class CtrlStage5Solduri implements Initializable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-//        }
 // restrangere lista furnizori
 
             ResultSet rsProjFz = stm2.executeQuery(selectFz);

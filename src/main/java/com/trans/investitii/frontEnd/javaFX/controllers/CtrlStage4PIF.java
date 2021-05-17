@@ -338,7 +338,7 @@ public class CtrlStage4PIF implements Initializable {
 
             Alert confirm = new Alert( Alert.AlertType.INFORMATION );
             confirm.setHeaderText( "Ați ajuns la limita de 30 de facturi selectate!" );
-            confirm.setContentText( "Apargeti PIFul in mai multe");
+            confirm.setContentText( "Spargeti PIF-ul in mai multe secvente de maxim 30 de facturi");
             confirm.show();
         }
 
