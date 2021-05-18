@@ -27,7 +27,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class CtrlStage6AnalizaPif<dataInceput> implements Initializable {
+public class CtrlStage6AnalizaPif<dataInceput> implements    Initializable {
     public ComboBox comboBoxButtonProj;
     public ComboBox comboBoxButtonOrg;
 

@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" hgap="10" prefHeight="800" prefWidth="1200" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.trans.investitii.frontEnd.javaFX.controllers.admin.ControllerStageAdminContFZ">
+<GridPane alignment="center" hgap="10" prefHeight="800" prefWidth="1200" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.trans.investitii.frontEnd.javaFX.controllers.admin.ControllerStageAdminFz">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -221,7 +229,7 @@
                   <Font size="16.0" />
                </font></Button>
             <TextField fx:id="addCtFZ" layoutX="719.0" layoutY="289.0" prefHeight="31.0" prefWidth="281.0" promptText="Introdu noul furnizor" />
-            <Text layoutX="611.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cont nou" />
+            <Text layoutX="611.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cont nou " />
             <Button fx:id="adminDeviz" layoutX="90.0" layoutY="623.0" mnemonicParsing="false" onAction="#goOnAdminDeviz" style="-fx-background-color: #0F4CC1;" text="Administrare devize" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trans.investitii.frontEnd.javaFX.controllers.admin.ControllerStageAdminOrg">
+   <children>
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="785.0" prefWidth="1191.0" style="-fx-background-color: fff;">
+         <children>
+            <Text fontSmoothingType="LCD" layoutX="323.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Program de evidenta a imobilizarilor in curs">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Text>
+            <Text layoutX="1086.0" layoutY="768.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bySorinGinara" />
+            <Button fx:id="goToStage1Intro" layoutX="66.0" layoutY="119.0" mnemonicParsing="false" onAction="#goToStage1Intro" style="-fx-background-color: #0F4CC1;" text="Intrare in program" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+            <Text layoutX="104.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zona Adminstrativa" />
+            <Button fx:id="adminFZ" layoutX="92.0" layoutY="377.0" mnemonicParsing="false" onAction="#goOnAdminFz" style="-fx-background-color: #0F4CC1;" text="Administrare furnizori" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+            <Button fx:id="adminContracte" layoutX="93.0" layoutY="421.0" mnemonicParsing="false" onAction="#goOnadminContracte" style="-fx-background-color: #0F4CC1;" text="Administrare contracte" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+            <Button fx:id="adminCtInvest" layoutX="93.0" layoutY="465.0" mnemonicParsing="false" onAction="#goOnAdminCtInvest" style="-fx-background-color: #0F4CC1;" text="Administrare conturi investitii" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+            <Button fx:id="adminCtFz" layoutX="93.0" layoutY="509.0" mnemonicParsing="false" onAction="#goOnAdminCtFz" style="-fx-background-color: #0F4CC1;" text="Administrare conturi furnizori" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+            <Button fx:id="adminNrProiect" layoutX="93.0" layoutY="552.0" mnemonicParsing="false" onAction="#goOnAdminNrProiect" style="-fx-background-color: #0F4CC1;" text="Administrare nr proiect" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+            <Button fx:id="adminRespProiect" layoutX="93.0" layoutY="595.0" mnemonicParsing="false" onAction="#goOnAdminRespProiect" style="-fx-background-color: #0F4CC1;" text="Administrare responsabili de proiect" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+            <Text layoutX="783.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrare organizatii">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Text>
+            <Button fx:id="back0S" layoutX="24.0" layoutY="738.0" mnemonicParsing="false" onAction="#buttonBack" style="-fx-background-color: #0F4CC1;" text="Inapoi la pagina principala" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+            <TextArea fx:id="ItemList" layoutX="708.0" layoutY="403.0" prefHeight="84.0" prefWidth="275.0" />
+            <Text layoutX="583.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista organizatii" />
+            <Button fx:id="addButton" layoutX="1003.0" layoutY="305.0" mnemonicParsing="false" onAction="#addNewOrg" prefHeight="31.0" prefWidth="173.0" style="-fx-background-color: #0F4CC1;" text="Adauga" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+            <TextField fx:id="addPOrg" layoutX="708.0" layoutY="305.0" prefHeight="31.0" prefWidth="275.0" promptText="Introduceti simbolul noii  organizatii" />
+            <Text layoutX="510.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Simbol organizatie noua" />
+            <Button fx:id="adminDeviz" layoutX="93.0" layoutY="638.0" mnemonicParsing="false" onAction="#goOnAdminDeviz" style="-fx-background-color: #0F4CC1;" text="Administrare devize" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+            <Button fx:id="adminOrg" layoutX="93.0" layoutY="682.0" mnemonicParsing="false" onAction="#goOnAdminOrg" onMouseMoved="#click" style="-fx-background-color: #0F4CC1;" text="Administrare organizatii si ani" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+            <TextField fx:id="addDenOrg" layoutX="708.0" layoutY="349.0" prefHeight="31.0" prefWidth="278.0" promptText="Introduceti denumirea noii  organizatii" />
+            <Text layoutX="512.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denumire organizatie noua" />
+            <Text fx:id="added" layoutX="452.0" layoutY="430.0" strokeType="OUTSIDE" strokeWidth="0.0" underline="true" wrappingWidth="22.0">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Text>
+            <Button fx:id="addButtonAni" layoutX="1001.0" layoutY="578.0" mnemonicParsing="false" onAction="#addAni" prefHeight="31.0" prefWidth="173.0" style="-fx-background-color: #0F4CC1;" text="Adauga" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <TextField fx:id="addAni" layoutX="706.0" layoutY="578.0" prefHeight="31.0" prefWidth="275.0" promptText="Introduceti simbolul noii  organizatii" />
+            <Text layoutX="557.0" layoutY="599.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adauga ani in lucru" />
+            <Text layoutX="793.0" layoutY="539.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrare ani">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Text>
+            <TextArea fx:id="ItemListAni" layoutX="705.0" layoutY="643.0" prefHeight="84.0" prefWidth="275.0" />
+            <Text layoutX="552.0" layoutY="662.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista anilor adaugati" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

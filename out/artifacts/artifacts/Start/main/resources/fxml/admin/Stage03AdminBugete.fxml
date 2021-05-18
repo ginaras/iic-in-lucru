@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.trans.investitii.frontEnd.javaFX.controllers.admin.ControllerStage03AdminBugete">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="530.0" layoutX="33.0" layoutY="180.0" stroke="BLACK" strokeType="INSIDE" width="349.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="530.0" layoutX="428.0" layoutY="176.0" stroke="BLACK" strokeType="INSIDE" width="349.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="530.0" layoutX="827.0" layoutY="174.0" stroke="BLACK" strokeType="INSIDE" width="349.0" />
+      <Rectangle arcHeight="5.0" arcWidth="20.0" fill="#065bab" height="110.0" layoutX="4.0" layoutY="3.0" stroke="BLACK" strokeDashOffset="5.0" strokeLineJoin="BEVEL" strokeWidth="10.0" width="1190.0" />
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="331.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Program de evidenta a imobilizarilor in curs">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Text layoutX="116.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buget Organizatie">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text layoutX="508.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buget pe proiect">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text layoutX="910.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buget pe contract">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <TextField fx:id="textFieldRectificareOrg" layoutX="49.0" layoutY="616.0" promptText="Buget Organizatie" />
+      <TextField fx:id="textFieldRectificareContract" layoutX="841.0" layoutY="614.0" promptText="Rectificare buget contract" />
+      <TextField fx:id="textFieldRectificareProj" layoutX="442.0" layoutY="614.0" promptText="Rectificare buget proiect" />
+      <Text layoutX="53.0" layoutY="396.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Initial">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="51.0" layoutY="430.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rectificare">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="52.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Final">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="450.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Initial">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="448.0" layoutY="420.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rectificare">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="449.0" layoutY="453.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Final">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="851.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Initial">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="850.0" layoutY="455.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Final">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="849.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rectificare">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtValoareOrgInitial" fontSmoothingType="LCD" layoutX="192.0" layoutY="396.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fx:id="txtValoareRectificareOrg" layoutX="192.0" layoutY="430.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fx:id="txtValoareFinalaOrg" layoutX="192.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fx:id="txtValoareFinalaProj" layoutX="581.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fx:id="txtValoarareRectificareProj" layoutX="581.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fx:id="txtValoareProjInitial" layoutX="581.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fx:id="txtValoareContractInitial" layoutX="999.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fx:id="txtValoarareRectificareContract" layoutX="1000.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fx:id="txtValoareFinalaContract" layoutX="1002.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text layoutX="491.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Evidenta bugetelor">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text layoutX="1091.0" layoutY="781.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bySorinGinara" />
+      <ComboBox fx:id="comboOrg" layoutX="47.0" layoutY="273.0" onAction="#comboOrgAction" prefWidth="150.0" promptText="Organizatie" />
+      <ComboBox fx:id="comboBProj" layoutX="527.0" layoutY="273.0" onAction="#comboBProjAction" prefWidth="150.0" promptText="Proiect" />
+      <ComboBox fx:id="comboBContract" layoutX="931.0" layoutY="272.0" onAction="#comboBContractAction" prefWidth="150.0" promptText="Contract" />
+      <Button fx:id="buttonAplicaBugetOrg" layoutX="247.0" layoutY="613.0" mnemonicParsing="false" onAction="#buttonAplicaBugetOrgAction" prefHeight="11.0" prefWidth="119.0" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Aplica" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonAplicaBugetProj" layoutX="646.0" layoutY="611.0" mnemonicParsing="false" onAction="#buttonAplicaBugetProjAction" prefHeight="11.0" prefWidth="119.0" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Aplica" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonAplicaBugetContract" layoutX="1049.0" layoutY="611.0" mnemonicParsing="false" onAction="#buttonAplicaBugetContractAction" prefHeight="11.0" prefWidth="119.0" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Aplica" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <CheckBox fx:id="checkOrg" layoutX="343.0" layoutY="496.0" mnemonicParsing="false" onAction="#checkOrgAction" />
+      <Label layoutX="48.0" layoutY="495.0" text="Selecteaza pentru a putea modifica datele" />
+      <Label layoutX="477.0" layoutY="543.0" text="Selecteaza pentru a putea rectifica" />
+      <CheckBox fx:id="checkProj" layoutX="582.0" layoutY="582.0" mnemonicParsing="false" onAction="#checkProjAction" />
+      <Label layoutX="868.0" layoutY="540.0" text="Selecteaza pentru a putea rectifica" />
+      <CheckBox fx:id="checkContract" layoutX="984.0" layoutY="575.0" mnemonicParsing="false" onAction="#checkContractAction" />
+      <Button fx:id="butonStage0" layoutX="118.0" layoutY="748.0" mnemonicParsing="false" onAction="#goOnStage0" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Meniul principal" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <ComboBox fx:id="comboBoxYearChose" layoutX="207.0" layoutY="273.0" onAction="#comboBYearAction" prefWidth="150.0" promptText="Alege anul" />
+      <Text fx:id="txtDenProj" layoutX="522.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="." />
+      <Text fx:id="txtDenFurnizor" layoutX="942.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="." />
+      <Text fx:id="txtDenOrg" layoutX="128.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="." />
+      <CheckBox fx:id="checkOrgBugetInitial" layoutX="105.0" layoutY="544.0" mnemonicParsing="false" onAction="#checkOrgBugetInitialAction" />
+      <CheckBox fx:id="checkOrgRectificareBuget" layoutX="105.0" layoutY="573.0" mnemonicParsing="false" onAction="#checkOrgRectificareBugetAction" />
+      <Label layoutX="140.0" layoutY="544.0" text="Adauga buget initial" />
+      <Label layoutX="140.0" layoutY="574.0" text="Adauga rectificarea de buget" />
+   </children>
+</AnchorPane>

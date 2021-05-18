@@ -312,7 +312,7 @@ public class CtrlStage2Rapoarte implements Initializable {
                 String replaceNume2 = date0.format( date2 );
 
                 BufferedWriter writer0 = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\"+replaceNume2+" - detaliu_investitii.csv", false ) );
-                writer0.append( "nrCrt; furnizor; nrFactura; dataFacturii; dataContabilizarii; valoare; descriereFactura; nr_PIF; Data_PIF; valoare_Initiala; tva; valTot; contract; contInv; contFz; nrProiect; deviz; org; respProiect" );
+                writer0.append( "nrCrt, furnizor, nrFactura, dataFacturii, dataContabilizarii, valoare, descriereFactura, nr_PIF, Data_PIF, valoare_Initiala, tva, valTot, contract, contInv, contFz, nrProiect, deviz, org, respProiect" );
                 writer0.close();
 //Parcurgerea BD si extragerea datelor iterate through the java resultset
                 while (rs.next()) {
@@ -337,8 +337,8 @@ public class CtrlStage2Rapoarte implements Initializable {
                     String respProiectPrint = rs.getString( "respProiect" );
 
 //print - adaugarea datelor in fisier
-                    String datele =  nrCrtPrint + ";" + furnizorPrint + ";" + nrFacturaPrint + ";" +dataFacturiiPrint+";"+ dataContabilizariiPrint+";"+ valoarePrint +";"+descrierePrint+ ";"+nrPIFPrint+";"+dataPIFPrint+";"+valoareInitialaPrint + ";"+tvaPrint + ";"  +valTotPrint + ";" +contractPrint + ";" +contInvPrint + ";" +contFzPrint
-                            + ";" +nrProiectPrint  + ";" +devizPrint + ";" +orgPrint  + ";" +respProiectPrint;
+                    String datele =  nrCrtPrint + "," + furnizorPrint + "," + nrFacturaPrint + "," +dataFacturiiPrint+","+ dataContabilizariiPrint+","+ valoarePrint +","+descrierePrint+ ","+nrPIFPrint+","+dataPIFPrint+","+valoareInitialaPrint + ","+tvaPrint + ","  +valTotPrint + "," +contractPrint + "," +contInvPrint + "," +contFzPrint
+                            + "," +nrProiectPrint  + "," +devizPrint + "," +orgPrint  + "," +respProiectPrint;
                     BufferedWriter writer = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\"+replaceNume2+" - detaliu_investitii.csv", true ) );
                     writer.append( " \n" );
                     writer.append( datele );
@@ -413,7 +413,7 @@ public class CtrlStage2Rapoarte implements Initializable {
         String replaceNume2 = date0.format( date2 );
 
         BufferedWriter writer0 = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\"+replaceNume2+" - detaliu_investitii.csv", false ) );
-        writer0.append( "nrCrt; furnizor; nrFactura; dataFacturii; dataContabilizarii; valoare_ramasa; descriereFactura; nrPIF; Data_PIF; valoare_Initiala; tva; valTot; contract; contInv; contFz; nrProiect; deviz; org; respProiect" );
+        writer0.append( "nrCrt, furnizor, nrFactura, dataFacturii, dataContabilizarii, valoare_ramasa, descriereFactura, nrPIF, Data_PIF, valoare_Initiala, tva, valTot, contract, contInv, contFz, nrProiect, deviz, org, respProiect" );
         writer0.close();
 
             ResultSet rsSelectXLS = stm.executeQuery( query );
@@ -439,8 +439,8 @@ public class CtrlStage2Rapoarte implements Initializable {
             String respProiectPrint = rsSelectXLS.getString( "respProiect" );
 
 
-            String datele = nrCrtPrint + ";" +furnizorPrint + ";" +nrFacturaPrint + ";" + dataFacturiiPrint + ";" + dataContabilizariiPrint + ";" +valoarePrint +";"+descrierePrint+";"+nrPIFPrint+";"+dataPIFPrint+ ";" +valoareInitPrint + ";" +tvaPrint + ";" +valTotPrint + ";" +contractPrint + ";" +contInvPrint + ";" +contFzPrint
-                    + ";" +nrProiectPrint + ";" +devizPrint + ";" +orgPrint + ";" +respProiectPrint;
+            String datele = nrCrtPrint + "," +furnizorPrint + "," +nrFacturaPrint + "," + dataFacturiiPrint + "," + dataContabilizariiPrint + "," +valoarePrint +","+descrierePrint+","+nrPIFPrint+","+dataPIFPrint+ "," +valoareInitPrint + "," +tvaPrint + "," +valTotPrint + "," +contractPrint + "," +contInvPrint + "," +contFzPrint
+                    + "," +nrProiectPrint + "," +devizPrint + "," +orgPrint + "," +respProiectPrint;
             BufferedWriter writer = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\"+replaceNume2+" - detaliu_investitii.csv", true ) );
             writer.append( " \n" );
             writer.append( datele );

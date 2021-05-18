@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" build-on-make="true" name="Start">
+    <output-path>$PROJECT_DIR$/out/artifacts/artifacts/Start</output-path>
+    <root id="root">
+      <element id="directory" name="lib">
+        <element id="library" level="project" name="libFX" />
+        <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.6.1" />
+        <element id="library" level="project" name="Maven: junit:junit:4.12" />
+        <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.19" />
+        <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.3" />
+        <element id="library" level="project" name="Maven: org.openjfx:javafx-base:12-ea+8" />
+        <element id="library" level="project" name="Maven: org.openjfx:javafx-base:win:12-ea+8" />
+        <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:12-ea+8" />
+        <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:win:12-ea+8" />
+        <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:win:14.0.2" />
+        <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:12-ea+8" />
+        <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:win:12-ea+8" />
+      </element>
+      <element id="module-output" name="START - investitii in curs" />
+    </root>
+  </artifact>
+</component>

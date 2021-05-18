@@ -16,7 +16,7 @@ import java.sql.*;
 import java.util.ResourceBundle;
 
 import static com.trans.investitii.backEnd.DBase.Investitii.*;
-import static jdk.nashorn.internal.objects.NativeError.printStackTrace;
+//import static jdk.nashorn.internal.objects.NativeError.printStackTrace;
 
 public class Controller0Sample implements Initializable {
 
@@ -115,23 +115,22 @@ public class Controller0Sample implements Initializable {
         statement.executeUpdate( CREATE_TABLE_BUGET_PROJ );
         statement.executeUpdate( CREATE_TABLE_BUGET_CONTRACT );
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            PrintWriter pw = new PrintWriter(new FileOutputStream("C:\\Log"));
-            printStackTrace(pw);
-        }finally{
-            try{
-                if(statement!=null)
-                    statement.close();
-            }catch(SQLException throwables){
-            }
-            try{
-                if(connection!=null)
-                    connection.close();
-            }catch(SQLException throwables){
-                PrintWriter pw = new PrintWriter(new FileOutputStream("Log"));
-                throwables.printStackTrace();
-            }
+
         }
+//        finally{
+//            try{
+//                if(statement!=null)
+//                    statement.close();
+//            }catch(SQLException throwables){
+//            }
+//            try{
+//                if(connection!=null)
+//                    connection.close();
+//            }catch(SQLException throwables){
+//                PrintWriter pw = new PrintWriter(new FileOutputStream("Log"));
+//                throwables.printStackTrace();
+//            }
+//        }
         return null;
     }
 

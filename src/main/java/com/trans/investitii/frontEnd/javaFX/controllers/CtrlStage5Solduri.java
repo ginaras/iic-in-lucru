@@ -9,10 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,11 +21,11 @@ import java.sql.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
 
 public class CtrlStage5Solduri implements Initializable {
 
@@ -1212,5 +1210,6 @@ public class CtrlStage5Solduri implements Initializable {
         window.setScene( tabeleViewScene );
         window.show();
     }
+
 }
 
