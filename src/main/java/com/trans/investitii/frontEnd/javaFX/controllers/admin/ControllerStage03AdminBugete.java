@@ -194,7 +194,6 @@ public class ControllerStage03AdminBugete implements Initializable {
             String vfProj = null;
             while (rsValFinalaProj.next()) {
                 vfProj = (String) rsValFinalaProj.getObject("vfProj");
-                System.out.println(vfProj);
             }
             assert vfProj != null;
             double vfprojD = parseDouble(vfProj);
@@ -256,8 +255,7 @@ public class ControllerStage03AdminBugete implements Initializable {
             while (rsValFinala.next()) {
                 vfContract = (String) rsValFinala.getObject("vfContract");
             }
-            System.out.println(vfContract);
-//            assert vfContract != null;
+            //            assert vfContract != null;
             double vfContractD = parseInt(vfContract) * 100 / 100;
             NumberFormat nfContract = NumberFormat.getNumberInstance(new Locale("ro", "RO"));
             nfContract.setMaximumFractionDigits(2);
@@ -357,8 +355,6 @@ public class ControllerStage03AdminBugete implements Initializable {
                     DecimalFormat df = (DecimalFormat) nf;
 
                     txtValoareFinalaOrg.setText(df.format(vfOrgD));
-                    System.out.println(vfOrgD);
-                    System.out.println(txtValoareFinalaOrg.getText());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

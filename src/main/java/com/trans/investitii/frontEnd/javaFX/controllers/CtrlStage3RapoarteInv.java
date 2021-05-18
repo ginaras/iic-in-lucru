@@ -673,13 +673,6 @@ public class CtrlStage3RapoarteInv implements Initializable {
                     "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiri FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND invTBL.dataPIF>= '"+dataInit+"' AND invTBL.dataPIF<= '"+dataFinala+"') AS iesiri, " +
                     "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiriDinSold FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+dataInit+"' <= invTBL.dataPIF  AND invTBL.dataPIF<= '"+dataFinala+"' and dataContabilizarii<='"+dataInit+"') AS iesiriDinSold, " +
                     "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiriDinPerioada FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+dataInit+"' <= invTBL.dataPIF AND invTBL.dataPIF <= '"+dataFinala+"' AND dataContabilizarii>='"+dataInit+"') AS iesiriDinPerioada, " +
-//                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS soldInitial FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND invTBL.dataContabilizarii<= '" +deLaDataMachetaTrimestriala.getValue()+"' GROUP BY bugetProj.nrProiect) AS soldInitial, " +
-//                    "(SELECT ROUND(SUM(invTBL.valoare),2) AS soldFinal FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect and dataContabilizarii<='"+laDataMachetaTrimestriala.getValue()+"') AS soldFinal, " +
-//                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS intrari FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataContabilizarii  AND invTBL.dataContabilizarii <='"+laDataMachetaTrimestriala.getValue()+"') AS intrari, " +
-//                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiri FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataPIF <= '"+laDataMachetaTrimestriala.getValue()+"') AS iesiri, " +
-//                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiriDinSold FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataPIF <= '"+laDataMachetaTrimestriala.getValue()+"' and dataContabilizarii<='"+deLaDataMachetaTrimestriala.getValue()+"') AS iesiriDinSold, " +
-//                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiriDinPerioada FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+deLaDataMachetaTrimestriala.getValue()+"' <= invTBL.dataPIF <= '"+laDataMachetaTrimestriala.getValue()+"' AND dataContabilizarii>='"+deLaDataMachetaTrimestriala.getValue()+"') AS iesiriDinPerioada, " +
-
                     "bugetProj.nrProiect FROM invTBL, bugetProj WHERE bugetProj.nrProiect=invTBL.nrProiect GROUP BY bugetProj.nrProiect ";
 
             ResultSet rs = st.executeQuery( situatiaImobilizarilor);
@@ -700,7 +693,6 @@ public class CtrlStage3RapoarteInv implements Initializable {
             while (rs.next()) {
                 Integer nrCrtPrint = rs.getInt( "nrCrt" );
                 String denProiectPrint = rs.getString( "denProiect" );
-                String soldInitialPrint = rs.getString( "soldInitial" );
                 String iesiriPrint = rs.getString( "iesiri" );
                 String iesiriDinSoldPrint = rs.getString( "iesiriDinSold" );
                 String iesiriDinPerioadaPrint = rs.getString( "iesiriDinPerioada" );
@@ -710,7 +702,6 @@ public class CtrlStage3RapoarteInv implements Initializable {
 //                String dinSursePropriiPrint = rs.getString( "dinSurseProprii" );
 //                String totalIesiriPrint = rs.getString( "totalIesiri" );
 
-                if(soldInitialPrint==null){soldInitialPrint = "0";}
                 if(iesiriPrint==null){iesiriPrint = "0";}
                 if(iesiriDinSoldPrint==null){ iesiriDinSoldPrint = "0";}
                 if(iesiriDinPerioadaPrint==null){ iesiriDinPerioadaPrint = "0";}
@@ -726,7 +717,6 @@ public class CtrlStage3RapoarteInv implements Initializable {
             }
 
             String situatiaImobilizarilorTotal = "SELECT bugetProj.nrCrt, bugetProj.denProiect, " +
-                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS soldInitial FROM invTBL WHERE invTBL.dataContabilizarii<= '" +dataInit+"' AND invTBL.dataPIF>='"+dataInit+"' GROUP BY bugetProj.nrProiect) AS soldInitial, " +
                     "(SELECT ROUND(SUM(invTBL.valoare),2) AS soldFinal FROM invTBL WHERE dataContabilizarii<='"+dataFinala+"') AS soldFinal, " +
                     "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS intrari FROM invTBL WHERE  '"+dataInit+"' <= invTBL.dataContabilizarii  AND invTBL.dataContabilizarii <='"+dataFinala+"') AS intrari, " +
                     "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiri FROM invTBL WHERE invTBL.dataPIF>= '"+dataInit+"' AND invTBL.dataPIF<= '"+dataFinala+"') AS iesiri, " +
@@ -739,14 +729,12 @@ public class CtrlStage3RapoarteInv implements Initializable {
 
                 while (rsTotal.next()) {
                     String orgPrintTotal = rsTotal.getString( "org" );
-                    String soldInitialPrintTotal = rsTotal.getString( "soldInitial" );
                     String iesiriPrintTotal = rsTotal.getString( "iesiri" );
                     String iesiriDinSoldPrintTotal = rsTotal.getString( "iesiriDinSold" );
                     String iesiriDinPerioadaPrintTotal = rsTotal.getString( "iesiriDinPerioada" );
                     String intrariPrintTotal = rsTotal.getString( "intrari" );
                     String soldFinalPrintTotal = rsTotal.getString( "soldFinal" );
 
-                    if(soldInitialPrintTotal==null){soldInitialPrintTotal = "0";}
                     if(iesiriPrintTotal==null){iesiriPrintTotal = "0";}
                     if(iesiriDinSoldPrintTotal==null){ iesiriDinSoldPrintTotal = "0";}
                     if(iesiriDinPerioadaPrintTotal==null){ iesiriDinPerioadaPrintTotal = "0";}

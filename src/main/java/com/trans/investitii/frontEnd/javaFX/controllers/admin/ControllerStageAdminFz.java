@@ -161,9 +161,9 @@ public class ControllerStageAdminFz implements Initializable {
         }
 
         try {
-            Scanner s = new Scanner(new File(pathAdmFz)).useDelimiter("\\s+");
+            Scanner s = new Scanner(new File(pathAdmFz)).useDelimiter("\n+");// daca folosim "\\s+" pune rand la fiecare cuvant
             while (s.hasNext()) {
-                    ItemList.appendText(s.next() + " "+"\n"); // else read the next token
+                    ItemList.appendText(s.next() +"\n"); // else read the next token
                 }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -274,4 +274,5 @@ public class ControllerStageAdminFz implements Initializable {
         }
         writer.close();
     }
+
 }

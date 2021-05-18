@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.trans.investitii.frontEnd.javaFX.controllers.admin.ControllerStage01AdminMySQL">
+    <children>
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+            <children>
+                <Label layoutX="197.0" layoutY="104.0" text="Rulare pe statia proprie">
+               <font>
+                  <Font size="36.0" />
+               </font></Label>
+                <Label layoutX="667.0" layoutY="519.0" text="By Sorin Ginara" />
+                <TextArea layoutX="40.0" layoutY="319.0" prefHeight="200.0" prefWidth="200.0" text="Aceasta varianta ofera utilizatorului posibilitatea sa foloseasca o baza de date locala. Pentru aceasta aveti nevoie de instalarea MySQL. Apasati butonul de conectare si introduceti datele de conectare MySQL" wrapText="true" />
+            <Label layoutX="317.0" layoutY="255.0" text="Username MySQL">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label layoutX="317.0" layoutY="296.0" text="Pasword MySQL">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <TextField fx:id="userN" layoutX="503.0" layoutY="250.0" promptText="SQL User" />
+            <PasswordField fx:id="pass" layoutX="503.0" layoutY="293.0" promptText="pass" />
+            <Rectangle arcHeight="5.0" arcWidth="20.0" fill="#065bab" height="110.0" layoutX="6.0" layoutY="-13.0" stroke="BLACK" strokeDashOffset="5.0" strokeLineJoin="BEVEL" strokeWidth="10.0" width="1190.0" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="342.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Program de evidenta a imobilizarilor in curs">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Text>
+            <Button fx:id="login" layoutX="472.0" layoutY="350.0" mnemonicParsing="false" onAction="#loginButtonAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Login" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="deleteLogData" layoutX="578.0" layoutY="348.0" mnemonicParsing="false" onAction="#deleteLogDataAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Delete log data" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            </children>
+        </AnchorPane>
+    </children>
+</VBox>

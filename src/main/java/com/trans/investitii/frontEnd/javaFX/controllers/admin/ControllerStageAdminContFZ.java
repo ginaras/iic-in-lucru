@@ -236,4 +236,16 @@ public class ControllerStageAdminContFZ implements Initializable {
         }
 
 
+    public void exportButton ( ActionEvent actionEvent ) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter( new FileWriter("C:\\Investitii\\rapoarte\\export.txt") );
+        bufferedWriter.append( ItemList.getText() );
+        bufferedWriter.close();
+
+        Desktop desktop= null;
+        try {
+            desktop.getDesktop().open( new File( "C:\\Investitii\\rapoarte\\export.txt" ) ); ;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+}
