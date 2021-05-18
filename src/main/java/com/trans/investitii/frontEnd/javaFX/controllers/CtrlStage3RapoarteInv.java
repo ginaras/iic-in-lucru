@@ -667,7 +667,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
             Statement st = connection.createStatement();
 
             String situatiaImobilizarilor = "SELECT bugetProj.nrCrt, bugetProj.denProiect, " +
-                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS soldInitial FROM invTBL WHERE (bugetProj.nrProiect=invTBL.nrProiect AND invTBL.dataContabilizarii<= '" +dataInit+"'  ) GROUP BY bugetProj.nrProiect) AS soldInitial, " + //invTBL.dataPIF<='"+dataInit+"') OR (
+                    "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS soldInitial FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND invTBL.dataContabilizarii<= '" +dataInit+"' AND (dataPIF>= '"+dataInit+"' OR dataPIF=NULL ) GROUP BY bugetProj.nrProiect) AS soldInitial, " + //invTBL.dataPIF<='"+dataInit+"') OR (
                     "(SELECT ROUND(SUM(invTBL.valoare),2) AS soldFinal FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND dataContabilizarii<='"+dataFinala+"') AS soldFinal, " +
                     "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS intrari FROM invTBL WHERE  bugetProj.nrProiect=invTBL.nrProiect AND '"+dataInit+"' <= invTBL.dataContabilizarii  AND invTBL.dataContabilizarii <='"+dataFinala+"') AS intrari, " +
                     "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiri FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND invTBL.dataPIF>= '"+dataInit+"' AND invTBL.dataPIF<= '"+dataFinala+"') AS iesiri, " +
@@ -715,9 +715,10 @@ public class CtrlStage3RapoarteInv implements Initializable {
                 if(iesiriDinSoldPrint==null){ iesiriDinSoldPrint = "0";}
                 if(iesiriDinPerioadaPrint==null){ iesiriDinPerioadaPrint = "0";}
                 if(intrariPrint==null){ intrariPrint = "0";}
+                double dsoldInitialPrint =+(Double.parseDouble(soldFinalPrint)+Double.parseDouble(iesiriPrint)-Double.parseDouble(intrariPrint));
 
 //print - adaugarea datelor in fisier
-                String datele =  nrCrtPrint+","+ denProiectPrint + "," + soldInitialPrint+","+intrariPrint+","+iesiriDinSoldPrint+","+iesiriDinPerioadaPrint+","+iesiriPrint+","+soldFinalPrint+","+nrProiectPrint;//" +dinSursePropriiPrint+";"+ totalIesiriPrint;
+                String datele =  nrCrtPrint+","+ denProiectPrint + "," + dsoldInitialPrint+","+intrariPrint+","+iesiriDinSoldPrint+","+iesiriDinPerioadaPrint+","+iesiriPrint+","+soldFinalPrint+","+nrProiectPrint;//" +dinSursePropriiPrint+";"+ totalIesiriPrint;
                 BufferedWriter writer = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\SituatiaImobilizarilorLaData-" + replaceNumeData2 + "rulat la "+replaceNumeData1+".csv", true ) );
                 writer.append( " \n" );
                 writer.append( datele );
@@ -745,7 +746,15 @@ public class CtrlStage3RapoarteInv implements Initializable {
                     String intrariPrintTotal = rsTotal.getString( "intrari" );
                     String soldFinalPrintTotal = rsTotal.getString( "soldFinal" );
 
-                    String totaluri =  ",Total  "+orgPrintTotal+"," + soldInitialPrintTotal+","+intrariPrintTotal+","+iesiriDinSoldPrintTotal+","+iesiriDinPerioadaPrintTotal+","+iesiriPrintTotal+","+soldFinalPrintTotal+";";//" +dinSursePropriiPrint+";"+ totalIesiriPrint;
+                    if(soldInitialPrintTotal==null){soldInitialPrintTotal = "0";}
+                    if(iesiriPrintTotal==null){iesiriPrintTotal = "0";}
+                    if(iesiriDinSoldPrintTotal==null){ iesiriDinSoldPrintTotal = "0";}
+                    if(iesiriDinPerioadaPrintTotal==null){ iesiriDinPerioadaPrintTotal = "0";}
+                    if(intrariPrintTotal==null){ intrariPrintTotal = "0";}
+                    double dsoldInitialPrintTotal =+(Double.parseDouble(soldFinalPrintTotal)+Double.parseDouble(iesiriPrintTotal)-Double.parseDouble(intrariPrintTotal));
+
+
+                    String totaluri =  ",Total  "+orgPrintTotal+"," + dsoldInitialPrintTotal+","+intrariPrintTotal+","+iesiriDinSoldPrintTotal+","+iesiriDinPerioadaPrintTotal+","+iesiriPrintTotal+","+soldFinalPrintTotal+";";//" +dinSursePropriiPrint+";"+ totalIesiriPrint;
                     BufferedWriter writer = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\SituatiaImobilizarilorLaData-" + replaceNumeData2 + "rulat la "+replaceNumeData1+".csv", true ) );
                     writer.append( " \n" );
                     writer.append( totaluri );
