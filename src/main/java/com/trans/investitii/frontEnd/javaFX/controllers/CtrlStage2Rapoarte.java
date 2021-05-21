@@ -1,6 +1,6 @@
 package main.java.com.trans.investitii.frontEnd.javaFX.controllers;
 
-import com.trans.investitii.backEnd.DBase.Investitii;
+import main.java.com.trans.investitii.backEnd.DBase.Investitii;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,10 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -122,7 +119,7 @@ public class CtrlStage2Rapoarte implements Initializable {
             valoareaTotalaInitiala.setTextAlignment( TextAlignment.RIGHT );
 
             tableViewTotal.setItems( tabelFacturi );
-        } catch (SQLException throwables) {
+        } catch (SQLException | FileNotFoundException throwables) {
             throwables.printStackTrace();
         }
 
@@ -257,7 +254,7 @@ public class CtrlStage2Rapoarte implements Initializable {
                         rsProj.getString( "org" )) );
             }
             tableViewTotal.setItems( tabelFacturi );
-        } catch (SQLException throwables) {
+        } catch (SQLException | FileNotFoundException throwables) {
             throwables.printStackTrace();
         }
 // face totalul

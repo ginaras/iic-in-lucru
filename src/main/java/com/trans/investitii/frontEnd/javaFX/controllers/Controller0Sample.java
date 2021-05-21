@@ -1,6 +1,6 @@
 package main.java.com.trans.investitii.frontEnd.javaFX.controllers;
 
-import com.trans.investitii.backEnd.DBase.Investitii;
+import main.java.com.trans.investitii.backEnd.DBase.Investitii;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,10 +12,12 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-import static com.trans.investitii.backEnd.DBase.Investitii.*;
+import static main.java.com.trans.investitii.backEnd.DBase.Investitii.*;
 //import static jdk.nashorn.internal.objects.NativeError.printStackTrace;
 
 public class Controller0Sample implements Initializable {
@@ -39,6 +41,11 @@ public class Controller0Sample implements Initializable {
     public Button goToStage03AdminBuget;
     public Button buttonStage5Solduri;
     public Button buttonStage6AnalizaPif;
+    public Button goToStage01AdminMySQL;
+    String pathSQL = "src/main/resources/txt/login/MySQL";
+    String pathSQLerr = "src/main/resources/txt/login/MySQLerr";
+    public static String USER_SQL;
+    public static String PASS_SQL;
 
     private void goToStage(){
 
@@ -117,20 +124,6 @@ public class Controller0Sample implements Initializable {
         } catch (SQLException throwables) {
 
         }
-//        finally{
-//            try{
-//                if(statement!=null)
-//                    statement.close();
-//            }catch(SQLException throwables){
-//            }
-//            try{
-//                if(connection!=null)
-//                    connection.close();
-//            }catch(SQLException throwables){
-//                PrintWriter pw = new PrintWriter(new FileOutputStream("Log"));
-//                throwables.printStackTrace();
-//            }
-//        }
         return null;
     }
 
@@ -213,6 +206,70 @@ public class Controller0Sample implements Initializable {
 
     @Override
     public void initialize ( java.net.URL location, ResourceBundle resources ) {
+
+        File mySQLerr2 = new File(pathSQLerr);
+        PrintStream out = null;
+        try {
+            out = new PrintStream(new FileOutputStream(pathSQLerr));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.setOut(out);
+        System.setErr(out);
+        try {
+            Files.deleteIfExists(Paths.get(pathSQLerr));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        File mySQL = new File(pathSQL);
+        File mySQLerr = new File(pathSQLerr);
+
+        if(mySQL.exists()) {
+            int n = 0;
+
+            try {
+                FileReader reader = new FileReader(pathSQL);
+                BufferedReader bufferedReader=new BufferedReader(reader);
+                for (n=0; n<2; n++){
+                    if (n==0){
+                        USER_SQL =bufferedReader.readLine();
+                        continue;
+                    }
+                    if (n==1){
+                        PASS_SQL = String.valueOf(bufferedReader.readLine());                    }
+                    bufferedReader.close();
+
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println(USER_SQL+"+ USER +"+PASS_SQL);
+
+        }
+
+//        File mySQL = new File(pathSQL);
+        if (!mySQL.exists()){
+            goToStage1Intro.setDisable(true);
+            adminFZ.setDisable(true);
+            adminContracte.setDisable(true);
+            adminCtInvest.setDisable(true);
+            adminCtFz.setDisable(true);
+            adminNrProiect.setDisable(true);
+            adminRespProiect.setDisable(true);
+            adminDeviz.setDisable(true);
+              adminOrg.setDisable(true);
+              goToStageBDelete.setDisable(true);
+              goToStage2Rapoarte.setDisable(true);
+              buttonStage3Sumar.setDisable(true);
+              goToStage4Pif.setDisable(true);
+//              goToStageNewUnit.setDisable(true);
+              goToStage03AdminBuget.setDisable(true);
+              buttonStage5Solduri.setDisable(true);
+              buttonStage6AnalizaPif.setDisable(true);
+
+        }
         File file = new File( "c:\\Investitii" );
         File file1 = new File( "c:\\Investitii\\resurse" );
         File file2= new File( "c:\\Investitii\\rapoarte" );
@@ -262,7 +319,7 @@ public class Controller0Sample implements Initializable {
         if (!ctInv.exists()){
             try {
                 ctInv.createNewFile();
-                FileWriter writer = new FileWriter("C:\\Investitii\\resurse\\ctInv");
+                FileWriter writer = new FileWriter(ctInv);
                 writer.append("231.01.01.01"+"\r\n"+"231.02.01.01"+"\r\n"+"231.02.02.01"+"\r\n"+"231.03.01.01"+"\r\n");
                 writer.close();
             } catch (IOException e) {
@@ -319,9 +376,16 @@ public class Controller0Sample implements Initializable {
     }
 
 
-    public void goToStageNewUnit ( ActionEvent event ) {
+
+
+
+    public void goToStage01AdminMySQLAction(ActionEvent event) throws IOException {
+        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/admin/Stage01AdminMySQL.fxml" ) );
+        Scene tableViewScene = new Scene( stage1Intro );
+        Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        windowStage1Intro.setScene( tableViewScene );
+        windowStage1Intro.show();
+
     }
-
-
 }
 

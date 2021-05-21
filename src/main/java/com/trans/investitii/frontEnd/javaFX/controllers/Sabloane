@@ -61,3 +61,5 @@
             }
         }
 
+""\n" -pune enter
+ Scanner s = new Scanner(new File( pathFileCtFz )).useDelimiter("\\s+"); - pune enter la citire

@@ -1,6 +1,6 @@
 package main.java.com.trans.investitii.frontEnd.javaFX.controllers;
 
-import com.trans.investitii.backEnd.DBase.Investitii;
+import main.java.com.trans.investitii.backEnd.DBase.Investitii;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -151,7 +152,7 @@ public class CtrlStage4PIF implements Initializable {
             }
             tabelFacturiPIF.setItems( tabelFacturiDePIF );
 
-            } catch (SQLException throwables) {
+            } catch (SQLException | FileNotFoundException throwables) {
                 throwables.printStackTrace();
             }
         ResultSet rsProjTotal= stm.executeQuery( totalProiectSql );
@@ -372,7 +373,7 @@ public class CtrlStage4PIF implements Initializable {
                 ) );
             }
             tabelFinalPif.setItems( tabelFinalDePif2 );
-        } catch (SQLException throwables) {
+        } catch (SQLException | FileNotFoundException throwables) {
             throwables.printStackTrace();
         }
 

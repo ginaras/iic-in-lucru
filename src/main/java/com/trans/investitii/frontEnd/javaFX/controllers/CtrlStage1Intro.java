@@ -1,6 +1,6 @@
 package main.java.com.trans.investitii.frontEnd.javaFX.controllers;
 
-import com.trans.investitii.backEnd.DBase.Investitii;
+import main.java.com.trans.investitii.backEnd.DBase.Investitii;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -181,7 +182,7 @@ public class CtrlStage1Intro implements Initializable {
 
 
             }
-        } catch (SQLException throwables) {
+        } catch (SQLException | FileNotFoundException throwables) {
             throwables.printStackTrace();
         }
 
@@ -276,7 +277,7 @@ public class CtrlStage1Intro implements Initializable {
                         rs1.getString("dataContabilizarii")
                 ));}}
             tableView.setItems( invest);
-        } catch (SQLException throwables) {
+        } catch (SQLException | FileNotFoundException throwables) {
             throwables.printStackTrace();
         }
     }

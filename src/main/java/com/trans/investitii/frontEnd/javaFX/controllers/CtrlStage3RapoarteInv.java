@@ -1,6 +1,6 @@
 package main.java.com.trans.investitii.frontEnd.javaFX.controllers;
 
-import com.trans.investitii.backEnd.DBase.Investitii;
+import main.java.com.trans.investitii.backEnd.DBase.Investitii;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;

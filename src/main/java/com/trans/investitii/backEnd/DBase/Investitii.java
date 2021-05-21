@@ -1,13 +1,18 @@
-package com.trans.investitii.backEnd.DBase;
+package  main.java.com.trans.investitii.backEnd.DBase;
 
-import javafx.scene.control.TextField;
+import main.java.com.trans.investitii.frontEnd.javaFX.controllers.Controller0Sample;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.time.LocalDate;
 
 public class Investitii {
-    public   static String USER= "root";
-    public   static String PASSWORD= "root";
+    String pathSQL = "src/main/resources/txt/login/MySQL";
+
+    public static String USER= "root";//Controller0Sample.USER_SQL; //
+    public static String PASSWORD=   "root"; //Controller0Sample.PASS_SQL;
     public static final String CREATE_DATABASE = "CREATE DATABASE IF NOT EXISTS invDB";
     public static final String USE_DATABASE = "USE invDB";
     public static String URL0 = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","sys" );
@@ -59,7 +64,7 @@ public class Investitii {
     private CharSequence valInitiala;
 
 //pentru adaugare din pag de adminFZ inbugetContract
-    public Investitii ( CharSequence characters, String text, CharSequence characters1, CharSequence characters2, LocalDate value, CharSequence characters3 ) {
+    public Investitii ( CharSequence characters, String text, CharSequence characters1, CharSequence characters2, LocalDate value, CharSequence characters3 ) throws FileNotFoundException {
             this.furnizor=characters;
             this.CUIfurnizor=text;
             this.adresa =characters1;
@@ -69,14 +74,14 @@ public class Investitii {
         }
 // Stage6
 
-    public Investitii(String nrPIF, String denProiect, Date dataPIF, String valInitiala) {
+    public Investitii(String nrPIF, String denProiect, Date dataPIF, String valInitiala) throws FileNotFoundException {
         this.nrPIF = nrPIF;
         this.denProiect = denProiect;
         this.dataPIF = dataPIF;
         this.valInitialaInvTBL=valInitiala;
     }
 
-    public Investitii(String org, String nrProiect, String denProiect, String nrPIF, Date dataPIF, String valoare, String respProiect) {
+    public Investitii(String org, String nrProiect, String denProiect, String nrPIF, Date dataPIF, String valoare, String respProiect) throws FileNotFoundException {
         this.org = org;
         this.nrProiect = nrProiect;
         this.denProiect = denProiect;
@@ -165,7 +170,7 @@ public class Investitii {
 
 
     //constructor pentru Stage4PIF tabel1
-    public Investitii ( String furnizor, String nrFactura, String contInv, String valoare, int nrCrt ) {
+    public Investitii ( String furnizor, String nrFactura, String contInv, String valoare, int nrCrt ) throws FileNotFoundException {
         this.furnizor = furnizor;
         this.nrFactura = nrFactura;
         this.contInv=contInv;
@@ -179,14 +184,14 @@ public class Investitii {
 //        this.valoare=valoare;
 //    }
 
-    public Investitii ( String furnizor, String nrFactura, String valoare, int nrCrt ) {
+    public Investitii ( String furnizor, String nrFactura, String valoare, int nrCrt ) throws FileNotFoundException {
         this.furnizor = furnizor;
         this.nrFactura = nrFactura;
         this.valoare = valoare;
         this.nrCrt=nrCrt;
     }
 
-    public Investitii ( String addContract ) {
+    public Investitii ( String addContract ) throws FileNotFoundException {
         this.addContract = addContract;
     }
 
@@ -304,7 +309,7 @@ public class Investitii {
 
 
     //constructor pt ctrl1StageIntro
-    public Investitii ( Object furnizor, String nrfactura, String valoare, LocalDate dataFacturii, LocalDate dataContabilizarii, Object contract, Object ctInv, Object ctFz,  Object respProj, Object deviz, Object org, Object  nrProj, String descriereFactura ) {
+    public Investitii ( Object furnizor, String nrfactura, String valoare, LocalDate dataFacturii, LocalDate dataContabilizarii, Object contract, Object ctInv, Object ctFz,  Object respProj, Object deviz, Object org, Object  nrProj, String descriereFactura ) throws FileNotFoundException {
         this.furnizor=furnizor;
         this.nrFactura = nrfactura;
         this.valoare= valoare;
@@ -320,7 +325,7 @@ public class Investitii {
         this.descriereFactura=descriereFactura;
     }
     // constructor pentru popularea listei definite in CtrlStage1Intro
-    public Investitii ( Object furnizor, String nrFactura, String valoare, Object contInv, Object nrProiect, Object respProiect, String dataContabilizarii ) {
+    public Investitii ( Object furnizor, String nrFactura, String valoare, Object contInv, Object nrProiect, Object respProiect, String dataContabilizarii ) throws FileNotFoundException {
         this.furnizor=furnizor;
         this.nrFactura =  nrFactura;
         this.valoare= valoare;
@@ -330,7 +335,7 @@ public class Investitii {
         this.dataContabilizarii= LocalDate.parse(dataContabilizarii);
     }
     // constructor pt rapoarte
-    public Investitii ( String furnizor, String nrFactura, String valoare, String valInitiala, String dataContabilizarii, String respProiect, String contract, String contInv, String contFz, String nrProiect, String org ) {
+    public Investitii ( String furnizor, String nrFactura, String valoare, String valInitiala, String dataContabilizarii, String respProiect, String contract, String contInv, String contFz, String nrProiect, String org ) throws FileNotFoundException {
         this.furnizor=furnizor;
         this.valoare= valoare;
         this.valInitiala =valInitiala;
@@ -343,5 +348,7 @@ public class Investitii {
         this.nrProiect= nrProiect;
         this.org= org;
     }
+
+
 
 }
