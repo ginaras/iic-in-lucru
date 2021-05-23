@@ -63,3 +63,18 @@
 
 ""\n" -pune enter
  Scanner s = new Scanner(new File( pathFileCtFz )).useDelimiter("\\s+"); - pune enter la citire
+
+ // print err in File
+         File mySQLerr2 = new File(pathSQLerr);
+         PrintStream out = null;
+         try {
+             out = new PrintStream(new FileOutputStream(pathSQLerr));
+         } catch (FileNotFoundException e) {
+             e.printStackTrace();
+         }
+         System.setOut(out);
+         System.setErr(out);
+         LocalDateTime date0 = LocalDateTime.now();
+         DateTimeFormatter date2 = DateTimeFormatter.ofPattern( "yyyy-MM-dd 'ora' hh.mm" );
+         String dataErr = date0.format( date2 );
+         System.out.println("DAY OF ERROR IS:   "+ dataErr);

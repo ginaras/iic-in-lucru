@@ -629,7 +629,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
     }
 
     public void goToStage4Pif ( ActionEvent event ) throws IOException {
-        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage4Pif.fxml" ) );
+        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage4PIF.fxml" ) );
         Scene tableViewScene = new Scene( stage1Intro );
         Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
         windowStage1Intro.setScene( tableViewScene );
@@ -645,7 +645,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
     }
 
     public void goToStage6AnalizaPif ( ActionEvent event ) throws IOException {
-        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage6AnalizaPIF.fxml" ) );
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage6AnalizaPif.fxml" ) );
         Scene tabeleViewScene = new Scene( tableView );
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene( tabeleViewScene );

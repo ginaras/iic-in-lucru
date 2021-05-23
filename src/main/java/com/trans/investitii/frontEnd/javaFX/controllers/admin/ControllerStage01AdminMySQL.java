@@ -50,28 +50,35 @@ public class ControllerStage01AdminMySQL implements Initializable {
         File mySQLerr = new File(pathSQLerr);
 
         if(mySQL.exists()) {
-            int n = 0;
-
             try {
-                FileReader reader = new FileReader(pathSQL);
-                BufferedReader bufferedReader=new BufferedReader(reader);
-                for (n=0; n<2; n++){
-                    if (n==0){
-                        USER_SQL =bufferedReader.readLine();
-                        continue;
-                    }
-                    if (n==1){
-                        PASS_SQL = String.valueOf(bufferedReader.readLine());                    }
-                    bufferedReader.close();
-
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                USER_SQL= Files.readAllLines( Paths.get( pathSQL ) ).get( 0 );
+                PASS_SQL= Files.readAllLines( Paths.get( pathSQL ) ).get( 1 );
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println(USER_SQL+"+ USER +"+PASS_SQL);
-            System.out.println(userN.toString()+"  "+pass.toString());
+
+//            int n = 0;
+
+//            try {
+//                FileReader reader = new FileReader(pathSQL);
+//                BufferedReader bufferedReader=new BufferedReader(reader);
+//                for (n=0; n<2; n++){
+//                    if (n==0){
+//                        USER_SQL =bufferedReader.readLine();
+//                        continue;
+//                    }
+//                    if (n==1){
+//                        PASS_SQL = String.valueOf(bufferedReader.readLine());                    }
+//                    bufferedReader.close();
+//
+//                }
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            System.out.println(USER_SQL+"+ USER +"+PASS_SQL);
+//            System.out.println(userN.toString()+"  "+pass.toString());
 
         }
 //        }
@@ -94,8 +101,8 @@ public class ControllerStage01AdminMySQL implements Initializable {
                 System.setOut(out);
                 System.setErr(out);
 
-                USER_SQL= (String) userN.getCharacters();
-                PASS_SQL = (String) pass.getCharacters();
+                USER_SQL= userN.getText();
+                PASS_SQL = pass.getText();
                 System.out.println( USER_SQL + " + "+PASS_SQL);
 
                 Parent tableView = FXMLLoader.load(getClass().getResource("/fxml/sample.fxml"));

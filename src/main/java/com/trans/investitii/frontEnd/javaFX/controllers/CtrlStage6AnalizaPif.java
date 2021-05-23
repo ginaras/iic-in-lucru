@@ -244,7 +244,7 @@ public class CtrlStage6AnalizaPif<dataInceput> implements    Initializable {
     }
 
     public void goToStage4Pif ( ActionEvent actionEvent ) throws IOException {
-        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage4Pif.fxml" ) );
+        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage4PIF.fxml" ) );
         Scene tableViewScene = new Scene( stage1Intro );
         Stage windowStage1Intro = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         windowStage1Intro.setScene( tableViewScene );

@@ -601,7 +601,7 @@ public class CtrlStage4PIF implements Initializable {
     }
 
     public void goToStage6AnalizaPif ( ActionEvent event ) throws IOException {
-        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage6AnalizaPIF.fxml" ) );
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage6AnalizaPif.fxml" ) );
         Scene tabeleViewScene = new Scene( tableView );
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene( tabeleViewScene );

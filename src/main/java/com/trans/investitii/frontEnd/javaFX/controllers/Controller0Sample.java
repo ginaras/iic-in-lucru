@@ -1,6 +1,5 @@
 package main.java.com.trans.investitii.frontEnd.javaFX.controllers;
 
-import main.java.com.trans.investitii.backEnd.DBase.Investitii;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,11 +9,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import main.java.com.trans.investitii.backEnd.DBase.Investitii;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import static main.java.com.trans.investitii.backEnd.DBase.Investitii.*;
@@ -42,10 +45,14 @@ public class Controller0Sample implements Initializable {
     public Button buttonStage5Solduri;
     public Button buttonStage6AnalizaPif;
     public Button goToStage01AdminMySQL;
-    String pathSQL = "src/main/resources/txt/login/MySQL";
-    String pathSQLerr = "src/main/resources/txt/login/MySQLerr";
-    public static String USER_SQL;
-    public static String PASS_SQL;
+    String pathSQL = "C:\\Investitii\\resurse\\MySQL";
+    String pathSQLerr = "C:\\Investitii\\resurse\\MySQLerrSampl0";
+    File mySQL = new File(pathSQL);
+    File mySQLerr = new File(pathSQLerr);
+//    public static String USER_SQL;
+//    public static String PASS_SQL;
+//    public static String USER= Investitii.USER_SQL; //"root";
+//    public static String PASSWORD=  Controller0Sample.PASS_SQL; //  "root";
 
     private void goToStage(){
 
@@ -77,7 +84,7 @@ public class Controller0Sample implements Initializable {
     }
     public void goToStage4Pif ( ActionEvent event ) throws IOException, SQLException {
         getConectionNew();
-        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage4Pif.fxml" ) );
+        Parent stage1Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage4PIF.fxml" ) );
         Scene tableViewScene = new Scene( stage1Intro );
         Stage windowStage1Intro = (Stage) ((Node) event.getSource()).getScene().getWindow();
         windowStage1Intro.setScene( tableViewScene );
@@ -104,7 +111,7 @@ public class Controller0Sample implements Initializable {
 
     public void goToStage6AnalizaPif ( ActionEvent event ) throws IOException, SQLException {
         getConectionNew();
-        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage6AnalizaPIF.fxml" ) );
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage6AnalizaPif.fxml" ) );
         Scene tabeleViewScene = new Scene( tableView );
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene( tabeleViewScene );
@@ -206,7 +213,7 @@ public class Controller0Sample implements Initializable {
 
     @Override
     public void initialize ( java.net.URL location, ResourceBundle resources ) {
-
+// print err in File
         File mySQLerr2 = new File(pathSQLerr);
         PrintStream out = null;
         try {
@@ -216,68 +223,71 @@ public class Controller0Sample implements Initializable {
         }
         System.setOut(out);
         System.setErr(out);
-        try {
-            Files.deleteIfExists(Paths.get(pathSQLerr));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        File mySQL = new File(pathSQL);
-        File mySQLerr = new File(pathSQLerr);
+        LocalDateTime date0 = LocalDateTime.now();
+        DateTimeFormatter date2 = DateTimeFormatter.ofPattern( "yyyy-MM-dd 'ora' hh.mm" );
+        String dataErr = date0.format( date2 );
+        System.out.println("DAY OF ERROR IS:   "+ dataErr);
 
-        if(mySQL.exists()) {
-            int n = 0;
 
-            try {
-                FileReader reader = new FileReader(pathSQL);
-                BufferedReader bufferedReader=new BufferedReader(reader);
-                for (n=0; n<2; n++){
-                    if (n==0){
-                        USER_SQL =bufferedReader.readLine();
-                        continue;
-                    }
-                    if (n==1){
-                        PASS_SQL = String.valueOf(bufferedReader.readLine());                    }
-                    bufferedReader.close();
 
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.println(USER_SQL+"+ USER +"+PASS_SQL);
-
-        }
+//        if(mySQL.exists()) {
+//            int n = 0;
+//
+//            try {
+//                FileReader reader = new FileReader(pathSQL);
+//                BufferedReader bufferedReader=new BufferedReader(reader);
+//                for (n=0; n<2; n++){
+//                    if (n==0){
+//                        USER_SQL =bufferedReader.readLine();
+//                        continue;
+//                    }
+//                    if (n==1){
+//                        PASS_SQL = String.valueOf(bufferedReader.readLine());                    }
+//                    bufferedReader.close();
+//
+//                }
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            System.out.println(USER_SQL+"+ USER +"+PASS_SQL);
+//
+//        }
 
 //        File mySQL = new File(pathSQL);
-        if (!mySQL.exists()){
-            goToStage1Intro.setDisable(true);
-            adminFZ.setDisable(true);
-            adminContracte.setDisable(true);
-            adminCtInvest.setDisable(true);
-            adminCtFz.setDisable(true);
-            adminNrProiect.setDisable(true);
-            adminRespProiect.setDisable(true);
-            adminDeviz.setDisable(true);
-              adminOrg.setDisable(true);
-              goToStageBDelete.setDisable(true);
-              goToStage2Rapoarte.setDisable(true);
-              buttonStage3Sumar.setDisable(true);
-              goToStage4Pif.setDisable(true);
-//              goToStageNewUnit.setDisable(true);
-              goToStage03AdminBuget.setDisable(true);
-              buttonStage5Solduri.setDisable(true);
-              buttonStage6AnalizaPif.setDisable(true);
+//        if (!mySQL.exists()){
+//            goToStage1Intro.setDisable(true);
+//            adminFZ.setDisable(true);
+//            adminContracte.setDisable(true);
+//            adminCtInvest.setDisable(true);
+//            adminCtFz.setDisable(true);
+//            adminNrProiect.setDisable(true);
+//            adminRespProiect.setDisable(true);
+//            adminDeviz.setDisable(true);
+//              adminOrg.setDisable(true);
+//              goToStageBDelete.setDisable(true);
+//              goToStage2Rapoarte.setDisable(true);
+//              buttonStage3Sumar.setDisable(true);
+//              goToStage4Pif.setDisable(true);
+////              goToStageNewUnit.setDisable(true);
+//              goToStage03AdminBuget.setDisable(true);
+//              buttonStage5Solduri.setDisable(true);
+//              buttonStage6AnalizaPif.setDisable(true);
 
-        }
+//        }
         File file = new File( "c:\\Investitii" );
         File file1 = new File( "c:\\Investitii\\resurse" );
         File file2= new File( "c:\\Investitii\\rapoarte" );
+        File MySQL= new File( "C:\\Investitii\\resurse\\MySQL" );
+        File MySQLerrSampl0= new File( "C:\\Investitii\\resurse\\MySQLerrSampl0" );
 
 
         boolean fileExists = file.mkdir();
         boolean fileExists1 = file1.mkdir();
         boolean fileExists2 = file2.mkdir();
+        boolean fileExists3 = MySQL.mkdir();
+        boolean fileExists4 = MySQLerrSampl0.mkdir();
 
         File fz= new File("c:\\Investitii\\resurse\\fz" );
         File contract= new File("c:\\Investitii\\resurse\\contract" );

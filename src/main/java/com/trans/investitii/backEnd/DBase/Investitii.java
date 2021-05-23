@@ -1,6 +1,7 @@
 package  main.java.com.trans.investitii.backEnd.DBase;
 
 import main.java.com.trans.investitii.frontEnd.javaFX.controllers.Controller0Sample;
+import main.java.com.trans.investitii.frontEnd.javaFX.controllers.admin.ControllerStage01AdminMySQL;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -11,8 +12,8 @@ import java.time.LocalDate;
 public class Investitii {
     String pathSQL = "src/main/resources/txt/login/MySQL";
 
-    public static String USER= "root";//Controller0Sample.USER_SQL; //
-    public static String PASSWORD=   "root"; //Controller0Sample.PASS_SQL;
+    public static String USER=  "root";//ControllerStage01AdminMySQL.USER_SQL;
+    public static String PASSWORD=  "root";//ControllerStage01AdminMySQL.PASS_SQL;
     public static final String CREATE_DATABASE = "CREATE DATABASE IF NOT EXISTS invDB";
     public static final String USE_DATABASE = "USE invDB";
     public static String URL0 = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","sys" );
