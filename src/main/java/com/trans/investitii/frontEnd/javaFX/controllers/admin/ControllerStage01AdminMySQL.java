@@ -14,9 +14,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 public class ControllerStage01AdminMySQL implements Initializable {
 
@@ -27,8 +25,8 @@ public class ControllerStage01AdminMySQL implements Initializable {
     public Button deleteLogData;
     public Button back;
     public TextArea textBox;
-    String pathSQL = "src/main/resources/txt/login/MySQL";
-    String pathSQLerr = "src/main/resources/txt/login/MySQLerr";
+    String pathSQL = "C:\\Investitii\\resurse\\log\\MySQL";
+    String pathSQLerr = "C:\\Investitii\\resurse\\log\\MySQLerr01";
     public static String USER_SQL;
     public static String PASS_SQL;
 
@@ -41,52 +39,31 @@ public class ControllerStage01AdminMySQL implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         userN.clear();
         pass.clear();
-        try {
-            Files.deleteIfExists(Paths.get(pathSQLerr));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         File mySQL = new File(pathSQL);
-        File mySQLerr = new File(pathSQLerr);
+        File mySQLerr1 = new File(pathSQLerr);
 
         if(mySQL.exists()) {
+
             try {
+                userN.setText(Files.readAllLines(Paths.get(pathSQL)).get(0));
+                pass.setText(Files.readAllLines(Paths.get(pathSQL)).get(1));
+
                 USER_SQL= Files.readAllLines( Paths.get( pathSQL ) ).get( 0 );
                 PASS_SQL= Files.readAllLines( Paths.get( pathSQL ) ).get( 1 );
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-//            int n = 0;
-
-//            try {
-//                FileReader reader = new FileReader(pathSQL);
-//                BufferedReader bufferedReader=new BufferedReader(reader);
-//                for (n=0; n<2; n++){
-//                    if (n==0){
-//                        USER_SQL =bufferedReader.readLine();
-//                        continue;
-//                    }
-//                    if (n==1){
-//                        PASS_SQL = String.valueOf(bufferedReader.readLine());                    }
-//                    bufferedReader.close();
-//
-//                }
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            System.out.println(USER_SQL+"+ USER +"+PASS_SQL);
-//            System.out.println(userN.toString()+"  "+pass.toString());
-
         }
-//        }
+        textBox.setText("Pentru siguranta trebuie sa introduceti username-ul si parola de mySQL. " +
+                "Este de ajuns sa le puneti la prima utilizare. Daca doriti confidentialitate, iainte de iesire din program trebuie sa reveniti pe aceasta pagina si sa apadati butonul: Delete log data");
     }
 
     public void loginButtonAct(ActionEvent event) throws IOException, SQLException {
         String userName = userN.getText();
         String passText = pass.getText();
+        File mySQL = new File(pathSQL);
+
 
         if (!userName.isEmpty() || !passText.isEmpty()) {
 
@@ -105,11 +82,17 @@ public class ControllerStage01AdminMySQL implements Initializable {
                 PASS_SQL = pass.getText();
                 System.out.println( USER_SQL + " + "+PASS_SQL);
 
+                     mySQL.createNewFile();
+                     BufferedWriter bufferedWriter =new BufferedWriter( new FileWriter(pathSQL));
+                     bufferedWriter.append(userN.getText()+"\n"+pass.getText()+"\n");
+                     bufferedWriter.close();
+
                 Parent tableView = FXMLLoader.load(getClass().getResource("/fxml/sample.fxml"));
                 Scene tabeleViewScene = new Scene(tableView);
                 Stage window = (Stage) ( (Node) event.getSource() ).getScene().getWindow();
                 window.setScene(tabeleViewScene);
                 window.show();
+
             } catch (SQLException throwables) {
                 Alert fail = new Alert(Alert.AlertType.INFORMATION);
                 fail.setHeaderText("Atentie!");
