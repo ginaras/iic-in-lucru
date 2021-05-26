@@ -32,8 +32,7 @@ public class ControllerStage01AdminMySQL implements Initializable {
 
 
     public ControllerStage01AdminMySQL() throws SQLException {
-    }
-
+    }//; hdhjdv
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
