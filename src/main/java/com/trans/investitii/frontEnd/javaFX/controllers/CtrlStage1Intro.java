@@ -80,8 +80,7 @@ public class CtrlStage1Intro implements Initializable {
 
     public CtrlStage1Intro () throws SQLException {
     }
-
-
+    
 
     public ObservableList<Investitii> getInvestitii (){
         ObservableList <Investitii> investitii = FXCollections.observableArrayList() ;
@@ -315,19 +314,43 @@ public class CtrlStage1Intro implements Initializable {
         tableView.setItems(getInvestitii()  );
 
         invest = FXCollections.observableArrayList();
+        int lastNrCrt = 0;
         try {
-            int factura=0;
-            while (rs1.next()) {
-                if(rs1.isLast()){invest.addAll( new Investitii(
-                        rs1.getObject( "furnizor" ),
-                        rs1.getString( "nrFactura" ),
-                        rs1.getString( "valoare" ),
-                        rs1.getObject( "contInv" ),
-                        rs1.getObject( "nrProiect" ),
-                        rs1.getObject( "respProiect" ),
-                        rs1.getString("dataContabilizarii")
+            ResultSet rs2 =statement.executeQuery( "SELECT * FROM invTBL");
+            while ((rs2.next())){
+                if(rs2.isLast()) {
+                    lastNrCrt = rs2.getInt("nrCrt")-10;
+                    System.out.println(lastNrCrt);
+
+
+                }
+                }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+//        ");//
+        try {
+            ResultSet rs3 =statement.executeQuery( "SELECT * FROM invTBL WHERE nrCrt>='"+lastNrCrt+"'");
+            while (rs3.next()) {
+                if(rs3.next()){invest.addAll( new Investitii(
+                        rs3.getObject( "furnizor" ),
+                        rs3.getString( "nrFactura" ),
+                        rs3.getString( "valoare" ),
+                        rs3.getObject( "contInv" ),
+                        rs3.getObject( "nrProiect" ),
+                        rs3.getObject( "respProiect" ),
+                        rs3.getString("dataContabilizarii")
                 ));}}
             tableView.setItems( invest);
+
+            ResultSet rs4 =statement.executeQuery( "SELECT * FROM invTBL WHERE nrCrt>='"+lastNrCrt+"'");
+                while (rs4.next()){
+                    if(rs4.isLast()){
+                        rs4.getInt("nrCrt");
+                    }
+                    System.out.println(rs4.getInt("nrCrt"));
+                }
+
         } catch (SQLException | FileNotFoundException throwables) {
             throwables.printStackTrace();
         }
