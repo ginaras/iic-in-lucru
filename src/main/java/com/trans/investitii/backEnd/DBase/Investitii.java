@@ -326,7 +326,7 @@ public class Investitii {
         this.descriereFactura=descriereFactura;
     }
     // constructor pentru popularea listei definite in CtrlStage1Intro
-    public Investitii ( Object furnizor, String nrFactura, String valoare, Object contInv, Object nrProiect, Object respProiect, String dataContabilizarii ) throws FileNotFoundException {
+    public Investitii ( Object furnizor, String nrFactura, String valoare, Object contInv, Object nrProiect, Object respProiect, String dataContabilizarii, int nrCrt ) throws FileNotFoundException {
         this.furnizor=furnizor;
         this.nrFactura =  nrFactura;
         this.valoare= valoare;
@@ -334,6 +334,7 @@ public class Investitii {
         this.nrProiect= nrProiect;
         this.respProiect =respProiect;
         this.dataContabilizarii= LocalDate.parse(dataContabilizarii);
+        this.nrCrt = nrCrt;
     }
     // constructor pt rapoarte
     public Investitii ( String furnizor, String nrFactura, String valoare, String valInitiala, String dataContabilizarii, String respProiect, String contract, String contInv, String contFz, String nrProiect, String org ) throws FileNotFoundException {

@@ -48,14 +48,7 @@ public class Controller0Sample implements Initializable {
     public Button buttonStage6AnalizaPif;
     public Button goToStage01AdminMySQL;
 
-//    public static String USER_SQL;
-//    public static String PASS_SQL;
-//    public static String USER= Investitii.USER_SQL; //"root";
-//    public static String PASSWORD=  Controller0Sample.PASS_SQL; //  "root";
-
-    private void goToStage(){
-
-    }
+    private void goToStage(){    }
 
     public void goToStage1Intro( ActionEvent event ) throws IOException, SQLException {
         getConectionNew();
@@ -229,18 +222,20 @@ public class Controller0Sample implements Initializable {
         String pathSQLerr0 = "C:\\Investitii\\resurse\\log\\MySQLerrSampl0";
 
 
-        PrintStream out = null;
-        try {
-            out = new PrintStream(new FileOutputStream(pathSQLerr0));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        System.setOut(out);
-        System.setErr(out);
-        LocalDateTime date0 = LocalDateTime.now();
-        DateTimeFormatter date2 = DateTimeFormatter.ofPattern( "yyyy-MM-dd 'ora' hh.mm" );
-        String dataErr = date0.format( date2 );
-        System.out.println("DAY OF ERROR IS:   "+ dataErr);
+        //!!!!!!!! Printare erori in fisier
+
+//        PrintStream out = null;
+//        try {
+//            out = new PrintStream(new FileOutputStream(pathSQLerr0));
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        System.setOut(out);
+//        System.setErr(out);
+//        LocalDateTime date0 = LocalDateTime.now();
+//        DateTimeFormatter date2 = DateTimeFormatter.ofPattern( "yyyy-MM-dd 'ora' hh.mm" );
+//        String dataErr = date0.format( date2 );
+//        System.out.println("DAY OF ERROR IS:   "+ dataErr);
 
         if(mySQL.exists()) {
             try {

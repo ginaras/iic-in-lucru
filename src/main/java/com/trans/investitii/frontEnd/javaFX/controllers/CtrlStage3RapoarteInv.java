@@ -236,32 +236,18 @@ public class CtrlStage3RapoarteInv implements Initializable {
                 }
                 double totalAnRealizatOrgD =  totalAnRealizatOrg * 100 / 100;
                 double totalAnRealizatOrgD1 =  totalAnRealizatOrg * 100 / 100;
-
                 labelTotalRealizatOrg.setText( df.format(totalAnRealizatOrgD)  );
-
-
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
         //Calcul coloana de diferenta
-        String estimatFinalOrg = labetTotalEstimatOrg.getText();
-        estimatFinalOrg = estimatFinalOrg.replace(".", "");
-        estimatFinalOrg = estimatFinalOrg.replace(",", "");
+        double difOrg =bugetEstimatFinal-totalAnRealizatOrg;
+        labelDiferentaOrg.setText(df.format(difOrg));
 
-        String totalRealizatOrg = labelTotalRealizatOrg.getText();
-        totalRealizatOrg = totalRealizatOrg.replace(",", "");
-        totalRealizatOrg = totalRealizatOrg.replace(".","");
-
-        double difOrg = Integer.parseInt(estimatFinalOrg)-Integer.parseInt(totalRealizatOrg)/100;
-        if (estimatFinalOrg!=null) {
-            double difOrg1 = ( Double.parseDouble(estimatFinalOrg) - Double.parseDouble(totalRealizatOrg) / 100 ) * 100 / Double.parseDouble(estimatFinalOrg);
-            labelDiferentaOrg1.setText(df.format(difOrg1) + " %");
-
-            double totalAnRealizatOrgD = ( ( Double.parseDouble(totalRealizatOrg) / 100 ) ) * 100 / Double.parseDouble(estimatFinalOrg);
-            labelTotalRealizatOrg1.setText(df.format(totalAnRealizatOrgD)+" %");
+        if (bugetEstimatFinal!=0) {
+            labelDiferentaOrg1.setText(df.format(difOrg*100/bugetEstimatFinal) + " %");
+            labelTotalRealizatOrg1.setText(df.format(totalAnRealizatOrg*100/bugetEstimatFinal)+" %");
         }
-            labelDiferentaOrg.setText(df.format(difOrg));
-
     }
 
     public void comboBoxActProj ( ActionEvent actionEvent ) throws SQLException {
@@ -359,26 +345,13 @@ public class CtrlStage3RapoarteInv implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+           double difProj1 =bugetEstimatFinal -totalRealizatProj;
 
-        String estimatFinalProj = labelTotalEstimatProj.getText();
-        estimatFinalProj = estimatFinalProj.replace(".", "");
-        estimatFinalProj = estimatFinalProj.replace(",", ".");
-
-        String totalRealizatProjBrut = labelTotalRealizatProj.getText();
-        totalRealizatProjBrut = totalRealizatProjBrut.replace(".", "");
-        totalRealizatProjBrut = totalRealizatProjBrut.replace(",",".");
-
-
-        double totalRealizatDouble = Double.parseDouble(totalRealizatProjBrut);
-        if (estimatFinalProj !=null) {
-            double totalRealizatDouble1 = Double.parseDouble(totalRealizatProjBrut) * 100 / Double.parseDouble(estimatFinalProj);
-            labelTotalRealizatProj1.setText(df.format(totalRealizatDouble1)+" %");
-
-            double difProj1 = (Double.parseDouble(estimatFinalProj)-Double.parseDouble(String.valueOf(totalRealizatDouble)))*100/Double.parseDouble(estimatFinalProj);
-            labelDiferentaProj1.setText(df.format(difProj1)+" %");
+        if (bugetEstimatFinal !=0) {
+            labelTotalRealizatProj1.setText(df.format(totalRealizatProj*100/bugetEstimatFinal)+" %");
+            labelDiferentaProj1.setText(df.format(difProj1*100/bugetEstimatFinal)+" %");
         }
-        int difProj = Integer.parseInt(estimatFinalProj)-((int) totalRealizatDouble);
-        labelDiferentaProj.setText(df.format(difProj));
+        labelDiferentaProj.setText(df.format(difProj1));
 
         if(comboBoxButtonProj.getValue()!=null){
 
@@ -508,25 +481,17 @@ public class CtrlStage3RapoarteInv implements Initializable {
             }
 
             ResultSet rsProjFz1 = stm.executeQuery( ValRealizataTotalFz );
-            double totalProiect = 0.00;
+            double totalFzRealizat = 0.00;
             try {
                 while (rsProjFz1.next()) {
-                    totalProiect = rsProjFz1.getDouble( "totalProiect" );
+                    totalFzRealizat = rsProjFz1.getDouble( "totalProiect" );
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            labelTotalRealizatFz.setText( df.format( totalProiect ) );
+            labelTotalRealizatFz.setText( df.format( totalFzRealizat ) );
 
-            String estimatFinalFz = labelTotalEstimatFz.getText();
-            estimatFinalFz = estimatFinalFz.replace(".", "");
-            estimatFinalFz = estimatFinalFz.replace(",", "");
-
-            String totalRealizatFz = labelTotalRealizatFz.getText();
-            totalRealizatFz = totalRealizatFz.replace(",", "");
-            totalRealizatFz = totalRealizatFz.replace(".","");
-
-            double difFz = Integer.parseInt(estimatFinalFz)-Integer.parseInt(totalRealizatFz);
+            double difFz = valFinala-totalFzRealizat;;
             labelDiferentafz.setText(df.format(difFz));
 
 
@@ -572,33 +537,23 @@ public class CtrlStage3RapoarteInv implements Initializable {
 
 
             ResultSet rsProjFz1 = stm.executeQuery( ValRealizataTotalFz );
-            double totalProiect = 0.00;
+            double totalRealizatFz = 0.00;
             try {
                 while (rsProjFz1.next()) {
-                    totalProiect = rsProjFz1.getDouble( "totalProiect" );
+                    totalRealizatFz = rsProjFz1.getDouble( "totalProiect" );
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            labelTotalRealizatFz.setText( df.format( totalProiect ) );
+            labelTotalRealizatFz.setText( df.format( totalRealizatFz ) );
 
-            String estimatFinalFz = labelTotalEstimatFz.getText();
-            estimatFinalFz = estimatFinalFz.replace(".", "");
-
-            String totalRealizatFz = labelTotalRealizatFz.getText();
-            totalRealizatFz = totalRealizatFz.replace(",", "");
-            totalRealizatFz = totalRealizatFz.replace(".","");
-
-
-            double difFz = Integer.parseInt(estimatFinalFz)-Integer.parseInt(totalRealizatFz);
-            if (estimatFinalFz!=null) {
-                double difFz1 = ( Double.parseDouble(estimatFinalFz) - Double.parseDouble(totalRealizatFz)  ) * 100 / Double.parseDouble(estimatFinalFz);
-                labelDiferentafz1.setText(df.format(difFz1)+" %");
-
-                double totalRealizatFz1 = ((Double.parseDouble(totalRealizatFz))*100/Double.parseDouble(estimatFinalFz));
-                labelTotalRealizatFz1.setText(df.format(totalRealizatFz1)+" %");
-            }
+            double difFz = valFinala - totalRealizatFz;
             labelDiferentafz.setText(df.format(difFz));
+
+            if (valFinala!=0) {
+                labelDiferentafz1.setText(df.format(difFz*100/valFinala)+" %");
+                labelTotalRealizatFz1.setText(df.format(totalRealizatFz*100/valFinala)+" %");
+            }
 
         }
     }
@@ -686,7 +641,12 @@ public class CtrlStage3RapoarteInv implements Initializable {
             String replaceNumeData2 = date0.format( date02 );
             String replaceNumeData1 = date1.format( date01 );
 
-            BufferedWriter writer0 = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\SituatiaImobilizarilorLaData-" + replaceNumeData2 + "rulat la "+replaceNumeData1+".csv", false ) );
+            BufferedWriter writer0 = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\SituatiaImobilizarilorLaData-" + replaceNumeData2 + "rulat la "+replaceNumeData1+".csv", true ) );
+            writer0.append( ",,Situatia imobilizarilor in perioada '"+dataInit+"' - '"+dataFinala+"'" );
+            writer0.append( "\n" );
+            writer0.append( "" );
+            writer0.append( "\n" );
+
             writer0.append( "nrCrt, denProiect, sold initial la "+dataInit+",  Total intrari, Iesiri Din existent la "+dataInit+", Iesiri din intrarile perioadei, Total Iesiri, Sold la "+dataFinala+", Nr proiect" );
             writer0.close();
 //Parcurgerea BD si extragerea datelor iterate through the java resultset
@@ -699,8 +659,6 @@ public class CtrlStage3RapoarteInv implements Initializable {
                 String intrariPrint = rs.getString( "intrari" );
                 String soldFinalPrint = rs.getString( "soldFinal" );
                 String nrProiectPrint = rs.getString( "bugetProj.nrProiect" );
-//                String dinSursePropriiPrint = rs.getString( "dinSurseProprii" );
-//                String totalIesiriPrint = rs.getString( "totalIesiri" );
 
                 if(iesiriPrint==null){iesiriPrint = "0";}
                 if(iesiriDinSoldPrint==null){ iesiriDinSoldPrint = "0";}

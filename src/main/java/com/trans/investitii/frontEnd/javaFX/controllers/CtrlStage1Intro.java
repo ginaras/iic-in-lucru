@@ -1,5 +1,6 @@
 package main.java.com.trans.investitii.frontEnd.javaFX.controllers;
 
+import javafx.scene.input.MouseEvent;
 import main.java.com.trans.investitii.backEnd.DBase.Investitii;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +21,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -69,6 +71,10 @@ public class CtrlStage1Intro implements Initializable {
     public RadioButton radioTVA5;
     public RadioButton radioTVA9;
     public RadioButton radioTVA19;
+    public TableColumn nrCrt;
+    public Button changeData;
+    public Label labelSchimb;
+    public Label labelSchimb1;
 
 
     @FXML
@@ -108,19 +114,217 @@ public class CtrlStage1Intro implements Initializable {
     Statement statement = connection.createStatement();
 
     ResultSet rs1 =statement.executeQuery( "SELECT * FROM invTBL");// WHERE dataContablizarii > LOCALDATE " );
+    int nrCrtAles =0;
+
+    public void changeDataAct ( ActionEvent actionEvent ) throws SQLException {
+        ObservableList<Investitii> selectedRows, allInvoice;
+//        allInvoice = tableView.getItems();
+//        selectedRows = tableView.getSelectionModel().getSelectedItems();
+//
+//        Investitii selectNrCrt = tableView.getSelectionModel().getSelectedItem();
+        nrCrtAles = tableView.getSelectionModel().getSelectedItem().getNrCrt();
 
 
-    public void addFacturaButton ( ActionEvent event ) throws IOException {
-//        validareCampuri();
-        addFactToSQL( connection );
-        clearData();
-        addFacturaButtonId.setDisable( true );
+
+        System.out.println(nrCrtAles);
+
+
+        String selectToChange = "SELECT * FROM invTBL WHERE nrCrt= '"+nrCrtAles+"'";
+
+        ResultSet rs4= statement.executeQuery(selectToChange);
+        while (rs4.next()){
+            Object myFz =  rs4.getObject( "furnizor" );
+            String myNrFactura =rs4.getString( "nrFactura" );
+            String myDataFacturii =rs4.getString( "dataFacturii" );
+            String myDataContabilizarii = rs4.getString( "dataContabilizarii" );
+            Double myValoare =rs4.getDouble( "valoare" );
+            Object myContract =rs4.getObject( "contract" );
+            Object myContInv =rs4.getObject( "contInv" );
+            Object myContFz =rs4.getObject( "contFz" );
+            Object mynrProiect =rs4.getObject( "nrProiect" );
+            Object myDeviz =rs4.getObject( "deviz" );
+            Object myOrg =rs4.getObject( "org" );
+            Object myRespProiect =rs4.getObject( "respProiect" );
+            String myDescriereaFacturii =rs4.getString( "descriereFactura" );
+
+            comBoboxFz.setValue( myFz );
+            fieldNrFact.setText( myNrFactura );
+            fieldValFact.setText( String.valueOf( myValoare ) );
+            fieldDataFactura.setValue (LocalDate.parse(  myDataFacturii ));
+            fieldDataGL.setValue( LocalDate.parse( myDataContabilizarii ) );
+            comboBoxRespProj.setValue( myRespProiect );
+            comboBoxContract.setValue( myContract );
+            cBCtFz.setValue( myContFz );
+            comboBoxCtInv.setValue( myContInv );
+            cBProjNr.setValue( mynrProiect );
+            comboBoxDeviz.setValue( myDeviz );
+            comboBoxOrg.setValue( myOrg );
+            fieldDescriere.setText( myDescriereaFacturii );
+        }
+        labelSchimb.setText( "" );
+        labelSchimb1.setText( "" );
 
     }
-    public void addFactToSQL (Connection connection){
-        String addSql = "INSERT INTO invTBL  (furnizor, nrFactura, dataFacturii, dataContabilizarii, valoare, valInitiala tva, valTot, contract, contInv, contFz, nrProiect, deviz, org, respProiect, descriereaFacturii)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        try (PreparedStatement statement = connection.prepareStatement(addSql) ){
 
+    public void addFacturaButton ( ActionEvent event ) throws IOException {
+        if (labelSchimb == null) {
+            addFactToSQL( connection );
+            clearData();
+            addFacturaButtonId.setDisable( true );
+        }
+        else {
+            updateFactura(connection);
+            labelSchimb.setText( "Selecteaza o factura, apasa butonul " );
+            labelSchimb1.setText( "si poti schimba datele facturii selectate" );
+            clearData();
+            addFacturaButtonId.setDisable( true );
+        }
+
+    }
+
+    private void updateFactura ( Connection connection ) {
+        String updateFactura = "INSERT INTO invTBL  (furnizor, nrFactura, dataFacturii, dataContabilizarii, valoare, valInitiala, tva, valTot, contract, contInv, contFz, nrProiect, deviz, org, respProiect, descriereaFacturii)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        ObservableList<Investitii> selectedRows, allInvoice;
+
+        allInvoice = tableView.getItems();
+        selectedRows = tableView.getSelectionModel().getSelectedItems();
+
+        try (PreparedStatement statement = connection.prepareStatement(updateFactura) ){
+            Investitii newInvestitii = new Investitii(
+                    comBoboxFz.getValue(),
+                    fieldNrFact.getText().toUpperCase(),
+                    fieldValFact.getText(),
+                    fieldDataFactura.getValue(),
+                    fieldDataGL.getValue(),
+                    comboBoxContract.getValue(),
+                    comboBoxCtInv.getValue(),
+                    cBCtFz.getValue(),
+                    comboBoxRespProj.getValue(),
+                    comboBoxDeviz.getValue(),
+                    comboBoxOrg.getValue(),
+                    cBProjNr.getValue(),
+                    fieldDescriere.getText());
+
+            if(!fieldValFact.getText().isEmpty() || !(fieldDataGL.getValue() ==null) || !(fieldDataFactura.getValue()==null))
+            {
+                if (radioFaraTVA.isSelected()){
+                    double val= parseDouble( fieldValFact.getText());
+                    val = Math.round( val*100);
+                    val = val/100;
+                    double tva =  0;
+                    double valTot = val ;
+
+                    statement.executeUpdate( "UPDATE invTBL SET furnizor = '"+comBoboxFz.getValue()+"', nrFactura ='"+fieldNrFact.getText().toUpperCase()+"', dataFacturii = '" +fieldDataFactura.getValue()+ "', dataContabilizarii ='" +fieldDataGL.getValue() +"', valoare = '" +val+ "', valInitiala = '" +val+ "', tva = '" +tva+ "', valTot='"+valTot+"', contract ='"+ comboBoxContract.getValue()+ "', contInv='"+comboBoxCtInv.getValue()+"', contFz ='"+cBCtFz.getValue()+"', nrProiect='"+cBProjNr.getValue()+"', deviz='"+comboBoxDeviz.getValue()+"', org='"+comboBoxOrg.getValue()+"', respProiect='"+comboBoxRespProj.getValue()+"', descriereFactura='"+fieldDescriere.getText()+"' WHERE nrCrt='"+nrCrtAles+"' ");
+
+                    Alert confirm = new Alert( Alert.AlertType.INFORMATION );
+                    confirm.setHeaderText( "Factura a fost MODIFICATA" );
+                    confirm.setContentText( "valoare: " +val+ "  TVA :  " + tva + "   Valoare Totala  : " + valTot );
+                    confirm.show();
+
+                    for (Investitii factura : selectedRows) {
+                        allInvoice.remove( factura );
+                    }
+                    tableView.getItems().addAll( newInvestitii ); // adauga campuri in tabel)
+
+                }
+                if (radioTVA19.isSelected()){
+                    double val= parseDouble( fieldValFact.getText());
+                    val = Math.round( val*100);
+                    val = val/100;
+                    double tva0 = val * 0.19;
+                    tva0 = Math.round( tva0 * 100 );
+                    double tva = tva0 / 100;
+                    double valTot = val + tva;
+                    valTot = Math.round( valTot * 100 );
+                    valTot = valTot / 100;
+
+                    statement.executeUpdate( "UPDATE invTBL SET furnizor = '"+comBoboxFz.getValue()+"', nrFactura ='"+fieldNrFact.getText().toUpperCase()+"', dataFacturii = '" +fieldDataFactura.getValue()+ "', dataContabilizarii ='" +fieldDataGL.getValue() +"', valoare = '" +val+ "', valInitiala = '" +val+ "', tva = '" +tva+ "', valTot='"+valTot+"', contract ='"+ comboBoxContract.getValue()+ "', contInv='"+comboBoxCtInv.getValue()+"', contFz ='"+cBCtFz.getValue()+"', nrProiect='"+cBProjNr.getValue()+"', deviz='"+comboBoxDeviz.getValue()+"', org='"+comboBoxOrg.getValue()+"', respProiect='"+comboBoxRespProj.getValue()+"', descriereFactura='"+fieldDescriere.getText()+"' WHERE nrCrt='"+nrCrtAles+"' ");
+
+                    Alert confirm = new Alert( Alert.AlertType.INFORMATION );
+                    confirm.setHeaderText( "Factura a fost MODIFICATA" );
+                    confirm.setContentText( "valoare: " +val+ "  TVA :  " + tva + "   Valoare Totala  : " + valTot );
+                    confirm.show();
+
+                    for (Investitii factura : selectedRows) {
+                        allInvoice.remove( factura );
+                    }
+                    tableView.getItems().addAll( newInvestitii ); // adauga campuri in tabel)
+                }
+                if (radioTVA9.isSelected()){
+                    double val= parseDouble( fieldValFact.getText());
+                    val = Math.round( val*100);
+                    val = val/100;
+                    double tva0 = val * 0.09;
+                    tva0 = Math.round( tva0 * 100 );
+                    double tva = tva0 / 100;
+                    double valTot = val + tva;
+                    valTot = Math.round( valTot * 100 );
+                    valTot = valTot / 100;
+
+                    statement.executeUpdate( "UPDATE invTBL SET furnizor = '"+comBoboxFz.getValue()+"', nrFactura ='"+fieldNrFact.getText().toUpperCase()+"', dataFacturii = '" +fieldDataFactura.getValue()+ "', dataContabilizarii ='" +fieldDataGL.getValue() +"', valoare = '" +val+ "', valInitiala = '" +val+ "', tva = '" +tva+ "', valTot='"+valTot+"', contract ='"+ comboBoxContract.getValue()+ "', contInv='"+comboBoxCtInv.getValue()+"', contFz ='"+cBCtFz.getValue()+"', nrProiect='"+cBProjNr.getValue()+"', deviz='"+comboBoxDeviz.getValue()+"', org='"+comboBoxOrg.getValue()+"', respProiect='"+comboBoxRespProj.getValue()+"', descriereFactura='"+fieldDescriere.getText()+"' WHERE nrCrt='"+nrCrtAles+"' ");
+//
+                    Alert confirm = new Alert( Alert.AlertType.INFORMATION );
+                    confirm.setHeaderText( "Factura a fost MODIFICATA" );
+                    confirm.setContentText( "valoare: " +val+ "  TVA :  " + tva + "   Valoare Totala  : " + valTot );
+                    confirm.show();
+
+                    for (Investitii factura : selectedRows) {
+                        allInvoice.remove( factura );
+                    }
+                    tableView.getItems().addAll( newInvestitii ); // adauga campuri in tabel)
+
+
+                }
+                if (radioTVA5.isSelected()) {
+                    double val = parseDouble(fieldValFact.getText());
+                    val = Math.round(val * 100);
+                    val = val / 100;
+                    double tva0 = val * 0.05;
+                    tva0 = Math.round(tva0 * 100);
+                    double tva = tva0 / 100;
+                    double valTot = val + tva;
+                    valTot = Math.round(valTot * 100);
+                    valTot = valTot / 100;
+
+                    statement.executeUpdate( "UPDATE invTBL SET furnizor = '"+comBoboxFz.getValue()+"', nrFactura ='"+fieldNrFact.getText().toUpperCase()+"', dataFacturii = '" +fieldDataFactura.getValue()+ "', dataContabilizarii ='" +fieldDataGL.getValue() +"', valoare = '" +val+ "', valInitiala = '" +val+ "', tva = '" +tva+ "', valTot='"+valTot+"', contract ='"+ comboBoxContract.getValue()+ "', contInv='"+comboBoxCtInv.getValue()+"', contFz ='"+cBCtFz.getValue()+"', nrProiect='"+cBProjNr.getValue()+"', deviz='"+comboBoxDeviz.getValue()+"', org='"+comboBoxOrg.getValue()+"', respProiect='"+comboBoxRespProj.getValue()+"', descriereFactura='"+fieldDescriere.getText()+"' WHERE nrCrt='"+nrCrtAles+"' ");
+
+                    Alert confirm = new Alert(Alert.AlertType.INFORMATION);
+                    confirm.setHeaderText( "Factura a fost MODIFICATA" );
+                    confirm.setContentText( "valoare: " +val+ "  TVA :  " + tva + "   Valoare Totala  : " + valTot );
+                    confirm.show();
+
+                    for (Investitii factura : selectedRows) {
+                        allInvoice.remove( factura );
+                    }
+                    tableView.getItems().addAll(newInvestitii); // adauga campuri in tabel)
+                }
+            }
+
+        } catch (SQLException | FileNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    @FXML
+    private void onClickChangeItems ( MouseEvent event ) throws SQLException {
+        Investitii selectFact = tableView.getSelectionModel().getSelectedItem();
+        if (selectFact !=null){
+            changeData.setDisable( false );
+        }
+
+           int nrCrtAles0 = tableView.getSelectionModel().getSelectedItem().getNrCrt();
+        System.out.println(nrCrtAles0);
+        if (nrCrtAles0==0) {
+            changeData.setDisable( true );
+            Alert alert = new Alert( Alert.AlertType.INFORMATION );
+            alert.setHeaderText( "Nu poti modifica o factura de 2 ori in aceeasi sesiune" );
+            alert.showAndWait();
+            return;
+        }
+    }
+    public void addFactToSQL (Connection connection){
+        String addSql = "INSERT INTO invTBL  (furnizor, nrFactura, dataFacturii, dataContabilizarii, valoare, valInitiala, tva, valTot, contract, contInv, contFz, nrProiect, deviz, org, respProiect, descriereaFacturii)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        try (PreparedStatement statement = connection.prepareStatement(addSql) ){
             Investitii newInvestitii = new Investitii(
                     comBoboxFz.getValue(),
                     fieldNrFact.getText().toUpperCase(),
@@ -215,7 +419,7 @@ public class CtrlStage1Intro implements Initializable {
 
                     statement.executeUpdate("INSERT INTO invTBL (furnizor, nrFactura, dataFacturii, dataContabilizarii, valoare, valInitiala, tva, valTot, contract, contInv, contFz, nrProiect, deviz, org, respProiect, descriereFactura) VALUES('" + comBoboxFz.getValue() + "','" + fieldNrFact.getText().toUpperCase() + "','" + fieldDataFactura.getValue() + " ',' " + fieldDataGL.getValue() + "','" + val + " ','" + val + " ',' " + tva + " ' , '" + valTot + " ',' " +
                             comboBoxContract.getValue() + "','" + comboBoxCtInv.getValue() + "','" + cBCtFz.getValue() + "','" + cBProjNr.getValue() + "','" + comboBoxDeviz.getValue() + "','" + comboBoxOrg.getValue() + "','" + comboBoxRespProj.getValue() + "','" + fieldDescriere.getText() + "')");
-//
+
                     Alert confirm = new Alert(Alert.AlertType.INFORMATION);
                     confirm.setHeaderText("Factura a fost adaugata");
                     confirm.setContentText("TVA:  " + tva + "    Valoare Totala:   " + valTot);
@@ -234,6 +438,7 @@ public class CtrlStage1Intro implements Initializable {
     @Override
     public void initialize ( URL location, ResourceBundle resources ) {
         addFacturaButtonId.setDisable( true );
+        changeData.setDisable( true );
         ToggleGroup toggleGroup = new ToggleGroup();
 
         radioFaraTVA.setToggleGroup(toggleGroup);
@@ -241,6 +446,8 @@ public class CtrlStage1Intro implements Initializable {
         radioTVA9.setToggleGroup(toggleGroup);
         radioTVA19.setToggleGroup(toggleGroup);
 
+        labelSchimb.setText( "Selecteaza o factura, apasa butonul " );
+        labelSchimb1.setText( "si poti schimba datele facturii selectate" );
 
         List<String> myListFz = null;
         List<String> myListContract = null;
@@ -311,6 +518,7 @@ public class CtrlStage1Intro implements Initializable {
         nrProjColumn.setCellValueFactory( new PropertyValueFactory<>( "nrProiect" ) );
         respProjColumn.setCellValueFactory( new PropertyValueFactory<>( "respProiect" ) );
         dataContabilizarii.setCellValueFactory( new PropertyValueFactory<>( "dataContabilizarii" ) );
+        nrCrt.setCellValueFactory( new PropertyValueFactory<>( "nrCrt" ) );
         tableView.setItems(getInvestitii()  );
 
         invest = FXCollections.observableArrayList();
@@ -319,38 +527,27 @@ public class CtrlStage1Intro implements Initializable {
             ResultSet rs2 =statement.executeQuery( "SELECT * FROM invTBL");
             while ((rs2.next())){
                 if(rs2.isLast()) {
-                    lastNrCrt = rs2.getInt("nrCrt")-10;
-                    System.out.println(lastNrCrt);
-
-
+                    lastNrCrt = rs2.getInt("nrCrt")-9;
                 }
                 }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-//        ");//
         try {
             ResultSet rs3 =statement.executeQuery( "SELECT * FROM invTBL WHERE nrCrt>='"+lastNrCrt+"'");
-            while (rs3.next()) {
-                if(rs3.next()){invest.addAll( new Investitii(
-                        rs3.getObject( "furnizor" ),
-                        rs3.getString( "nrFactura" ),
-                        rs3.getString( "valoare" ),
-                        rs3.getObject( "contInv" ),
-                        rs3.getObject( "nrProiect" ),
-                        rs3.getObject( "respProiect" ),
-                        rs3.getString("dataContabilizarii")
-                ));}}
-            tableView.setItems( invest);
+            while (rs3.next()) {invest.addAll( new Investitii(
+                    rs3.getString( "furnizor" ),
+                    rs3.getString( "nrFactura" ),
+                    rs3.getString( "valoare" ),
+                    rs3.getObject( "contInv" ),
+                    rs3.getObject( "nrProiect" ),
+                    rs3.getObject( "respProiect" ),
+                    rs3.getString("dataContabilizarii"),
+                    rs3.getInt( "nrCrt" )));
 
-            ResultSet rs4 =statement.executeQuery( "SELECT * FROM invTBL WHERE nrCrt>='"+lastNrCrt+"'");
-                while (rs4.next()){
-                    if(rs4.isLast()){
-                        rs4.getInt("nrCrt");
-                    }
-                    System.out.println(rs4.getInt("nrCrt"));
-                }
-
+                    tableView.setItems( invest);
+//                System.out.println(rs3.getInt("nrCrt")+"  din rs3");
+            }
         } catch (SQLException | FileNotFoundException throwables) {
             throwables.printStackTrace();
         }
@@ -587,4 +784,6 @@ public class CtrlStage1Intro implements Initializable {
         window.setScene( tabeleViewScene );
         window.show();
     }
+
+
 }

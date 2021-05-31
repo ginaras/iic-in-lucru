@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -17,7 +23,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.trans.investitii.frontEnd.javaFX.controllers.CtrlStage1Intro">
+<AnchorPane prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.trans.investitii.frontEnd.javaFX.controllers.CtrlStage1Intro">
    <children>
       <AnchorPane layoutX="-2.0" layoutY="1.0" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: fff;">
          <children>
@@ -165,16 +171,17 @@
                   <Font size="16.0" />
                </font>
             </Button>
-            <Label layoutX="66.0" layoutY="442.0" text="Ai introdus" />
-            <TableView fx:id="tableView" layoutX="41.0" layoutY="467.0" prefHeight="200.0" prefWidth="761.0" style="-fx-background-radius: 10;">
+            <Label layoutX="66.0" layoutY="442.0" text="Ultimele 10 facturi introduse + cele din sesiunea curenta" />
+            <TableView fx:id="tableView" layoutX="41.0" layoutY="467.0" onMouseClicked="#onClickChangeItems" prefHeight="200.0" prefWidth="810.0" style="-fx-background-radius: 10;">
               <columns>
                   <TableColumn fx:id="furnizorColumn" prefWidth="153.0" text="Furnizor" />
                   <TableColumn fx:id="facturaColumn" prefWidth="78.0" text="Factura" />
                   <TableColumn fx:id="valoareColumn" minWidth="5.0" prefWidth="121.0" text="Valoare" />
-                  <TableColumn fx:id="nrProjColumn" minWidth="0.0" prefWidth="82.0" text=" Proiect" />
-                  <TableColumn fx:id="contInvColumn" prefWidth="102.0" text="Cont investitii" />
-                  <TableColumn fx:id="respProjColumn" prefWidth="103.0" text="Resp proiect" />
-                  <TableColumn fx:id="dataContabilizarii" prefWidth="129.0" text="Data contabilizarii" />
+                  <TableColumn fx:id="nrProjColumn" minWidth="0.0" prefWidth="65.0" text=" Proiect" />
+                  <TableColumn fx:id="contInvColumn" prefWidth="109.0" text="Cont investitii" />
+                  <TableColumn fx:id="respProjColumn" prefWidth="102.0" text="Resp proiect" />
+                  <TableColumn fx:id="dataContabilizarii" prefWidth="123.0" text="Data contabilizarii" />
+                  <TableColumn fx:id="nrCrt" prefWidth="56.0" text="NrCrt" />
               </columns>
             </TableView>
             <Label layoutX="35.0" layoutY="395.0" text="Descrierea obiectului facturii" />
@@ -223,6 +230,28 @@
             <RadioButton fx:id="radioTVA9" layoutX="1044.0" layoutY="402.0" mnemonicParsing="false" text="TVA 9%" textFill="#0a0a0a" textOverrun="CLIP" />
             <RadioButton fx:id="radioTVA19" layoutX="1046.0" layoutY="434.0" mnemonicParsing="false" text="TVA 19%" />
             <Label layoutX="950.0" layoutY="369.0" text="Selecteaza TVA-ul" />
+            <Button fx:id="changeData" layoutX="877.0" layoutY="605.0" mnemonicParsing="false" onAction="#changeDataAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Schimba datele" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Label fx:id="labelSchimb" layoutX="865.0" layoutY="655.0" text="." />
+            <Label fx:id="labelSchimb1" layoutX="865.0" layoutY="690.0" text="." />
          </children>
          <effect>
             <Blend />
