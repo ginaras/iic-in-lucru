@@ -137,7 +137,7 @@ public class CtrlStage1Intro implements Initializable {
             String myNrFactura =rs4.getString( "nrFactura" );
             String myDataFacturii =rs4.getString( "dataFacturii" );
             String myDataContabilizarii = rs4.getString( "dataContabilizarii" );
-            Double myValoare =rs4.getDouble( "valoare" );
+            String myValoare =rs4.getString( "valoare" );
             Object myContract =rs4.getObject( "contract" );
             Object myContInv =rs4.getObject( "contInv" );
             Object myContFz =rs4.getObject( "contFz" );

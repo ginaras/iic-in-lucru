@@ -489,12 +489,12 @@ public class CtrlStage4PIF implements Initializable {
             double total = parseDouble( totalPIF.getText());
 
 
-                if (total==0 ){
-                    Alert alert = new Alert( Alert.AlertType.INFORMATION );
-                    alert.setHeaderText( "Nici o factura selctata!" );
-                    alert.show();
-                    return;
-                }
+//                if (total==0 ){
+//                    Alert alert = new Alert( Alert.AlertType.INFORMATION );
+//                    alert.setHeaderText( "Nici o factura selctata!" );
+//                    alert.show();
+//                    return;
+//                }
                 if (textFieldNrPVR.getText()==null){
                     Alert alert = new Alert( Alert.AlertType.INFORMATION );
                     alert.setHeaderText( "Completeaza numarul PIF" );
