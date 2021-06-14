@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import main.java.com.trans.investitii.backEnd.DBase.Investitii;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -47,6 +48,7 @@ public class Controller0Sample implements Initializable {
     public Button buttonStage5Solduri;
     public Button buttonStage6AnalizaPif;
     public Button goToStage01AdminMySQL;
+    public Button startButton;
 
     private void goToStage(){    }
 
@@ -111,18 +113,35 @@ public class Controller0Sample implements Initializable {
     }
 
     public Connection getConectionNew () throws SQLException, FileNotFoundException {
-        Connection connection =DriverManager.getConnection( Investitii.URL0, Investitii.USER, Investitii.PASSWORD );
-        Statement statement = connection.createStatement();
-        try {
-        statement.executeUpdate( CREATE_DATABASE );
-        statement.executeUpdate( USE_DATABASE );
-        statement.executeUpdate( CREATE_TABLE );
-        statement.executeUpdate( CREATE_TABLE_BUGET_ORG );
-        statement.executeUpdate( CREATE_TABLE_BUGET_PROJ );
-        statement.executeUpdate( CREATE_TABLE_BUGET_CONTRACT );
-        } catch (SQLException throwables) {
+//        Connection connection =DriverManager.getConnection( Investitii.URL0, Investitii.USER, Investitii.PASSWORD );
+//        Statement statement = connection.createStatement();
+//        try {
+//            statement.execute( CREATEUSERNAME );
+//            statement.execute( "GRANT ALL PRIVILEGES ON * . * TO 'investitii'@'localhost'");
+//        }
+//        catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
 
-        }
+        Connection connectionInv = DriverManager.getConnection( URLinv, USERinv,PASSWORDinv );
+            Statement statementINV=connectionInv.createStatement();
+//        try {
+//        statement.executeUpdate( CREATE_DATABASE );
+//        statement.executeUpdate( USE_DATABASE );
+//        statement.executeUpdate( CREATE_TABLE );
+//        statement.executeUpdate( CREATE_TABLE_BUGET_ORG );
+//        statement.executeUpdate( CREATE_TABLE_BUGET_PROJ );
+//        statement.executeUpdate( CREATE_TABLE_BUGET_CONTRACT );
+//
+//        statementINV.executeUpdate( CREATE_DATABASE );
+//        statementINV.executeUpdate( USE_DATABASE );
+//        statementINV.executeUpdate( CREATE_TABLE );
+//        statementINV.executeUpdate( CREATE_TABLE_BUGET_ORG );
+//        statementINV.executeUpdate( CREATE_TABLE_BUGET_PROJ );
+//        statementINV.executeUpdate( CREATE_TABLE_BUGET_CONTRACT );
+//        } catch (SQLException throwables) {
+//
+//        }
         return null;
     }
 
@@ -237,35 +256,39 @@ public class Controller0Sample implements Initializable {
 //        String dataErr = date0.format( date2 );
 //        System.out.println("DAY OF ERROR IS:   "+ dataErr);
 
-        if(mySQL.exists()) {
-            try {
-                USER= Files.readAllLines( Paths.get( pathSQL ) ).get( 0 );
-                PASSWORD= Files.readAllLines( Paths.get( pathSQL ) ).get( 1 );
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//        if(mySQL.exists()) {
+//            try {
+//                USER= Files.readAllLines( Paths.get( pathSQL ) ).get( 0 );
+//                PASSWORD= Files.readAllLines( Paths.get( pathSQL ) ).get( 1 );
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+        try (Connection connectionInvesttii = DriverManager.getConnection( URLinv,USERinv, PASSWORDinv )){
+            Statement statementInv = connectionInvesttii.createStatement();
+        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//            goToStage1Intro.setDisable(true);
+//            adminFZ.setDisable(true);
+//            adminContracte.setDisable(true);
+//            adminCtInvest.setDisable(true);
+//            adminCtFz.setDisable(true);
+//            adminNrProiect.setDisable(true);
+//            adminRespProiect.setDisable(true);
+//            adminDeviz.setDisable(true);
+//            adminOrg.setDisable(true);
+//            goToStageBDelete.setDisable(true);
+//            goToStage2Rapoarte.setDisable(true);
+//            buttonStage3Sumar.setDisable(true);
+//            goToStage4Pif.setDisable(true);
+//            goToStage03AdminBuget.setDisable(true);
+//            buttonStage5Solduri.setDisable(true);
+//            buttonStage6AnalizaPif.setDisable(true);
         }
-
-        if (!mySQL.exists()){
-            goToStage1Intro.setDisable(true);
-            adminFZ.setDisable(true);
-            adminContracte.setDisable(true);
-            adminCtInvest.setDisable(true);
-            adminCtFz.setDisable(true);
-            adminNrProiect.setDisable(true);
-            adminRespProiect.setDisable(true);
-            adminDeviz.setDisable(true);
-              adminOrg.setDisable(true);
-              goToStageBDelete.setDisable(true);
-              goToStage2Rapoarte.setDisable(true);
-              buttonStage3Sumar.setDisable(true);
-              goToStage4Pif.setDisable(true);
-//              goToStageNewUnit.setDisable(true);
-              goToStage03AdminBuget.setDisable(true);
-              buttonStage5Solduri.setDisable(true);
-              buttonStage6AnalizaPif.setDisable(true);
-
-        }
+//        if (!mySQL.exists()){
+//
+//
+//        }
 
 
         File fz= new File("c:\\Investitii\\resurse\\fz" );
@@ -372,5 +395,30 @@ public class Controller0Sample implements Initializable {
         windowStage1Intro.show();
 
     }
+
+    public void startAction ( ActionEvent actionEvent ) throws SQLException, FileNotFoundException {
+        Connection connection =DriverManager.getConnection( Investitii.URL0, Investitii.USER, Investitii.PASSWORD );
+        Statement statement = connection.createStatement();
+        try {
+            statement.execute( CREATEUSERNAME );
+            statement.execute( "GRANT ALL PRIVILEGES ON * . * TO 'investitii'@'localhost'");
+            statement.execute( selectUser );
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        Connection connectionInv = DriverManager.getConnection( URLinvsys, USERinv,PASSWORDinv );
+        Statement statementINV=connectionInv.createStatement();
+        try {
+            statementINV.executeUpdate( CREATE_DATABASE );
+            statementINV.executeUpdate( USE_DATABASE );
+            statementINV.executeUpdate( CREATE_TABLE );
+            statementINV.executeUpdate( CREATE_TABLE_BUGET_ORG );
+            statementINV.executeUpdate( CREATE_TABLE_BUGET_PROJ );
+            statementINV.executeUpdate( CREATE_TABLE_BUGET_CONTRACT );
+        } catch (SQLException throwables) {
+
+        }    }
 }
 

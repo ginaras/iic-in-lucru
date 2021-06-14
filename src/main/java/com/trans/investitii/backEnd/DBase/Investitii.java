@@ -12,12 +12,21 @@ import java.time.LocalDate;
 public class Investitii {
     String pathSQL = "src/main/resources/txt/login/MySQL";
 
+    public  static String CREATEUSERNAME = "CREATE USER IF NOT EXISTS 'investitii'@'localhost' identified by 'pas@inv2gyn'";
     public static String USER=  "root";//ControllerStage01AdminMySQL.USER_SQL;
+    public static String USERinv=  "investitii";//ControllerStage01AdminMySQL.USER_SQL;
     public static String PASSWORD=  "root";//ControllerStage01AdminMySQL.PASS_SQL;
-    public static final String CREATE_DATABASE = "CREATE DATABASE IF NOT EXISTS invDB";
-    public static final String USE_DATABASE = "USE invDB";
+    public static String PASSWORDinv=  "pas@inv2gyn";//ControllerStage01AdminMySQL.PASS_SQL;
+
+    public static String selectUser ="SELECT USER investitii FROM mysql.user";
+
     public static String URL0 = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","sys" );
     public static String URL = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","invDB" );
+    public static String URLinvsys = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","sys" );
+    public static String URLinv = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","invDB" );
+    public static final String CREATE_DATABASE = "CREATE DATABASE IF NOT EXISTS invDB";
+    public static final String USE_DATABASE = "USE invDB";
+
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS invTBL (nrCrt INT(5) AUTO_INCREMENT PRIMARY KEY, furnizor CHAR(100) not null, nrFactura char(20) , dataFacturii DATE, dataContabilizarii DATE, valoare varCHAR(20), nrPIF CHAR (50), dataPIF DATE, descriereFactura varChar(210), valInitiala varCHAR(20), tva varCHAR(20), valTot varCHAR(20), contract CHAR(25), contInv CHAR(20), contFz CHAR(20), nrProiect CHAR(20), deviz CHAR(20), org CHAR(10), respProiect CHAR(50))";
     public static final String CREATE_TABLE_BUGET_ORG = "CREATE TABLE IF NOT EXISTS bugetORG (nrCrt INT(5) AUTO_INCREMENT PRIMARY KEY, org CHAR(10) NOT NULL,denumireOrg CHAR(70), anulBugetar CHAR(4), valInitiala varChar(20), valRectificata CHAR(20), valFinala CHAR(20))";
     public static final String CREATE_TABLE_BUGET_PROJ = "CREATE TABLE IF NOT EXISTS bugetPROJ (nrCrt INT(5) AUTO_INCREMENT PRIMARY KEY, nrProiect CHAR(20), denProiect CHAR(200), startProiect DATE, valInitiala VARCHAR(20), valRectificare VARCHAR(20) NOT NULL, valFinala VARCHAR(20))";
