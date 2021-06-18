@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -68,17 +69,37 @@ public class ControllerStage01AdminMySQL implements Initializable {
     }
 
     public void confirmLoadBackupButtonAct(ActionEvent actionEvent) {
-        Alert alertConfirmLoad = new Alert(Alert.AlertType.WARNING);
+        Alert alert0 = new Alert( Alert.AlertType.CONFIRMATION, "Activati butoanele de de backup? Atentie! Aceasta operatiune va inlocui bazele date existente cu cele salvate anterior ", ButtonType.YES, ButtonType.NO);
+        alert0.setHeaderText( " " );
+        alert0.setTitle( "Validati facturile aferente PIF" );
+        Button noButton = (Button) alert0.getDialogPane().lookupButton( ButtonType.NO );
+        noButton.setDefaultButton( true );
+        Button yesButton = (Button) alert0.getDialogPane().lookupButton( ButtonType.YES );
+        yesButton.setDefaultButton( false );
+        alert0.showAndWait();
+
+        if (alert0.getResult() == ButtonType.YES) {
+            mySQLBacKupContractButton.setDisable(false);
+            mySQLBackupFacturaButton.setDisable(false);
+            mySQLBackupOrgButton.setDisable(false);
+            mySQLBacKupProjButton.setDisable(false);
+
+        }if (alert0.getResult() == ButtonType.NO){
+
+        }
 
 
-        mySQLBacKupContractButton.setDisable(false);
-        mySQLBackupFacturaButton.setDisable(false);
-        mySQLBackupOrgButton.setDisable(false);
-        mySQLBacKupProjButton.setDisable(false);
+
+
 
     }
 
     public void mySQLBackupFacturiButtonAct(ActionEvent actionEvent) {
+//        INSERT INTO invdbbakup.bugetcontract SELECT * from invdb3.bugetcontract;
+//        INSERT INTO invdbbakup.bugetorg SELECT * from invdb3.bugetorg;
+//        INSERT INTO invdbbakup.bugetproj SELECT * from invdb3.bugetproj;
+//        INSERT INTO invdbbakup.invtbl SELECT * from invdb3.invtbl;
+//
     }
 
     public void mySQLBackupOrgButtonAct(ActionEvent actionEvent) {
