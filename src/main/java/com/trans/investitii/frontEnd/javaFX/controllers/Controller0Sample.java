@@ -7,7 +7,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.java.com.trans.investitii.backEnd.DBase.Investitii;
 
@@ -49,6 +51,7 @@ public class Controller0Sample implements Initializable {
     public Button buttonStage6AnalizaPif;
     public Button goToStage01AdminMySQL;
     public Button startButton;
+    public Text primaUtilizare;
 
     private void goToStage(){    }
 
@@ -113,35 +116,10 @@ public class Controller0Sample implements Initializable {
     }
 
     public Connection getConectionNew () throws SQLException, FileNotFoundException {
-//        Connection connection =DriverManager.getConnection( Investitii.URL0, Investitii.USER, Investitii.PASSWORD );
-//        Statement statement = connection.createStatement();
-//        try {
-//            statement.execute( CREATEUSERNAME );
-//            statement.execute( "GRANT ALL PRIVILEGES ON * . * TO 'investitii'@'localhost'");
-//        }
-//        catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-
-        Connection connectionInv = DriverManager.getConnection( URLinv, USERinv,PASSWORDinv );
+        Connection connectionInv = DriverManager.getConnection( URL, USER,PASSWORD );
             Statement statementINV=connectionInv.createStatement();
-//        try {
-//        statement.executeUpdate( CREATE_DATABASE );
-//        statement.executeUpdate( USE_DATABASE );
-//        statement.executeUpdate( CREATE_TABLE );
-//        statement.executeUpdate( CREATE_TABLE_BUGET_ORG );
-//        statement.executeUpdate( CREATE_TABLE_BUGET_PROJ );
-//        statement.executeUpdate( CREATE_TABLE_BUGET_CONTRACT );
-//
-//        statementINV.executeUpdate( CREATE_DATABASE );
-//        statementINV.executeUpdate( USE_DATABASE );
-//        statementINV.executeUpdate( CREATE_TABLE );
-//        statementINV.executeUpdate( CREATE_TABLE_BUGET_ORG );
-//        statementINV.executeUpdate( CREATE_TABLE_BUGET_PROJ );
-//        statementINV.executeUpdate( CREATE_TABLE_BUGET_CONTRACT );
-//        } catch (SQLException throwables) {
-//
-//        }
+//            statementINV.execute(REVOKE);
+
         return null;
     }
 
@@ -224,6 +202,7 @@ public class Controller0Sample implements Initializable {
 
     @Override
     public void initialize ( java.net.URL location, ResourceBundle resources ) {
+
 // create & print err in File
         File file = new File( "c:\\Investitii" );
         File file1 = new File( "c:\\Investitii\\resurse" );
@@ -264,31 +243,30 @@ public class Controller0Sample implements Initializable {
 //                e.printStackTrace();
 //            }
 //        }
-        try (Connection connectionInvesttii = DriverManager.getConnection( URLinv,USERinv, PASSWORDinv )){
-            Statement statementInv = connectionInvesttii.createStatement();
+        try (Connection connectionInvesttii = DriverManager.getConnection( URL,USER, PASSWORD )){
+            startButton.setDisable(true);
         } catch (SQLException throwables) {
 //            throwables.printStackTrace();
-//            goToStage1Intro.setDisable(true);
-//            adminFZ.setDisable(true);
-//            adminContracte.setDisable(true);
-//            adminCtInvest.setDisable(true);
-//            adminCtFz.setDisable(true);
-//            adminNrProiect.setDisable(true);
-//            adminRespProiect.setDisable(true);
-//            adminDeviz.setDisable(true);
-//            adminOrg.setDisable(true);
-//            goToStageBDelete.setDisable(true);
-//            goToStage2Rapoarte.setDisable(true);
-//            buttonStage3Sumar.setDisable(true);
-//            goToStage4Pif.setDisable(true);
-//            goToStage03AdminBuget.setDisable(true);
-//            buttonStage5Solduri.setDisable(true);
-//            buttonStage6AnalizaPif.setDisable(true);
+            startButton.setDisable(false);
+            goToStage1Intro.setDisable(true);
+            adminFZ.setDisable(true);
+            adminContracte.setDisable(true);
+            adminCtInvest.setDisable(true);
+            adminCtFz.setDisable(true);
+            adminNrProiect.setDisable(true);
+            adminRespProiect.setDisable(true);
+            adminDeviz.setDisable(true);
+            adminOrg.setDisable(true);
+            goToStageBDelete.setDisable(true);
+            goToStage2Rapoarte.setDisable(true);
+            buttonStage3Sumar.setDisable(true);
+            goToStage4Pif.setDisable(true);
+            goToStage03AdminBuget.setDisable(true);
+            buttonStage5Solduri.setDisable(true);
+            buttonStage6AnalizaPif.setDisable(true);
+            primaUtilizare.setText("Esti la prima utilizare! Apasa start pentru configurarea initiala");
         }
-//        if (!mySQL.exists()){
-//
-//
-//        }
+
 
 
         File fz= new File("c:\\Investitii\\resurse\\fz" );
@@ -397,18 +375,18 @@ public class Controller0Sample implements Initializable {
     }
 
     public void startAction ( ActionEvent actionEvent ) throws SQLException, FileNotFoundException {
-        Connection connection =DriverManager.getConnection( Investitii.URL0, Investitii.USER, Investitii.PASSWORD );
+        Connection connection =DriverManager.getConnection( URLinvsys, USERr, PASSWORDr );
         Statement statement = connection.createStatement();
         try {
             statement.execute( CREATEUSERNAME );
-            statement.execute( "GRANT ALL PRIVILEGES ON * . * TO 'investitii'@'localhost'");
+            statement.execute( "GRANT ALL PRIVILEGES ON *.* TO 'investitii'@localhost WITH GRANT OPTION");
             statement.execute( selectUser );
         }
         catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
-        Connection connectionInv = DriverManager.getConnection( URLinvsys, USERinv,PASSWORDinv );
+        Connection connectionInv = DriverManager.getConnection( URLinvsys, USER,PASSWORD );
         Statement statementINV=connectionInv.createStatement();
         try {
             statementINV.executeUpdate( CREATE_DATABASE );
@@ -418,7 +396,30 @@ public class Controller0Sample implements Initializable {
             statementINV.executeUpdate( CREATE_TABLE_BUGET_PROJ );
             statementINV.executeUpdate( CREATE_TABLE_BUGET_CONTRACT );
         } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+//        statementINV.execute(REVOKE);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Ai creat baza de date!");
+        alert.showAndWait();
 
-        }    }
+        goToStage1Intro.setDisable(false);
+        adminFZ.setDisable(false);
+        adminContracte.setDisable(false);
+        adminCtInvest.setDisable(false);
+        adminCtFz.setDisable(false);
+        adminNrProiect.setDisable(false);
+        adminRespProiect.setDisable(false);
+        adminDeviz.setDisable(false);
+        adminOrg.setDisable(false);
+        goToStageBDelete.setDisable(false);
+        goToStage2Rapoarte.setDisable(false);
+        buttonStage3Sumar.setDisable(false);
+        goToStage4Pif.setDisable(false);
+        goToStage03AdminBuget.setDisable(false);
+        buttonStage5Solduri.setDisable(false);
+        buttonStage6AnalizaPif.setDisable(false);
+        primaUtilizare.setText("");
+    }
 }
 

@@ -2,9 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.Lighting?>
@@ -19,29 +16,27 @@
     <children>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <children>
-                <Label layoutX="392.0" layoutY="163.0" text="Date de logare pe serverul MYSQL">
+            <Rectangle arcHeight="5.0" arcWidth="20.0" fill="#075cabae" height="165.0" layoutX="625.0" layoutY="470.0" stroke="BLACK" strokeDashOffset="5.0" strokeLineJoin="BEVEL" width="488.0" />
+                <Label layoutX="392.0" layoutY="163.0" text="Backup pentru bazele de date">
                <font>
                   <Font size="36.0" />
                </font></Label>
                 <Label layoutX="1084.0" layoutY="754.0" text="By SorinGinara" />
-                <TextArea fx:id="textBox" layoutX="33.0" layoutY="317.0" prefHeight="200.0" prefWidth="200.0" wrapText="true" />
-            <Label layoutX="434.0" layoutY="256.0" text="Username MySQL">
+            <Label layoutX="349.0" layoutY="256.0" text="Creare backup XLS">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold Italic" size="18.0" />
                </font></Label>
-            <Label layoutX="434.0" layoutY="297.0" text="Pasword MySQL">
+            <Label layoutX="734.0" layoutY="256.0" text="Backup baza de date Mysql">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold Italic" size="18.0" />
                </font></Label>
-            <TextField fx:id="userN" layoutX="620.0" layoutY="251.0" promptText="SQL User" />
-            <PasswordField fx:id="pass" layoutX="620.0" layoutY="294.0" promptText="pass" />
-            <Rectangle arcHeight="5.0" arcWidth="20.0" fill="#065bab" height="110.0" layoutX="6.0" layoutY="-13.0" stroke="BLACK" strokeDashOffset="5.0" strokeLineJoin="BEVEL" strokeWidth="10.0" width="1190.0" />
+            <Rectangle arcHeight="5.0" arcWidth="20.0" fill="#065bab" height="110.0" layoutX="4.0" layoutY="5.0" stroke="BLACK" strokeDashOffset="5.0" strokeLineJoin="BEVEL" strokeWidth="10.0" width="1190.0" />
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="342.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Program de evidenta a imobilizarilor in curs">
                <font>
                   <Font size="30.0" />
                </font>
             </Text>
-            <Button fx:id="login" layoutX="589.0" layoutY="369.0" mnemonicParsing="false" onAction="#loginButtonAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Login" textFill="#fcfbf5">
+            <Button fx:id="backupFacturiXLS" layoutX="340.0" layoutY="291.0" mnemonicParsing="false" onAction="#backupFacturiXLSButtonAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Bakckup facturi" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
                      <input>
@@ -61,7 +56,7 @@
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="deleteLogData" layoutX="695.0" layoutY="367.0" mnemonicParsing="false" onAction="#deleteLogDataAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Delete log data" textFill="#fcfbf5">
+            <Button fx:id="backupOrgXLS" layoutX="340.0" layoutY="345.0" mnemonicParsing="false" onAction="#backupOrgXLSButtonAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Backup organizatii" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
                      <input>
@@ -81,7 +76,172 @@
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="back" layoutX="632.0" layoutY="457.0" mnemonicParsing="false" onAction="#backAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Meniul principal" textFill="#fcfbf5">
+            <Button fx:id="backupProjXLS" layoutX="340.0" layoutY="399.0" mnemonicParsing="false" onAction="#backupProjXLSButtonAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Backup proiecte" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="backupContracteXLS" layoutX="342.0" layoutY="453.0" mnemonicParsing="false" onAction="#backupContracteXLSButtonAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Bakup contracte" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="confirmLoadBackupButton" layoutX="766.0" layoutY="413.0" mnemonicParsing="false" onAction="#confirmLoadBackupButtonAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Preluare bakcup-uri " textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="mySQLBackupFacturaButton" layoutX="658.0" layoutY="503.0" mnemonicParsing="false" onAction="#mySQLBackupFacturiButtonAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Preluare bakcup facturi" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="mySQLBackupOrgButton" layoutX="872.0" layoutY="500.0" mnemonicParsing="false" onAction="#mySQLBackupOrgButtonAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Preluare backup organizatii" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="mySQLBacKupProjButton" layoutX="655.0" layoutY="567.0" mnemonicParsing="false" onAction="#mySQLBackupProjButton" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Preluare backup proiecte" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="mySQLBacKupContractButton" layoutX="876.0" layoutY="565.0" mnemonicParsing="false" onAction="#mySQLBackupContractButtonAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Preluare bakup contracte" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="CreateBackupMySQLButton" layoutX="758.0" layoutY="299.0" mnemonicParsing="false" onAction="#createBackupMySQLButtonAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Creare backup general" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Label layoutX="703.0" layoutY="373.0" text="Preluare date din bakup-ul anterior">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="back" layoutX="33.0" layoutY="705.0" mnemonicParsing="false" onAction="#backAct" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Meniul principal" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
                      <input>

@@ -161,13 +161,13 @@ public class CtrlStage1Intro implements Initializable {
             comboBoxOrg.setValue( myOrg );
             fieldDescriere.setText( myDescriereaFacturii );
         }
-        labelSchimb.setText( "" );
+        labelSchimb.setText( "se actualizeaza!" );
         labelSchimb1.setText( "" );
 
     }
 
     public void addFacturaButton ( ActionEvent event ) throws IOException {
-        if (labelSchimb == null) {
+        if (labelSchimb.getText() != "se actualizeaza!") {
             addFactToSQL( connection );
             clearData();
             addFacturaButtonId.setDisable( true );
@@ -304,8 +304,9 @@ public class CtrlStage1Intro implements Initializable {
             throwables.printStackTrace();
         }
     }
+
     @FXML
-    private void onClickChangeItems ( MouseEvent event ) throws SQLException {
+    private void onClickChangeItems (MouseEvent event ) throws SQLException {
         Investitii selectFact = tableView.getSelectionModel().getSelectedItem();
         if (selectFact !=null){
             changeData.setDisable( false );
@@ -321,6 +322,7 @@ public class CtrlStage1Intro implements Initializable {
             return;
         }
     }
+
     public void addFactToSQL (Connection connection){
         String addSql = "INSERT INTO invTBL  (furnizor, nrFactura, dataFacturii, dataContabilizarii, valoare, valInitiala, tva, valTot, contract, contInv, contFz, nrProiect, deviz, org, respProiect, descriereaFacturii)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -397,7 +399,7 @@ public class CtrlStage1Intro implements Initializable {
 
                     statement.executeUpdate( "INSERT INTO invTBL (furnizor, nrFactura, dataFacturii, dataContabilizarii, valoare, valInitiala, tva, valTot, contract, contInv, contFz, nrProiect, deviz, org, respProiect, descriereFactura) VALUES('"+comBoboxFz.getValue()+"','" +fieldNrFact.getText().toUpperCase()+ "','" +fieldDataFactura.getValue()+ " ',' " +fieldDataGL.getValue() + "','" +val+ " ','" +val+ " ',' " +tva+ " ' , '" +valTot+ " ',' " +
                             comboBoxContract.getValue()+ "','" +comboBoxCtInv.getValue()+ "','" +cBCtFz.getValue()+ "','" +cBProjNr.getValue()+ "','" +comboBoxDeviz.getValue() +"','"+comboBoxOrg.getValue()+"','"+comboBoxRespProj.getValue()+"','"+fieldDescriere.getText()+"')" );
-//
+
                     Alert confirm = new Alert( Alert.AlertType.INFORMATION );
                     confirm.setHeaderText( "Factura a fost adaugata" );
                     confirm.setContentText( "TVA:  " + tva + "    Valoare Totala:   " + valTot );
@@ -679,9 +681,6 @@ public class CtrlStage1Intro implements Initializable {
                 && !( cBProjNr.getValue() == null ) && !( comboBoxDeviz.getValue() == null )
                 && !( comboBoxOrg.getValue() == null ) && !( comboBoxRespProj.getValue() == null )
                 && !fieldDescriere.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Toate campurile au fost completate!");
-            alert.showAndWait();
             addFacturaButtonId.setDisable(false);
         }
 
