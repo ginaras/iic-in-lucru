@@ -207,12 +207,14 @@ public class Controller0Sample implements Initializable {
         File file = new File( "c:\\Investitii" );
         File file1 = new File( "c:\\Investitii\\resurse" );
         File file2= new File( "c:\\Investitii\\rapoarte" );
+        File file3= new File( "c:\\Investitii\\backup" );
         File log = new File( "c:\\Investitii\\resurse\\log" );
         File mySQL= new File( "C:\\Investitii\\resurse\\log\\MySQL" );
         File mySQLerrSampl0= new File( "C:\\Investitii\\resurse\\log\\MySQLerrSampl0" );
         boolean fileExists = file.mkdir();
         boolean fileExists1 = file1.mkdir();
         boolean fileExists2 = file2.mkdir();
+        boolean fileExists3 = file3.mkdir();
         boolean fileExists5 = log.mkdir();
 
 
@@ -244,7 +246,7 @@ public class Controller0Sample implements Initializable {
 //            }
 //        }
         try (Connection connectionInvesttii = DriverManager.getConnection( URL,USER, PASSWORD )){
-            startButton.setDisable(true);
+//            startButton.setDisable(true);
         } catch (SQLException throwables) {
 //            throwables.printStackTrace();
             startButton.setDisable(false);

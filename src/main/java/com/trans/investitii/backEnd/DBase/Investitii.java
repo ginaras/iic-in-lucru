@@ -21,14 +21,21 @@ public class Investitii {
     public static String REVOKE1 = "REVOKE ALL PRIVILEGES ON invDB.* FROM 'root'@'localhost' and IF EXISTS 'admin'@'localhost'";
 
     public static String selectUser ="SELECT USER investitii FROM mysql.user";
-// todo de schimnat invdb3 in invDB la lansarea unei noi versiuni in 2 locuri : URL, USE_DATABASE
+// todo de schimnat invdb3 in invDB la lansarea unei noi versiuni in 3 locuri : URL, USE_DATABASE, CREATE_DATABASE
 
 //    public static String URL0 = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","sys" );
 //    public static String URL = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","invDB" );
     public static String URLinvsys = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","sys" );
     public static String URL = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","invDB3" );
-    public static final String CREATE_DATABASE = "CREATE DATABASE IF NOT EXISTS invDB";
-    public static final String USE_DATABASE = "USE invDBb3";
+    public static String URLbackup = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","invDBbackup" );
+
+    public static final String CREATE_DATABASE = "CREATE DATABASE IF NOT EXISTS invDB3";
+    public static final String CREATE_DATABASE_backup = "CREATE DATABASE invDBbackup";
+    public static final String DROP_DATABASE_backup = "DROP DATABASE invDBbackup";
+
+    public static final String USE_DATABASE = "USE invDB";
+    public static final String USE_DATABASE_backup = "USE invDBbackup";
+
 
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS invTBL (nrCrt INT(5) AUTO_INCREMENT PRIMARY KEY, furnizor CHAR(100) not null, nrFactura char(20) , dataFacturii DATE, dataContabilizarii DATE, valoare varCHAR(20), nrPIF CHAR (50), dataPIF DATE, descriereFactura varChar(210), valInitiala varCHAR(20), tva varCHAR(20), valTot varCHAR(20), contract CHAR(25), contInv CHAR(20), contFz CHAR(20), nrProiect CHAR(20), deviz CHAR(20), org CHAR(10), respProiect CHAR(50))";
     public static final String CREATE_TABLE_BUGET_ORG = "CREATE TABLE IF NOT EXISTS bugetORG (nrCrt INT(5) AUTO_INCREMENT PRIMARY KEY, org CHAR(10) NOT NULL,denumireOrg CHAR(70), anulBugetar CHAR(4), valInitiala varChar(20), valRectificata CHAR(20), valFinala CHAR(20))";
