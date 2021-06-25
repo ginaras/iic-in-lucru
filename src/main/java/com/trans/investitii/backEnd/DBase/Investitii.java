@@ -26,10 +26,10 @@ public class Investitii {
 //    public static String URL0 = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","sys" );
 //    public static String URL = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","invDB" );
     public static String URLinvsys = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","sys" );
-    public static String URL = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","invDB3" );
+    public static String URL = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","invDB" );
     public static String URLbackup = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","invDBbackup" );
 
-    public static final String CREATE_DATABASE = "CREATE DATABASE IF NOT EXISTS invDB3";
+    public static final String CREATE_DATABASE = "CREATE DATABASE IF NOT EXISTS invDB";
     public static final String CREATE_DATABASE_backup = "CREATE DATABASE invDBbackup";
     public static final String DROP_DATABASE_backup = "DROP DATABASE invDBbackup";
 

@@ -26,7 +26,7 @@
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="167.0" layoutX="782.0" layoutY="505.0" stroke="BLACK" strokeType="INSIDE" width="402.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="501.0" layoutX="16.0" layoutY="224.0" stroke="BLACK" strokeType="INSIDE" width="468.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="231.0" layoutX="784.0" layoutY="153.0" stroke="BLACK" strokeType="INSIDE" width="402.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="231.0" layoutX="782.0" layoutY="161.0" stroke="BLACK" strokeType="INSIDE" width="402.0" />
             <Rectangle arcHeight="5.0" arcWidth="20.0" fill="#065bab" height="110.0" layoutX="5.0" layoutY="-3.0" stroke="BLACK" strokeDashOffset="5.0" strokeLineJoin="BEVEL" strokeWidth="10.0" width="1190.0" />
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="332.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Program de evidenta a imobilizarilor in curs">
                <font>
@@ -234,7 +234,7 @@
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="goToStage1Intro" layoutX="820.0" layoutY="225.0" mnemonicParsing="false" onAction="#goToStage1Intro" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Introducere facturi" textFill="#fcfbf5">
+            <Button fx:id="goToStage1Intro" layoutX="820.0" layoutY="189.0" mnemonicParsing="false" onAction="#goToStage1Intro" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Introducere facturi" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
                      <input>
@@ -253,7 +253,7 @@
                <font>
                   <Font size="16.0" />
                </font></Button>
-            <Button fx:id="goToStage2Rapoarte" layoutX="821.0" layoutY="289.0" mnemonicParsing="false" onAction="#goToStage2Rapoarte" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte detaliate" textFill="#fcfbf5">
+            <Button fx:id="goToStage2Rapoarte" layoutX="821.0" layoutY="253.0" mnemonicParsing="false" onAction="#goToStage2Rapoarte" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte detaliate" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
                      <input>
@@ -273,7 +273,7 @@
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="buttonStage3Sumar" layoutX="996.0" layoutY="288.0" mnemonicParsing="false" onAction="#goToStage3Sumar" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte sumarizate" textFill="#fcfbf5">
+            <Button fx:id="buttonStage3Sumar" layoutX="996.0" layoutY="252.0" mnemonicParsing="false" onAction="#goToStage3Sumar" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte sumarizate" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
                      <input>
@@ -293,7 +293,7 @@
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="buttonStage5Solduri" layoutX="998.0" layoutY="225.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Consultare solduri" textFill="#fcfbf5">
+            <Button fx:id="buttonStage5Solduri" layoutX="998.0" layoutY="189.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Consultare solduri" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
                      <input>
@@ -398,6 +398,26 @@
                   <Font size="24.0" />
                </font>
             </Text>
+            <Button fx:id="buttonStage7Modificari" layoutX="824.0" layoutY="313.0" mnemonicParsing="false" onAction="#goToStage7Modificari" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Modificari intrari" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </children>

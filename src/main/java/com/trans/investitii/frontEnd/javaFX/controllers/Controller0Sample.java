@@ -52,6 +52,7 @@ public class Controller0Sample implements Initializable {
     public Button goToStage01AdminMySQL;
     public Button startButton;
     public Text primaUtilizare;
+    public Button buttonStage7Modificari;
 
     private void goToStage(){    }
 
@@ -111,6 +112,15 @@ public class Controller0Sample implements Initializable {
         Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage6AnalizaPif.fxml" ) );
         Scene tabeleViewScene = new Scene( tableView );
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
+    }
+
+    public void goToStage7Modificari(ActionEvent actionEvent) throws IOException, SQLException {
+        getConectionNew();
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage7ModificariFacturi.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene( tabeleViewScene );
         window.show();
     }

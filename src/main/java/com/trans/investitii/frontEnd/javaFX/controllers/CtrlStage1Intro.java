@@ -22,6 +22,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -84,6 +86,10 @@ public class CtrlStage1Intro implements Initializable {
     public Button buttonBackSt0;
     public Button addFacturaButtonId;
 
+    LocalDateTime date0 = LocalDateTime.now();
+    DateTimeFormatter date2 = DateTimeFormatter.ofPattern( "yyyy-MM-dd 'ora' hh.mm" );
+    String replaceNume2 = date0.format( date2 );
+
     public CtrlStage1Intro () throws SQLException {
     }
     
@@ -126,7 +132,7 @@ public class CtrlStage1Intro implements Initializable {
 
 
 
-        System.out.println(nrCrtAles);
+        System.out.println(replaceNume2 + "  Ai modificat nr curent  " +nrCrtAles+"  ");
 
 
         String selectToChange = "SELECT * FROM invTBL WHERE nrCrt= '"+nrCrtAles+"'";
@@ -313,7 +319,7 @@ public class CtrlStage1Intro implements Initializable {
         }
 
            int nrCrtAles0 = tableView.getSelectionModel().getSelectedItem().getNrCrt();
-        System.out.println(nrCrtAles0);
+        System.out.println(replaceNume2 + "  Ai selectat nr curent  "+nrCrtAles0);
         if (nrCrtAles0==0) {
             changeData.setDisable( true );
             Alert alert = new Alert( Alert.AlertType.INFORMATION );
@@ -529,7 +535,7 @@ public class CtrlStage1Intro implements Initializable {
             ResultSet rs2 =statement.executeQuery( "SELECT * FROM invTBL");
             while ((rs2.next())){
                 if(rs2.isLast()) {
-                    lastNrCrt = rs2.getInt("nrCrt")-9;
+                    lastNrCrt = rs2.getInt("nrCrt")-19;
                 }
                 }
         } catch (SQLException throwables) {
@@ -548,7 +554,6 @@ public class CtrlStage1Intro implements Initializable {
                     rs3.getInt( "nrCrt" )));
 
                     tableView.setItems( invest);
-//                System.out.println(rs3.getInt("nrCrt")+"  din rs3");
             }
         } catch (SQLException | FileNotFoundException throwables) {
             throwables.printStackTrace();

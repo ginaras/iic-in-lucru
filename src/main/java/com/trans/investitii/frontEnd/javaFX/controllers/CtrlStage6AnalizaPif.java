@@ -55,6 +55,8 @@ public class CtrlStage6AnalizaPif<dataInceput> implements    Initializable {
 
     public ObservableList <Investitii> tablePifProiecte;
     public Label totalPifInPerioada;
+    public CheckBox eliminareZero;
+
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
     Statement stm = connection.createStatement();
@@ -76,6 +78,7 @@ public class CtrlStage6AnalizaPif<dataInceput> implements    Initializable {
 
     @Override
     public void initialize  (URL location, ResourceBundle resources) {
+        eliminareZero.setSelected(false);
         if (dataInceput.getValue()==null || dataSfarsit==null){
             dataSfarsit.setValue( LocalDate.now());
             dataInceput.setValue(LocalDate.ofEpochDay(01/01/2021));
@@ -105,21 +108,21 @@ public class CtrlStage6AnalizaPif<dataInceput> implements    Initializable {
         tablePifProiecte=  FXCollections.observableArrayList();
         double totalPIF=0;
         try {
-            while (rs1.next() ){//&& rsOrg.next()
-                tablePifProiecte.addAll(new Investitii(
-                    rs1.getString("org"),
-                    rs1.getString("nrProiect"),
-                    rs1.getString("denProiect"),
-                    rs1.getString("nrPIF"),
-                    rs1.getDate("dataPIF"),
-                    rs1.getString("valInitiala"),
-                    rs1.getString("respProiect")  ));
+            while (rs1.next() ){
+                        tablePifProiecte.addAll(new Investitii(
+                                rs1.getString("org"),
+                                rs1.getString("nrProiect"),
+                                rs1.getString("denProiect"),
+                                rs1.getString("nrPIF"),
+                                rs1.getDate("dataPIF"),
+                                rs1.getString("valInitiala"),
+                                rs1.getString("respProiect")));
 
-                totalPIF += rs1.getDouble("valInitiala");
-            }
-            tableViewPifProiecte.setItems(tablePifProiecte);
-            totalPifInPerioada.setText(df.format(totalPIF));
-
+                        totalPIF += rs1.getDouble("valInitiala");
+                    }
+            System.out.println(totalPIF);
+                tableViewPifProiecte.setItems(tablePifProiecte);
+                totalPifInPerioada.setText(df.format(totalPIF));
         } catch (SQLException | FileNotFoundException throwables) {
             throwables.printStackTrace();
         }
@@ -152,35 +155,54 @@ public class CtrlStage6AnalizaPif<dataInceput> implements    Initializable {
         NumberFormat nf = NumberFormat.getNumberInstance(new Locale("ro", "RO"));
         nf.setMaximumFractionDigits(2);
         DecimalFormat df = (DecimalFormat) nf;
+
+        if ((dataInceput.getValue() == null && dataSfarsit.getValue() == null) ||  comboBoxButtonOrg.getValue() == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Alegeti un criteriu de selectare" );
+            alert.showAndWait();
+        }else{
         if (dataInceput.getValue() != null && dataSfarsit.getValue() != null && comboBoxButtonProj.getValue() == null && comboBoxButtonOrg.getValue() != null) {
             tablePifProiecte = FXCollections.observableArrayList();
             ResultSet rsProj = stm.executeQuery("SELECT org, invTBL.nrProiect, denProiect, nrPIF, dataPIF, respProiect, Round(SUM(invTBL.valInitiala), 2) as valInitiala FROM invTBL, bugetProj WHERE invTBL.nrPIF!='null' AND bugetProj.nrProiect=invTBL.nrProiect AND dataPIF >=  '" + dataInceput.getValue() + "' AND dataPIF <= '" + dataSfarsit.getValue() + "' GROUP BY nrPIF ");
             double totalPIFproj = 0;
 
             try {
-                while (rsProj.next()) {
-                    tablePifProiecte.addAll(new Investitii(
-                            rsProj.getString("org"),
-                            rsProj.getString("nrProiect"),
-                            rsProj.getString("denProiect"),
-                            rsProj.getString("nrPIF"),
-                            rsProj.getDate("dataPIF"),
-                            rsProj.getString("valInitiala"),
-                            rsProj.getString("respProiect")));
+                    while (rsProj.next()) {
+                        if (eliminareZero.isSelected()){
+                          if (rsProj.getDouble("valInitiala")!=0) {
+                            tablePifProiecte.addAll(new Investitii(
+                                rsProj.getString("org"),
+                                rsProj.getString("nrProiect"),
+                                rsProj.getString("denProiect"),
+                                rsProj.getString("nrPIF"),
+                                rsProj.getDate("dataPIF"),
+                                rsProj.getString("valInitiala"),
+                                rsProj.getString("respProiect")));
 
-                    totalPIFproj += rsProj.getDouble("valInitiala");
-                }
-                tableViewPifProiecte.setItems(tablePifProiecte);
+                            totalPIFproj += rsProj.getDouble("valInitiala");
+                            }
+
+                        }else{
+                            tablePifProiecte.addAll(new Investitii(
+                                    rsProj.getString("org"),
+                                    rsProj.getString("nrProiect"),
+                                    rsProj.getString("denProiect"),
+                                    rsProj.getString("nrPIF"),
+                                    rsProj.getDate("dataPIF"),
+                                    rsProj.getString("valInitiala"),
+                                    rsProj.getString("respProiect")));
+
+                    }
+                    }
                 totalPifInPerioada.setText(df.format(totalPIFproj));
+                tableViewPifProiecte.setItems(tablePifProiecte);
 
             } catch (SQLException | FileNotFoundException throwables) {
                 throwables.printStackTrace();
             }
-        } else {
+       }  else {
             tablePifProiecte = FXCollections.observableArrayList();
             ResultSet rsProj = stm.executeQuery("SELECT org, invTBL.nrProiect, denProiect, nrPIF, dataPIF, respProiect, Round(SUM(invTBL.valInitiala), 2) as valInitiala FROM invTBL, bugetProj WHERE invTBL.nrPIF!='null' AND bugetProj.nrProiect=invTBL.nrProiect AND invtbl.nrProiect='" + comboBoxButtonProj.getValue() + "' AND dataPIF >=  '" + dataInceput.getValue() + "' AND dataPIF <= '" + dataSfarsit.getValue() + "' GROUP BY nrPIF ");
             double totalPIFproj = 0;
-
             try {
                 while (rsProj.next()) {
                     tablePifProiecte.addAll(new Investitii(
@@ -194,12 +216,12 @@ public class CtrlStage6AnalizaPif<dataInceput> implements    Initializable {
 
                     totalPIFproj += rsProj.getDouble("valInitiala");
                 }
-                tableViewPifProiecte.setItems(tablePifProiecte);
-                totalPifInPerioada.setText(df.format(totalPIFproj));
-
+                    tableViewPifProiecte.setItems(tablePifProiecte);
+                    totalPifInPerioada.setText(df.format(totalPIFproj));
             } catch (SQLException | FileNotFoundException throwables) {
                 throwables.printStackTrace();
             }
+        }
         }
     }
 
