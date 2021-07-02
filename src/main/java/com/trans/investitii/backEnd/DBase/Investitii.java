@@ -30,8 +30,8 @@ public class Investitii {
     public static String URLbackup = String.format( "jdbc:mysql://localhost:3306/%s?useLegacyDateTimeCode=false&serverTimezone=GMT","invDBbackup" );
 
     public static final String CREATE_DATABASE = "CREATE DATABASE IF NOT EXISTS invDB";
-    public static final String CREATE_DATABASE_backup = "CREATE DATABASE invDBbackup";
-    public static final String DROP_DATABASE_backup = "DROP DATABASE invDBbackup";
+    public static final String CREATE_DATABASE_backup = "CREATE DATABASE IF NOT EXISTS invDBbackup";
+    public static final String DROP_DATABASE_backup = "DROP DATABASE IF EXISTS invDBbackup";
 
     public static final String USE_DATABASE = "USE invDB";
     public static final String USE_DATABASE_backup = "USE invDBbackup";
