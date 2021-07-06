@@ -27,8 +27,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
 import static main.java.com.trans.investitii.backEnd.DBase.Investitii.*;
 
 public class Stage7ModificariFacturi implements Initializable {
@@ -89,8 +89,6 @@ public class Stage7ModificariFacturi implements Initializable {
 
     public Stage7ModificariFacturi() throws SQLException {
     }
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         comboBoxNrFactImpartire.setDisable(true);
@@ -117,42 +115,40 @@ public class Stage7ModificariFacturi implements Initializable {
 
         List<String> furnizoriActivi = myListFz.stream()
                 .filter(furnizor -> !furnizor.contains("INACTIV-"))
-                .collect(Collectors.toList());
+                .collect(toList());
         comboBoxFzImpartire.setItems(FXCollections.observableArrayList(furnizoriActivi));
 
 
         List<String> ctInvestActive = myListCtInvest.stream()
                 .filter(ctInvest -> !ctInvest.contains("INACTIV-"))
-                .collect(Collectors.toList());
+                .collect(toList());
         comboBoxContInvestitiiImpartire1.setItems(FXCollections.observableArrayList(ctInvestActive));
         comboBoxContInvestitiiImpartire2.setItems(FXCollections.observableArrayList(ctInvestActive));
 
 
         List<String> devizeActive = myListDeviz.stream()
                 .filter(devize -> !devize.contains("INACTIV-"))
-                .collect(Collectors.toList());
+                .collect(toList());
         comboBoxDevizImpartire1.setItems(FXCollections.observableArrayList(devizeActive));
         comboBoxDevizImpartire2.setItems(FXCollections.observableArrayList(devizeActive));
 
         List<String> orgActive = myListOrg.stream()
                 .filter(org -> !org.contains("INACTIV-"))
-                .collect(Collectors.toList());
+                .collect(toList());
         comboBoxOrgImpartire1.setItems(FXCollections.observableArrayList(orgActive));
         comboBoxOrgImpartire2.setItems(FXCollections.observableArrayList(orgActive));
 
         List<String> responsabiliActivi = myListRespProj.stream()
                 .filter(resp -> !resp.contains("INACTIV-"))
-                .collect(Collectors.toList());
+                .collect(toList());
         comboBoxRespImpartire1.setItems(FXCollections.observableArrayList(responsabiliActivi));
         comboBoxRespImpartire2.setItems(FXCollections.observableArrayList(responsabiliActivi));
 
         List<String> proiecteActive = myListProj.stream()
                 .filter(proiect -> !proiect.contains("INACTIV-"))
-                .collect(Collectors.toList());
+                .collect(toList());
         comboBoxProjImpartire1.setItems(FXCollections.observableArrayList(proiecteActive));
         comboBoxProjImpartire2.setItems(FXCollections.observableArrayList(proiecteActive));
-
-
     }
 
     public void goToStage6AnalizaPif(ActionEvent actionEvent) throws IOException {
@@ -212,8 +208,6 @@ public class Stage7ModificariFacturi implements Initializable {
         window.setScene(tabeleViewScene);
         window.show();
     }
-
-
 
     public void comboBoxFzImpartireAct(ActionEvent actionEvent) throws SQLException {
         comboBoxNrFactImpartire.setDisable(false);
@@ -306,9 +300,7 @@ public class Stage7ModificariFacturi implements Initializable {
             Alert alert2 = new Alert(Alert.AlertType.INFORMATION, "Hint: Dupa ce ai completat valoarea : "+textFieldValImpartita1.getText()+" apasa ENTER");
             alert2.showAndWait();
             return;
-
         }
-
 
         if (val == 0) {
             Alert alert1 = new Alert(Alert.AlertType.ERROR, "Nu ai ce imparti. Valoarea facturii este 0");
@@ -375,20 +367,10 @@ public class Stage7ModificariFacturi implements Initializable {
         double TVA2 = 0;
         double valoareTotala1 = 0;
         double valoareTotala2 = 0;
-//            if(myTVA==null) {
-//                myTVA = "0.00";
-//
-//                TVA1 = ( Double.parseDouble(textFieldValImpartita1.getText()) * Double.parseDouble(myTVA) ) / Double.parseDouble(myValoare);
-//                valoareTotala1 = Double.parseDouble(textFieldValImpartita1.getText()) + TVA1;
-//                TVA2 = Double.parseDouble(myTVA) - TVA1;
-//                valoareTotala2 = Double.parseDouble(myValoareTotala) - valoareTotala1;
-//            }
-//            else {
                 TVA1 = ( Double.parseDouble(textFieldValImpartita1.getText()) * Double.parseDouble(myTVA) ) / Double.parseDouble(myValoare);
                 valoareTotala1 = Double.parseDouble(textFieldValImpartita1.getText()) + TVA1;
                 TVA2 = Double.parseDouble(myTVA) - TVA1;
                 valoareTotala2 = Double.parseDouble(myValoareTotala) - valoareTotala1;
-//            }
 
             try (PreparedStatement statement = conn.prepareStatement(createLine) ) {
 
@@ -409,10 +391,6 @@ public class Stage7ModificariFacturi implements Initializable {
             }
             Alert alert = new Alert(Alert.AlertType.WARNING,"Modificari realizate");
             alert.showAndWait();
-
-//            comboBoxFzImpartire.setValue(null);
-//            comboBoxNrFactImpartire.setValue(null);
-
 
         labelValFactImpartire.setText(null);
         labelNrFactImpartire.setText(null);
@@ -451,65 +429,87 @@ public class Stage7ModificariFacturi implements Initializable {
         }
 
 
-    public void butonVizualizareModificariAct(ActionEvent actionEvent) throws SQLException {
-        String modificari = "SELECT * FROM invTBL WHERE furnizor = furnizor AND nrFactura = -nrFactura";
-        String modificate  ="SELECT * FROM invTBL WHERE nrFactura = *FI";
-
+    public void butonVizualizareModificariAct(ActionEvent actionEvent) throws SQLException, IOException {
+        String fzNrfact="SELECT furnizor, nrFactura FROM invTBL ";
 
         try {
-        ResultSet rsSelModificari = statement.executeQuery(modificari);
-        String nrCrt="0";
-        String furnizor = "0";
-        String nrfactura = "0";
-        String dataFacturii= "0";
-        String valoare= "0";
-        String TVA= "0";
-        String valoareTotala= "0";
-        Object contract= "0";
-        Object contInv= "0";
-        Object contFz= "0";
-        Object proiect= "0";
-        Object deviz= "0";
-        Object org= "0";
-        Object respProiect= "0";
-        String descriereaFacturii= "0";
+            String modificari = "0";
+            List listaFacturiNegative= new ArrayList();
+            List listafacturi = new ArrayList();
+
+            ResultSet rsFzNrFactura = statement.executeQuery(fzNrfact);
+
             BufferedWriter writeModificari =new BufferedWriter(new FileWriter("C:\\Investitii\\rapoarte\\"+replaceNume2+" - modificari.csv", false));
-            writeModificari.append("de toate"+"\n");
+            writeModificari.append("Nr Crt, Furnizor, Numar factura, Data facturii, Data contabilizarii, Valoare curenta, Valoare initiala, TVA, Valoare totala, Contract, Cont investitie, Cont furnizor, Nr. proiect, Deviz, Organizatie, Responsabil Proiect, Descriere factura"+"\n");
             writeModificari.close();
 
-        while (rsSelModificari.next()){
-            nrCrt =rsSelModificari.getString("nrCrt");
-            furnizor = rsSelModificari.getString("furnizor");
-            nrfactura = rsSelModificari.getString("nrFactura");
-            dataFacturii = rsSelModificari.getString("dataFacturii");
-            valoare = rsSelModificari.getString("valoare");
-            TVA = rsSelModificari.getString("TVA");
-            valoareTotala = rsSelModificari.getString("valTot");
-            contract = rsSelModificari.getObject("contract");
-            contInv = rsSelModificari.getObject("contInv");
-            contFz = rsSelModificari.getObject("contFz");
-            proiect = rsSelModificari.getObject("nrProiect");
-            deviz = rsSelModificari.getObject("deviz");
-            org = rsSelModificari.getObject("org");
-            respProiect = rsSelModificari.getObject("respProiect");
-            descriereaFacturii = rsSelModificari.getString("descriereFactura");
+            while (rsFzNrFactura.next()) {
+                String nrfactNegativa = "-" + rsFzNrFactura.getString("nrFactura");
+                String nrFactura = rsFzNrFactura.getString("nrFactura");
+                listaFacturiNegative.add(nrfactNegativa);
+                listafacturi.add(nrFactura);
+            }
+              List<String> comune = (List<String>) listaFacturiNegative.stream().filter(listafacturi::contains).collect(toList());
 
-//        try (PreparedStatement preparedStatement=conn.prepareStatement(modificari) ){
-            BufferedWriter writeModificari1 =new BufferedWriter(new FileWriter("C:\\Investitii\\rapoarte\\"+replaceNume2+" - modificari.csv", true));
-            writeModificari1.append(nrCrt+","+furnizor+","+dataFacturii+","+nrfactura+","+valoare);
-            writeModificari1.close();
+                String nrCrt = "0";
+                String furnizor = "0";
+                String nrfactura = "0";
+                String dataFacturii = "0";
+                String dataCTB = "0";
+                String valoare = "0";
+                String valoareInitiala = "0";
+                String TVA = "0";
+                String valoareTotala = "0";
+                Object contract = "0";
+                Object contInv = "0";
+                Object contFz = "0";
+                Object proiect = "0";
+                Object deviz = "0";
+                Object org = "0";
+                Object respProiect = "0";
+                String descriereaFacturii = "0";
 
-            Desktop desktop1 = null;
+                for (String x :comune) {
+                    String y = x.replace("-" ,"");
+                    String w = y.concat(".1FI");
+                    String z = y.concat(".2FI");
+                    modificari = "SELECT* FROM invtbl WHERE nrFactura = '" + x + "' OR nrFactura='"+y+"'OR nrFactura='"+w+"'OR nrFactura='"+z+"'";
+                    System.out.println(x);
+                    System.out.println(y);
+
+                    ResultSet rsSelModificari = statement.executeQuery(modificari);
+
+                    while (rsSelModificari.next()) {
+                        nrCrt = rsSelModificari.getString("nrCrt");
+                        furnizor = rsSelModificari.getString("furnizor");
+                        nrfactura = rsSelModificari.getString("nrFactura");
+                        dataFacturii = rsSelModificari.getString("dataFacturii");
+                        dataCTB = rsSelModificari.getString("dataContabilizarii");
+                        valoare = rsSelModificari.getString("valoare");
+                        TVA = rsSelModificari.getString("TVA");
+                        valoareTotala = rsSelModificari.getString("valTot");
+                        contract = rsSelModificari.getObject("contract");
+                        contInv = rsSelModificari.getObject("contInv");
+                        contFz = rsSelModificari.getObject("contFz");
+                        proiect = rsSelModificari.getObject("nrProiect");
+                        deviz = rsSelModificari.getObject("deviz");
+                        org = rsSelModificari.getObject("org");
+                        respProiect = rsSelModificari.getObject("respProiect");
+                        descriereaFacturii = rsSelModificari.getString("descriereFactura");
+
+                        BufferedWriter writeModificari1 = new BufferedWriter(new FileWriter("C:\\Investitii\\rapoarte\\" + replaceNume2 + " - modificari.csv", true));
+                        writeModificari1.append(nrCrt + "," + furnizor + ","+nrfactura+"," + dataFacturii + ","+dataCTB+","+ valoare+","+valoareInitiala+","+TVA+","+valoareTotala+","+contract+","+contInv+","+contFz+","+proiect+","+deviz+","+org+","+respProiect+","+descriereaFacturii);
+                        writeModificari1.append("\n");
+                        writeModificari1.close();
+                    }
+                }
+            } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        Desktop desktop1 = null;
             desktop1.getDesktop().open( new File ("C:\\Investitii\\rapoarte\\"+replaceNume2+" - modificari.csv"));
-        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-//        todo vizualizare
+
     }
 }
 
