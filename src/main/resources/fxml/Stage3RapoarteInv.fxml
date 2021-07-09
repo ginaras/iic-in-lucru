@@ -162,7 +162,7 @@
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-      <Button fx:id="butonStage2Rapoarte" layoutX="230.0" layoutY="748.0" mnemonicParsing="false" onAction="#goOnStage2Rapoarte" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte Detaliate" textFill="#fcfbf5">
+      <Button fx:id="butonStage2Rapoarte" layoutX="442.0" layoutY="699.0" mnemonicParsing="false" onAction="#goOnStage2Rapoarte" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte Detaliate" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -182,7 +182,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="goToStage4Pif" layoutX="430.0" layoutY="699.0" mnemonicParsing="false" onAction="#goToStage4Pif" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Puneri in functiune" textFill="#fcfbf5">
+      <Button fx:id="goToStage4Pif" layoutX="637.0" layoutY="751.0" mnemonicParsing="false" onAction="#goToStage4Pif" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Puneri in functiune" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -242,7 +242,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="buttonStage6AnalizaPif" layoutX="431.0" layoutY="748.0" mnemonicParsing="false" onAction="#goToStage6AnalizaPif" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Analiza PIF-urilor" textFill="#fcfbf5">
+      <Button fx:id="buttonStage6AnalizaPif" layoutX="637.0" layoutY="699.0" mnemonicParsing="false" onAction="#goToStage6AnalizaPif" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Analiza PIF-urilor" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -262,7 +262,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="buttonStage5Solduri" layoutX="624.0" layoutY="724.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Consultare solduri" textFill="#fcfbf5">
+      <Button fx:id="buttonStage5Solduri" layoutX="444.0" layoutY="751.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Consultare solduri" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -325,5 +325,25 @@
       <Label fx:id="labelDiferentaProj1" layoutX="1090.0" layoutY="378.0" text="0" />
       <Label fx:id="labelTotalRealizatFz1" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="770.0" layoutY="491.0" nodeOrientation="RIGHT_TO_LEFT" text="0" />
       <Label fx:id="labelDiferentafz1" layoutX="1127.0" layoutY="491.0" text="0" />
+      <Button fx:id="buttonStage7Modificari" layoutX="221.0" layoutY="751.0" mnemonicParsing="false" onAction="#goToStage7Modificari" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Modificarea facturilor" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -1,5 +1,6 @@
 package main.java.com.trans.investitii.frontEnd.javaFX.controllers.admin;
 
+import javafx.collections.FXCollections;
 import main.java.com.trans.investitii.backEnd.DBase.Investitii;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,10 +18,13 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.text.Collator;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.lang.Double.parseDouble;
 
@@ -46,6 +50,7 @@ public class ControllerStageAdminNrProiect implements Initializable {
     public TextField addDenumireProj;
     public TextField addValProj;
     public DatePicker addDataAprobariiProj;
+    public ComboBox comboBoxRespProj;
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
     Statement statement = connection.createStatement();
@@ -81,7 +86,16 @@ public class ControllerStageAdminNrProiect implements Initializable {
         } catch (FileNotFoundException ex) {
             System.err.println(ex);
         }
-
+        List<String> myListRespProj = null;
+        try {
+            myListRespProj = Files.readAllLines( ( Paths.get("C:/Investitii/resurse/respproj") ));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        List<String> responsabiliActivi = myListRespProj.stream()
+                .filter( resp -> !resp.contains( "INACTIV-" ) )
+                .collect( Collectors.toList() );
+        comboBoxRespProj.setItems( FXCollections.observableArrayList(responsabiliActivi));
 
     }
     public void click(){
@@ -195,7 +209,7 @@ public class ControllerStageAdminNrProiect implements Initializable {
         }
 
         if (addString.isEmpty() || addDenumireProj.getText().isEmpty()
-                || (addDataAprobariiProj.getValue() ==null) || addValProj.getText().isEmpty() ) {
+                || (addDataAprobariiProj.getValue() ==null) || addValProj.getText().isEmpty() || comboBoxRespProj.getValue().equals(null)) {
 
             Alert fail = new Alert( Alert.AlertType.INFORMATION );
             fail.setHeaderText( "Atentie!" );
@@ -238,13 +252,14 @@ public class ControllerStageAdminNrProiect implements Initializable {
                         double val = parseDouble( addValProj.getText() );
                         val = Math.round( val * 100 );
                         val = val / 100;
-                        statement.executeUpdate( "INSERT INTO bugetPROJ (nrProiect, denProiect, startProiect, valInitiala, valRectificare, valFinala ) VALUES('" + addString + "','" + addDenumireProj.getCharacters().toString() + "','" + addDataAprobariiProj.getValue() + "','" + addValProj.getText() + "','0','" + val + "')" );
+                        statement.executeUpdate( "INSERT INTO bugetPROJ (nrProiect, denProiect, startProiect, valInitiala, valRectificare, valFinala, respProiect ) VALUES('" + addString + "','" + addDenumireProj.getCharacters().toString() + "','" + addDataAprobariiProj.getValue() + "','" + addValProj.getText() + "','0','" + val + "','"+comboBoxRespProj.getValue()+"')" );
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     addDenumireProj.clear();
                     addValProj.clear();
                     addDataAprobariiProj.getEditor().clear();
+                    comboBoxRespProj.setValue(null);
                     return;
                 }
                 }

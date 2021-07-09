@@ -63,7 +63,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="butonStage1Intro" layoutX="224.0" layoutY="747.0" mnemonicParsing="false" onAction="#goOnStage1Intro" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Introducere facturi" textFill="#fcfbf5">
+      <Button fx:id="butonStage1Intro" layoutX="228.0" layoutY="693.0" mnemonicParsing="false" onAction="#goOnStage1Intro" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Introducere facturi" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -244,5 +244,25 @@
       <Label layoutX="471.0" layoutY="669.0" text="Total PIF in perioada" />
       <Label fx:id="totalPifInPerioada" layoutX="805.0" layoutY="669.0" text="Label" />
       <CheckBox fx:id="eliminareZero" layoutX="239.0" layoutY="238.0" mnemonicParsing="false" text="Elimina PIF-uri 0 de reglare" />
+      <Button fx:id="buttonStage7Modificari" layoutX="207.0" layoutY="749.0" mnemonicParsing="false" onAction="#goToStage7Modificari" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Modificarea facturilor" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

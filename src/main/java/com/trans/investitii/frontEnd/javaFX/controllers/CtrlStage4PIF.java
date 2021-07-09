@@ -98,6 +98,7 @@ public class CtrlStage4PIF implements Initializable {
     public DatePicker dataPIF;
     public Button buttonStage5Solduri;
     public Button buttonStage6AnalizaPif;
+    public Button buttonStage7Modificari;
 
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
@@ -608,4 +609,11 @@ public class CtrlStage4PIF implements Initializable {
         window.show();
     }
 
+    public void goToStage7Modificari(ActionEvent actionEvent) throws IOException {
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage7ModificariFacturi.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
+    }
 }

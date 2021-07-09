@@ -28,23 +28,23 @@
             <Label fx:id="valoare" layoutX="558.0" layoutY="160.0" text="Valoare" />
             <Label fx:id="Data" layoutX="735.0" layoutY="160.0" text="Data facturii" />
             <Label fx:id="Data1" layoutX="890.0" layoutY="163.0" text="Data contabilizarii" />
-            <Label layoutX="51.0" layoutY="273.0" text="Contract" />
-            <Label layoutX="207.0" layoutY="273.0" text="Cont de investitii" />
-            <Label layoutX="413.0" layoutY="273.0" text="Cont de furnizori" />
-            <Label fx:id="proiect" layoutX="609.0" layoutY="273.0" text="Numar si denumire proiect" />
+            <Label layoutX="1085.0" layoutY="163.0" text="Contract" />
+            <Label layoutX="47.0" layoutY="273.0" text="Cont de investitii" />
+            <Label layoutX="253.0" layoutY="273.0" text="Cont de furnizori" />
+            <Label fx:id="proiect" layoutX="449.0" layoutY="273.0" text="Numar si denumire proiect" />
             <Label fx:id="deviz" layoutX="912.0" layoutY="273.0" text="Deviz" />
             <Label fx:id="utt" layoutX="1068.0" layoutY="273.0" text="Organizatie" />
-            <Label fx:id="respProj" layoutX="1068.0" layoutY="163.0" text="Resp. proiect" />
-            <ComboBox fx:id="comBoboxFz" layoutX="28.0" layoutY="197.0" prefHeight="31.0" prefWidth="351.0" promptText="Furnizor" style="-fx-background-radius: 10;" />
+            <Label fx:id="respProj" layoutX="769.0" layoutY="273.0" text="Resp. proiect" />
+            <ComboBox fx:id="comBoboxFz" layoutX="28.0" layoutY="197.0" onAction="#comboBoxFzAct" prefHeight="31.0" prefWidth="351.0" promptText="Furnizor" style="-fx-background-radius: 10;" />
             <TextField fx:id="fieldNrFact" layoutX="388.0" layoutY="197.0" prefHeight="31.0" prefWidth="150.0" promptText="nr fact" style="-fx-background-radius: 10;" />
             <TextField fx:id="fieldValFact" layoutX="549.0" layoutY="197.0" prefHeight="31.0" prefWidth="157.0" promptText="Valoare" style="-fx-background-radius: 10;" />
             <DatePicker fx:id="fieldDataFactura" layoutX="722.0" layoutY="197.0" prefHeight="31.0" prefWidth="150.0" promptText="data fact" style="-fx-background-radius: 10;" />
             <DatePicker fx:id="fieldDataGL" layoutX="883.0" layoutY="197.0" prefHeight="31.0" prefWidth="157.0" promptText="data GL" style="-fx-background-radius: 10;" />
-            <ComboBox fx:id="comboBoxRespProj" layoutX="1061.0" layoutY="197.0" prefHeight="31.0" prefWidth="115.0" promptText="Resp proiect" style="-fx-background-radius: 10;" />
-            <ComboBox fx:id="comboBoxContract" layoutX="20.0" layoutY="308.0" prefHeight="31.0" prefWidth="115.0" promptText="contract" style="-fx-background-radius: 10;" />
-            <ComboBox fx:id="comboBoxCtInv" layoutX="183.0" layoutY="308.0" prefHeight="31.0" prefWidth="180.0" promptText="ct investitii" style="-fx-background-radius: 10;" />
-            <ComboBox fx:id="cBCtFz" layoutX="403.0" layoutY="308.0" prefHeight="31.0" prefWidth="143.0" promptText="ct. furnizori" style="-fx-background-radius: 10;" />
-            <ComboBox fx:id="cBProjNr" layoutX="587.0" layoutY="308.0" prefHeight="31.0" prefWidth="281.0" promptText="Nr Proiect" style="-fx-background-radius: 10;" />
+            <ComboBox fx:id="comboBoxRespProj" layoutX="751.0" layoutY="308.0" prefHeight="31.0" prefWidth="115.0" promptText="Resp proiect" style="-fx-background-radius: 10;" />
+            <ComboBox fx:id="comboBoxContract" layoutX="1050.0" layoutY="197.0" prefHeight="31.0" prefWidth="115.0" promptText="contract" style="-fx-background-radius: 10;" />
+            <ComboBox fx:id="comboBoxCtInv" layoutX="22.0" layoutY="308.0" prefHeight="31.0" prefWidth="180.0" promptText="ct investitii" style="-fx-background-radius: 10;" />
+            <ComboBox fx:id="cBCtFz" layoutX="242.0" layoutY="308.0" prefHeight="31.0" prefWidth="143.0" promptText="ct. furnizori" style="-fx-background-radius: 10;" />
+            <ComboBox fx:id="cBProjNr" layoutX="426.0" layoutY="308.0" onAction="#cBProjNrAct" prefHeight="31.0" prefWidth="281.0" promptText="Nr Proiect" style="-fx-background-radius: 10;" />
             <ComboBox fx:id="comboBoxDeviz" layoutX="892.0" layoutY="308.0" prefHeight="31.0" prefWidth="150.0" promptText="deviz" style="-fx-background-radius: 10;" />
             <ComboBox fx:id="comboBoxOrg" layoutX="1069.0" layoutY="308.0" prefHeight="31.0" prefWidth="115.0" promptText="Org" style="-fx-background-radius: 10;" />
             <TextField fx:id="fieldDescriere" layoutX="265.0" layoutY="389.0" prefHeight="31.0" prefWidth="570.0" promptText="descriere" style="-fx-background-radius: 10;" />
@@ -179,7 +179,7 @@
               </columns>
             </TableView>
             <Label layoutX="35.0" layoutY="395.0" text="Descrierea obiectului facturii" />
-            <Button fx:id="buttonStage5Solduri" layoutX="659.0" layoutY="718.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Consultare solduri" textFill="#fcfbf5">
+            <Button fx:id="buttonStage5Solduri" layoutX="660.0" layoutY="696.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Consultare solduri" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
                      <input>
@@ -246,6 +246,26 @@
             </Button>
             <Label fx:id="labelSchimb" layoutX="865.0" layoutY="655.0" text="." />
             <Label fx:id="labelSchimb1" layoutX="865.0" layoutY="690.0" text="." />
+            <Button fx:id="buttonStage7Modificari" layoutX="650.0" layoutY="745.0" mnemonicParsing="false" onAction="#goToStage7Modificari" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Modificarea facturilor" textFill="#fcfbf5">
+               <effect>
+                  <Bloom threshold="0.1">
+                     <input>
+                        <Blend mode="SRC_ATOP" opacity="0.57">
+                           <topInput>
+                              <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                                 <bumpInput>
+                                    <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                                 </bumpInput>
+                              </Lighting>
+                           </topInput>
+                        </Blend>
+                     </input>
+                  </Bloom>
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
          </children>
          <effect>
             <Blend />

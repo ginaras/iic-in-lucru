@@ -68,6 +68,7 @@ public class CtrlStage2Rapoarte implements Initializable {
     public Label valoareaTotalaSold;
     public Label valoareaTotalaInitiala;
     public ComboBox comboBoxAlegeProjNume;
+    public Button buttonStage7Modificari;
 
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
@@ -577,6 +578,14 @@ public class CtrlStage2Rapoarte implements Initializable {
         Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage6AnalizaPif.fxml" ) );
         Scene tabeleViewScene = new Scene( tableView );
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
+    }
+
+    public void goToStage7Modificari(ActionEvent actionEvent) throws IOException {
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage7ModificariFacturi.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene( tabeleViewScene );
         window.show();
     }

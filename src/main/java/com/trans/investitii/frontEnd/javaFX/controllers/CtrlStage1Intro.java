@@ -24,8 +24,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.lang.Double.parseDouble;
@@ -77,6 +76,7 @@ public class CtrlStage1Intro implements Initializable {
     public Button changeData;
     public Label labelSchimb;
     public Label labelSchimb1;
+    public Button buttonStage7Modificari;
 
 
     @FXML
@@ -514,10 +514,23 @@ public class CtrlStage1Intro implements Initializable {
                 .collect( Collectors.toList() );
         comboBoxRespProj.setItems( FXCollections.observableArrayList(responsabiliActivi));
 
+//        Map<String, String> map = new HashMap<>() ;
+
         List<String> proiecteActive = myListProj.stream()
                 .filter( proiect -> !proiect.contains( "INACTIV-" ) )
                 .collect( Collectors.toList() );
-        cBProjNr.setItems( FXCollections.observableArrayList(proiecteActive));
+//        int x;
+//        for(x=0;x<proiecteActive.toArray().length;x++){
+//            map.put(proiecteActive.get(x),"\n");
+//        }
+//
+//        System.out.println(map);
+
+
+            cBProjNr.setItems( FXCollections.observableArrayList(proiecteActive));
+//            cBProjNr.setItems( FXCollections.observableArrayList(map));
+
+
 //pt tabel in scena
         furnizorColumn.setCellValueFactory( new PropertyValueFactory<>( "furnizor" ) );
         facturaColumn.setCellValueFactory( new PropertyValueFactory<>( "nrFactura" ) );
@@ -755,6 +768,21 @@ public class CtrlStage1Intro implements Initializable {
             confirm.show();
         }
     }
+    public void cBProjNrAct(ActionEvent actionEvent) throws SQLException {
+        String addResp = "SELECT respProiect FROM bugetProj WHERE nrProiect = '"+cBProjNr.getValue()+"'";
+
+        ResultSet rsAddResp = statement.executeQuery(addResp);
+
+        while (rsAddResp.next()){
+            comboBoxRespProj.setValue(rsAddResp.getString("respProiect"));
+        }
+    }
+    public void comboBoxFzAct(ActionEvent actionEvent) throws SQLException {
+        ResultSet rsAddContract = statement.executeQuery("SELECT nrContract FROM bugetContract WHERE furnizor = '"+comBoboxFz.getValue()+"'");
+        while (rsAddContract.next()){
+            comboBoxContract.setValue(rsAddContract.getString("nrContract"));
+        }
+    }
 
     public void goOnStage3Rapoarte ( ActionEvent event ) throws IOException {
         Parent stage3Intro = FXMLLoader.load( getClass().getResource( "/fxml/Stage3RapoarteInv.fxml" ) );
@@ -789,5 +817,11 @@ public class CtrlStage1Intro implements Initializable {
         window.show();
     }
 
-
+    public void goToStage7Modificari(ActionEvent actionEvent) throws IOException {
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage7ModificariFacturi.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
+    }
 }

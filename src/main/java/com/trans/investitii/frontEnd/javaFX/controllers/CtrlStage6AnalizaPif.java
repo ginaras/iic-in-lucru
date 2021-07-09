@@ -56,6 +56,7 @@ public class CtrlStage6AnalizaPif<dataInceput> implements    Initializable {
     public ObservableList <Investitii> tablePifProiecte;
     public Label totalPifInPerioada;
     public CheckBox eliminareZero;
+    public Button buttonStage7Modificari;
 
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
@@ -282,4 +283,11 @@ public class CtrlStage6AnalizaPif<dataInceput> implements    Initializable {
         window.show();
     }
 
+    public void goToStage7Modificari(ActionEvent actionEvent) throws IOException {
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage7ModificariFacturi.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
+    }
 }

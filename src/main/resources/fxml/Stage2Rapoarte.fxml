@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -21,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.trans.investitii.frontEnd.javaFX.controllers.CtrlStage2Rapoarte">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.trans.investitii.frontEnd.javaFX.controllers.CtrlStage2Rapoarte">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="104.0" layoutX="25.0" layoutY="126.0" stroke="BLACK" strokeType="INSIDE" style="-fx-background-radius: 10;" width="883.0" />
       <Button fx:id="buttonBackSt0" layoutX="28.0" layoutY="712.0" mnemonicParsing="false" onAction="#goOnSt0" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Meniul principal" textFill="#fcfbf5">
@@ -192,7 +186,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="buttonStage3Sumar" layoutX="182.0" layoutY="745.0" mnemonicParsing="false" onAction="#goToStage3Sumar" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte sumarizate" textFill="#fcfbf5">
+      <Button fx:id="buttonStage3Sumar" layoutX="365.0" layoutY="685.0" mnemonicParsing="false" onAction="#goToStage3Sumar" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte sumarizate" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -212,7 +206,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="goToStage4Pif" layoutX="382.0" layoutY="685.0" mnemonicParsing="false" onAction="#goToStage4Pif" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Puneri in functiune" textFill="#fcfbf5">
+      <Button fx:id="goToStage4Pif" layoutX="544.0" layoutY="685.0" mnemonicParsing="false" onAction="#goToStage4Pif" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Puneri in functiune" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -232,7 +226,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="buttonStage5Solduri" layoutX="575.0" layoutY="712.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Consultare Solduri" textFill="#fcfbf5">
+      <Button fx:id="buttonStage5Solduri" layoutX="363.0" layoutY="745.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Consultare Solduri" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -252,7 +246,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="buttonStage6AnalizaPif" layoutX="394.0" layoutY="745.0" mnemonicParsing="false" onAction="#goToStage6AnalizaPif" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Analiza PIF-urilor" textFill="#fcfbf5">
+      <Button fx:id="buttonStage6AnalizaPif" layoutX="556.0" layoutY="745.0" mnemonicParsing="false" onAction="#goToStage6AnalizaPif" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Analiza PIF-urilor" textFill="#fcfbf5">
          <effect>
             <Bloom threshold="0.1">
                <input>
@@ -274,5 +268,25 @@
       </Button>
       <Label fx:id="valoareaTotalaInitiala" layoutX="458.0" layoutY="650.0" prefHeight="21.0" prefWidth="150.0" text="Valoarea Initiala" />
       <ComboBox fx:id="comboBoxAlegeProjNume" editable="true" layoutX="50.0" layoutY="184.0" onAction="#comboBoxAlegeProjNume" pickOnBounds="false" prefHeight="31.0" prefWidth="387.0" promptText="Alege proiectul - nume" style="-fx-background-radius: 10; -fx-opacity: 10;" />
+      <Button fx:id="buttonStage7Modificari" layoutX="178.0" layoutY="745.0" mnemonicParsing="false" onAction="#goToStage7Modificari" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Modificarea facturilor" textFill="#fcfbf5">
+         <effect>
+            <Bloom threshold="0.1">
+               <input>
+                  <Blend mode="SRC_ATOP" opacity="0.57">
+                     <topInput>
+                        <Lighting diffuseConstant="0.95" specularConstant="0.0" specularExponent="0.0" surfaceScale="3.33">
+                           <bumpInput>
+                              <Shadow blurType="ONE_PASS_BOX" color="#e19f9f" height="102.62" radius="86.38" width="244.9" />
+                           </bumpInput>
+                        </Lighting>
+                     </topInput>
+                  </Blend>
+               </input>
+            </Bloom>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

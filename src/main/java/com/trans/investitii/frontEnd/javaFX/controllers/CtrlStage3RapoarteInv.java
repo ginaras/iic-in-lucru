@@ -82,6 +82,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
     public Label labelDiferentaProj1;
     public Label labelTotalRealizatFz1;
     public Label labelDiferentafz1;
+    public Button buttonStage7Modificari;
 
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
@@ -606,6 +607,13 @@ public class CtrlStage3RapoarteInv implements Initializable {
         window.setScene( tabeleViewScene );
         window.show();
     }
+    public void goToStage7Modificari(ActionEvent actionEvent) throws IOException {
+        Parent tableView = FXMLLoader.load( getClass().getResource( "/fxml/Stage7ModificariFacturi.fxml" ) );
+        Scene tabeleViewScene = new Scene( tableView );
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene( tabeleViewScene );
+        window.show();
+    }
 
     public void goToMachetaTrimestriala(ActionEvent actionEvent) {
         if(deLaDataMachetaTrimestriala.getValue()==null || laDataMachetaTrimestriala.getValue()==null){
@@ -628,7 +636,7 @@ public class CtrlStage3RapoarteInv implements Initializable {
                     "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiri FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND invTBL.dataPIF>= '"+dataInit+"' AND invTBL.dataPIF<= '"+dataFinala+"') AS iesiri, " +
                     "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiriDinSold FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+dataInit+"' <= invTBL.dataPIF  AND invTBL.dataPIF<= '"+dataFinala+"' and dataContabilizarii<='"+dataInit+"') AS iesiriDinSold, " +
                     "(SELECT ROUND(SUM(invTBL.valInitiala),2) AS iesiriDinPerioada FROM invTBL WHERE bugetProj.nrProiect=invTBL.nrProiect AND '"+dataInit+"' <= invTBL.dataPIF AND invTBL.dataPIF <= '"+dataFinala+"' AND dataContabilizarii>='"+dataInit+"') AS iesiriDinPerioada, " +
-                    "bugetProj.nrProiect FROM invTBL, bugetProj WHERE bugetProj.nrProiect=invTBL.nrProiect GROUP BY bugetProj.nrProiect ";
+                    "bugetProj.nrProiect, bugetProj.respProiect FROM invTBL, bugetProj WHERE bugetProj.nrProiect=invTBL.nrProiect GROUP BY bugetProj.nrProiect ";
 
             ResultSet rs = st.executeQuery( situatiaImobilizarilor);
 
@@ -647,10 +655,11 @@ public class CtrlStage3RapoarteInv implements Initializable {
             writer0.append( "" );
             writer0.append( "\n" );
 
-            writer0.append( "nrCrt, denProiect, sold initial la "+dataInit+",  Total intrari, Iesiri Din existent la "+dataInit+", Iesiri din intrarile perioadei, Total Iesiri, Sold la "+dataFinala+", Nr proiect" );
+            writer0.append( "Nr crt, Denumire proiect, Sold initial la "+dataInit+",  Total intrari, Iesiri Din existent la "+dataInit+", Iesiri din intrarile perioadei, Total Iesiri, Sold la "+dataFinala+", Nr proiect, Responsabil proiect" );
             writer0.close();
 //Parcurgerea BD si extragerea datelor iterate through the java resultset
             while (rs.next()) {
+                String respProiectPrint = rs.getString("respProiect");
                 Integer nrCrtPrint = rs.getInt( "nrCrt" );
                 String denProiectPrint = rs.getString( "denProiect" );
                 String iesiriPrint = rs.getString( "iesiri" );
@@ -664,10 +673,11 @@ public class CtrlStage3RapoarteInv implements Initializable {
                 if(iesiriDinSoldPrint==null){ iesiriDinSoldPrint = "0";}
                 if(iesiriDinPerioadaPrint==null){ iesiriDinPerioadaPrint = "0";}
                 if(intrariPrint==null){ intrariPrint = "0";}
+                if (soldFinalPrint==null){soldFinalPrint="0";}
                 double dsoldInitialPrint =+(Double.parseDouble(soldFinalPrint)+Double.parseDouble(iesiriPrint)-Double.parseDouble(intrariPrint));
 
 //print - adaugarea datelor in fisier
-                String datele =  nrCrtPrint+","+ denProiectPrint + "," + dsoldInitialPrint+","+intrariPrint+","+iesiriDinSoldPrint+","+iesiriDinPerioadaPrint+","+iesiriPrint+","+soldFinalPrint+","+nrProiectPrint;//" +dinSursePropriiPrint+";"+ totalIesiriPrint;
+                String datele =  nrCrtPrint+","+ denProiectPrint + "," + dsoldInitialPrint+","+intrariPrint+","+iesiriDinSoldPrint+","+iesiriDinPerioadaPrint+","+iesiriPrint+","+soldFinalPrint+","+nrProiectPrint+","+respProiectPrint;//" +dinSursePropriiPrint+";"+ totalIesiriPrint;
                 BufferedWriter writer = new BufferedWriter( new FileWriter( "C:\\Investitii\\rapoarte\\SituatiaImobilizarilorLaData-" + replaceNumeData2 + "rulat la "+replaceNumeData1+".csv", true ) );
                 writer.append( " \n" );
                 writer.append( datele );
@@ -715,6 +725,5 @@ public class CtrlStage3RapoarteInv implements Initializable {
             }
         }
     }
-
 
 }

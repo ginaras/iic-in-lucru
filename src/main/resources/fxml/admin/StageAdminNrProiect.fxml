@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" hgap="10" prefHeight="800" prefWidth="1200" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.trans.investitii.frontEnd.javaFX.controllers.admin.ControllerStageAdminNrProiect">
+<GridPane alignment="center" hgap="10" prefHeight="800" prefWidth="1200" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.trans.investitii.frontEnd.javaFX.controllers.admin.ControllerStageAdminNrProiect">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -224,7 +230,7 @@
                <font>
                   <Font size="16.0" />
                </font></Button>
-            <TextField fx:id="addProj" layoutX="704.0" layoutY="305.0" prefHeight="31.0" prefWidth="281.0" promptText="Introduceti numarul de proiect" />
+            <TextField fx:id="addProj" layoutX="704.0" layoutY="308.0" prefHeight="31.0" prefWidth="150.0" promptText="Introduceti nr de proiect" />
             <Text layoutX="596.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Proiect nou" />
             <Button fx:id="adminDeviz" layoutX="94.0" layoutY="638.0" mnemonicParsing="false" onAction="#goOnAdminDeviz" style="-fx-background-color: #0F4CC1;" text="Administrare devize" textFill="#fcfbf5">
                <effect>
@@ -266,11 +272,12 @@
                </font></Button>
             <Text fx:id="added" layoutX="729.0" layoutY="506.0" strokeType="OUTSIDE" strokeWidth="0.0" underline="true">
                <font>
-                  <Font size="36.0" />
+                  <Font size="24.0" />
                </font></Text>
             <TextField fx:id="addDenumireProj" layoutX="704.0" layoutY="349.0" prefHeight="31.0" prefWidth="281.0" promptText="Introduceti denumirea  proiectului" />
-            <TextField fx:id="addValProj" layoutX="705.0" layoutY="431.0" prefHeight="31.0" prefWidth="281.0" promptText="Introduceti valoarea proiectului" />
-            <DatePicker fx:id="addDataAprobariiProj" layoutX="705.0" layoutY="388.0" promptText="Data aprobarii" />
+            <TextField fx:id="addValProj" layoutX="930.0" layoutY="392.0" prefHeight="31.0" prefWidth="126.0" promptText="Introduceti valoarea proiectului" />
+            <DatePicker fx:id="addDataAprobariiProj" layoutX="705.0" layoutY="395.0" promptText="Data aprobarii" />
+            <ComboBox fx:id="comboBoxRespProj" layoutX="704.0" layoutY="440.0" prefWidth="150.0" promptText="Responsabil Proiect" />
          </children>
       </AnchorPane>
    </children>
