@@ -77,6 +77,7 @@ public class CtrlStage1Intro implements Initializable {
     public Label labelSchimb;
     public Label labelSchimb1;
     public Button buttonStage7Modificari;
+    public Label labelProiect;
 
 
     @FXML
@@ -769,12 +770,13 @@ public class CtrlStage1Intro implements Initializable {
         }
     }
     public void cBProjNrAct(ActionEvent actionEvent) throws SQLException {
-        String addResp = "SELECT respProiect FROM bugetProj WHERE nrProiect = '"+cBProjNr.getValue()+"'";
+        String addResp = "SELECT respProiect, denProiect FROM bugetProj WHERE nrProiect = '"+cBProjNr.getValue()+"'";
 
         ResultSet rsAddResp = statement.executeQuery(addResp);
 
         while (rsAddResp.next()){
             comboBoxRespProj.setValue(rsAddResp.getString("respProiect"));
+            labelProiect.setText( rsAddResp.getString( "denProiect" ) );
         }
     }
     public void comboBoxFzAct(ActionEvent actionEvent) throws SQLException {

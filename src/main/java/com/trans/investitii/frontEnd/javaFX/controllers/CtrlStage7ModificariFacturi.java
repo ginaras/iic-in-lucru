@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -22,6 +23,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ import java.util.ResourceBundle;
 import static java.util.stream.Collectors.toList;
 import static main.java.com.trans.investitii.backEnd.DBase.Investitii.*;
 
-public class Stage7ModificariFacturi implements Initializable {
+public class CtrlStage7ModificariFacturi implements Initializable {
 
 
     public Button buttonStage6AnalizaPif;
@@ -80,6 +82,19 @@ public class Stage7ModificariFacturi implements Initializable {
     public DatePicker textFieldDataBegin;
     public DatePicker textFieldDataEnd;
 
+    public Label labelNrFactImpartire1;
+    public Label labelDataFactImpartire1;
+    public Label labelDataCtbtImpartire1;
+    public Label labelValFactImpartire1;
+    public Label labelContInvImpartire1;
+    public Label labelProjImpartire1;
+    public Label labelDevizImpartire1;
+    public Label labelOrgImpartire1;
+    public Label labelRespImpartire1;
+    public Label labelDenProjImpartire;
+    public Label labelDenProjImpartire1;
+    public Label labelDenProjImpartire2;
+
     Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
     Statement statement = conn.createStatement();
 
@@ -87,13 +102,14 @@ public class Stage7ModificariFacturi implements Initializable {
     DateTimeFormatter date2 = DateTimeFormatter.ofPattern( "yyyy-MM-dd 'ora' hh.mm" );
     String replaceNume2 = date0.format( date2 );
 
-    public Stage7ModificariFacturi() throws SQLException {
+    public CtrlStage7ModificariFacturi () throws SQLException {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         comboBoxNrFactImpartire.setDisable(true);
         butonImpartireFact.setDisable(true);
         textFieldValImpartita2.setDisable(true);
+        butonValidareImpartireFact1.setDisable( true );
 
         List<String> myListFz = null;
         List<String> myListCtInvest = null;
@@ -223,12 +239,14 @@ public class Stage7ModificariFacturi implements Initializable {
         comboBoxNrFactImpartire.setItems(FXCollections.observableList(listaFacturi4Impartire));
     }
 
-
     public void comboBoxNrFactImpartireAct(ActionEvent actionEvent) throws SQLException {
+        butonValidareImpartireFact1.setDisable( false );
         String findRest4Impartire = "SELECT * FROM invtbl WHERE  furnizor = '" + comboBoxFzImpartire.getValue() + "' and nrFactura = '" + comboBoxNrFactImpartire.getValue() + "'";
         ResultSet rsNrFact = statement.executeQuery(findRest4Impartire);
+        String nrFact = null;
         String valoare = null;
         String data = null;
+        String dataContabilizarii = null;
         String contInv = null;
         String proj = null;
         String deviz = null;
@@ -237,8 +255,10 @@ public class Stage7ModificariFacturi implements Initializable {
         String descriereImpartire = null;
 
         while (rsNrFact.next()) {
+            nrFact=rsNrFact.getString( "nrFactura" );
             valoare = rsNrFact.getString("Valoare");
             data = rsNrFact.getString("dataFacturii");
+            dataContabilizarii=rsNrFact.getString( "dataContabilizarii" );
             contInv = rsNrFact.getString("contInv");
             proj = rsNrFact.getString("nrProiect");
             deviz = rsNrFact.getString("deviz");
@@ -250,6 +270,7 @@ public class Stage7ModificariFacturi implements Initializable {
         labelNrFactImpartire.setText(comboBoxNrFactImpartire.getValue().toString() + ".1FI");
         labelNrFactImpartire2.setText(comboBoxNrFactImpartire.getValue().toString() + ".2FI");
         labelDataFactImpartire.setText(( data ));
+        labelDataCtbtImpartire.setText( dataContabilizarii );
         labelContInvImpartire.setText(contInv);
         labelProjImpartire.setText(proj);
         labelDevizImpartire.setText(deviz);
@@ -257,6 +278,15 @@ public class Stage7ModificariFacturi implements Initializable {
         labelRespImpartire.setText(responsabil);
         labelOrgImpartire.setText(org);
         labelDescriereImpartire.setText(descriereImpartire);
+
+        labelNrFactImpartire1.setText( "-"+ nrFact);
+        labelDataFactImpartire1.setText( data );
+        labelValFactImpartire1.setText( "-"+valoare );
+        labelContInvImpartire1.setText( contInv );
+        labelProjImpartire1.setText( proj );
+        labelDevizImpartire1.setText( deviz );
+        labelOrgImpartire1.setText( org );
+        labelRespImpartire1.setText( responsabil );
 
         comboBoxContInvestitiiImpartire1.setValue(contInv);
         comboBoxContInvestitiiImpartire2.setValue(contInv);
@@ -275,18 +305,26 @@ public class Stage7ModificariFacturi implements Initializable {
 
         textFieldDescriereImpartire1.setText(descriereImpartire);
         textFieldDescriereImpartire2.setText(descriereImpartire);
+
+        String denProj="SELECT denProiect FROM bugetProj WHERE nrProiect='"+labelProjImpartire.getText()+"' ";
+        ResultSet rsDenProj= statement.executeQuery(denProj);
+
+        while (rsDenProj.next()){
+            labelDenProjImpartire.setText(rsDenProj.getString( "denProiect" ));
+        }
     }
 
-    public void butonValidareImpartireFact(ActionEvent actionEvent) {
+    public void butonValidareImpartireFact(ActionEvent actionEvent) throws SQLException {
         if ( textFieldValImpartita1.getText().isEmpty() ) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Introduceti valorile");
             alert.showAndWait();
             return;
         }
-        if ( textFieldValImpartita1.getText().isEmpty() || textFieldValImpartita2.getText().isEmpty() ) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Hint: Dupa ce ai completat valoarea pentru: "+labelValFactImpartire.getText()+" apasa ENTER");
+        if ( textFieldValImpartita2.getText().isEmpty() ) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Nu ai schimbat nimic!");
             alert.showAndWait();
             return;
+//            textFieldValImpartita1act2();
         }
         double val  = Double.parseDouble(labelValFactImpartire.getText());
         double val1 = Double.parseDouble(textFieldValImpartita1.getText());
@@ -315,7 +353,7 @@ public class Stage7ModificariFacturi implements Initializable {
             butonImpartireFact.setDisable(false);
         }
     }
-    public void textFieldValImpartita1act(ActionEvent actionEvent) throws SQLException {
+    public void textFieldValImpartita1act( ActionEvent actionEvent  ) throws SQLException {
         String selectToChange = "SELECT * FROM invTBL WHERE furnizor = '" + comboBoxFzImpartire.getValue() + "'AND nrFactura='" + comboBoxNrFactImpartire.getValue() + "'";
         ResultSet rs5 = statement.executeQuery(selectToChange);
         String val = "0";
@@ -326,6 +364,23 @@ public class Stage7ModificariFacturi implements Initializable {
         double val2 = Double.parseDouble(val)-Double.parseDouble(textFieldValImpartita1.getText());
 
         textFieldValImpartita2.setText(String.valueOf(val2));
+    }
+    public void textFieldValImpartita1act2( ) throws SQLException {
+        if (!textFieldValImpartita1.getCharacters().toString().isEmpty()){
+        String selectToChange = "SELECT valoare FROM invTBL WHERE furnizor = '" + comboBoxFzImpartire.getValue() + "'AND nrFactura='" + comboBoxNrFactImpartire.getValue() + "'";
+        ResultSet rs5 = statement.executeQuery(selectToChange);
+        String val = "0";
+
+        while (rs5.next()){
+            val = rs5.getString("valoare");
+        }
+        double val2 = Double.parseDouble(val)-Double.parseDouble(textFieldValImpartita1.getText());
+
+        textFieldValImpartita2.setText(String.valueOf(val2));
+        }
+        else{
+
+        }
     }
 
     public void butonImpartireFact(ActionEvent actionEvent) throws SQLException {
@@ -387,13 +442,17 @@ public class Stage7ModificariFacturi implements Initializable {
                     myContract + "','" + comboBoxContInvestitiiImpartire2.getValue() + "','" + myContFz + "','" + comboBoxProjImpartire2.getValue() + "','" + comboBoxDevizImpartire2.getValue() + "','" + comboBoxOrgImpartire2.getValue() + "','" + comboBoxRespImpartire2.getValue() + "','" + textFieldDescriereImpartire2.getText() + "')";
              statement.execute(adaugareFactura2);
             }
-                System.out.println(replaceNume2+"  impartire nrCRT: "+myNrCrt+" factura "+comboBoxNrFactImpartire.getValue() +"in valoare de: "+labelValFactImpartire.getText()+" lei, a furnizorului "+labelFzImpartire.getText()+"  in facturile: "+labelNrFactImpartire.getText()+" "+textFieldValImpartita1.getText() +" lei si "+labelNrFactImpartire2.getText()+" "+textFieldValImpartita2.getText()+" lei");
+                System.out.println(replaceNume2+"  impartire nrCRT: "+myNrCrt+" factura "+comboBoxNrFactImpartire.getValue() +" in valoare de: "+labelValFactImpartire.getText()+" lei, a furnizorului "+labelFzImpartire.getText()+"  in facturile: "+labelNrFactImpartire.getText()+" "+textFieldValImpartita1.getText() +" lei si "+labelNrFactImpartire2.getText()+" "+textFieldValImpartita2.getText()+" lei");
             }
             Alert alert = new Alert(Alert.AlertType.WARNING,"Modificari realizate");
             alert.showAndWait();
 
+//        comboBoxFzImpartire.setValue(null);
+//        comboBoxNrFactImpartire.setValue( null );
+        labelFzImpartire.setText( null );
         labelValFactImpartire.setText(null);
         labelNrFactImpartire.setText(null);
+        labelDataCtbtImpartire.setText( null );
         labelNrFactImpartire2.setText(null);
         labelDataFactImpartire.setText(( null ));
         labelContInvImpartire.setText(null);
@@ -403,6 +462,17 @@ public class Stage7ModificariFacturi implements Initializable {
         labelRespImpartire.setText(null);
         labelOrgImpartire.setText(null);
         labelDescriereImpartire.setText(null);
+
+
+        labelNrFactImpartire1.setText( null );
+        labelDenProjImpartire.setText( null );
+        labelDataFactImpartire1.setText( null );
+        labelValFactImpartire1.setText( null );
+        labelContInvImpartire1.setText( null );
+        labelProjImpartire1.setText( null );
+        labelDevizImpartire1.setText( null );
+        labelOrgImpartire1.setText( null );
+        labelRespImpartire1.setText( null );
 
         comboBoxContInvestitiiImpartire1.setValue(null);
         comboBoxContInvestitiiImpartire2.setValue(null);
@@ -425,12 +495,21 @@ public class Stage7ModificariFacturi implements Initializable {
         textFieldDataCtbImpartire.setValue(null);
         textFieldValImpartita1.clear();
         textFieldValImpartita2.clear();
+
+        labelDenProjImpartire1.setText( "-" );
+        labelDenProjImpartire2.setText( "-" );
+
         butonImpartireFact.setDisable(true);
+        butonValidareImpartireFact1.setDisable( true );
         }
 
 
     public void butonVizualizareModificariAct(ActionEvent actionEvent) throws SQLException, IOException {
         String fzNrfact="SELECT furnizor, nrFactura FROM invTBL ";
+        if ( textFieldDataEnd.getValue()==null)
+            textFieldDataEnd.setValue( LocalDate.now() );
+        if (textFieldDataBegin.getValue()==null)
+            textFieldDataBegin.setValue( LocalDate.ofEpochDay( 1 ) );
 
         try {
             String modificari = "0";
@@ -473,7 +552,7 @@ public class Stage7ModificariFacturi implements Initializable {
                     String y = x.replace("-" ,"");
                     String w = y.concat(".1FI");
                     String z = y.concat(".2FI");
-                    modificari = "SELECT* FROM invtbl WHERE nrFactura = '" + x + "' OR nrFactura='"+y+"'OR nrFactura='"+w+"'OR nrFactura='"+z+"'";
+                    modificari = "SELECT* FROM invtbl WHERE (nrFactura = '" + x + "' OR nrFactura='"+y+"'OR nrFactura='"+w+"'OR nrFactura='"+z+"') AND (dataContabilizarii BETWEEN '"+textFieldDataBegin.getValue()+"' AND'"+textFieldDataEnd.getValue()+"')";
                     System.out.println(x);
                     System.out.println(y);
 
@@ -510,6 +589,24 @@ public class Stage7ModificariFacturi implements Initializable {
             desktop1.getDesktop().open( new File ("C:\\Investitii\\rapoarte\\"+replaceNume2+" - modificari.csv"));
 
 
+    }
+
+    public void comboBoxProjImpartire1Act ( ActionEvent actionEvent ) throws SQLException {
+        String denProj="SELECT denProiect FROM bugetProj WHERE nrProiect='"+comboBoxProjImpartire1.getValue()+"' ";
+        ResultSet rsDenProj= statement.executeQuery(denProj);
+
+        while (rsDenProj.next()){
+            labelDenProjImpartire1.setText(rsDenProj.getString( "denProiect" ));
+        }
+    }
+
+    public void comboBoxProjImpartire2Act ( ActionEvent actionEvent ) throws SQLException {
+        String denProj="SELECT denProiect FROM bugetProj WHERE nrProiect='"+comboBoxProjImpartire2.getValue()+"' ";
+        ResultSet rsDenProj= statement.executeQuery(denProj);
+
+        while (rsDenProj.next()){
+            labelDenProjImpartire2.setText(rsDenProj.getString( "denProiect" ));
+        }
     }
 }
 
