@@ -253,7 +253,7 @@
                <font>
                   <Font size="16.0" />
                </font></Button>
-            <Button fx:id="goToStage2Rapoarte" layoutX="821.0" layoutY="253.0" mnemonicParsing="false" onAction="#goToStage2Rapoarte" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte detaliate" textFill="#fcfbf5">
+            <Button fx:id="goToStage2Rapoarte" layoutX="821.0" layoutY="314.0" mnemonicParsing="false" onAction="#goToStage2Rapoarte" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte detaliate" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
                      <input>
@@ -273,7 +273,7 @@
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="buttonStage3Sumar" layoutX="996.0" layoutY="252.0" mnemonicParsing="false" onAction="#goToStage3Sumar" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte sumarizate" textFill="#fcfbf5">
+            <Button fx:id="buttonStage3Sumar" layoutX="990.0" layoutY="314.0" mnemonicParsing="false" onAction="#goToStage3Sumar" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Rapoarte sumarizate" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
                      <input>
@@ -293,7 +293,7 @@
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="buttonStage5Solduri" layoutX="998.0" layoutY="189.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Consultare solduri" textFill="#fcfbf5">
+            <Button fx:id="buttonStage5Solduri" layoutX="908.0" layoutY="249.0" mnemonicParsing="false" onAction="#goToStage5Solduri" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Consultare solduri" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
                      <input>
@@ -398,7 +398,7 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <Button fx:id="buttonStage7Modificari" layoutX="824.0" layoutY="313.0" mnemonicParsing="false" onAction="#goToStage7Modificari" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Modificari intrari" textFill="#fcfbf5">
+            <Button fx:id="buttonStage7Modificari" layoutX="991.0" layoutY="189.0" mnemonicParsing="false" onAction="#goToStage7Modificari" style="-fx-background-color: #0F4CC1; -fx-background-radius: 10;" text="Modificarea facturilor" textFill="#fcfbf5">
                <effect>
                   <Bloom threshold="0.1">
                      <input>

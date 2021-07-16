@@ -315,12 +315,14 @@ public class CtrlStage1Intro implements Initializable {
     @FXML
     private void onClickChangeItems (MouseEvent event ) throws SQLException {
         Investitii selectFact = tableView.getSelectionModel().getSelectedItem();
-        if (selectFact !=null){
-            changeData.setDisable( false );
-        }
+        int nrCrtAles0=0;
+        if (selectFact !=null) {
+            changeData.setDisable(false);
 
-           int nrCrtAles0 = tableView.getSelectionModel().getSelectedItem().getNrCrt();
-        System.out.println(replaceNume2 + "  Ai selectat nr curent  "+nrCrtAles0);
+
+            nrCrtAles0 = tableView.getSelectionModel().getSelectedItem().getNrCrt();
+            System.out.println(replaceNume2 + "  Ai selectat nr curent  " + nrCrtAles0);
+        }
         if (nrCrtAles0==0) {
             changeData.setDisable( true );
             Alert alert = new Alert( Alert.AlertType.INFORMATION );
@@ -429,6 +431,7 @@ public class CtrlStage1Intro implements Initializable {
                     statement.executeUpdate("INSERT INTO invTBL (furnizor, nrFactura, dataFacturii, dataContabilizarii, valoare, valInitiala, tva, valTot, contract, contInv, contFz, nrProiect, deviz, org, respProiect, descriereFactura) VALUES('" + comBoboxFz.getValue() + "','" + fieldNrFact.getText().toUpperCase() + "','" + fieldDataFactura.getValue() + " ',' " + fieldDataGL.getValue() + "','" + val + " ','" + val + " ',' " + tva + " ' , '" + valTot + " ',' " +
                             comboBoxContract.getValue() + "','" + comboBoxCtInv.getValue() + "','" + cBCtFz.getValue() + "','" + cBProjNr.getValue() + "','" + comboBoxDeviz.getValue() + "','" + comboBoxOrg.getValue() + "','" + comboBoxRespProj.getValue() + "','" + fieldDescriere.getText() + "')");
 
+                    System.out.println(replaceNume2 + "  Ai adaugat factura nr  "+nrFactura.getText()+" de la: "+furnizor.getText()+" in val de "+val+" TVA: "+tva+" pe proiectul: "+proiect.getText()+" org: "+comboBoxOrg.getValue());
                     Alert confirm = new Alert(Alert.AlertType.INFORMATION);
                     confirm.setHeaderText("Factura a fost adaugata");
                     confirm.setContentText("TVA:  " + tva + "    Valoare Totala:   " + valTot);
