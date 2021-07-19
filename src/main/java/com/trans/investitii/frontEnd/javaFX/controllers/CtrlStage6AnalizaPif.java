@@ -57,12 +57,15 @@ public class CtrlStage6AnalizaPif<dataInceput> implements    Initializable {
     public Label totalPifInPerioada;
     public CheckBox eliminareZero;
     public Button buttonStage7Modificari;
+    public Label labelPrioada;
+    public Label labelOrg;
+    public Label labelPproiect;
 
 
     Connection connection = DriverManager.getConnection( Investitii.URL, Investitii.USER, Investitii.PASSWORD );
     Statement stm = connection.createStatement();
 
-    ResultSet rs1 = stm.executeQuery( "SELECT org, invTBL.nrProiect, denProiect, nrPIF, dataPIF, respProiect, Round(SUM(invTBL.valInitiala), 2) as valInitiala FROM invTBL, bugetProj WHERE invTBL.nrPIF!='null' AND bugetProj.nrProiect=invTBL.nrProiect  GROUP BY nrPIF " );
+    ResultSet rs1 = stm.executeQuery( "SELECT org, invTBL.nrProiect, denProiect, nrPIF, dataPIF, bugetProj.respProiect, Round(SUM(invTBL.valInitiala), 2) as valInitiala FROM invTBL, bugetProj WHERE invTBL.nrPIF!='null' AND bugetProj.nrProiect=invTBL.nrProiect  GROUP BY nrPIF " );
 
     private URL location;
     private ResourceBundle resources;
@@ -127,12 +130,13 @@ public class CtrlStage6AnalizaPif<dataInceput> implements    Initializable {
         } catch (SQLException | FileNotFoundException throwables) {
             throwables.printStackTrace();
         }
+        labelPrioada.setText("de la: "+ dataInceput.getValue()+" pana la: "+dataSfarsit.getValue() );
     }
 
     public void comboBoxActOrg ( ActionEvent actionEvent ) throws SQLException {
         comboBoxButtonProj.setDisable(false);
         List <String> listProject = new ArrayList<>();
-        ResultSet rsPopulareComboBoxProj = stm.executeQuery("SELECT nrProiect FROM invTBL WHERE nrPif != 'null'");
+        ResultSet rsPopulareComboBoxProj = stm.executeQuery("SELECT nrProiect FROM invTBL WHERE nrPif != 'null' AND org='"+comboBoxButtonOrg.getValue()+"'" );
             try {
 
                 while(rsPopulareComboBoxProj.next()){
@@ -144,6 +148,7 @@ public class CtrlStage6AnalizaPif<dataInceput> implements    Initializable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
 
     }
 
@@ -158,17 +163,17 @@ public class CtrlStage6AnalizaPif<dataInceput> implements    Initializable {
         DecimalFormat df = (DecimalFormat) nf;
 
         if ((dataInceput.getValue() == null && dataSfarsit.getValue() == null) ||  comboBoxButtonOrg.getValue() == null){
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Alegeti un criteriu de selectare" );
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Alegeti datele de inceput si de sfarsit pentru selectie" );
             alert.showAndWait();
         }else{
-        if (dataInceput.getValue() != null && dataSfarsit.getValue() != null && comboBoxButtonProj.getValue() == null && comboBoxButtonOrg.getValue() != null) {
+        if (comboBoxButtonProj.getValue() == null && comboBoxButtonOrg.getValue() != null) {
             tablePifProiecte = FXCollections.observableArrayList();
-            ResultSet rsProj = stm.executeQuery("SELECT org, invTBL.nrProiect, denProiect, nrPIF, dataPIF, respProiect, Round(SUM(invTBL.valInitiala), 2) as valInitiala FROM invTBL, bugetProj WHERE invTBL.nrPIF!='null' AND bugetProj.nrProiect=invTBL.nrProiect AND dataPIF >=  '" + dataInceput.getValue() + "' AND dataPIF <= '" + dataSfarsit.getValue() + "' GROUP BY nrPIF ");
+            ResultSet rsProj = stm.executeQuery("SELECT org, invTBL.nrProiect, denProiect, nrPIF, dataPIF, bugetProj.respProiect, Round(SUM(invTBL.valInitiala), 2) as valInitiala FROM invTBL, bugetProj WHERE invTBL.nrPIF!='null' AND bugetProj.nrProiect=invTBL.nrProiect AND dataPIF >=  '" + dataInceput.getValue() + "' AND dataPIF <= '" + dataSfarsit.getValue() + "' AND invTBL.org = '"+comboBoxButtonOrg.getValue()+"' GROUP BY nrPIF ");
             double totalPIFproj = 0;
 
             try {
                     while (rsProj.next()) {
-                        if (eliminareZero.isSelected()){
+//                        if (eliminareZero.isSelected()){
                           if (rsProj.getDouble("valInitiala")!=0) {
                             tablePifProiecte.addAll(new Investitii(
                                 rsProj.getString("org"),
@@ -180,29 +185,35 @@ public class CtrlStage6AnalizaPif<dataInceput> implements    Initializable {
                                 rsProj.getString("respProiect")));
 
                             totalPIFproj += rsProj.getDouble("valInitiala");
-                            }
+//                            }
 
-                        }else{
+                        }if (comboBoxButtonProj.getValue() != null && comboBoxButtonOrg.getValue() != null){
+                            ResultSet rsProjOrg = stm.executeQuery("SELECT org, invTBL.nrProiect, denProiect, nrPIF, dataPIF, bugetProj.respProiect, Round(SUM(invTBL.valInitiala), 2) as valInitiala FROM invTBL, bugetProj WHERE invTBL.nrPIF!='null' AND bugetProj.nrProiect=invTBL.nrProiect " +
+                                    "AND dataPIF >=  '" + dataInceput.getValue() + "' AND dataPIF <= '" + dataSfarsit.getValue() + "' AND invTBL.org = '"+comboBoxButtonOrg.getValue()+"'  AND invTBL.nrProiect = '"+comboBoxButtonProj.getValue()+"'GROUP BY nrPIF ");
+
                             tablePifProiecte.addAll(new Investitii(
-                                    rsProj.getString("org"),
-                                    rsProj.getString("nrProiect"),
-                                    rsProj.getString("denProiect"),
-                                    rsProj.getString("nrPIF"),
-                                    rsProj.getDate("dataPIF"),
-                                    rsProj.getString("valInitiala"),
-                                    rsProj.getString("respProiect")));
+                                    rsProjOrg.getString("org"),
+                                    rsProjOrg.getString("nrProiect"),
+                                    rsProjOrg.getString("denProiect"),
+                                    rsProjOrg.getString("nrPIF"),
+                                    rsProjOrg.getDate("dataPIF"),
+                                    rsProjOrg.getString("valInitiala"),
+                                    rsProjOrg.getString("respProiect")));
+                         }
+                        labelPproiect.setText( "La proiectul:  "+comboBoxButtonProj.getValue() );
+                    }
 
-                    }
-                    }
                 totalPifInPerioada.setText(df.format(totalPIFproj));
                 tableViewPifProiecte.setItems(tablePifProiecte);
+                labelPrioada.setText("de la: "+ dataInceput.getValue()+" pana la: "+dataSfarsit.getValue() );
+                labelOrg.setText( "Pentru organizatia "+comboBoxButtonOrg.getValue() );
 
             } catch (SQLException | FileNotFoundException throwables) {
                 throwables.printStackTrace();
             }
        }  else {
             tablePifProiecte = FXCollections.observableArrayList();
-            ResultSet rsProj = stm.executeQuery("SELECT org, invTBL.nrProiect, denProiect, nrPIF, dataPIF, respProiect, Round(SUM(invTBL.valInitiala), 2) as valInitiala FROM invTBL, bugetProj WHERE invTBL.nrPIF!='null' AND bugetProj.nrProiect=invTBL.nrProiect AND invtbl.nrProiect='" + comboBoxButtonProj.getValue() + "' AND dataPIF >=  '" + dataInceput.getValue() + "' AND dataPIF <= '" + dataSfarsit.getValue() + "' GROUP BY nrPIF ");
+            ResultSet rsProj = stm.executeQuery("SELECT org, invTBL.nrProiect, denProiect, nrPIF, dataPIF, bugetProj.respProiect, Round(SUM(invTBL.valInitiala), 2) as valInitiala FROM invTBL, bugetProj WHERE invTBL.nrPIF!='null' AND bugetProj.nrProiect=invTBL.nrProiect AND invtbl.nrProiect='" + comboBoxButtonProj.getValue() + "' AND dataPIF >=  '" + dataInceput.getValue() + "' AND dataPIF <= '" + dataSfarsit.getValue() + "' GROUP BY nrPIF ");
             double totalPIFproj = 0;
             try {
                 while (rsProj.next()) {
@@ -224,6 +235,7 @@ public class CtrlStage6AnalizaPif<dataInceput> implements    Initializable {
             }
         }
         }
+//        buttonFilter.setDisable( true );
     }
 
     public void resetAct ( ActionEvent event ) throws IOException {
